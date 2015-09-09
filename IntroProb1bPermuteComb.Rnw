@@ -1,0 +1,433 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Probability Crash Course: \\ Permutations and Combinations}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{9th September 2014}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=1.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Mathematics and Statistics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.2} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   concepts in probability.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+%tableofcontents
+
+\section*{Overview}
+
+%Perhaps this is a little unusual, and doesn't need too much attention.   Consider a bag containing 3 balls numbered 1, 2 and 3.   The bag is shaken, a ball withdrawn, the number noted and the the ball returned.   List the possible samples that can be drawn and calculate their probabilities.
+
+We've spent a lot of time looking at dice and coins.   If we have $i=1,2,3$ die, each of these three dice can show one of $n_i=6$ faces.   Together the number of possible outcomes are given by $n_1 \times n_2 \times n_3 = 6^3$.   (And using our na\"ive definition of probability we would say each outcome can occur with probability $\frac{1}{6^3}$).   However, drawing tree diagrams to explore the sample space is rather tedious.   We need some ideas that can let us evaluate the number of possible outcomes in a more efficient manner.
+
+For more in depth information, please see Grinstead and Snell, Chapter 3.
+
+
+\newpage
+
+We consider two scenarios:
+\begin{itemize}
+\item Permutations (the order of the elements is important)
+\item Combinations (the order of the elements is not important)
+\end{itemize}
+
+Within each scenario, we consider two types of sampling:
+\begin{itemize}
+\item Sampling with replacement (for example with dice or coins, if we use a second roll/throw, we have the same number of possible outcomes)
+\item Sampling without replacement (for example with cards, once we have removed a card from a pack of (say) $n=52$ cards, on the next draw we have $n-1=51$ cards to choose from
+\end{itemize}
+
+
+
+\newpage
+
+
+
+
+\begin{tabular}{lcc}
+& With replacement & Without replacement \\
+Ordered & $n^k$ & $\frac{n!}{(n-k)!}$ \\
+Unordered & $\binom{n+k-1}{k}$ & $\binom{n}{k}$
+\end{tabular}
+
+
+Where $\binom{a}{b}$ denotes $\frac{a!}{b!(a-b)}$
+
+\newpage
+
+
+\section{Permutation: Ordered sets}
+
+
+
+Given a population of $n$ distinct elements, we wish to count how many ways are there of creating $r$ ordered samples?   We can easily do both with and without replacement.
+
+\begin{itemize}
+\item[(i)] with replacement: $n^r$ (this is the fundamental theorem of counting)
+\item[(ii)] without replacement $n(n-1)(n-2)\ldots(n-r+1)$,  calculation reduces to: $\frac{n!}{(n-r)!}$ 
+\end{itemize}
+
+\begin{eqnarray*}
+&=& n(n-1)(n-2)\ldots(n-r+1) \\
+&=& \frac{ {\color{red} n(n-1)(n-2)\ldots(n-r+1)} {\color{blue} (n-r)(n-r-1)(n-r-2)\ldots(1)}}{{\color{blue} (n-r)(n-r-1)(n-r-2)\ldots(1)}} \\
+&=& \frac{n!}{(n-r)!}
+\end{eqnarray*}
+
+%(that's probably a dumb way of calculating it, but a very neat way of writing it)
+
+Note, if we want to know all possible ways of arranging $n$ items we just need $n!$ - $0! = 1$
+
+\newpage
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{samples}
+For a 6 digit telephone number, 
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} how many different telephone numbers can be made if each digit can be 0,1,2,3,4,5,6,7,8,9:\\
+\RespBoxTxt{0}{0}[s1.1]{1}{1000000}
+\CorrAnsButton{1000000}
+\begin{solution}
+The answer is given by the first definition (we are sampling with replacement, as all the digits can be used in any position) hence we want $10^6$
+\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1} by how much is this reduced if the first digit cannot be 0:\\
+\RespBoxTxt{0}{0}[s1.1]{1}{100000}
+\CorrAnsButton{100000}
+\begin{solution}
+For five positions we have simply $10^5$, but there are only 9 possibilities for the first digit hence the total number available is $10^5\times 9 = 900,000$.   This is $100,000$ less than the previous answer.
+\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\end{questions}
+
+\end{quiz}\quad\eqButton{samples}Points: \ScoreField{samples}
+
+ Click on the \fbox{Ans} box to get the correct answer; \fbox{shift}+\fbox{click} to get the solution.
+
+
+\newpage
+
+\section{Combinations: Unordered sets}
+
+Two sets are regarded as disjoint if and only if the properties of the membership are mutually exclusive.   
+A \emph{partition} is defined as a set of disjoint and exhaustive subclasses of a given class that is divided in such a way that each member of the given class is a member of exactly one such subclass.
+
+\newpage
+
+\subsection{Without replacement}
+
+The number of ways a set of $n$ objects can be partitioned into 2 distinct subsets of size $r$ and $n-r$ is given by:
+
+\begin{equation}
+{n \choose r} = \frac{n!}{r!(n-r)!}
+\end{equation}
+
+(This is what Baclawski calls the Shepherd principle.   If you get tired counting sheep, count the legs and divide by four.   We saw above that there were $\frac{n!}{(n-r)!}$ different ordered sets, we need to divide by the $r!$ different ordering of each combination)
+
+\subsubsection{Important shorthand: $n$ choose $r$}
+
+This is such an important idea that it has it's own shorthand:
+
+\begin{displaymath}
+\frac{n!}{r!(n-r)!} = \binom{n}{r}
+\end{displaymath}
+
+\newpage
+
+\subsubsection{Exercise C1}
+\begin{quiz}{samples2}
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} The UK National Lottery requires that you correctly choose 6 numbers out of possible 49.   How many ways re there is selecting these numbers;
+\RespBoxTxt{0}{0}[s2.1]{1}{13983816}
+\CorrAnsButton{13983816}
+\begin{solution}
+Exercise C1.1
+We need to calculate $\frac{49!}{6!(49-6)!}$
+\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1} In a communications channel, messages are transmitted in the form of a sequence of 8 binary digits.   How many distinct messages are there containing 5 zeros and 3 ones?
+\RespBoxTxt{0}{0}[s2.1]{1}{56}
+\CorrAnsButton{56}
+\begin{solution}
+Exercise C1.2
+We need to calculate $\frac{8!}{5!(8-5)!}$
+\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\end{questions}
+
+\end{quiz}\quad\eqButton{samples}Points: \ScoreField{samples}
+
+ Click on the \fbox{Ans} box to get the correct answer; \fbox{shift}+\fbox{click} to get the solution.
+
+
+\newpage
+
+\subsubsection{Side issue 1: Partitioning into k-subsets}
+
+The number of ways a set of $n$ objects can be partitioned into $k$ distinct subsets, where set 1 has $r_1$ elements, set 2 has $r_2$ elements, \ldots, set $k$ has $_k$ elements is:
+
+\begin{equation}
+\frac{n!}{r_1!r_2! \ldots r_k!}
+\end{equation}
+
+
+
+
+%\subsection{Permutations and combinations}
+
+%Consider the probability of getting two of a kind and three of a kind when rolling five dice e.g., $(2,2,5,5,5)$ or $(4,4,1,1,1)$.   If we denote the number on the $i$th die by $n_i$, we have a sample space that consists of all the ordered 5-tuples ($n_1, n_2, n_3, n_4, n_5$) we have $n(\Omega)=6^5$.   Now introduce an ordered pair $(i,j)$ where $i$ is the number appearing twice, and $j$ the number that appears three times.  There are $\frac{6!}{(6-2)!}$ ways of obtaining 
+
+
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\subsubsection{Exercise P10}
+
+\begin{quiz}{permus}
+\begin{questions}
+\item \PTs{1} Consider sampling from 6 Midwestern states, $\Omega=$(Iowa, Illinois, Wisconsin, Michigan, Indiana and Ohio).   For the purposes of a study, we need a sample of $4$ states.   How many samples of size $4$ are possible.  
+\RespBoxTxt{0}{0}[perm1.1]{1}{15}
+\CorrAnsButton{15}
+\begin{solution}
+Problem P10.1
+We want ${n \choose r} = {6 \choose 2} = \frac{6!}{(6-4)!4!} = 15$
+\end{solution}
+\item \PTs{1} How many samples of size $4$ contain the state of Illinois.\\
+\RespBoxTxt{0}{0}[perm1.2]{1}{10}
+\CorrAnsButton{10}
+\begin{solution}
+Problem P10.2
+Correct answer is 10.
+\end{solution}
+\end{questions}
+\end{quiz}\quad\eqButton{permus}Points: \ScoreField{permus}
+
+
+
+\newpage
+\subsubsection{Side issue 2: Pascal's Triangle}
+
+It's not worth losing sleep over, but it's impossible at this stage not to mention Pascal's\footnote{apparently discovered by Jia Xian in 1050, published by Zhu Shije in 1303, discussed by Cardano in 1570} triangle:
+
+\begin{footnotesize}
+\begin{tabular}{rrrrrrrrrrrrrrr}
+ & &  &  &  &  &  &1 &  &  &  &  & &\\
+ & &  &  &  &  & 1&  &1 &  &  &  & &\\
+ & &  &  &  & 1&  &2 &  & 1&  &  & &\\
+ & &  &  & 1&  &3 &  &3 &  &1 &  & &\\
+ & &  & 1&  &4 &  &6 &  &4 &  &1 & &\\
+ & &1 &  & 5&  &10&  &10&  & 5&  &1& \\
+ &1&  &6 &  &15&  &20&  &15&  & 6& & 1\\
+1& & 7&  &21&  &35&  &35&  &21&  &7&1
+\end{tabular}
+\end{footnotesize}
+
+Note that each number in the triangle is the sum of the two numbers either side of it in the row above.   Now consider you have a pool of $7$ objects, and wish to know how many different ways there are of arranging them into sets of $3$.   We used above ${n \choose r} = {7 \choose 3} =  \frac{7!}{3!(7-3)!} = 35$.   However, if we number the rows of Pascal's triangle from 0 (at the top) to 7, take row 7 and count along to the 4th entry, we have 35.   Isn't that cute?
+
+
+\newpage
+
+\subsection{Combinations: Undordered with replacement}
+
+To keep this simple let's roll a die three time, and work out something like the probability of getting two faces showing $3$ and one showing $6$.   Let's illustrate the idea as:
+
+\begin{tabular}{lr|r|r|r|r|r}
+Face & 1 & 2 & 3 & 4 & 5 & 6\\
+Hits &   &   &Y Y&   &   & Y
+\end{tabular}
+
+Note how this reduces to a problems of bins and walls such that we can specify this particular arrangement as:
+
+$||YY|||Y$
+
+Note we have walls between $1$ and $2$, between $2$ and $3$, then two entries in the bin marked $3$.   This problem is therefore equivalent to finding an ordered arrangement of $n$ items and $k-1$ walls hence the number of combinations is given by:
+
+\begin{displaymath}
+\binom{n+r-1}{r}
+\end{displaymath}
+
+
+
+\newpage
+
+
+\subsection{A word problem}
+
+Just to convince you that these problems don't just consist of finding the right formulae from the four given above, here is related idea (which you can easily solve if you think a little).   Consider the manager of a small plant wishes to determine the number of ways which he can assign staff to the first shift.   There are $15$ staff who can serve as operators of the production equipment, $8$ who can serve as maintenance personnel and $4$ who can be supervisors.
+
+If a shift requires one operator, one maintenance person and one supervisor, how many different ways can the shift the staffed?    The answer is $480$, which is rather tedious if one had to draw the tree diagram, and doesn't quite fit the formulae above, although the principles set out there do apply.
+
+\newpage
+
+\subsubsection{N-tuple}
+
+So, broadening the problem a little, so that we don't have all $r$ objects with the same size $n$.
+
+\begin{df}
+An N-tuple is a finite ordered set with an unspecified number of members
+\end{df}
+
+For example, a 5-tuple is an ordered set with 5 members.
+
+Suppose that each outcome (i.e., element) of $A$ takes the form of an n-dimensional vector (or n-tuple) such as ($a_1, a_2, \ldots a_n$).   If there are $N_1$ objects that can be used for $a_1$, and $N_2$ for $a_2$ then:
+
+\begin{equation}
+n(A) = N_1N_2 \ldots N_n   
+\end{equation}
+assuming that sets $A_1, A_2, \ldots A_k$ have respectively $n_1, n_2, \ldots, n_k$ different ways in which one can first take an element of $A_1$, then an element of $A_2$ and so on.
+
+
+So for our factory problem, we have $N_1 = 15$, $N_2=8$ and $N_3=4$, with $15 \times 8 \times 4 = 480$.  This is rather an intuitive result, but it seems too convenient to be true that we needed exactly one maintenance person, one production person and one supervisor.   
+
+\newpage
+
+%\subsection{Side issue: Bose Einstein}
+
+%Imagine tossing two coins, but the coins have three faces (H, T, S).   If you were asked for the sample space of such an experiment you might say there are 9 events in the sample space.
+
+%\begin{itemize}
+%\item[] $H_1, H_2$
+%%\item[] $T_1, T_2$
+%\item[] $S_1, S_2$
+%\item[] $H_1, T_2$ and $T_1, H_2$ 
+%\item[] $H_1, S_2$ and $S_1, H_2$ 
+%\item[] $T_1, S_2$ and $S_1, T_2$
+%\end{itemize}
+
+%By the naive definition, we have $P(\mbox{One head, one tail})=\frac{2}{9}$.
+%\newpage
+
+%Very roughly speaking, you could imagine a simple gas made up of two particles (two coins), each of which can take on one of three quantum states (here $H$, $T$ or $S$).   As I understand it, this situation above roughly corresponds to Maxwell-Boltzmann statistics.   The fascinating thing is that under Bose-Einstein statistics, the particles (coins) are indistinguishable, and under Bose-Einstein you might say we would have a sample space:
+%\newpage
+
+%\begin{itemize}
+%\item[] $H,H$
+%%\item[] $T,T$
+%\item[] $S,S$
+%\item[] $H,T$
+%\item[] $H,S$
+%\item[] $T,S$
+%\end{itemize}
+
+%and if this were indeed a sample space then $P(\mbox{One head, one tail})=\frac{1}{6}$.   This seems to trash 100 years of mediaeval work on the enumeration of sample spaces.   Neverthless, Bose-Einstein did rather a lot more work and predicted a ``condensate'' which was discovered experimentally 70 years after their theoretical work.
+
+
+%You can rest assured that there will be no exam questions on Bose-Einstein.   The reason for mentioning this is really to highlight the importance of probability within quantum physics, and to admit that physicists develop the basic idea in a very different direction to statisticians.
+
+
+\newpage
+
+\subsection{A fun exercise to bring it all together}
+
+This really is worth doing!
+
+\begin{shortquiz}{Birthdays}
+How many students must there be in a class in order for there to be a 50\% chance that two will share the same birthday
+\begin{answers}[birthday]{4}
+\Ans1 22 &
+\Ans0 37 &
+\Ans0 183 &
+\Ans0 365 
+\end{answers}
+\end{shortquiz}
+
+
+Maybe you should check this out.   Can you get the dates of birth for all your fellow students (or is this a silly question)?   If so, how many coincidences are there?
+
+
+\newpage
+
+
+Calculating the paradox.
+
+Note that there are $365^n$ possible birthdays in a set of $n$ students (we ignore leap years and assume birthdays are independently distributed throughout the year).   
+
+We have $\frac{365!}{(365-n)!}$ possible permutations.
+
+The probability of 2 coincident birthdays is therefore given by 
+
+\begin{displaymath}
+\frac{365!}{(365-n)!365^n}
+\end{displaymath}
+
+This can be rather a difficult computation (365! is rather large and we need to use logarithms).
+
+There is an inbuilt \textbf{R} function, we can use this to plot the probabilities for a range of class sizes:
+
+\newpage
+
+\begin{verbatim}
+## create a storage vector for the results
+pb <- vector("numeric",60)
+## loop and calculate probability of coincidence
+## for different class sizes
+for (i in 1:60){
+ pb[i] <- pbirthday(i)
+ }
+## plot
+plot(c(1:60), pb, type = "l", xlab = "Class size", 
+  ylab = "Prob of coincidence", main = "Birthdays")
+\end{verbatim}
+
+
+What do you notice about the curve?  Do you get a different curve if you calculate this for yourself (in either R or Python) using a function with:
+\begin{displaymath}
+1-exp \{ \log (factorial(365)) - \log(factorial(365-i))-i \times \log(365) \}
+\end{displaymath}
+Checking the \textbf{R} helpfile (?pbirthday) may be informative.   What happens if you look for the probability that three or more people share a birthday \verb+pbirthday(i,coincident=3)+
+
+
+\NaviBarOff
+\end{document}

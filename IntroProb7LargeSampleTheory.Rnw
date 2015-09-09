@@ -1,0 +1,606 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Statistics Crash Course: \\ Large Sample Theory}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{10th September 2012}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=2.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.2} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   ideas on large sample theory.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\usepackage{Sweave}
+\begin{document}
+
+
+\maketitle
+
+%tableofcontents
+
+\section[Introduction]{Introduction}
+
+
+We've worked with the idea that we expect an unbiased coin to come up
+heads around 1 time in 2.   But we need to be a bit more careful about
+what we mean.  Clearly on one throw it can only come up heads
+\emph{or} tails.   What we really mean is that given a large enough
+set of experiments, our sample mean will be \emph{close} to the
+population mean.   But lets tidy up our definitions.
+
+\begin{df}
+A sequence of real numbers $\Re_{i}, i = 1,2, \ldots $ is said to
+\emph{converge} to a real number $\Re$ if for any $\epsilon > 0$ there
+exists an integer $n$ such that for $i > N$ we have: $\lvert \Re_{i} - \Re
+\rvert < \epsilon$.  
+\end{df}
+
+Do note the various mathematical shorthand notations we can use.   We can write this as $\Re_{i} \to \Re$, and may wish to
+qualify that with an  ``as $i \to \infty$'' for completeness.   
+Or we can write it as $\lim_{i \to \infty} \Re_{i} = \Re$.
+
+Nevertheless, while this is all very nice, it isn't a lot of use for \emph{random}
+variables because sometimes it is true, sometimes not true.    
+
+We need a slightly different concept of convergence, and just to be
+really awkward we're going to introduce four (one we don't use).
+
+\newpage
+
+\begin{df} {\color{red}Convergence}
+\begin{itemize} 
+\item Convergence in probability ($X_{i} \stackrel{P}{\to} X$):   A sequence of random
+  variables $X_{i}$, $ i = 1, 2, \ldots $ converges to a random
+  variable $X$ \emph{in probability} if for any $\epsilon > 0$ and
+  $\delta > 0$ there exists an integer $N$ such that for all $i > N$
+  we have: $P(\lvert X_{n} - X \rvert < \epsilon) > 1 - \delta$
+\item Convergence almost surely ($X_i \stackrel{as}{\to} X$):  A sequence of random variables $X_1, X_2, \ldots$, has almost sure convergence to the random variable $X$ if $Pr( \lim_{n \to \infty} |X_n - X| < \epsilon) = 1$
+\item Convergence in mean square ($X_{i} \stackrel{M}{\to} X$): A
+  sequence $\{ X_{i}\}$ converges to $X$  in
+\emph{mean square} if $\lim_{i \to \infty} E[X_{i} - X]^{2} = 0$
+\item Convergence in distribution ($X_{i} \stackrel{d}{\to} X$): where the distribution function
+  $F_{i}$ of $X_{i}$ converges to the distribution $F$ of $X$ at every
+  continuity point of $F$.
+\end{itemize}
+\end{df}
+
+Convergence in mean square implies convergence in probability which
+implies convergence in distribution.
+
+
+Let's look at this in more detail.
+
+\newpage
+
+
+\section{Convergence in probability}
+
+This is quite a weak idea
+
+
+\begin{df}[Covergenge in Probability]
+A sequence $X_1, X_2, \ldots$ of random variables converges in probability of a random variable $X$ if, for every $\epsilon > 0$ 
+
+\begin{displaymath}
+\lim_{n \to \infty} Pr( |X_n = X| \geq \epsilon) = 0
+\end{displaymath}
+
+or equivalently 
+
+\begin{displaymath}
+\lim_{n \to \infty} Pr( |X_n = X| < \epsilon) = 1
+\end{displaymath}
+
+\end{df}
+
+Note that $X_1, X_2 \ldots$ need not be iid, i.e. they need not be a random sample.
+
+\newpage
+
+
+
+
+\subsection{Illustration: weak Law of Large Numbers}
+
+We can best illustrate convergence in probability with the weak law of large numbers.
+
+If we have a sequence of random variables
+$\{ X_{i} \}$, $i = 1,2, \ldots $, we can define $\bar{X} =
+\frac{1}{n} \sum_{i=1}^{n} X_{i}$ (this should look rather familiar).
+
+We want a \emph{law of large numbers} to tell us how $\bar{X} -
+E[\bar{X}]$ converges to 0 in probability.   This phrase used by
+Poisson in 1835 when discussing a 1713 paper by Bernoulli, and the
+weak law of large numbers is sometimes known as ``Bernouilli's Theorem''.
+
+
+\begin{df}[Weak Law of Large Numbers]
+Let $X_{1}, X_{2}, \ldots, X_{n}$ be an independent trials process,
+with finite expected value $\mu = E(X_{i})$ and finite variance
+$\sigma^{2} = Var(X_{i})$.   Let $\bar{X}_{n} = \frac{X_{1}, X_{2},
+  \ldots, X_{n}}{n}$.   Then for every $\epsilon > 0$:
+
+\begin{displaymath}
+\lim_{n \to \infty} P( \lvert \bar{X}_{n} - \mu \rvert \geq \epsilon)
+= 0
+\end{displaymath}
+or even
+\begin{displaymath}
+\lim_{n \to \infty} P( \lvert \bar{X}_{n} - \mu \rvert < \epsilon)
+= 1
+\end{displaymath}
+\end{df}
+
+We say $\bar{X}_n$ converges in probability to $\mu$, or $X_{i} \stackrel{P}{\to} \mu$
+
+
+\subsection{Consistency}
+
+The weak law of large numbers tells us that the sample mean approaches the population mean as $n \to \infty$.   It doesn't however tell us how quickly this convergence happens (how large we need $n$ to to in order for this to be useful to us).
+
+When this is a property of estimators we call is {\color{blue}\emph{consistency}}, and it is clearly a useful property.
+\newpage
+
+\subsection{A proof using Chebyshev's Inequality}
+
+There are several ways to prove the law of large numbers.   A rather
+nice one uses Chebyshev's Inequality.
+
+Noting that $Var(\bar{X}_{n}) = \frac{\sigma^{2}}{n}$, then  $Var(n
+\bar{X}_{n}) = n \sigma^{2}$, and given that $E(\bar{X}_{n}) = \mu$ we
+have, for any $\epsilon > 0$:
+
+\begin{displaymath}
+P(\lvert \bar{X}_{n} - \mu \rvert \geq \epsilon) \leq
+\frac{\sigma^{2}}{n \epsilon^{2}}
+\end{displaymath}
+
+so that for fixed $\epsilon$ we have:
+
+\begin{displaymath}
+\lim_{n \to \infty} P(\lvert \bar{X}_{n} - \mu \rvert \geq \epsilon)
+\to 0
+\end{displaymath}
+
+
+{\color{red}Chebyshev's inequality is such useful inequalty in its own right we must say a lot more about it.}
+
+
+\begin{df}[Chebyshev's inequality]
+Let $X$ be a discrete r.v. with expected value $\mu = E(X)$.   Let
+$\epsilon > 0$ be any positive real number.   Then:
+
+\begin{displaymath}
+P(\lvert X-\mu \rvert \geq \epsilon) \leq \frac{Var(X)}{\epsilon^{2}}
+\end{displaymath}
+
+\end{df}
+
+%\newpage
+
+\subsubsection{Example} 
+
+Assume $E(X) = \mu$ and $Var(X) = \sigma^{2}$.   If $\epsilon = k
+\sigma$, Chebyshev's inequality states:
+
+\begin{displaymath}
+P(\lvert X - \mu \rvert \geq k \sigma) \leq \frac{\sigma^{2}}{k^{2} \sigma^{2}} =
+\frac{1}{k^{2}}
+\end{displaymath}
+
+i.e. for any r.v., the probability of a deviation from the mean of
+more than $k$ standard deviations is $\leq \frac{1}{k^{2}}$.
+{\color{red}Do note that this is an important result in its own
+  right.}   It might not be the most useful result in the whole world,
+but it is very general
+
+\newpage
+
+\begin{shortquiz}
+\begin{questions}
+\item Let's take a quick leap and consider a continuous random
+  variable (and hope Chebyshev's Inequality also applies).   In fact,
+  let's take a standard Normal density, i.e. $X \sim N(0,1)$   If we
+  drew a line two standard deviations either side of the mean, what
+  proportion of the probability mass would we have (in other words
+  what is the difference between the distribution function at $k=2$
+  and $k = -2$
+\begin{answers}[chebN]{4}
+\Ans0 0.68 &
+\Ans0 0.75 &
+\Ans1 0.95 & 
+\Ans0 0.99
+\end{answers}
+\begin{solution}
+If this isn't in your immediate recall, try looking at some Normal
+tables, or enter \texttt{>pnorm(-2) - pnorm(2)} in \textbf{R}
+\end{solution}
+\item Now use Chebyshev's theorem to place a bound on the probability
+  of a value falling 2 standard deviations either side of the mean.
+  Compare this with the result above.
+\begin{answers}[chebNN]{4}
+\Ans0 0.68 &
+\Ans1 0.75 &
+\Ans0 0.95 & 
+\Ans0 0.99
+\end{answers}
+ \begin{solution}
+We have from Chebyshev that 
+$P(\lvert X - \mu \rvert \geq k \sigma) \leq \frac{1}{k^{2}}$ so with
+$k=2$ we bound the probability of exceeding $2 \sigma$ as
+$\frac{1}{4}$, and reversing the inequality to find the bound for
+staying within 2 standard deviations we find that the value is 0.75.
+
+It should be noted that Chebyshev is much more pessimistic.   It says
+the probability mass associated with the central two standard
+deviations is at least 0.75, whereas using the Normal density directly
+suggests we could have stated this figure as 0.95.   Stating something
+is equal to 0.95 might be more useful that stating it is greater than
+0.75!   However, the beauty of Chebyshev's theorem is it's
+generality.   What happens if our data don't follow the Normal distribution?
+\end{solution}
+\end{questions}
+\end{shortquiz}
+
+Here's another exercise (this really is such a lovely inequality):
+
+\newpage
+
+\begin{shortquiz}
+\begin{questions}
+\item Let $r$ denote the number of successes in $n$ Bernoulli trials with
+probability of success $p$.  Given that $Var(p) = \frac{p(1-p)}{n}$,  use Chebyshev's theorem to bound the probability that $\hat{p} = \frac{r}{n}$ lies within $\epsilon$ of $p$
+\begin{answers}[chebf]{1}
+\Ans0 $P \left( \lvert \frac{r}{n} - p \rvert \geq \epsilon \right) \leq
+\frac{p(1-p)}{\epsilon^2}$ \\
+\Ans1 $P \left( \lvert \frac{r}{n} - p \rvert \geq \epsilon \right) \leq
+\frac{p(1-p)}{n \epsilon^2}$\\
+\Ans0 $P \left( \lvert \frac{r}{n} - p \rvert \geq \epsilon \right) \leq
+\frac{p(1-p)}{n \epsilon}$\\
+\Ans0 $P \left( \lvert \frac{r}{n} - p \rvert \geq \epsilon \right) \leq
+\frac{p(1-p)}{\epsilon}$
+\end{answers}
+\item Now find the maximum possible value for $p(1-p)$:
+\begin{answers}[cheb]{4}
+\Ans0 $\frac{1}{8}$ &
+\Ans1 $\frac{1}{4}$ &
+\Ans0 $\frac{1}{2}$ &
+\Ans0 $\frac{3}{4}$
+\end{answers}
+%\begin{solution}
+%Hello
+%\end{solution}
+\end{questions}
+\end{shortquiz}
+
+
+It can be seen from Chebyshev's Inequality, that as the sample size gets
+bigger, the difference between the sample mean
+and the population mean approaches zero.
+
+\newpage
+
+\section{Almost Sure Convergence}
+
+\begin{df}[Almost Sure Convergence]
+For a sequence of random variables $X_1, X_2, \ldots$, we say they have almost sure convergence to the random variable $X$ if
+
+\begin{displaymath}
+Pr( \lim_{n \to \infty} |X_n - X| < \epsilon) = 1
+\end{displaymath}
+\end{df}
+
+A textbook illustration (Berger and Casella) of this law is given by considering $s$ which has sample space $[0,1]$.   We can consider a uniform random distribution on this sample space.
+
+If we take $X(s) = s$ and $X_n(s) = s+s^n$ we can verify that:
+
+\begin{itemize}
+\item For every $s \in [0,1)$ we see that $s^n \to 0$ as $n \to \infty$, so $X_n(s) \to s = X(s)$
+\item However, for $X_n(1)$ we always have that $X_n(1)=2$ so this does not converge.
+  \item Hence $X_n$ converges to $X$ only within $[0,1)$ and we know that $Pr[0,1)=1$
+\end{itemize}
+
+\newpage
+\subsection{Strong law of large numbers}
+
+\begin{df}[Strong Law of Large Numbers]
+  If $X_1, X_2, \ldots$ are iid random variables with $E[X_i]=\mu$ and finite $Var(X_i) = \sigma^2$, and we define $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$ then
+\begin{displaymath}
+P(\lim_{n \to \infty} \bar{X}_{n} = \mu) = 1
+\end{displaymath}
+\end{df}
+i.e. as the sample size increases, the probability that the sample mean and
+the population mean will be equal approches 1.
+
+\newpage
+
+\section{Convergence in Distribution}
+
+\begin{df}[Covergence in Distribution]
+The distribution function of a sequence of random variables $X_1, X_2, \ldots$ converges in distribution to the distribution  a random variable $X$ if
+
+\begin{displaymath}
+\lim_{n \to \infty} F_{X_n}(x) = \underbrace{F_{X} (x)}_{\mbox{A constant}}
+\end{displaymath}
+\end{df}
+
+And we say $X_{i} \stackrel{d}{\to} X$
+
+\subsection{Illustration: Maximum of uniforms}
+
+Again, taking an example from Berger and Casella we could consider $X_1, X_2, \ldots \sim_{iid} Uniform(0,1)$.   We are interested in
+
+\begin{displaymath}
+X_{(n)} = max(X_i)
+\end{displaymath}
+
+We have that as $n \to \infty$ we should see that $X_{(n)} \to 1$ and so for any $\epsilon > 0$:
+
+\begin{displaymath}
+Pr(|X_{(n)} - 1| \geq \epsilon) = \underbrace{Pr(X_{(N)} \geq 1+\epsilon)}_{=0} + Pr(X_n \leq 1 - \epsilon) 
+\end{displaymath}
+
+In other words
+
+\begin{displaymath}
+ Pr(X_n \leq 1 - \epsilon) = (1-\epsilon)^n
+ \end{displaymath}
+
+
+\newpage
+\section{Central Limit Theorem}
+
+``The'' (there are several, but we shall refer only to one) Central
+Limit theorem is one of the most useful theorems in statistical theory.
+The central limit theorem states: ``Consider $S_{n}$, the sum of $n$ mutually independent random variables.   $S_{n}$ can be approximated by a normal distribution.'' Formally, can say:
+
+\begin{df}[Central Limit Theorem]
+Consider $X_1, X_2, \ldots$, a sequence of random variables with $E[X_i]=\mu$ and $Var(X_i)=\sigma^2$.   If we define $\bar{X}_n  = \frac{1}{n} \sum_{i=1}^n X_i$, and $G_n(X)$ is the cdf of $\sqrt{n}\left( \frac{\bar{X}_n-\mu}{\sigma} \right)$ then
+
+\begin{displaymath}
+\lim_{n \to \infty} G_n(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi}} e^{-y^2/2}
+\end{displaymath}
+which we all know and love as the cdf of a standard normal variable.
+
+It's perhaps easier to use:
+\begin{displaymath}
+\sqrt{n}\left( \frac{\bar{X}_n-\mu}{\sigma} \right) \sim Normal(0,1)
+\end{displaymath}
+as an expression of the central limit theorem.
+\end{df}
+
+
+This is most powerful, as the properties of the Normal distribution
+are very well known.   For example, 95\% of the probability of a
+\emph{standard} normal distribution (i.e. $N(0,1)$) lies between $\pm
+1.96$.
+
+Do note however, that we still don't know how good this approximation is, i.e. how quickly we need $n \to \infty$ for this to be of any use to us.
+
+\newpage
+
+\subsection{Example}
+
+Consider Bernoulli trials (yet more coin tossing).   
+
+If our variables are denoted by $r$, the sum of $n$ Bernoulli trials
+we have a Binomial distribution with $n$ and parameter $p$.   Denoting the density here by $b(n, p, k)$, and it can
+be shown that
+$$\lim_{n \to \infty} \sqrt{np(1-p)}b\left(n, p, (np + x\{\sqrt{np(1-p)}\}\right)
+= \phi(x)$$ where $\phi(x)$ is the standard Normal (i.e. with mean
+zero and variance 1).   The only problem is that we don't know $x$, but
+we do know $r$.   We therefore need to solve that last term for $x$:
+
+If $$r = np + x\sqrt{np(1-p)}$$ then $$x =
+\frac{r-np}{\sqrt{np(1-p)}}$$
+
+Effectively, this means that we can approximate the density of a given
+Binomial variable using $$b(n,p,k) \approx
+\frac{\phi(x)}{\sqrt{np(1-p)}}$$ which equals
+$$\frac{1}{\sqrt{np(1-p)}} \phi \left( \frac{r-np}{\sqrt{np(1-p)}} \right)$$
+
+
+
+\begin{shortquiz}
+\begin{questions}
+\item 
+
+Find $P(S_{100} = 55)$ for $n=100$ and $r=S_{n} = 55$ and $p= 0.5$
+\begin{answers}[bernA]{4}
+\Ans0 0.0480 &
+\Ans1 0.0484 &
+\Ans0 0.0488 &
+\Ans0 0.2420
+\end{answers}
+\begin{solution}
+$P(S_{100} = 55 = \frac{1}{\sqrt{100 \times 0.5 \times 0.5}} \phi
+\left( \frac{55-50}{\sqrt{100 \times 0.5 \times (1-0.5)}} \right) =
+  \frac{1}{5} \times 0.2420 = 0.0484$
+\end{solution}
+\item Now find the exact solution using the Binomial density
+\begin{answers}[bernB]{4}
+\Ans0 0.0483 &
+\Ans0 0.0484 &
+\Ans1 0.0485 &
+\Ans0 0.0486
+\end{answers}
+\end{questions}
+\end{shortquiz} 
+
+
+\newpage
+
+\subsection{Example}
+
+\begin{shortquiz}
+You have a sample of size $n=9$.   Your sample estimates are
+  $\bar{x}=12$ and $s^{2} = 36$.   Find the 95\% confidence interval
+  for the mean.
+\begin{answers}[cimean]{4}
+\Ans0 0 to 24 &
+\Ans1 8 to 16 &
+\Ans0 10 to 14 &
+\Ans0 6 to 18
+\end{answers}
+\begin{solution}
+The most important thing to remember here is that $\bar{x} \sim N(\mu,
+Var(\bar{x}))$ and that we estimate $Var(\bar{x})$ by the
+\emph{standard error of the mean}, that is the sample standard
+deviation divided by the square root of the sample size.   So, 
+\begin{itemize}
+\item the
+sample standard deviation is $\sqrt{36} = 6$ and 
+\item the standard error of the mean is $\frac{6}{\sqrt{9}} = 2$ and so the
+\item 95\% confidence intervals are $\bar{x} \pm 1.96 \times 2$ which
+  is approximately 8 to 16
+\end{itemize}
+\end{solution}
+\end{shortquiz}
+
+\newpage
+
+\section{The Delta Method}
+
+We can use the Delta method to give us an approximation to the variance of the estimator of {\color{red} a function} of a parameter.   If we consider functions of the mean, we need to use a first order Taylor series expansion:
+
+\begin{displaymath}
+g(X) = g(\mu) + g'(\mu)(X-\mu).
+\end{displaymath}
+
+
+So, if we estimate $g(\mu)$ by $g(X)$ we have that
+
+$E_{\mu}[g(X)] \approx E_{\mu} [g(\mu)]$ and $Var_{\mu}(g(X)) \approx [g'(\mu)]^2 Var_{\mu}(X)$
+
+For example, if we take $g(\mu) = \frac{1}{\mu}$ we have the obvious estimator $\hat{\frac{1}{\mu}} = \frac{1}{X}$.   Clearly:
+
+\begin{displaymath}
+E_{\mu}[\frac{1}{X}] \approx \frac{1}{\mu}
+\end{displaymath}
+
+And by the Delta method
+
+\begin{displaymath}
+Var_{\mu} \left(\frac{1}{X} \right) \approx \left( \frac{1}{\mu} \right)^4 Var_{\mu} (X)
+\end{displaymath}
+
+\begin{df}[The Delta Method]
+If $X_n$ is a sequence of random variables such that
+
+\begin{displaymath}
+\sqrt{n} ( X_n - \theta) \stackrel{d}{\to} N(0, \sigma^2)
+\end{displaymath}
+
+then
+
+\begin{displaymath}
+\sqrt{n} \big( g(X_n) - g(\theta)\big) \stackrel{d}{\to} N \big(0, \sigma^2 [g'(\theta)]^2 \big)
+\end{displaymath}
+\end{df}
+
+So for our example:
+
+\begin{displaymath}
+\sqrt{n} \big( \frac{1}{X_n} - \frac{1}{\mu}\big) \stackrel{d}{\to} N \big(0, \sigma^2 [1/\mu]^4 \big)
+\end{displaymath}
+
+Clearly we estimate $\frac{1}{\mu}$ by $\frac{1}{\bar{x}}$ and we have to estimate $Var(X)$ by $S^2$, so we have that:
+
+\begin{displaymath}
+\hat{Var} \left( \frac{1}{\bar{X}} \right) \approx \left( \frac{1}{\bar{X}} \right)^4 S^2
+\end{displaymath}
+
+\newpage
+
+\section{Coverage probability of a confidence interval}
+
+This is just to say what a CI really means.   Confidence intervals
+have a quirky interpretation.   If you can imagine a world in which
+you collect the data all over again, lots of times (perhaps you repeat
+the survey, perhaps you do the experiment again), you could produce
+your sample estimates again.   A confidence interval tells you that
+your have $\alpha(100)\%$ confidence under these circumstances that a
+particular confidence interval contains the true parameter of interest.
+
+
+\begin{figure}
+<<simbin, fig = TRUE, echo = FALSE, results = hide>>=
+lower <- vector("numeric",100)
+upper <- vector("numeric", 100)
+mid <- vector("numeric", 100)
+for (i in 1:100){
+x <- rbinom(1,50,0.5)  
+mid[i] <- binmean <- x/50
+sd <- sqrt((x/50 * (1-x/50))/50)
+lower[i] <- binmean - 1.96 * sd
+upper[i] <- binmean + 1.96 * sd
+}
+mycols <- rep("green",100)
+mycols[upper < 0.5] <- "red"
+mycols[lower > 0.5] <- "red"
+plot(mid, c(1:100), bty = "n", xlim = c(0,1), ylab = "", yaxt = "n", pch = 16, col=mycols)
+abline(v=0.5, lty = 3, col = "grey")
+arrows(mid, c(1:100), lower, c(1:100), length = 0.001, col = mycols)
+arrows(mid, c(1:100), upper, c(1:100), length = 0.001, col = mycols)
+
+@
+\caption{Confidence intervals of 100 samples generated from Binomial
+  distribution where $p=0.5$, $n=50$}
+\end{figure}
+
+
+The figure below tries to illustrate this.   It's another coin tossing
+experiment, where we toss a coin 50 times.   But we've created a world
+in our computer where we can conduct this experiment 100 times.   We happen to know that
+the coin is unbiased, i.e. that $p=0.5$.   This ``true'' parameter is
+denoted by a horizontal line.   The red dots illustrate the point
+estimates, $\hat{p}$ for each of 100 replicates.   But of more
+interest are the calculations.   These have all used the normal
+approximation, i.e. $\pm 1.96$ standard errors, to produce a 95\%
+confidence interval which is denoted by the 100 vertical lines.   We therefore expect that around 95\% of these
+confidence intervals do indeed overlap the true value of $p$.   If you
+look at the graph, this indeed seems to be the case.   The only
+problem we have now, is that if you were in the real world, how would
+you know which of these 100 confidence intervals you were using?
+
+\NaviBarOff
+
+\end{document}

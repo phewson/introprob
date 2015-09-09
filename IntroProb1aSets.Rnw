@@ -1,0 +1,1075 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex,nosolutions]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Probability: \\ Introductory Concepts}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{10th September 2014}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=0.5cm]{logo.pdf}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.3} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   concepts in probability.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\pagebreak
+\maketitle
+
+
+%tableofcontents
+
+%\section{Introduction}
+
+%Statistics is the science of observing data and making inferences about the characterstics of a random mechanism that has generated the data.   It can be seen as the collection, organisation and interpretation of numerical data, especially the analysis of population characteristics by inference from samples.
+
+%\textbf{Inference} is the act of reasoning from factual knowledge or evidence/
+
+%\textbf{Econometrics} is concerned with the tasks of developing and applying quantitative or statistical methods to the study of elucidation of economic principles.   It combines economic theory with statistics to analyse and test economic relationships.
+
+
+%<*tag>
+
+\newpage
+\section*{Aims}
+
+Over the next few sessions we need to be comfortable with the following ideas:
+
+\begin{itemize}
+\item The concepts ``experiment'', ``sample space'', ``event'' (composite, simple, event space)
+\item Tree diagrams (which we don't use very much)
+\item Venn diagrams and elementary set operations
+\item Different concepts of probability
+\end{itemize}
+
+For fuller treatment of these topics see Grinstead and Snell Section 1.2 (page 18) ``Discrete Probability Distributions'' (up to page 27) as well as associated problems.
+
+
+
+
+\newpage
+\section{Background Definitions}
+
+There is a fascinating philosophical / linguistic / epistemological history behind the concept of probability.   For our purposes, \emph{Probability} is nothing more than a number between $0$ and $1$ that behaves in accordance with three axioms.   However, you can do a lot with numbers.   You can think of probability as being:
+
+\begin{itemize}
+\item A symmetrical thing (the coin has two faces, heads and tails)
+\item A long run frequency thing (out of 10,000 coin tosses, 5,023 were heads)
+\item A subjective thing (that person is obvious a crook and if they want me to bet on tails it is very likely they have a rigged coin)
+\end{itemize}
+
+The aim of the Linda exercise was to highlight risks in our assessments of probability, and to emphasise the need to approach the subject with some mathematical rigour.
+
+
+
+\newpage
+
+\subsection{Approaching a naive definition of probability}
+
+ An \emph{experiment} %(esperimento) 
+is any process that generates a set of outcomes where the outcome is uncertain.   For a random experiment:
+
+\begin{itemize}
+\item The \emph{sample space} $\Omega$ is the set of all possible outcomes 
+%(campione di spazio)
+\item An \emph{event} is a subset of the sample space 
+%(evento)
+  \begin{itemize}
+  \item A \emph{simple event} is an event which cannot be a union of other events
+  \item A \emph{composite event} is an event which is not a simple event
+  \end{itemize}
+\item The \emph{event space} is the set of all events (evento di spazio)
+\end{itemize}
+
+\newpage
+
+\subsubsection{Example}
+
+Consider an experiment in which three coins are tossed.   We are interested in the {\color{red}\emph{event}} that all coins will show the same face.\\1in
+
+
+
+The following tree diagram denotes the breakdown of the sample space ($\Omega$).   After the first coin toss we have either a head or a tail.   After the second, for either of the possible outcomes of the first toss we also have a head or tail.   Finally, after the third coin toss, we have a row denoting that a head or tail is possible for any of the previous outcomes. 
+
+%% Cardano was the first person to start thinking about systematically evaluating sample spaces in this way, but he missed a trick in that to him HTH and HHT would be the same (two heads and a tail).   It took nearly 100 years and Galileo to really master the business of sample spaces.  
+
+\newpage
+\subsection{Tree diagram}
+
+\begin{figure}[!h]
+\synttree[$\Omega$ [H [H [H][T]][T [H][T]]]  [T [H [H][T]][T [H][T]]]] 
+\end{figure}
+
+
+In total therefore, the tree diagram shows on the bottom row that there are a total of $2^3$ possible outcomes in the sample space.   In other words, there are 8 different ways of travelling though the tree diagram,  resulting in the following outcomes: 
+\begin{itemize}
+\item {\color{red}HHH}, HHT, HTH, HTT, THH, THT, TTH, {\color{red}TTT}.
+\end{itemize}  
+
+\newpage
+
+ We are interested in the event that all faces are the same.   There are two outcomes in the sample space which correspond to this event - denoted in red.\\[0.25in]   
+
+\fbox{
+\begin{minipage}[c]{3.5in}
+Recap:
+\begin{itemize}
+\item {\color{blue}Sample Space} ($\Omega$) - the eight outcomes for the experiment: 
+\\{\color{red}HHH}, HHT, HTH, HTT, THH, THT, TTH, {\color{red}TTT}. 
+\item {\color{blue}Event} ($A$) - the two outcomes of interest: {\color{red}HHH}, {\color{red}TTT}
+\end{itemize}
+\end{minipage}
+}
+\vspace{0.25in}
+
+There are 8 outcomes in our sample space, two of them correspond to the event ``all three coins show the same space''.   If we continue to focus on naive definitions of probability, it pays us to consider Venn diagrams.
+
+\newpage
+
+We can form collections $\mathfrak{B}$ of (overlapping or non-overlapping) subsets of our sample space $\Omega$.   There are some restrictions on these collections which must be:
+
+\begin{itemize}
+\item The empty set $\emptyset$ must be in the collection $\mathfrak{B}$
+\item If $A \in \mathfrak{B}$ then $A^C \in \mathfrak{B}$
+\item If $A_1, A_2, \ldots \in \mathfrak{B}$ then $\cup_{i=1}^\infty A_i \in \mathfrak{B}$
+\end{itemize}
+
+These might seem trivially obvious for the naive problems, and hopefully we won't need to say any more.   For example, the second condition tells you if you have a world cup final of Argentina versus Germany, you can't say the complement of Argentina winning is Brasil winning however happy Brasilian fans might be with a German victory.
+
+\newpage
+\subsection{Venn diagram}
+
+
+\begin{center}
+\begin{figure}[!h]
+\begin{picture}(200,110)
+\put(0,0){\framebox(200,110){}}
+\qbezier(15,55)(15,105)(65,105)
+\qbezier(65,105)(115,105)(115,55)
+\qbezier(115,55)(115,5)(65,5)
+\qbezier(65,5)(15,5)(15,55)
+
+%\qbezier(80,55)(80,105)(130,105)
+%\qbezier(130,105)(180,105)(180,55)
+%\qbezier(180,55)(180,5)(130,5)
+%\qbezier(130,5)(80,5)(80,55)
+\put(5,95){$\Omega$}
+\put(40,50){$A$ (HHH, TTT)}
+\put(130,50){$A^C$ }
+\put(120,30){ (HTH HTH HHT }
+\put(120,10){ THT TTH THH)}
+%\put(80,50){ $A \cap B$}
+\end{picture}
+\end{figure}
+\end{center}
+
+
+In this diagram, $A$ denotes the event ``all three faces show the same'', and $A^C$ denotes ``A complement'' (also known as ``not A''), in other words the six outcomes where the faces are not identical.  
+
+
+
+\newpage
+
+
+\subsection{Multiple events}
+
+For the same experiment, consider again the event $A$, ``all three coins show the same face''.   But now, consider a second event, $B$, which we define as ``two or more coins show a head''
+
+\begin{itemize}
+\item A: {\color{red}HHH}, HHT, HTH, HTT, THH, THT, TTH, {\color{red}TTT}.
+\item B: {\color{blue}HHH}, {\color{blue}HHT}, {\color{blue}HTH}, HTT, {\color{blue}THH}, THT, TTH, TTT
+\end{itemize}
+
+As before, 2 out the 8 outcomes correspond to event $A$.   We can also see that 4 of the 8 outcomes correspond to event $B$.   We can also see that one outcome (HHH) corresponds to both event $A$ and event $B$.   We can extend the Venn diagram to illustrate this:
+
+
+\newpage
+
+\begin{center}
+\begin{figure}[!h]
+\begin{picture}(200,110)
+\put(0,0){\framebox(200,110){}}
+\qbezier(15,55)(15,105)(65,105)
+\qbezier(65,105)(115,105)(115,55)
+\qbezier(115,55)(115,5)(65,5)
+\qbezier(65,5)(15,5)(15,55)
+
+\qbezier(80,55)(80,105)(130,105)
+\qbezier(130,105)(180,105)(180,55)
+\qbezier(180,55)(180,5)(130,5)
+\qbezier(130,5)(80,5)(80,55)
+\put(5,95){$\Omega$}
+\put(40,50){A}
+\put(35,35){(TTT)}
+\put(130,50){B}
+\put(125,35){(THH HTH}
+\put(125,20){ HHT)}
+\put(80,50){ $A \cap B$}
+\put(80,35){ (HHH)}
+\end{picture}
+\end{figure}
+\end{center}
+
+
+
+You can see that we use the Venn diagram to visually illustrate that the outcome HHH is in both event A and event B.   Standard set theory notation $A \cap B$ is used to denote that this is an ``intersection''.
+
+\begin{itemize}
+\item Which outcomes are in $(A \cup B)^C$?
+\end{itemize}
+%% don't know what to do here, these are the three events that are in neither A nor B
+
+\newpage
+
+\subsubsection{Set theory notation}
+
+% I might not cover this in a lecture, we need the first six rows at the moment, the rest are only needed if we were going to do a lot of proofs and some very formal probability theory.
+ 
+For completeness, we quote a table from Grimmett and Stirzaker (2004) which gives a full listing of set theory and probability theory notation.\\[0.5in]
+
+{\color{blue}
+\begin{footnotesize}
+\begin{tabular}{lll}
+Notation & Set theory & Probability Theory \\
+\hline
+$\Omega$ & A collection of objects & Sample space \\
+$\omega$ & A subset of $\Omega$ & Elementary event/outcome\\
+$A$ & A subset of $\Omega$ & Event that some condition $A$ occurs \\
+$A^C$ & Complement of $A$ & No event $A$ occurs \\
+$A \cap B$ & Intersection of $A$ and $B$ & Both $A$ and $B$ occur \\
+$A \cup B$ & Union of $A$ and $B$ & Either $A$ occurs, or $B$ occurs or both
+\\
+$A \setminus B$ & Difference & $A$ occurs but $B$ does not occur \\
+$ A \bigtriangleup B $ & Symmetric difference & Either A or B but not both \\
+$A \subseteq B$ & Inclusion & If $A$ occurs then $B$ occurs \\
+$\emptyset$ & Empty set & Impossible event \\
+$\Omega$ & Whole space & Certain event
+\end{tabular}
+\end{footnotesize}
+}
+
+
+
+
+
+\newpage
+
+We should be able to verify standard operations such as:
+\begin{itemize}
+\item $A \cap B$: HHH
+\item $A \cup B$: HHH, TTT, HTH, HHT, THH
+\item $B^C$: TTT, TTH, THT, HTT
+\item $(A \cup B)^C$: TTH, THT, HTT
+\end{itemize}
+
+
+
+John Venn has in interesting family background, see \href{http://www-groups.dcs.st-and.ac.uk/history/Biographies/Venn.html}{\color{blue}MacTutor article on John Venn}.
+
+
+\newpage
+%% I don't think I'd cover this in a lecture
+
+\subsubsection{Commutation and association}
+
+Commutativity:
+\begin{itemize}
+\item $A \cup B = B \cup A$
+\item $A \cap B  = B \cap A$
+\end{itemize}
+
+
+Associativity:
+\begin{itemize}
+\item $A \cup B \cup C = (A \cup B) \cup C = A \cup (B \cup C)$
+\item $A \cap B \cap C = (A \cap B) \cap C = A \cap (B \cap C)$
+\end{itemize}
+
+Distributivity:
+\begin{itemize}
+\item $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+\item $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
+\end{itemize}
+
+\newpage
+
+And De Morgan's laws say:
+\begin{itemize}
+\item $(A \cup B)^C = A^C \cap B^C$
+\item $(A \cap B)^C = A^C \cup B^C$
+\end{itemize}
+
+
+
+This material will get covered more formally in a pure maths course, hopefully we can see how these can be used as the basis for probability.
+
+
+\newpage
+
+\subsection{Na\'ive definition of Probability}
+
+Consider a random experiment with a finite number of outcomes, each with the same probability.   For event $A$, we claim that:
+
+\begin{displaymath}
+\tiny
+\mbox{Probability of an event} = \frac{\mbox{Number of possible sample points consistent with this event}}{\mbox{Total number of sample points}}
+\end{displaymath}
+
+Or in a better notation:
+
+\begin{equation}
+p[A] = \frac{n[A]}{n[\Omega]}
+\end{equation}
+where $A$ denotes the event we are interested in, $n[A]$ is the number of ways in which $A$ can happen and $n[\Omega]$ is the sample space.  
+
+\newpage
+
+Recall from our first Venn diagram, where we used $A^C$ to denote the \emph{complement} of $A$ (i.e. those outcomes that weren't in $A$), then the probability of $A^C$ (probability that $A$ doesn't happen), $p[A^C]$ is:
+
+\begin{displaymath}
+p[A^C] = 1 - p[A]
+\end{displaymath}
+
+
+Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denotes the probability of event $B$ happening we have:
+
+\begin{itemize}
+\item $P[A \cup B]$: probability that event $A$ or event $B$, or both happens
+\item $P[A \cap B]$: probability that both $A$ and $B$ happen
+\end{itemize}
+
+
+
+
+
+
+Try the quiz overleaf.   You need to click the \fbox{Begin Quiz} before you start, and the \fbox{End Quiz} box when you finish (you will then be told the correct answers).  
+
+\newpage
+\useBeginQuizButton
+\useEndQuizButton 
+\begin{quiz}{VennD}
+Identify the areas (to be divided by $n[\Omega]$) on the Venn diagram which correspond to the following events:
+\begin{figure}[!h]
+\begin{picture}(75,50)
+\put(1,1){\framebox(75,50){}}
+\put(25,25){\circle{50}}
+\put(50,25){\circle{50}}
+\put(15,25){(a)}
+\put(50,25){(b)}
+\put(31,25){(c)}
+\put(1,42){(d)}
+\put(15,7){\color{red}A}
+\put(50,7){\color{red}B}
+\end{picture}
+\end{figure}
+\begin{questions}
+\item $p[A \cap B]$
+\begin{answers}[v1]{4}
+\Ans0 (a) &
+\Ans0 (b) &
+\Ans1 (c) &
+\Ans0 (d) \\
+\Ans0 (a) and (b) &
+\Ans0 (a) and (c) &
+\Ans0 (b) and (c) & 
+\Ans0 (b) and (d) \\
+\Ans0 (a) and (d) & 
+\Ans0 (a),(b),(c) &
+\Ans0 (a),(b),(d)& 
+\Ans0 (b),(c),(d)\\
+\end{answers}
+\item $p[A^C]$
+\begin{answers}[v2]{4}
+\Ans0 (a) &
+\Ans0 (b) &
+\Ans0 (c) &
+\Ans0 (d) \\
+\Ans0 (a) and (b) &
+\Ans0 (a) and (c) &
+\Ans0 (b) and (c) & 
+\Ans1 (b) and (d) \\
+\Ans0 (a) and (d) & 
+\Ans0 (a),(b),(c) &
+\Ans0 (a),(b),(d)& 
+\Ans0 (b),(c),(d)\\
+\end{answers}
+\newpage
+\item \begin{figure}[!h]
+\begin{picture}(75,50)
+\put(1,1){\framebox(75,50){}}
+\put(25,25){\circle{50}}
+\put(50,25){\circle{50}}
+\put(15,25){(a)}
+\put(50,25){(b)}
+\put(31,25){(c)}
+\put(1,42){(d)}
+\put(15,7){\color{red}A}
+\put(50,7){\color{red}B}
+\end{picture}
+\end{figure}
+$p[A^C \cap B]$
+\begin{answers}[v3]{4}
+\Ans0 (a) &
+\Ans1 (b) &
+\Ans0 (c) &
+\Ans0 (d) \\
+\Ans0 (a) and (b) &
+\Ans0 (a) and (c) &
+\Ans0 (b) and (c) & 
+\Ans0 (b) and (d) \\
+\Ans0 (a) and (d) & 
+\Ans0 (a),(b),(c) &
+\Ans0 (a),(b),(d)& 
+\Ans0 (b),(c),(d)\\
+\end{answers}
+\item $p[A^C \cup B^C]$
+\begin{answers}[v4]{4}
+\Ans0 (a) &
+\Ans0 (b) &
+\Ans0 (c) &
+\Ans0 (d) \\
+\Ans0 (a) and (b) &
+\Ans0 (a) and (c) &
+\Ans0 (b) and (c) & 
+\Ans0 (b) and (d) \\
+\Ans0 (a) and (d) & 
+\Ans0 (a),(b),(c) &
+\Ans1 (a),(b),(d)& 
+\Ans0 (a),(b),(c),(d)\\
+\end{answers}
+\newpage
+\item \begin{figure}[!h]
+\begin{picture}(75,50)
+\put(1,1){\framebox(75,50){}}
+\put(25,25){\circle{50}}
+\put(50,25){\circle{50}}
+\put(15,25){(a)}
+\put(50,25){(b)}
+\put(31,25){(c)}
+\put(1,42){(d)}
+\put(15,7){\color{red}A}
+\put(50,7){\color{red}B}
+\end{picture}
+\end{figure}
+$p[A \cup B]$
+\begin{answers}[v5]{4}
+\Ans0 (a) &
+\Ans0 (b) &
+\Ans0 (c) &
+\Ans0 (d) \\
+\Ans0 (a) and (b) &
+\Ans0 (a) and (c) &
+\Ans0 (b) and (c) & 
+\Ans0 (b) and (d) \\
+\Ans0 (a) and (d) & 
+\Ans1 (a),(b),(c) &
+\Ans0 (a),(b),(d)& 
+\Ans0 (b),(c),(d)\\
+\end{answers}
+\item $p[A^C \cup B]$
+\begin{answers}[v6]{4}
+\Ans0 (a) &
+\Ans0 (b) &
+\Ans0 (c) &
+\Ans0 (d) \\
+\Ans0 (a) and (b) &
+\Ans0 (a) and (c) &
+\Ans0 (b) and (c) & 
+\Ans0 (b) and (d) \\
+\Ans0 (a) and (d) & 
+\Ans0 (a),(b),(c) &
+\Ans0 (a),(b),(d)& 
+\Ans1 (b),(c),(d)\\
+\end{answers}
+
+
+\newpage
+\item \begin{figure}[!h]
+\begin{picture}(75,50)
+\put(1,1){\framebox(75,50){}}
+\put(25,25){\circle{50}}
+\put(50,25){\circle{50}}
+\put(15,25){(a)}
+\put(50,25){(b)}
+\put(31,25){(c)}
+\put(1,42){(d)}
+\put(15,7){\color{red}A}
+\put(50,7){\color{red}B}
+\end{picture}
+\end{figure}
+$p[A \cup B^C]$
+\begin{answers}[v5]{4}
+\Ans0 (a) &
+\Ans0 (b) &
+\Ans0 (c) &
+\Ans0 (d) \\
+\Ans0 (a) and (b) &
+\Ans0 (a) and (c) &
+\Ans0 (b) and (c) & 
+\Ans0 (b) and (d) \\
+\Ans0 (a) and (d) & 
+\Ans0 (a),(b),(c) &
+\Ans1 (a),(c),(d)& 
+\Ans0 (b),(c),(d)\\
+\end{answers}
+\item $p[A^C \cap B]$
+\begin{answers}[v6]{4}
+\Ans0 (a) &
+\Ans1 (b) &
+\Ans0 (c) &
+\Ans0 (d) \\
+\Ans0 (a) and (b) &
+\Ans0 (a) and (c) &
+\Ans0 (b) and (c) & 
+\Ans0 (b) and (d) \\
+\Ans0 (a) and (d) & 
+\Ans0 (a),(b),(c) &
+\Ans0 (a),(b),(d)& 
+\Ans0 (b),(c),(d)\\
+\end{answers}
+\end{questions}
+\end{quiz}\quad\eqButton{VennD}Points: \ScoreField{VennD}
+
+
+\newpage
+
+\subsection{Some other definitions}
+%\setlength{\unitlength}{5cm}
+
+\subsubsection{Mutually exclusive events}
+
+These are events which cannot happen together:
+
+\begin{figure}[!h]
+\begin{picture}(125,50)
+\put(1,1){\framebox(125,50){}}
+\put(25,25){\circle{50}}
+\put(85,25){\circle{50}}
+\put(15,25){\color{red}A}
+\put(85,25){\color{red}B}
+%\put(31,25){(c)}
+%\put(1,42){(d)}
+\end{picture}
+\end{figure}
+
+This implies:
+\begin{itemize}
+\item $p[A \cap B] = 0$
+\item $p[A \cup B] = p[A] + p[B]$
+\end{itemize}
+
+(a trivial example from our three coin problem would be the event ``all three heads'' and the event ``all three tails'')
+
+\newpage
+\subsubsection{Exhaustive / Complementary events}
+
+\begin{figure}[!h]
+\begin{picture}(125,50)
+\put(1,1){\framebox(125,50){}}
+\qbezier(55,0)(32,0)(70,25)
+\qbezier(70,25)(90,40)(55,50)
+\put(15,25){\color{red}A}
+\put(85,25){\color{red}B}
+%\put(31,25){(c)}
+%\put(1,42){(d)}
+\end{picture}
+\end{figure}
+
+Which implies:
+\begin{itemize}
+\item $p[A] + p[B] = 1$
+\end{itemize}
+
+For later use, please note that we could also say that $B$ is $A^C$ and hence:
+
+\begin{itemize}
+\item $A \cup A^C = \Omega$
+\item $p[A] + p[A^C] = 1$
+\item $p[A^C] = 1 - p[A]$
+\end{itemize}
+
+
+\subsection{Summary}
+
+We have reviewed the basic tools of set theory as far a I think we need them.  Please note:
+\begin{itemize}
+\item We will become a little more formal in our use next by introducing the Axioms.
+\item \emph{Mutually exclusive (disjoint)} events are events that can't happen together, \emph{independent} events are events that can (and do) happen together but in such a way that one event has no influence over the other.   Sometimes the linguistics makes these concepts a little unclear.%% this can often be a source of some confusion
+\item We have not yet considered conditional probability.   We shall do that next week, which will lead us into direct application of Bayes theorem.
+\item To date, we have been talking about probability in the naive (symmetry / Laplace) way.   The axiomatic system can cope with other concepts of probablity such as  long run frequency (if we tossed a coin 1,000 times, we would expect very close to 500 heads) and (with one minor technical point)  ``subjective'' measures of probability.
+
+\end{itemize}
+
+First, we should consolidate our understanding of these introductory topics.  Please ask for further problem sheets.
+
+
+\subsection{Exercises}
+
+There are six self marking electronic quizzes.   For each of these, you need to click the \fbox{Begin Quiz} before you start, and the \fbox{End Quiz} box when you finish.   There are then some paper exercises - feel free to ask for further problem sheets if you wish.
+
+\newpage
+
+\subsubsection{Exercise P.1}
+
+%You need to click the \fbox{Begin Quiz} before you start, and the \fbox{End Quiz} box when you finish.
+
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{probs1}
+Consider that $A$ and $B$ are \emph{mutually exclusive} events.  It is known that $p[A]=0.2$ while $p[B] = 0.3$.\\[0.1in]
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} Find $p[A^C]$ =
+\RespBoxTxt{0}{0}[p1.1]{1}{0.8}
+\CorrAnsButton{0.8}
+\begin{solution}
+Problem P1.1: The probability that ``not A'' happens, given that $p[A] = 0.2$ is $1-p[A]=0.8$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1}  Find $p[B^C]$ =
+\RespBoxTxt{0}{0}[p1.2]{1}{0.7}
+\CorrAnsButton{0.7}
+\begin{solution}
+Problem P1.2: The probability that ``not b'' happens, given that $p[B] = 0.3$ is $1-p[A]=0.7$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  Find $p[A \cup B]$ =
+\RespBoxTxt{0}{0}[p1.3]{1}{0.5}
+\CorrAnsButton{0.5}
+\begin{solution}
+Problem P1.3: The probability that either $A$ or $B$ happens, given that $p[A] = 0.2$, $p[B]=0.3$ and that they are \emph{mutually exclusive events} is $p[A] = p[B] = 0.5$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  Find $p[A \cap B]$ =
+\RespBoxTxt{0}{0}[p1.4]{1}{0}
+\CorrAnsButton{0}
+\begin{solution}
+Problem P1.4: The probability that both $A$ and $B$ happen, given that they are mutually exclusive events is $0$ by definition.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  Find $p[A^C \cap B^C]$ =
+\RespBoxTxt{0}{0}[p1.5]{1}{0.5}
+\CorrAnsButton{0.5}
+\begin{solution}
+Problem P1.5: Note that $p[A^C]=0.8$ and contains $p[B]=0.3$; likewise $p[B^C]=0.7$ and contains $p[A]=0.2$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\end{questions}
+%\end{oQuestion}
+%\sqTallyTotal
+\end{quiz}\quad\eqButton{probs1}Points: \ScoreField{probs1}
+
+ Click on the \fbox{Ans} box to get the correct answer; \Shift +\fbox{click} to get the solution.
+
+%\noindent
+%Answers: \AnswerField\currQuiz
+
+%\medskip\noindent
+%Points: \PointsField\currQuiz\ Percent: \PercentField\currQuiz
+
+
+
+\newpage
+
+\subsubsection{Exercise P.2}
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{probs2}
+Now consider that $A$ and $B$ are \emph{not mutually exclusive} events.  It is known that $p[A]=0.2$ while $p[B] = 0.3$ and also that $p[A \cap B] = 0.1$.\\[0.1in]
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} Find $p[A^C]$ =
+\RespBoxTxt{0}{0}[p2.1]{1}{0.8}
+\CorrAnsButton{0.8}
+\begin{solution}
+Problem P2.1: The probability that ``not A'' happens, given that $p[A] = 0.2$ is $1-p[A]=0.8$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1}  Find $p[B^C]$ =
+\RespBoxTxt{0}{0}[p2.2]{1}{0.7}
+\CorrAnsButton{0.7}
+\begin{solution}
+Problem P2.2: The probability that ``not b'' happens, given that $p[B] = 0.3$ is $1-p[B]=0.7$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  Find $p[A \cup B]$ =
+\RespBoxTxt{0}{0}[p2.3]{1}{0.4}
+\CorrAnsButton{0.4}
+\begin{solution}
+Problem P2.3: 
+The probability that either $A$ or $B$ happens, given that $p[A] = 0.2$, $p[B]=0.3$ and that $p[A \cap B] = 0.1$ is given by $p[A] + p[B] -  p[A \cap B] =  0.4$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  Find $p[A \cap B]$ =
+\RespBoxTxt{0}{0}[p2.4]{1}{0.1}
+\CorrAnsButton{0.1}
+\begin{solution}
+Problem P2.4: The probability that both $A$ and $B$ happen is 0.1 according to the question definition.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  Find $p[A^C \cap B^C]$ =
+\RespBoxTxt{0}{0}[p2.5]{1}{0.6}
+\CorrAnsButton{0.6}
+\begin{solution}
+Problem P2.5: Remember we now have $p[A \cap B] = 0.1$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\end{questions}
+%\end{oQuestion}
+%\sqTallyTotal
+\end{quiz}\quad\eqButton{probs2}Points: \ScoreField{probs2}
+
+ Click on the \fbox{Ans} box to get the correct answer; \fbox{shift}+\fbox{click} to get the solution.
+
+%\noindent
+%Answers: \AnswerField\currQuiz
+
+%\medskip\noindent
+%Points: \PointsField\currQuiz\ Percent: \PercentField\currQuiz
+
+
+
+\newpage
+
+\subsubsection{Exercise P.3}
+
+%You need to click the \fbox{Begin Quiz} before you start, and the \fbox{End Quiz} box when you finish.
+
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{probs3}
+\emph{Please give all answers to 4 decimal places}\\
+Consider an office worker who has access to two PCs.   These PCs work independently, and have a probability $\pi=0.95$ of working correctly when switched on in the morning.  What is the probability on a randomly chosen morning\footnote{You might need to draw a tree diagram}:
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} Both PCs work =
+\RespBoxTxt{0}{0}[p3.1]{1}{0.9025}
+\CorrAnsButton{0.9025}
+\begin{solution}
+Problem P3.1: 
+\begin{figure}[!t]
+\synttree[$\Omega$ [\fbox{W 0.95} [\fbox{\color{green} W $0.95 \times 0.95$}] [\fbox{F $0.95 \times 0.05$}]] [\fbox{F $0.05$} [\fbox{W $0.05 \times 0.95$}] [\fbox{F $0.05 \times 0.05$}] ]]
+\end{figure}
+Denoting a working PC by W, and a failed PC by F, we have one outcome where both PCs work, denoted in green, hence a probability of $0.9025$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1}  At least one of the PCs works =
+\RespBoxTxt{0}{0}[p3.2]{1}{0.9975}
+\CorrAnsButton{0.9975}
+\begin{solution}
+Problem P3.2: 
+\begin{figure}[!t]
+\synttree[$\Omega$ [\fbox{W 0.95} [\fbox{W $0.95 \times 0.95$}] [\fbox{F $0.95 \times 0.05$}]] [\fbox{F $0.05$} [\fbox{W $0.05 \times 0.95$}] [\fbox{\color{red}F $0.05 \times 0.05$}] ]]
+\end{figure}
+One way of solving this is to consider that we have only one event whereby the condition is not met (coloured red); we want the probability of $1-(none)$. \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  Exactly one of the PCs works:
+\RespBoxTxt{0}{0}[p3.3]{1}{0.0950}
+\CorrAnsButton{0.0950}
+\begin{solution}
+Problem P3.3: 
+\begin{figure}[!t]
+%\synttree[$\Omega$ [W $0.95$ [ W $0.95 \times 0.95$][F $0.95 \times 0.05$]] [F $0.05$ [W $0.05 * 0.95$] [F $0.05 * 0.05$]]]
+\synttree[$\Omega$ [\fbox{W 0.95} [\fbox{W $0.95 \times 0.95$}] [\fbox{\color{green} F $0.95 \times 0.05$}]] [\fbox{F $0.05$} [\fbox{\color{green} W $0.05 \times 0.95$}] [\fbox{F $0.05 \times 0.05$}] ]]
+\end{figure}
+
+There are two events where exactly one PC is working, we therefore need to know $2 \times (0.05 \times 0.95)$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+
+\end{questions}
+%\end{oQuestion}
+%\sqTallyTotal
+\end{quiz}\quad\eqButton{probs3}Points: \ScoreField{probs3}
+
+ Click on the \fbox{Ans} box to get the correct answer; \fbox{shift}+\fbox{click} to get the solution.
+
+%\noindent
+%Answers: \AnswerField\currQuiz
+
+%\medskip\noindent
+%Points: \PointsField\currQuiz\ Percent: \PercentField\currQuiz
+
+
+%%%%%%4
+%%%%%%%
+\newpage
+
+\subsubsection{Exercise P.4}
+
+%You need to click the \fbox{Begin Quiz} before you start, and the \fbox{End Quiz} box when you finish.
+
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{probs4}
+\emph{Please give all answers to 2 decimal places}\\
+Consider mass produced hinges.   These hinges suffer from two kinds of fault.   Fault A is found in 10\% of hinges, fault B is found in 15\% of hinges.   Both faults are found in 8\% of hinges.  A single hinge is selected at random. To 2 decimal places, find the probability that:
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} It is faulty:
+\RespBoxTxt{0}{0}[p3.1]{1}{0.17}
+\CorrAnsButton{0.17}
+\begin{solution}
+Problem P4.1: 
+We want $p[A] \cup p[B] = p[A] = p[B] - p[A \cap B] = 0.1 + 0.15 - 0.08 = 0.17$\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1} It has fault A alone:
+\RespBoxTxt{0}{0}[p3.2]{1}{0.02}
+\CorrAnsButton{0.02}
+\begin{solution}
+We know that $p[A] = 0.1$ and $p[A \cap B] = 0.08$, so $p[A] - p[A \cap B] = 0.02$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  It has neither fault:
+\RespBoxTxt{0}{0}[p3.3]{1}{0.83}
+\CorrAnsButton{0.83}
+\begin{solution}
+Problem P4.2: 
+Here we want $1 - p[A \cup B]$, the latter value was given earlier so the answer here is $1-0.17$.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+
+\end{questions}
+%\end{oQuestion}
+%\sqTallyTotal
+\end{quiz}\quad\eqButton{probs4}Points: \ScoreField{probs4}
+
+ Click on the \fbox{Ans} box to get the correct answer; \fbox{shift}+\fbox{click} to get the solution.
+
+%\noindent
+%Answers: \AnswerField\currQuiz
+
+%\medskip\noindent
+%Points: \PointsField\currQuiz\ Percent: \PercentField\currQuiz
+
+\newpage
+
+\subsubsection{Exercise P.5}
+
+%You need to click the \fbox{Begin Quiz} before you start, and the \fbox{End Quiz} box when you finish.
+
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{probs5}
+\emph{Please give all answers to 2 decimal places}\\
+Consider two \emph{mutually exclusive} events $A$ and $B$.   We know that $p[A] = 0.33$ and $p[B] = 0.42$.  Find:
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} $p[A^C]$
+\RespBoxTxt{0}{0}[p4.1]{1}{0.67}
+\CorrAnsButton{0.67}
+\begin{solution}
+Problem P5.1: 
+We want $1-p[A]$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1} $p[B^C]$
+\RespBoxTxt{0}{0}[p4.2]{1}{0.58}
+\CorrAnsButton{0.58}
+\begin{solution}
+Problem P5.2: 
+We want $1-p[B]$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  $p[A \cap B]$:
+\RespBoxTxt{0}{0}[p4.3]{1}{0}
+\CorrAnsButton{0}
+\begin{solution}
+Problem P5.3: 
+As these are mutually exclusive, $p[A \cap B] = 0$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1}  $p[A \cup B]$:
+\RespBoxTxt{0}{0}[p4.4]{1}{0.75}
+\CorrAnsButton{0.75}
+\begin{solution}
+Problem P5.4: 
+As these are mutually exclusive, as noted in the earlier question $p[A \cap B] = 0$, so here we want $p[A] + p[B] - 0$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  $p[A \cap B^C]$:
+\RespBoxTxt{0}{0}[p4.4]{1}{0.33}
+\CorrAnsButton{0.33}
+\begin{solution}
+Problem P5.5: 
+As these are mutually exclusive, we want the intersection of $A$ and everything not in $B$, which is $A$. \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1}  $p[A^C \cap B^C]$:
+\RespBoxTxt{0}{0}[p4.6]{1}{0.25}
+\CorrAnsButton{0.25}
+\begin{solution}
+Problem P5.6: 
+As these are mutually exclusive, we want  $1 - (p[A] + p[B]) =0.25$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\end{questions}
+%\end{oQuestion}
+%\sqTallyTotal
+\end{quiz}\quad\eqButton{probs5}Points: \ScoreField{probs5}
+
+ Click on the \fbox{Ans} box to get the correct answer; \fbox{shift}+\fbox{click} to get the solution.
+
+%\noindent
+%Answers: \AnswerField\currQuiz
+
+%\medskip\noindent
+%Points: \PointsField\currQuiz\ Percent: \PercentField\currQuiz
+
+\newpage
+\subsubsection{Exercise P.6}
+
+%You need to click the \fbox{Begin Quiz} before you start, and the \fbox{End Quiz} box when you finish.
+
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+
+\begin{quiz}{probs6}
+\emph{Please give all answers to 2 decimal places}\\
+Consider a married couple living in a certain suburb, who have been invited to participate in an election o a school board.   The probability that the man will vote is $0.21$, the probability that the woman will vote is $0.28$ and the probability that both will vote is $0.15$.   Find the probability that:
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} At least one will vote:
+\RespBoxTxt{0}{0}[p6.1]{1}{0.34}
+\CorrAnsButton{0.34}
+\begin{solution}
+Problem P6.1: 
+We want $p[A \cup B] = (0.21+0.28) = 0.34 $\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1} Only one of them will vote:
+\RespBoxTxt{0}{0}[p6.2]{1}{0.19}
+\CorrAnsButton{0.19}
+\begin{solution}
+Problem P6.2: 
+We know that $p[A \cup B] = 0.34$ from the previous question.   To solve this one, we need $p[A \cup B] - p[A \cap B]  = 0.34 - 0.15 =0.19$ \\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+
+\end{questions}
+%\end{oQuestion}
+%\sqTallyTotal
+\end{quiz}\quad\eqButton{probs6}Points: \ScoreField{probs6}
+
+ Click on the \fbox{Ans} box to get the correct answer; \fbox{shift}+\fbox{click} to get the solution.
+
+%\noindent
+%Answers: \AnswerField\currQuiz
+
+%\medskip\noindent
+%Points: \PointsField\currQuiz\ Percent: \PercentField\currQuiz
+
+\newpage
+
+\subsubsection{Paper exercises}
+
+Here are some exercises for discussion.
+
+\begin{enumerate}
+\item You have a \emph{fair} six sided die.  You throw the die three times.   What is the probability that you get
+  \begin{itemize}
+  \item  a 1 on the first throw, a 2 on the second throw and a 3 on the third throw
+  \item a 1, 2 and a 3 in any order
+  \item three 6s
+  \item one 4 and two 5s in any order
+  \end{itemize}
+
+\item 
+  \begin{itemize} 
+  \item What is the probability of getting the sequence \emph{HHTT} in four tosses of a fair coin.
+  \item Given you have already had a {HH} in your four coin toss experiment, what is the probability that the remaining two throws will yield \emph{TT} 
+  \item If you do not know the first two throws,  what is the probability that the remaining two throws will yield \emph{TT} 
+  \end{itemize}
+
+\item Box 1 has 1 red ball and 3 black balls.   Box 2 has 1 red ball, 1 white ball and 1 black ball.   Box 3 has 1 red ball and 1 black ball.
+  \begin{itemize}
+  \item A box is chosen at random, and a single ball is chosen.   What is the probability that it is red.
+  \item If a red ball is chosen, what is the probability that we had selected box 1, box 2 or box 3? 
+  \end{itemize}
+\end{enumerate}
+
+
+
+
+
+
+\NaviBarOff
+
+
+
+%</tag>
+\end{document}
+

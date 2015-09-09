@@ -1,0 +1,229 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Probability Crash Course: \\ Introductory Concepts}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{10th November 2013}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=0.5cm]{logo.pdf}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.3} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   concepts in probability.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+%tableofcontents
+
+%\section{Introduction}
+
+%Statistics is the science of observing data and making inferences about the characterstics of a random mechanism that has generated the data.   It can be seen as the collection, organisation and interpretation of numerical data, especially the analysis of population characteristics by inference from samples.
+
+%\textbf{Inference} is the act of reasoning from factual knowledge or evidence/
+
+%\textbf{Econometrics} is concerned with the tasks of developing and applying quantitative or statistical methods to the study of elucidation of economic principles.   It combines economic theory with statistics to analyse and test economic relationships.
+
+
+\newpage
+\section*{Aims}
+\begin{itemize}
+\item To introduce the Axioms of probability
+\end{itemize}
+
+
+\newpage
+
+\section{Indicator random variables}
+
+If you find approaches to probability using die and coins rather artificial you are in company.   Nassem Taleb (author of the ``Black Swan'' etc. refers to this as a ludic fallacy).   However, this is a good point to note that the basic concept can be generalised.   Consider
+
+$$X = \left\{ \begin{array}{rrr} 1 & & \mbox{ if some condition is met} \\ 0 & & \mbox{ otherwise} \end{array} \right.$$
+
+We refer to $X$ as an indicator random variable, the condition could be anything from "the coin landed heads" to "this person has a heart attack".
+
+
+\newpage
+
+
+\section{Axioms of probability}
+
+The system of probability we have been working through took a long time to develop, and wasn't fully formalised until the 1930's by Kolmogorov (see 
+\href{http://www.gap-system.org/~history/Biographies/Kolmogorov.html}{\color{blue}www.gap-system.org/~history/Biographies/Kolmogorov.html}).   He stated three fundamental Axioms, from which all other results can be derived.
+
+\begin{itemize}
+\item $p[A] \geq 0$ for any event $A$
+\item $p[\Omega] = 1$ where $\Omega$ is the sample space 
+\item If $[A_i];i=1,2,\ldots$ are mutually exclusive then $p[A_1] \cup p[A_2] \cup \ldots = p[A_1] + p[A_2] + \ldots$
+\end{itemize}
+
+Mutually exclusive means that $A_i \cap A_j = \emptyset$ for all $i \neq j$
+
+\newpage
+
+We shall examine the implications of these Axioms in terms of obtaining mathematical functions that can serve as models for probability (probability distribution functions) in week 2.   The intuitive consequences of these results are:
+
+\begin{itemize}
+\item (Non-negative) Probability can never be negative
+\item (Total probability) The probability of a sample space must equal 1 
+\item (Countable additivity) The probability of observing two (or more) mutually exclusive events is the sum of their individual probabilities
+\end{itemize}
+
+However, we need to derive some additional results from these Axioms in order to be able to carry out useful probability calculations.
+
+
+\newpage
+
+\subsection{Deriving $P(A^C)$}
+
+The sets $A$ and $A^C$ form a partition of the sample space so that $\Omega = A \cup A^C$.   We therefore know by the second axiom that $P(A \cup A^C) = 1$.   By the third axiom we know that $P(A \cup A^C) = P(A) + P(A^C)$ so we can rearrange this to give:
+
+\begin{align*}
+P(A \cup A^C) &= P(A) + P(A^C) \\
+P(A \cup A^C) - P(A) &= P(A^C) \\
+P(A^C) &= 1 - P(A)
+\end{align*}
+
+\subsection{Deriving $P(A) \leq 1$}
+
+If $P(A^C) \geq 0$ and $P(A) + P(A^C) = 1$ this is immediate.
+
+\subsection{Deriving the addition rule}
+
+Consider the set $B$, which we can expand as $B=(B \cap A) \cup (B \cap A^C)$.   This tells us (eventually) that
+
+\begin{displaymath}
+P(B) = P(B \cap A) + P(B \cap A^C)
+\end{displaymath}
+Note that the two terms on the right hand side are disjoint so we can use the third axiom.
+
+Now we want to think about $A \cup B = A \cup (B \cap A^C)$, again the two terms on the right hand side are mutually exclusive/disjoint.   
+
+\begin{align*}
+P(A \cup B) &= P(A) + P(B \cap A^C) \\
+ &= P(A) + P(B) - P(A \cap B)
+ \end{align*}
+
+
+
+You can verify this; draw the Venn Diagram.   If we merely added $p[A]$ to $p[B]$ for events with an intersection, we would add the probability corresponding to $p[A \cap B]$ twice, and hence we need to subtract one of these areas.
+
+{\color{green}What does this tell us about the value of $p[A \cap B]$ for for mutually exclusive events?}
+
+\newpage
+
+\subsection{Bonferroni Inequality}
+
+We can extend this idea a little.   If $A$ is entirely contained within  $B$ then $A \cap B = A$.   Earlier we said $P(B \cap A^C) = P(B) - P(A \cap B)$ so substituting we have $0 \leq P(B \cap A^C) = P(B) - P(A)$.   With a little rearrangement we get:
+
+\begin{displaymath}
+P(A \cap B) \geq P(A) + P(B) - 1
+\end{displaymath}
+
+This is a special case of Bonferroni's inequality.
+
+
+\subsection{Independent events}
+
+Two events can be considered independent if they have no effect on each other.   We would assume our coin tosses were independent - the second coin can't ``know'' whether the first coin landed heads or tails and hence it's probability of landing heads or tails is unaffected by the first throw.   We consider conditional probability further in week 2, but for now we wish only to note that:
+
+
+%\fbox{
+%\begin{minipage}[c]{3.5in}
+%Two events can be considered independent when:
+%
+%\begin{displaymath}
+%p[A \cap B] = p[A]p[B]
+%\end{displaymath}
+%\end{minipage}
+%}
+%\vspace{0.25in}
+%
+%For example, for unbiased coins, $p[\mbox{Coin 1 shows H}]=0.5$ and\\  
+% $p[\mbox{Coin 2 shows H}]=0.5$, hence:
+%
+%\begin{displaymath}
+%p[\mbox{Coin 1 shows H and Coin 2 shows H}] = 0.5 \times 0.5 = 0.25
+%\end{displaymath}
+%
+%This can be extended to more than two events.
+%
+%\newpage
+%
+%It can also be used to extend our tree diagram examples.   What if we have biased coins, where $p[\mbox{Coin shows H}]=0.6$.
+%
+%\begin{figure}[!h]
+%\synttree[$\Omega$ [\fbox{H 0.6} [\fbox{\color{green} H $0.6 \times 0.6$}] [\fbox{T $0.6 \times 0.4$}]] [\fbox{T $0.4$} [\fbox{H $0.4 \times 0.6$}] [\fbox{T $0.4 \times 0.4$}] ]]
+%\end{figure}
+%
+%For example, we can see with such a biased coin that
+%
+%\begin{displaymath}
+%p[\mbox{Both coins show H}]=0.6\times0.6=0.36
+%\end{displaymath}
+%
+%which is somewhat higher than the $0.25$ we would expect from unbiased coins.
+
+\newpage
+
+\subsection{Summary}
+
+We have reviewed the three Kolmogorov Axioms.  Please note:
+\begin{itemize}
+\item Don't try to memorise all the formula.   Try to get comfortable enough with this to work the derivations yourself.   It's good for your mathematical development.
+\end{itemize}
+
+
+\newpage
+
+\subsection{Exercises}
+
+To be added
+
+\NaviBarOff
+
+
+
+\end{document}

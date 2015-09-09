@@ -1,0 +1,178 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+
+\usepackage{textcomp}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{00A0}{ }
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Probability Crash Course:  Inequalities}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{5th September 2014}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=1.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.1} 
+\copyrightyears{2014}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   concepts in probability.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+%tableofcontents
+
+
+\section{Some famous inequalities}
+
+We will cover these at various stages of the Term.   They are included here so that you have them in one place in your notes.
+
+
+\subsection{Bonferroni's Inequality}
+
+Write $P(A_i)$ as the probability that event $A_i$ occurs then $P(\cup_{i=1}^n A_i)$ as the probability that at least one of $A_1, A_2, ..., A_n$ occurs. 
+
+Then the Bonferroni / Boole's inequality, states that
+
+$$P(\cup_{i=1}^n A_i) \leq \sum_{i=1}^n P(A_i)$$
+
+(This is an equality if $A_i,A_j$ are disjoint)
+
+\newpage
+
+\subsubsection{Problem}
+
+If more than $70$ drunken hoodlums congregate in two or more places in Plymouth on a Saturday night, the Police have to cancel their overtime.   Let $A$ denote the event that the Plymouth Argyle has an attendance of 70 or more and let $B$ denote the event that the world Morris Dancing Championships has a attendance of 70 or more.
+Based on historical data, it is estimated that $P(A) = 0.3$, $P(B)=0.4$.
+
+
+Find a bound for the probability that both have an attendance of 70 or more.
+
+Solution: We know that $P(A \cup B) \leq P(A) + P(B) =  0.7$.   So we can bound the intersection by using 
+$P(A \cap B) \geq P(A)+ P(B)-1 = 0.3$
+
+Now for a bit of fun.   Let $C$ denote the event that the maximum attendance of these two events is  70 with and $P(C) =.2$.   Find the probability that the minimum attenance is  70
+
+Solution: Let $D$ be the event that the minimum attendance is $70$. 
+
+Then $A \cup B = C \cup D$ and $A \cap B = C \cap D$
+ 
+So, we have 
+
+\begin{displaymath}
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+\end{displaymath}
+
+$$P(C \cup D) = P(C) + P(D) - P(C 'cap D)$$
+
+The subtracting the two equations we have
+
+\begin{displaymath}
+0 = (0.3 - 0.2) + (0.4 - P(D))
+\end{displaymath}
+
+
+Hence $P  (D ) =.5$
+
+\newpage
+
+\subsection{Markov's Inequality}
+
+Here's an inequality about inequalities.   The top 1/5th of earners in the country can earn no more than 5 times the average income.
+
+
+For a non-negative random variable $X$ and some positive real constant $a$:
+
+\begin{equation}
+P(X \geq a) \leq \frac{E(X)}{a}. 
+\end{equation}
+
+This is known as Markov's inequality.   To prove it we need to use indicator random variables, i.e. 
+
+$$I = \left\{ \begin{array}{rrr} 1 & & \mbox{If the eventoccurs} X \geq a \mbox{ occurs}
+ \\ 
+ 0 & & \mbox{otherwise} \end{array} \right.$$
+
+So, because $a > 0$
+
+$$aI \leq X$$
+
+If $X < a$, then $I = 0$, and so $aI = 0 \leq X$.   Alternatively, $X \geq a$ so $I = 1$ and $aI = a \leq X$.
+
+Hence taking expectations
+
+$$E(aI) \leq E(X)$$
+
+Using basic properties of expectation ($a$ is a constant) we can rewrite the left hand side, and then divide both sides by $a$ (a positive real number) and we have completed the proof.
+
+\newpage
+
+\subsubsection{Chebychev's inequality}
+
+Now we need $X$ to be a random variable with finite expected value as well as finite non-zero variance.   We usually denote $E[X]$ by $\mu$ and $Var(X)$ by $\sigma^2$.   Then for any positive real number $\epsilon$, Chebychev's inequality states:
+
+$$ P(| X-\mu | \geq \epsilon) \leq \frac{\sigma^2}{\epsilon^2}. $$
+
+
+One proof:
+
+\begin{align} P(|X-\mu| \geq k\sigma) &= E \left (I_{|X-\mu| \geq k\sigma} \right ) \\ 
+&= E \left (I_{\left (\frac{X-\mu}{k\sigma} \right )^2 \geq 1} \right ) \\
+&\leq \operatorname{E}\left(\left({X-\mu \over k\sigma} \right)^2 \right) \\
+&= {1 \over k^2} {E((X-\mu)^2) \over \sigma^2} \\ &= {1 \over k^2}. 
+\end{align} 
+
+
+\newpage
+
+\subsection{Jensen's Inequality}
+
+Jensen's inequality comes up in places other than probability theory, and requires that $h(\cdot)$ is a convex function.
+
+$$ h \left( E[X] \right) \leq E \left[h(X)\right]$$. 
+
+Problem: What does this tell you about $Var(X)$?
+
+
+\NaviBarOff
+\end{document}

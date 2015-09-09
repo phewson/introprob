@@ -1,0 +1,889 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Probability Crash Course: \\ Continuous densities/distributions}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{7th September 2012}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=1.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.2} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   concepts in probability.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+
+\newpage
+\section*{Aims}
+\begin{itemize}
+\item To state some key properties of continuous random variables
+\item To examine some important continuous distributions
+\item To become comfortable solving problems involving the normal distribution
+\end{itemize}
+
+\newpage
+\section{Continuous r.v.s}
+
+Further information is given in Section 5.2 (page 205) of Grinstead and Snell.
+
+\subsection{Probability density function}
+
+\begin{itemize}
+\item A function with values $f(x)$ defined over the set of all real numbers, is called a \emph{probability density function} of the continuous random variable $X$ if and only if $P(a \leq X \leq b) = \int_{a}^{b} f(x) dx$ for any real constants $a$ and $b$ with $a < b$
+\item Note that if $X$ is a continuous random variable and $a$ and $b$ are real constants ith $a \leq b$ then $P(a \leq X \leq b) = P(a \leq X < b) = P(a < X \leq b) = P(a < X < b)$
+\end{itemize}
+i.e. the value of a pdf can be changed for some of the values on an r.v. without changing the probabilities.
+
+\newpage
+
+Some points about this definition:
+\begin{itemize}
+\item For discrete random variables, the probability mass function is easy to understand: $f(x) = P[X=x]$.
+\item But note the terminology, if probability is mass, what is density?
+\item For a continuous random variable, $p[X=x]=0$
+\item But if we think of density as mass per volume, perhaps we gain a few insights
+\item Try thinking about a tiny number $\epsilon$.  Then think about $\int_{x-(\epsilon/2)}^{x+(\epsilon/2)} f(t)dt$.   If $\epsilon$ is small enough then we have a rectangle of area $\epsilon \times f(x)$; this area is the probability.
+\end{itemize}
+
+\newpage
+
+
+
+
+ \begin{itemize}
+\item A function can serve as a probability density function of a continuous r.v. $X$ if its values $f(x) $ satisfy the conditions:
+\begin{itemize}
+\item $f(x) \geq 0$ for $-\infty < x < \infty$
+\item $\int_{-\infty}^{\infty} f(x) dx = 1$
+\end{itemize}
+\end{itemize}
+
+\subsection{Cumulative distribution function}
+
+\begin{itemize}
+\item If $X$ is a continuous r.v. and the value of its probability density at $t$ is $f(t)$, then the function given by $F(x) = P(X \leq x) = \int_{-\infty}^{x} dt$ for $-\infty < x < \infty$ is called the \emph{distribution function} or cumulative distribution of $X$
+\item If $f(x)$ and $F(x)$ are values of the probability density and distribution function of $X$ at $x$ then $P(a \leq X \leq b) = F(b) - F(a)$ for any real constants $a$ and $b$ with $a \leq b$ and $f(x) = \frac{dF(x)}{dx}$ where the derivative exists
+\end{itemize}
+ 
+
+\newpage
+
+Give the fundamental theorem of calculus, it is perhaps no surprise that if
+
+\begin{displaymath}
+F(x) = \int_{-\infty}^x f(t)dt
+\end{displaymath}
+
+Then
+
+\begin{displaymath}
+f(x) = \frac{dF(x)}{dx} = F'(x)
+\end{displaymath}
+
+
+
+
+\newpage
+
+\subsubsection{Computer illustration}
+
+Nowadays, it is trivial to use a computer to randomly generate some continuous variables (although strictly we should note that computers can only generate \emph{pseudo} random numbers, but for our purposes this is close enough).  
+
+\begin{itemize}
+\item  For the moment we will not concern ourselves with the density used to create these variables, 
+\item Instead, we will consider only the empirical density.   
+\item In other words, for a sample of size $n$, the probability of observing any particular value will be $\frac{1}{n}$.   
+\end{itemize}
+
+We can generate a range of sample sizes (25, 100, 1000, 10000), observe both the value of $x$ and the empirical density for that value, and plot these as a set of lines.   The position on the x-axis denotes the value of $x$, the height of the line denotes the empirical density for observing that variable.
+
+\begin{itemize}
+\item Look very carefully at each of the four plots, noting that the scaling of the $y$ axis changes.
+\item What will happen to the height of these lines when, instead of using the empirical density, we use a continuous density function that must allow for an infinite range of possible values of $x$?
+\end{itemize}
+
+
+<<discreteprob, fig = TRUE, echo = FALSE, results = hide>>=
+par(mfrow = c(2,2))
+x <- rbeta(10,5.6,10.3)
+plot(x, rep(1/10,10), pch = ".", ylim = c(0,0.12), main = "n=10", ylab="P(X=x)", xlab = "x")
+arrows(x, rep(0,10), x, rep(1/10,10), length = 0.01)
+x <- rbeta(100,5.6,10.3)
+plot(x, rep(1/100,100), pch = ".", ylim = c(0,0.12), main = "n=100", ylab="P(X=x)", xlab = "x")
+arrows(x, rep(0,100), x, rep(1/100,100), length = 0.01)
+x <- rbeta(500,5.6,10.3)
+plot(x, rep(1/500,500), pch = ".", ylim = c(0,0.12), main = "n=500", ylab="P(X=x)", xlab = "x")
+arrows(x, rep(0,500), x, rep(1/500,500), length = 0.01)
+x <- rbeta(1000,5.6,10.3)
+plot(x, rep(1/1000,1000), pch = ".", ylim = c(0,0.12))
+arrows(x, rep(0,1000), x, rep(1/1000,1000), length = 0.01, main = "n=1000", ylab="P(X=x)", xlab = "x")
+@
+
+
+\newpage
+
+
+What is also apparent is that these plots are not use if we wish to visualise set containing a large number of realisations of $x$.   When $n$ is too large, we have a large pool of black ink in the middle of the charts.  
+
+\begin{itemize}
+\item The conventional way of dealing with this is by means of a histogram
+\item We break the x-axis into ``bins'' (a range of values) and count the number of values in that range
+\item The area of a given bar therefore tells us something about the probability density.   
+\item Note that as the sample size increases (and I have used narrower and narrower bins), we see a clear shape emerging.
+\end{itemize}
+All we need to do know is to define some mathematical formula that can adequately describe this, or any other shape, as necessary.
+
+
+<<hist, fig = TRUE, echo = FALSE, results = hide>>=
+hist(rbeta(10000, 2.7,6.3), col = "green", xlab = "x", ylab = "Density", main = "Histogram")
+@
+
+
+
+
+\newpage
+
+\subsection{Expectation}
+
+Where we used the summation operator for discrete densities, for a continuous random variable we define expectation using the integration operator.   This follows from the standard mathematical definition for
+the ``average'' of a function.
+
+\begin{df}
+The expected value of a continuous random variable is given by:
+\begin{displaymath}
+E[X] = \int_{-\infty}^{\infty} x f(x) dx
+\end{displaymath}
+
+and the expected value of a \emph{function of} a random variable is given by:
+\begin{displaymath}
+E[X] = \int_{-\infty}^{\infty} \phi (x) f(x) dx
+\end{displaymath}
+\end{df}
+
+\newpage
+
+\begin{shortquiz}{Expection of a function of a continuous random variable}
+Assume that $X$ has p.d.f. given by: 
+\begin{displaymath}
+f(x) = \left\{ \begin{array}{lll} e^{-x}& & \mbox{for}\ x>0 \\ 0 & & \mbox{elsewhere} \end{array} \right.
+\end{displaymath}
+Find the expected value of $g(x) = e^{3x/4}$
+\begin{answers}[ee]{4}
+\Ans0 1 & 
+\Ans0 2 & 
+\Ans0 3 & 
+\Ans1 4
+\end{answers}
+\begin{solution}
+Essentially, we wish to find:
+
+\begin{displaymath}
+E(e^{3x/4}) = \int_{0}^{\infty} e^{3x/4} e^{-x} dx
+\end{displaymath}
+wehich can be tidied up a little to give
+\begin{displaymath}
+E(e^{3x/4}) = \int_{0}^{\infty} e^{-x/4} dx
+\end{displaymath}
+and evaluating the indefinite integral at the two extremes gives:
+\begin{displaymath}
+E(e^{3x/4}) = 4
+\end{displaymath}
+\end{solution}
+\end{shortquiz}
+
+
+\subsection{Variance}
+
+The Variance of a continuous density is defined in exactly the same way as for discrete random variables ($V(X) = E[X-E(X)]^2$.   We shall revisit this point next week when we consider \emph{moments}.
+
+
+\newpage
+
+\subsubsection{Summary}
+
+\begin{tabular}{ll}
+$X$ Discrete & $X$ continuous \\
+\hline
+pmf: $f(x) =P[X=x]$ & Not defined \\
+Not defined & pdf: $f(x)$ such that $P[a<X<b]=\int_a^b f(x)dx$\\
+cdf: $F(x) = P[X \leq x] = \sum_{-\infty}^x f(t)$ & cdf: $F(x) = P[X \leq x] = \int_{-\infty}^x f(t)dt$\\
+$E[X] = \sum_x x f(x)$ & $E[X] = \int_x x f(x) dx$\\
+$E[g(X)] = \sum_x g(x) f(x)$ & $E[g(X)] = \int_x f(x) f(x) dx$\\
+\end{tabular}
+This last fact lets us find $Var(X)$ in either case.
+
+
+
+\newpage
+
+\section{Examples of continuous probability distributions}
+
+\subsection{The uniform distribution}
+
+{\color{green}By convention we write $X \sim U(a, b)$}
+
+
+The random variable $X$ has a uniform distribution if its probability density function is constant over the range defined by $a$ and $b$.   For example, the following is meant to show $x$ in the middle of the range: $a---x---b$, we would expect $P[X<x]=P[X>x]$.   Now imagine $a--x----b$.  Here we would expect $P[X<x] =  \frac{1}{2}P[X>x]$ (because the first interval is meant to be half the length of the second interval).   Maybe it helps to think of probability as proportional to length.
+
+Basically, this means we want:
+
+\begin{displaymath}
+f(x) = \left\{ \begin{array}{rrr} c & \mbox{ if } & a \leq x \leq b\\
+0 & & \mbox{otherwise} \end{array} \right.
+\end{displaymath}
+
+If we want this to obey $P(\Omega)=1$ we need $\int_a^bc=1$ which gives us $\frac{1}{b-a}$
+
+  The cumulative distribution function therefore is given as follows:
+
+\begin{displaymath}
+F(x|a,b) = \left\{ \begin{array}{ll} 0 & \mbox{ for }  x \leq a \\
+\frac{x-a}{b-a} & \mbox{ for } a \leq x \leq b \\ 
+0 & \mbox{ for } x > b \end{array} \right.
+\end{displaymath}
+
+
+\newpage
+
+One important example is the ``standard'' uniform, i.e. where $X \sim U(0,1)$ (the building block of all other random numbers):
+
+For $U \sim Unif(a,b)$ we have that:
+
+\begin{displaymath}
+E[X] = \int_a^b x \frac{1}{b-a} = \frac{x^2}{2}b-a|^b_a=\frac{a+b}{2}
+\end{displaymath}
+
+So for $U \sim Unif(0,1)$ this gives us $E[X] = \frac{1}{2}$
+
+For $E[X^2]$ we get $\frac{x^3}{3}(b-a)|^b_a$ which for $a=0$, $b=1$ yields $\frac{1}{3}$  Therefore, using $Var(X)=E[X^2]-E[X]^2$ we have $Var(X)=\frac{1}{3}-\frac{1}{4}=\frac{1}{12}$
+
+
+\fbox{Summary: for $a=0$ and $b=1$ that $E[X] = \frac{1}{2}$ and $V[X]=\frac{1}{12}$.}
+
+
+\newpage
+
+\subsection{The negative exponential distribution}
+
+{\color{green} By convention we write $X \sim NE(\theta)$}
+
+\begin{displaymath}
+f(x|\theta) = \theta e^{-\theta x}, 0 \leq x \leq \infty
+\end{displaymath}
+
+It should be obvious that this is non-negative and $\int_0^{\infty}f(x)dx=1$
+
+Here, we have a distribution function expressed as:
+\begin{displaymath}
+F(x|\theta) = 1-e^{-\theta x}
+\end{displaymath}
+
+One feature here is that this density is only defined for non-negative values of $x$.   This distribution is commonly used as a simple model for time between events; and a little thought is required here.   For example, if the count of events that happens in a given time period $Y \sim P(\theta)$ and the waiting time between those events is $X \sim NE(\theta)$ it should come as no surprise that $\theta$ and $\theta$ are related ($\theta = \frac{1}{\theta}$
+
+
+\newpage
+
+We can define a standard Exponential, i.e., $Y=\theta X$ where $Y \sim Exp(1)$.
+For this, we can then find $E[Y]$:
+
+\begin{displaymath}
+E[Y] = \int_{0}^{\infty} y e^{-y}dy
+\end{displaymath}
+
+Now use use integration by parts: $\int u\ dv = uv - \int v\ du$ such that:
+\begin{itemize}
+\item[] $u=y \therefore du=dy$
+\item[] $dv=e^{-y} \therefore v=-e^{-y}$
+\end{itemize}
+
+\begin{displaymath}
+\int_{0}^{\infty} y e^{-y}dy = \underbrace{-ye^{-y}|^{\infty}_o}_{0} - -\underbrace{\int_0^{\infty} e^{-y}dy}_{1} = 1
+\end{displaymath}
+
+Similarly, we can find $E[Y^2]=2$   Hence $Var(Y) = 2-1^2=1$
+
+
+We now need to rescale our standard exponential, noting that $X=\frac{Y}{\theta}$, so $E[X] = \frac{1}{\theta}$ and $Var(X)=\frac{1}{\theta^2}$
+
+
+
+\fbox{Note that $E[X] = \frac{1}{\theta}$, $Var(X)=\frac{1}{\theta^2}$}
+
+\fbox{Also note it is possible to use the parameterisation $f(x) = \frac{1}{\lambda} e^{-\frac{1}{\lambda} x}$}
+
+\newpage
+
+\subsubsection{Memoryless}
+
+A vital property of the Exponential distribution is that:
+
+\begin{displaymath}
+P[X \geq a+b | X \geq a] = P[X \geq b]
+\end{displaymath}
+
+Proof.
+
+Firstly, let's find the so-called survivor function:
+
+\begin{eqnarray*}
+P[X \geq a] &=& 1-F(a)\\ 
+&=& 1 - (1-e^{\theta a}) \\
+&=& e^{\theta a}
+\end{eqnarray*}
+
+
+Now let's use basic conditional probability:
+
+\begin{displaymath}
+P[A|B] = \frac{P[A \int B]}{P[B]}
+\end{displaymath}
+
+%But if $A$,$B$ are independent, then $P[A \cap B] = P[A,B]$
+
+\begin{eqnarray*}
+P[X \geq a+b | X \geq a] &=& \frac{P[X \geq a+b, X \geq a]}{P[X \geq b]}\\
+&=& \frac{e^{-\theta(a+b)}}{e^{-\theta b} = e^{-\theta a}}
+\end{eqnarray*}
+
+Side note (more on conditional expectation to follow):
+
+\begin{displaymath}
+E[X|X>a] = a + E[X-a|X+a]=a+\frac{1}{\theta}
+\end{displaymath}
+
+
+
+Memoryless can be great in some applications (failure times of lightbulbs) but not in others (life expectancy).
+
+\newpage
+
+
+\subsection{The Gamma distribution}
+
+{\color{green} By convention we write $Y \sim Gamma(a,\theta)$}
+
+By way of introduction, recall the Gamma function:
+\begin{displaymath}
+\Gamma (a) = \int_0^{\infty} x^{a-1} e^{-x} dx
+\end{displaymath}
+
+If we want to use this as a pdf (for random variable $X$ and parameter $a$, we need to make it integrate to one.   How?   The clue should be in the resursive nature of the Gamma function.   Let's divide it by itself!
+
+\begin{displaymath}
+f(x) = \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx
+\end{displaymath}
+
+We can check this is non-negative, and we know $P(\Omega)=1$ because we just made it so.
+
+
+\newpage
+
+At the moment, this has only one parameter.   We can add another by rescaling, such that we then have $Y \sim Gamma(a,\theta)$ where $Y = \frac{X}{\theta}$:
+
+\begin{displaymath}
+f(y) = \frac{\theta^a}{\Gamma (a)} x^{a-1} e^{-\theta x} dx
+\end{displaymath}
+%Do I need \theta^a?????????????
+
+This can be thought of as a nice extension to the negative exponential.  There are two parameters, hence there is more flexibility in defining the sahpe than you have with the negative exponential distribution.   If you restrict $a$ to being an integer, you can think of the $Gamma(a, \theta)$ as the time taken to the arrival of the $a$th independent $Exponential(\theta)$ random variables (but $a$ isn't restricted to the integers.   One word of warning, there are two very different ways of specifying the density!  % Here's one:
+
+%\begin{displaymath}
+%f(x|a,b) = \frac{a^bx^{b-1}e^{-ax}}{\Gamma(b)}; 0 \leq x < \infty.
+%\end{displaymath}
+
+%It might be worth pointing out that $\frac{a^b}{\Gamma(b)}$ is a constant of integration here, the shape and scale is determined by $x^{b-1}e^{-ax}$
+
+
+\newpage
+
+Because of the recursive properties of the $Gamma$ function, it will turn out to be worryingly easy to find moments.   Taking a ``standard'' Gamma density (i.e., with $\theta=1$:
+
+\begin{eqnarray*}
+E[X^c] &=&  \int_0^{\infty} x^c \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx \\
+&=& \frac{1}{\Gamma (a)} \underbrace{\int_0^{\infty}  x^{a+c-1} e^{-x} dx}_{\mbox{A }\Gamma \mbox{ function}} \\
+&=& \frac{\Gamma(a+c)}{\Gamma(a)}
+\end{eqnarray*}
+
+Hence we can find $E[X^n]$ very simply:
+
+\begin{displaymath}
+E[X] = \frac{\Gamma (a+1)}{\Gamma(a)} = \frac{a \Gamma(a)}{\Gamma(a)} = a
+\end{displaymath}
+
+
+\begin{displaymath}
+E[X^2] = \frac{\Gamma (a+2)}{\Gamma(a)} = \frac{a+1 \Gamma(a+1)}{\Gamma(a)} = \frac{(a+1)a\Gamma(a)}{\Gamma(a)}  = a^2+a
+\end{displaymath}
+
+So $Var(X) = a^2+a-a^2 = a$
+
+Remember that $Y = \frac{X}{\theta}$
+
+\fbox{Rescaling gives us $E[Y] = \frac{a}{\theta}$ and $Var(Y) = \frac{a}{\theta^2}$}
+
+
+%\fbox{Note that $E[X] = \frac{b}{a}$ and $V[X] = \frac{b}{a^2}$}
+
+\newpage
+
+\subsection{The Cauchy distribution}
+
+(first considered by Poisson)
+
+\begin{displaymath}
+f(x) = \frac{1}{\pi (1+x^2)}, -\infty < x < \infty.
+\end{displaymath}
+
+The most interesting feature of this density is that it has no moments (which we examine next week), and it's most common use is in ``counter examples'' (or trick questions).
+
+\newpage
+
+\subsection{The Beta distribution}
+
+{\color{green} By convention we write $X \sim Beta(a,b)$}
+
+\begin{displaymath}
+f(x|a,b) = \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)} x^{a-1}(1-x)^{b-1};0 \leq x \leq 1
+\end{displaymath}
+
+The expression $\frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}$ might look intimidating, but it is only a \emph{constant} to make sure that $\int f(x)=1$ for this distribution (it's the reciprocal of the Beta function, so you can guess where this distributio gets its name).   In other words, all the important work in terms of the shape of of the curve is done by $ x^{a-1}(1-x)^{b-1}$; but we need to multiply it by some constant to get the integral over the whole domain equal to one.
+
+It turns out that the uniform distribution is just an example of a beta distribution where $a=1$ and $b=1$.
+
+
+\newpage
+
+Finding $E[X^n]$ is easy like the $Gamma$
+
+\begin{eqnarray*}
+E[X^n] &=& \frac{1}{Beta(a,b)} \int_{0}^1 x^n x^{(a-1)}(1-x)^{(b-1)}dx \\
+&=&  \frac{1}{Beta(a,b)} \int_{0}^1 \underbrace{x^{(a+n-1)}(1-x)^{(b-1)}dx}_{\mbox{A } Beta \mbox{ density}} 
+\end{eqnarray*}
+
+So, we know that:
+
+\begin{displaymath}
+E[X^n] = \frac{Beta(a-n, b)}{Beta(a,b)} = \frac{\Gamma(a+n) Gamma(a+b)}{\Gamma(a+b+n)}{Gamma(a)}
+\end{displaymath}
+
+So that:
+
+
+
+\fbox{Note that $E[X] = \frac{a}{a+b}$ and $V[X] = \frac{ab}{(a+b)^2(a + b + 1)}$}
+
+(check these: for $a=b=1$ does it match the standard Uniform as promised?
+
+
+\newpage
+
+\subsubsection{Some exercises before we go on}
+
+\begin{shortquiz}
+\begin{questions}
+\item If $X \sim Beta(3,5)$; find $E[X]$ and $Var[X]$
+\begin{answers}[pdf1]{1}
+\Ans1 $E[X] = \frac{3}{8}$, $Var[X]= \frac{15}{8^2\times 9}$ \\
+\Ans0 $E[X] = \frac{3}{5}$, $Var[X]= \frac{3}{5^2}$\\
+\Ans0 $E[X] = \frac{3}{8}$, $Var[X]= \frac{3}{5^2}$\\
+%\Ans0 $E[X] = \frac{3}{5}$, $Var[X]= \frac{15}{3^2\times 5}$
+\end{answers}
+\item If $X \sim Gamma(26,5)$, find $E[X]$ and $Var[X]$  
+\begin{answers}[pdf2]{1}
+\Ans0 $E[X] = \frac{26}{31}$, $Var[X]= \frac{130}{31^2\times 32}$ \\
+\Ans1 $E[X] = \frac{26}{5}$, $Var[X]= \frac{26}{5^2}$\\
+\Ans0 $E[X] = \frac{26}{31}$, $Var[X]= \frac{26}{31^2}$\\
+%\Ans0 $E[X] = \frac{26}{5}$, $Var[X]= \frac{31}{26^2\times 5}$
+\end{answers}
+\newpage
+\item Consider the figure below:
+
+
+<<betacurve, echo = FALSE, results = hide, fig = TRUE>>=
+curve(dbeta(x, 2.7, 6.3), from = -1, to = 1, main = "What distribution?", xlab = "x", ylab = "Density", lwd = 2, col = "red")
+@
+
+
+This figure shows an example belonging to one the distributions we have outlined.   Which is the most likely distribution?
+\begin{answers}[pdf3]{2}
+\Ans0 Uniform & 
+\Ans0 Negative exponential \\
+\Ans0 Gamma &
+\Ans1 Beta
+\end{answers}
+\begin{solution}
+The Beta and the Uniform are the only distributions we have considered that can be bounded in a range (here 0 and 1).   The uniform distribution would be flat over this range, so we could assume this would be a beta distribution (actually it's a $beta(4,2)$
+\end{solution}
+\end{questions}
+\end{shortquiz}
+
+\newpage
+
+\subsection{The Normal distribution}
+
+{\color{green}By convention we write $X \sim N(\mu, \sigma^2)$}
+
+This is sometimes named the Gaussian distribution, after Karl Friedrich Gauss who studied some of its key properties.
+
+\begin{df}
+The normal density is given by:
+\begin{displaymath}
+f(x|\mu, \sigma^2)=\frac{1}{\sqrt 2 \pi \sigma} \exp \left\{ -\frac{1}{2} \left(\frac{x-\mu}{\sigma} \right)^2 \right\}, -\infty < x < \infty, \sigma > 0 
+\end{displaymath}
+\end{df}
+
+There's no easy way of working with the integral (there is no expression for an indefinite integral) so for our purposes we have to assume that with such a well used density someone somewhere has checked that $\int_{-\infty}^{\infty}f(x)=1$.  Again, it might be interesting to know that $=\frac{1}{\sqrt 2 \pi \sigma}$ is another of these constants that ensures the integation is equal to unity.
+
+
+\fbox{Note that $E[X] = \mu$ and $V[X]=\sigma^2$.}
+
+
+
+\newpage
+
+A nice property of the normal density is that linear functions of a random variable $X$ distributed according the normal distribution will also be normal.
+
+\begin{df}
+Let $X \sim N(\mu, \sigma^2)$, and let $Y=\alpha + \beta X$.   Then we have:
+\begin{displaymath}
+Y \sim N(\alpha + \beta \mu, \beta^2\sigma^2)
+\end{displaymath}
+
+As a consequence, if we have a variable $X \sim N(\mu, \sigma^2)$ then we have the identity:
+
+\begin{displaymath}
+Z = \frac{X-\mu}{\sigma} \sim N(0,1)
+\end{displaymath}
+This variable $Z$ is referred to as the \emph{standard normal}.
+\end{df}
+
+It is important that we can ``transform'' any given variable to a standard normal because we can very easily make probability statements about the standard normal.   Specifically:
+
+\begin{displaymath}
+p[x_1 < X < x_2] = p \left[ \frac{x_1-\mu}{\sigma} < Z < \frac{x_2 -\mu}{\sigma} \right]
+\end{displaymath}
+
+We can easily obtain (via printed tables or the computer) values for $p[X \leq x]$ for the Normal distribution, as illustrated by this figure:
+%\begin{center}
+%\includegraphics[width=0.25\textwidth]{normtabs}
+%\end{center}
+Some values for the area under the curve, for integer values of $z$ are given here:
+
+\begin{tiny}
+\begin{center}
+\begin{tabular}{rr}
+  \hline
+  $z$ & $p[Z \leq z]$ \\ 
+  \hline
+ -3 & 0.0013 \\ 
+ -2 & 0.0228 \\ 
+ -1 & 0.1587 \\ 
+  0 & 0.5000 \\ 
+  1 & 0.8413 \\ 
+  2 & 0.9772 \\ 
+  3 & 0.9987 \\ 
+   \hline
+\end{tabular}
+\end{center}
+\end{tiny}
+
+\newpage
+\subsubsection{A problem}
+
+If $X \sim N(10,4)$, calculate $p[4 < X < 8]$
+
+We want:
+\begin{eqnarray*}
+p[4 < X < 8] &=& p \left[ \frac{4-10}{2} < \frac{X-10}{2} < \frac{8-10}{2} \right]\\
+&=& p[-3 < Z < -1]\\
+&=& p[Z < -1] - p[Z < -3]
+\end{eqnarray*}
+
+From the table, we can see that the values we need are $0.1587$ and $0.0013$, hence
+
+\begin{eqnarray*}
+p[4 < X < 8] &=& 0.1587-0.0013\\
+ &=& 0.1574
+\end{eqnarray*}
+
+There are some more detailed tables posted on the web.
+
+
+
+
+
+\newpage
+
+\useBeginQuizButton
+\useEndQuizButton 
+\begin{quiz}{norms}
+\begin{questions}
+\item If $Z$ is the standard normal random variable, then $p(Z > -0.38)$ is
+\begin{answers}[s1]{4}
+\Ans0 $0.1480$ & 
+\Ans0 $0.3520$ &
+\Ans0 $0.2960$ &
+\Ans1 $0.6480$
+\end{answers}
+\item The distribution of lifetimes for a certain type of light
+        bulb is normally distributed with a mean of 1000 hours and a
+        standard deviation of 100 hours.  Find the 33rd percentile of
+        the distribution of lifetimes.   In other words, find $p[Z \leq 0.33]$, and transform this into a lifetime
+\begin{answers}[s2]{4}
+\Ans0 560 &
+\Ans0 330 &
+\Ans1 956 & 
+\Ans0 1044
+\end{answers}
+\begin{solution}
+Firstly, we need to find $k$ such that $p(z<=k) = .33$.   If we look up the tables we find that such a value is given by $z = -.44$.   Now all we need to do is to transform this:
+
+\begin{eqnarray*}
+ -.44 &=& (x-1000)/(100)\\
+                   x &=& -44 + 1000\\
+                       &=& 956
+\end{eqnarray*}
+
+So we would expect 33\% of our light bulbs to last at least 956 hours
+\end{solution}
+\item Consider a normal distribution with mean $\mu=3$ and variance $\sigma^2=49$.   What are the
+        upper and lower limit scores for the middle 50\% of the data?
+\begin{answers}[s3]{2}
+\Ans0  $-29.83$ and $35.83$ &
+\Ans0 $ -1.31$ and  $7.69$ \\
+\Ans0 $ -1.69$ and  $7.69$ &
+\Ans0 $ 3.00$ and $24.00$
+\end{answers}
+\begin{solution}
+We want the limits for the middle 50\% of the data, i.e. from
+            the 25th percentile to the 75th percentile.
+
+We therefore need to know the value of $z$ corrsponding to $p[Z \leq z]=0.25$, which is $-.67$.   We also want to know the value of $z$ corresponding to the point at which $p[Z \leq z] = 0.75$, which is $.67$ (note the symmetry!)
+
+All we need to do having found these values is to reverse the transformation:
+
+\begin{eqnarray*}
+                z &=& \frac{(x - \mu)}{\sigma}\\
+             -.67 = \frac{(x - 3)}{7}\\
+            -4.69 = x - 3
+\end{eqnarray*}
+
+So $X(lower limit) = -1.69$.   Applying the same to the upper limit yields $3 + 4.69 = 7.69$
+\end{solution}
+\end{questions}
+\end{quiz} \quad\eqButton{norms}Points: \ScoreField{norms}
+
+
+\section{Bivariate density function}
+
+We could say that a bivariate continuous random variable is one that takes  continuum of values on a plane (whereas a \emph{univariate} random variable takes a continuum of values on the number line).   So instead of being interested in the area under the curve, which tells us the probability of a variable falling in a particular range, we are interested in the volume under the density function.
+
+\begin{df}
+For a non-negative function $f(x,y)$ defined over the whole plane, such that:
+\begin{displaymath}
+p[x_1 \leq X \leq x_2, y_1 \leq Y \leq y_2] = \int_{y_1}^{y_2} \int_{x_1}^{x^2} f(x,y) dxdy
+\end{displaymath}
+for any $x_1, x_2, y_1, y_2$ where $x_1 \leq x_2$, $y_1 \leq y_2$ then $(X,Y)$ is a \emph{bivariate continuous random variable} and $f(x,y)$ is the \emph{joint density function}.
+\end{df}
+
+The same rules apply to bivariate (or multivariate) functions as apply to univariate functions in terms of being able to act as a density function, namely:
+\begin{itemize}
+\item $f(x,y) \geq 0$ for all $x,y \in \Omega$
+\item $\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x,y)dxdy=1$
+\item In addition, we should be able to change the order of integration so that:
+$\int_{x_1}^{x_2} \int_{y_1}^{y_2} f(x,y)dxdy=\int_{y_1}^{y_2} \int_{x_1}^{x_2} f(x,y)dxdy$
+\end{itemize}
+
+\newpage
+
+\subsubsection{A worked example}
+
+Let $f(x,y)=xye^{-(x+y)}$ for $x>0, y>0$.   How do we evaluate $p[X>1,Y<1]$?
+
+\begin{eqnarray*}
+p[X>1,Y<1] &=& \int_0^1 \int_1^{\infty} xye^{-(x+y)}\\
+&=& \int_0^1 xe^{-x} \int_1^{\infty}  ye^{-y}
+\end{eqnarray*}
+
+Both these terms require an integration by parts.   If we set:
+
+\begin{itemize}
+\item $U=-e^{-x}$
+\item $V=x$
+\item $a=1$
+\item $b=\infty$
+\end{itemize}
+
+we can use:
+
+\begin{eqnarray*}
+\int_a^b \frac{dU}{dx}Vdx &=& U(b)V(b)-U(a)V(a)-\int_a^b \frac{dV}{dx}Udx\\
+\int_1^{\infty} xe^{-x}dx &=& U(\infty)V(\infty)-U(1)V(1)-\int_1^\infty \frac{dV}{dx}Udx\\
+&=& [-xe^{-x}]_1^{\infty} - \int_1^\infty e^{-x}dx\\
+&=& e^{-1} + [-e^{-x}]_1^{\infty}\\
+&=& 2e^{-1}
+\end{eqnarray*}
+
+Similar work with $y$ yields $\int_0^1 ye^{-y}dy=1-2e^{01}$.   Multiplying these two together therefore yields:
+
+\begin{displaymath}
+p[X>1,Y<1] = 2e^{-1}(1-2e^{-1})
+\end{displaymath}
+
+\newpage
+
+\subsection{Marginal density}
+
+We anticipated this when we examined discrete random variables.   If for a pair of continuous random variables $(X,Y)$ we wish to determine the probability for one of those variables, either $p[x_1 \leq X \leq x_2]$ or $p[y_1 \leq Y \leq y_2]$ then we need to use:
+
+\begin{displaymath}
+p[x_1 \leq X \leq x_2] = p[x_1 \leq X \leq x_2, -\infty < Y < \infty]
+\end{displaymath}
+in other words we shall use:
+\begin{displaymath}
+f(x) - \int_{-\infty}^{\infty} f(x,y)dy
+\end{displaymath}
+and ``integrate out'' variable $Y$.
+
+\newpage
+
+\subsection{Conditional density}
+
+Following earlier discussions of probability and of discrete functions, we should know that we need to use:
+
+\begin{displaymath}
+f(x,y|S) = \frac{f(x,y)}{p[X,Y \in S]} for (x,y) \in S
+\end{displaymath}
+
+where $S$ is some subset of the bivariate sample space (with greater than zero probability.
+
+We can therefore use:
+
+\begin{displaymath}
+f(x|y_1 \leq Y \leq y_2) = \frac{\int_{y_1}^{y_2} f(x,y)dy}{\int_{-\infty}^{\infty} \int_{y_1}^{y_2} f(x,y) dydx}
+\end{displaymath}
+
+Do note that if we integrate over an interval $[x_1,x_2]$ we have the conditional probability $p[x_1 \leq X \leq x_2|y_1 \leq Y \leq y_2]$
+
+\newpage
+
+\subsection{Independence}
+
+\begin{df}
+Continuous random variables are said to be independent if
+
+\begin{displaymath}
+f(x,y)=f(x)f(y)
+\end{displaymath}
+for all $x$ and $y$.
+\end{df}
+
+\newpage
+
+\subsection{A worked example}
+
+Assume $f(x,y) = \frac{3}{2}(x^2+y^2)$.
+
+\begin{itemize}
+\item Find $p[0 < X < 0.5 | 0 < Y < 0.5]$
+
+We need to find:
+\begin{displaymath}
+\frac{p[0 < X < 0.5, 0 < Y < 0.5]}{p[0 < Y < 0.5]}
+\end{displaymath}
+The numerator is given by $\frac{3}{2} \int_0^{0.5} \int_{0}^{0.5}x^2+y^2dxdy$ which is $\frac{1}{16}$
+%$\frac{3}{2}([\frac{1}{3}x^3]_0^{0.5}[\frac{1}{3}y^3]_0^{0.5}
+
+The denominator is given by:
+\begin{displaymath}
+f(y) = \frac{3}{2} \int_{0}^1 (x^2 + y^2)dx=\frac{1}{2} + \frac{3}{2}y^2
+\end{displaymath}
+
+To evaluate this for $p[0 < Y < 0.5]$ we need to use:
+
+\begin{displaymath}
+\int_0^{0.5} \left( \frac{1}{2} + \frac{3}{2} y^2 \right) dy = \frac{5}{16}
+\end{displaymath}
+
+So in order to find $p[0 < X < 0.5 | 0 < Y < 0.5]$ we have $\frac{1/16}{5/16}=\frac{1}{5}$
+
+\item Find $p[0 < X < 0.5 | Y = 0.5]$
+
+This conditional density is given by:
+
+\begin{displaymath}
+f(x|y) = \frac{f(x,y)}{f(y)}=\frac{\frac{3}{2}(x^2+y^2)}{\frac{1}{2} + \frac{3}{2}y^2}
+\end{displaymath}
+
+and putting in $y=0.5$ yields $\frac{3}{7}+\frac{12}{7}x^2$.
+
+So to find $p[0 < X < 0.5 | Y=0.5]$ requires:
+
+\begin{displaymath}
+\int_0^{0.5} \left(\frac{3}{7} + \frac{1}{2}x^2 \right) dx = \frac{2}{7}
+\end{displaymath}
+
+\item Determine whether $X$ and $Y$ are independent.
+
+They are not independent, as we cannot express $f(x,y)$ as a function of $x$ alone and of $y$ alone.   For example:
+
+\begin{displaymath}
+\frac{3}{2}(x^2 + y^2) \neq \left(\frac{1}{2} + \frac{3}{2}x^2 \right)\left(\frac{1}{2} + \frac{3}{2}y^2 \right)
+\end{displaymath}
+
+
+\end{itemize}
+
+\section*{Further written exercises}
+
+{\color{red}
+There are no set exercises (it's the weekend).   But you really should do the end of week quiz!!!!!!!!!}
+
+
+\NaviBarOff
+
+\end{document}

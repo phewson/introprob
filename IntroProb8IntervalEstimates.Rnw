@@ -1,0 +1,433 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Statistics Crash Course: \\ Interval estimation}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{10th September 2012}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=2.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.3} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   ideas on interval estimation.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\usepackage{Sweave}
+\begin{document}
+
+
+\maketitle
+
+%tableofcontents
+
+\section[Introduction]{Introduction}
+
+We follow Berger and Casella, and introduce the topic by considering a sample of size $n=4$ from a $Normal(\mu, 1)$ density.   First, we propose the interval $[-\infty < \mu < \infty]$.   This would however be: 
+\begin{itemize}
+\item[(a)] completely correct and 
+\item[(b)] completely useless
+\end{itemize}
+As (b) dominates (a), we next propose to use an interval estimator for $\mu$ as $[\bar{X}-1 < \mu < \bar{X}+1]$.   
+
+\begin{itemize}
+\item[(a)] How ``correct'' is this and
+\item[(b)] How ``useful'' is this
+\end{itemize}
+
+We can do the following calculations:
+
+\begin{eqnarray*}
+Pr[(\bar{X}- 1) \leq \mu \leq (\bar{X}+1)] &=& Pr[-1 \leq \bar{X}-\mu \leq 1]\\
+&=& Pr \left[ -2 \leq \frac{\bar{X}-\mu}{\sqrt{1/4}} \leq 2 \right]\\
+&=& Pr [ -2 \leq Z \leq 2 ] \\
+&=& \phi^{-1}(2) - \phi^{-1}(-2) = 0.9544
+\end{eqnarray*}
+
+And we say we have a 95\% chance of {\color{red}\emph{ covering}} the unknown parameter $\mu$ within our interval.
+
+
+The word {\color{red}\emph{confidence}} is carefully chosen.   We do not make any
+probabilistic statements about our point estimates, although there is
+a clear relationship between confidence and probability.
+
+\newpage
+
+\begin{df}
+{\color{red}Confidence}: is a number between 0 and 1 (although it may be
+expressed as a percentage).   Statements may be made such as:
+\begin{itemize}
+\item a parameter $\theta$ lies in the interval $[a,b]$ with 0.95
+  confidence
+\item  A 0.95 confidence interval for $\theta$ is $[a,b]$
+\end{itemize}
+\end{df}
+
+Note carefully (this has been illustrated in the notes earlier) that confidence intervals have a repeated sampling property which we attempt to measure by coverage.   Imagine we have a large number of samples from the same population, and use whatever method we choose to form a confidence interval.   Coverage means that $\alpha$\% (e.g. 95\%) of the confidence intervals drawn from these many samples 
+will contain the unknown parameter.
+
+We {\color{red}\emph{cannot}} say that there is $\alpha$\% (e.g. 95\%) probability that the interval contains the parameter.   We {\color{red} \emph{can}} say that $\alpha$\% (e.g. 95\%) of intervals constructed in a certain way to a large number of repeated samples will contain the interval (i.e. the interval either contains or doesn't contain the true value with probability 1).
+
+\newpage
+\subsection{Example}
+
+Lets use an approximation to the Normal distribution to derive one confidence interval.   Consider $X_{i} \sim Bernoulli(1, p)$.   We know that $$\bar{X}
+\stackrel{A}{\sim} N(p, p(1-p)/n)$$.   Centering and scaling this, we
+have:
+$$\frac{\bar{X} - p}{\sqrt{\frac{p(1-p)}{n}}} \stackrel{A}{\sim}
+N(0,1)$$.   Consequently, if  we consider a standard normal variable
+$Z$, then the probability $\alpha = P(|Z| < k)$ is the probability
+that this variate is less than a known constant $k$.   For example we
+have been looking at $k = 1.96$ which gives rise to $\alpha = 0.95$.
+However, if we keep thinking about values of $\alpha$ in general, and
+the associated values of $k$, we have for example:
+$$P \left( \frac{\bar{X} - p}{\sqrt{ \frac{p(1-p)}{n}}} < k \right) =
+\alpha$$
+
+If we now have some realisation $\bar{x}$ of $\bar{X}$, we can define
+\emph{confidence} by:
+$$C \left( \frac{\bar{x} - p}{\sqrt{ \frac{p(1-p)}{n}}} < k \right) =
+\alpha$$
+which tells us that ``the confidence that $p$ lies in the interval
+described by the inequality in the bracket is $\alpha$'' or
+equivalently ``the $\alpha$ confidence interval for $p$ is given by
+the inequality in that bracket''.
+
+\begin{shortquiz}
+\begin{questions}
+\item Assume $n = 10$ Bernoulli trials giving rise to $\bar{x}=0.5$.   Write
+the 95\% confidence interval for $p$.
+\begin{answers}[bci]{2}
+\Ans1 $0.2366 < p < 0.7634$ & 
+\Ans0 $0.2633 < p < 0.7364$ \\
+\Ans0 $0.4038 < p < 0.5962$ &
+\Ans0 $0.4308 < p < 0.5269$
+\end{answers}
+\begin{solution}
+We need to rewrite the above equations to remove the unknown values of
+$p$.   If we do this, we find that we have an expression for our
+confidence limits, based on the Normal approximation of:
+
+$$u_{l}, l_{l}=\frac{2 \bar{x} + \frac{k^2}{n} \pm \sqrt{ \left( 2
+      \bar{x} + \frac{k^2}{n} \right)^2 - 4\left(1 + \frac{k^2}{n}
+    \right) \bar{x}^2}}{2 \left( 1 + \frac{k^2}{n} \right) }$$.
+
+It's then a simple matter of plugging in the numbers.   Note that the
+calculation above has been based on $k=1.96$
+
+%k <- 1.96
+%barx <- 0.5
+%n <- 10
+%( 
+%(2 * barx) + ((k^2)/n) + 
+%sqrt((1 + ((k^2)/n))^2 - 4*(1+((k^2)/n))*barx^2)
+%)/
+%(2 * (1 + (k^2/n)))
+
+\end{solution}
+\item Assume $n = 10$ Bernoulli trials giving rise to $\bar{x}=0.5$.   Write
+the 95\% confidence interval for $p$.
+\begin{answers}[bci100]{2}
+\Ans0 $0.2366 < p < 0.7634$ & 
+\Ans0 $0.2633 < p < 0.7364$ \\
+\Ans1 $0.4038 < p < 0.5962$ &
+\Ans0 $0.4308 < p < 0.5269$
+\end{answers}
+\begin{solution}
+The thing to note here is that the confidence interval gets shorter as
+$n$ gets larger.
+\end{solution}
+\end{questions}
+\end{shortquiz}
+
+\newpage
+
+\section{What about a Normal confidence interval}
+
+\subsection{Confidence interval for $\mu$, $\sigma^2$ known}
+
+We've done this before.   In the population we can define the
+following expression, provided $\sigma^2$ is known (I've always
+wondered how on earth we could possible know $\sigma^2$ but still):
+
+$$P\left( \frac{ \lvert \bar{X} - \mu \rvert
+  }{\sqrt{\frac{\sigma^2}{n}}} < k \right) = \alpha$$
+
+so given a sample where we have $\bar{x}$, we can define confidence
+as:
+
+$$C\left( \frac{ \lvert \bar{x} - \mu \rvert
+  }{\sqrt{\frac{\sigma^2}{n}}} < k \right) = \alpha$$
+
+Hence, the greater the probability that $\bar{X}$ lies within a
+certain distance of $\mu$, the greater the confidence that $\mu$ lies
+the same distance from $\bar{x}$.   Super.   
+
+Do note very carefully that this only works for centered variables.
+We should go trying to define $N(\bar{x}, \sigma^2/n)$ as we end up
+with infinte possible functions to define the area of interest under
+the curve.
+
+\newpage
+
+\begin{shortquiz}
+We believe that the height of Hull City Association Football Club
+supporters is distributed as $N(\mu, 0.04)$.   If the average height
+of nine supporters is found to be 1.81m, find the 95\% confidence
+interval:
+\begin{answers}[normci]{2}
+\Ans0 $1.743 < \mu < 1.877$ & 
+\Ans0 $1.766 < \mu < 1.854$ \\
+\Ans0 $1.788 < \mu < 1.832$ &
+\Ans1 $1.679 < \mu < 1.941$
+\end{answers}
+ \begin{solution}
+We have $$C\left( \lvert 1.81 - \mu \rvert < \frac{0.2}{\sqrt{9}}
+  \times 1.96 \right) = 0.95$$.   We can readily calculate this, using
+    conventional algorithm as $\bar{x} \pm 1.96
+    \frac{0.2}{\sqrt{9}}$, giving $1.679 < \mu < 1.941$
+\end{solution}
+\end{shortquiz}
+
+\newpage
+
+
+\section{Pivot methods}
+
+An method for finding exact confidence intervals (this is only ``exact'' if the underlying distributional assumptions about the data are valid) is based on pivots.
+
+\begin{df}
+A function $g(X, \theta)$ of data and parameters is said to be a pivot if it's distribution does not depend on the unknown parameters.
+\end{df}
+
+\subsection{Confidence interval for $\mu$, $\sigma^2$ unknown}
+
+The most famous example of a pivotal quantity is:
+
+\begin{displaymath}
+g(X, \mu) = \frac{\bar{X_n}-\mu}{S_n\sqrt{n}}
+\end{displaymath}
+
+Here we have estimated two quantities:
+
+\begin{itemize}
+\item[] $\bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i$
+\item[] $S_n^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X}_n)^2$
+\end{itemize}
+
+And further we have that
+
+\begin{displaymath}
+g(X,\mu) \sim t_{n-1}
+\end{displaymath}
+provided the data $X_1, X_2, \ldots X_n$ are iid $Normal(\mu, \sigma^2)$
+This distribution is called the ``Student's distribution on $n-1$ degrees of freedom''.
+It's density does approach $N(0,1)$ as $n \to \infty$.   ``Student''
+is a psueudonym for a Mr.Gossett who worked for the Guinness brewery
+in Dublin and didn't want his employers to know what he did in his
+spare time.
+
+Anyway, if we define the population estimator first:
+$$P\left( \frac{ \lvert \bar{X} - \mu \rvert \sqrt{n-1}
+  }{S} < k \right) = \alpha$$
+we get an expression for the corresponding confidence interval as:
+$$C\left( \frac{ \lvert \bar{x} - \mu \rvert \sqrt{n-1}
+  }{s} < k \right) = \alpha$$
+
+\begin{shortquiz}
+Now find the confidence interval for the height of our football
+supporters based on the t-disribution.   For our purposes, the
+relevant values of the t-distribution on $n-1=8$ degrees of freedom is
+$\pm 2.31$.   Comment on the difference between this and the the
+result obtained from using the Normal distribution.
+\begin{answers}[tci]{2}
+\Ans0 $1.348 < \mu < 2.272$ & 
+\Ans0 $1.753 < \mu < 1.868$ \\
+\Ans1 $1.647 < \mu < 1.973$ &
+\Ans0 $1.798 < \mu < 1.822$
+\end{answers}
+ \begin{solution}
+We have $$C\left( \frac{\lvert 1.81 - \mu \rvert \times \sqrt{n-1}}{s}
+  < k \right) = 0.95$$.   We can readily calculate this, using
+    conventional algorithm as $\bar{x} \pm 1.231
+    \frac{0.2}{\sqrt{8}}$, giving $1.647 < \mu < 1.973$
+\end{solution}
+\end{shortquiz}
+
+\newpage
+
+
+\subsection{A less famous pivot: Exponential Rate}
+
+Suppose $X_1, X_2, \ldots, X_n$ are iid $Exponential(\theta)$.   There's an addition rule for the exponential that tells us that 
+
+\begin{displaymath}
+\sum_{i=1}^n X_i \sim Gamma(n, \theta)
+\end{displaymath}
+
+If we multiply y a constant we get another Gamma variable with the same shape, but with the rate divided by that constant.   So if we multiply by $\frac{\theta}{n}$ we get:
+
+\begin{displaymath}
+\theta \bar{X}_n \sim Gamma(n,n)
+\end{displaymath}
+
+And the key point is that the distribution of $Gamma(n,n)$ does not depend on the unknown parameter $\theta$.   So we take
+
+\begin{displaymath}
+g(X, \theta) = \theta \bar{X}_n
+\end{displaymath}
+
+The only ``problem'' with this approach is that you don't get tables of the Gamma cumulative distribution function (you would $n \times n$ tables!).
+
+But if we had sample size $n=23$, it is easy to find (from a computer) that
+the $0.025$ and $0.975$ values of the Gamma cdf are $0.6339142$, $1.4481854$.
+
+So our pivotal confidence interval is given by:
+
+\begin{displaymath}
+0.6339142 < \theta \bar{X}_n < 1.4481854
+\end{displaymath}
+
+So if we solve this for $\theta$ we get:
+
+\begin{displaymath}
+\frac{0.6339142}{\bar{X}_n} < \theta  < \frac{1.4481854}{\bar{X}_n}
+\end{displaymath}
+
+
+\newpage
+\subsection{Confidence interval for $\sigma^2$} 
+
+As before, we assume $X_{i} \sim N(\mu, \sigma^2)$ and that both
+parameters are unknown.   The obvious estimator is $S^2 =
+\frac{1}{n}\sum_{i=1}^{n}(x_{i} - \bar{x})^2$ and so we need a
+confidence interval of the form:P
+
+$$a + bS^2 < \sigma^2 < c + dS^2$$
+
+where the interval varies depending on the values of $a,b,c$ and $d$.
+It turns out to be reasonably straightforward to do this, as we shall
+use the fact that 
+$$\frac{nS^2}{\sigma^2}= \chi^2_{n-1}$$
+so we have a probability distribution to work with (on $n-1$ degrees
+of freedom) that will give us values of $k$ for varying probability
+mass.
+
+We want 
+
+$$P \left( k_1 < \frac{nS^2}{\sigma^2} < k_2 \right) =
+P \left(\frac{nS^2}{k_2} < \sigma^2 < \frac{nS^2}{k_1} \right)$$
+
+So our confidence interval problem reduces to one of finding $k_1$ and
+$k_2$ so that
+$$P(k_{1} < \chi^2_{n-1} < k_2) = \alpha$$
+
+We actually need to be a little careful here, as the $\chi^2$ is not a
+symmetric distribution, and so usually we actually need to find $k_1$
+and $k_2$ to give:
+$$P(\chi^2_{n-1} < k_1) = P(\chi^2_{n-1} > k_2) + \frac{1-\alpha}{2}$$
+
+
+\begin{shortquiz}
+\begin{questions}
+\item Looking again at our $n=100$ football supporters, we find that our
+estimate of $s^2=36$.   Find the confidence interval for $\sigma^2$
+You may use the values $k_1 = 74.22$ and $k_2 = 129.56$
+\begin{answers}[chici1]{2}
+\Ans1 $27.79 < \sigma^2 < 48.5$ &
+\Ans0 $28.03 < \sigma^2 < 49.1$ \\
+\Ans0 $4.67 < \sigma^2 < 8.18 $ &
+\Ans0 $4.63 < \sigma^2 < 8.08$
+\end{answers}
+\item If we look up the values for the $\chi^{2}_{99}$ distribution
+  for $0.025$ and $0.975$ we find that they would give $k_1 = 73.36$
+  and $k_2 = 128.42$.   What would be the effect of using these values
+  of $k$ instead of those given in the previous question
+\begin{answers}[chici2]{1}
+\Ans0 The confidence interval would broader
+\Ans0 The confidence interval would be narrower
+\Ans1 The confidence interval would be shifted upwards
+\Ans0 The confidence interval would be shifted downwards
+\end{answers}
+\begin{solution}
+The confidence interval would be shifted upwards.   We noted that we
+have to select $k_1$ and $k_2$ to give 
+$$P(\chi^2_{n-1} < k_1) = P(\chi^2_{n-1} > k_2) + \frac{1-\alpha}{2}$$
+something we skipped over somewhat, and just gave you the relevant $k$
+values.   Once we stop dealing with symmetric distributions such as
+the Normal and $t$ distribution, it isn't always entirely obvious
+which 95\% of the probability mass we're interested in.
+
+
+\end{solution}
+\end{questions}
+\end{shortquiz}
+
+
+<<chidist, fig = TRUE, echo = FALSE, results = hide>>=
+curve(dchisq(x, 99), from = 0, to = 150)
+
+x <- c(seq(from = 74.22, to = 129.56, length = 1000), seq(from = 129.56, to = 74.22, length = 2))
+y <- dchisq(x,99)
+y[1001:1002] <- 0
+polygon(x,y, col = "salmon")       
+abline(v=c(73.36, 128.42))
+@
+
+
+
+The figure shows us that with 99df, the difference is quite small.
+The shaded area is the ``optimal'' area which is specified by those
+magic $k$ values that appeared out of nowhere.   The vertical red
+lines depict the values associated with a probability of 0.025 and
+0.975.   This is less of an issue as the degrees of freedom increases,
+and more of an issue as they decrease.   
+But hopefully it illustrates a general point concerning confidence
+intervals based on asymmetric distributions.   It isn't obvious where
+to draw the limits, there are a number of ways of finding the
+constants that demarkate 95\% of the probability mass.   
+When we look at bootstrapping we will consider this issue again!
+But in the meantime, do think about what the central limit theorem has
+to offer for construction of confidence intervals, where it is
+appropriate to use it!
+
+
+
+\NaviBarOff
+
+\end{document}

@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+\title{Some important ``math'' facts}
+\author{Paul Hewson}
+
+\begin{document}
+\sffamily
+\maketitle
+
+\section{Binomial Theorem}
+
+\begin{displaymath}
+\sum_{x+0}^n \binom{n}{x} p^x q^{n-x} = (p+q)^n 
+\end{displaymath}
+
+\section{Geometric Series}
+
+\begin{displaymath}
+\sum_{x=0}^{\infty} a^x = \frac{1}{1-q}
+\end{displaymath}
+
+(for $|q| < 1$)
+
+\section{Euler's Number}
+
+These are standard expressions
+
+\subsection{Taylor Series version}
+
+\begin{displaymath}
+\sum_{x=0}^{\infty} \frac{a^x}{x!} = e^{a}
+\end{displaymath}
+
+\subsection{``Compound Interest'' version}
+
+\begin{displaymath}
+\left( 1 + \frac{a}{n} \right)^n = e^a
+\end{displaymath}
+
+\section{Integration by parts}
+
+(a very brief reminder)
+
+\begin{displaymath}
+\int u\ dv = uv - \int v\ du
+\end{displaymath}
+
+\section{The Gamma Function}
+
+\begin{displaymath}
+\Gamma (a) = \int_0^{\infty} x^{a-1} e^{-x} dx
+\end{displaymath}
+for any real $a>0$
+
+\subsection{Nice properties}
+
+\begin{itemize}
+\item[] $\Gamma (a) = (a-1)!$ (for positive integers
+\item[] $\Gamma(a+1) = a \Gamma(a)$ (recursive)
+\item[] $\Gamma(\frac{1}{2}) = \sqrt{\pi}$
+\end{itemize}
+
+\end{document}
+

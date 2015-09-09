@@ -1,0 +1,877 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Statistics Crash Course: \\ Expected Values and Moments}
+\author{Paul Hewson}
+\authorColor{blue}
+%\date{blah}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=1.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.3} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   ideas on moments and expected values.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+%tableofcontents
+
+\section[Introduction]{Moments}
+
+This revision guide covers \textbf{one} method for expressing our understanding of a distribution function.   We have been working with moments i.e., $E[X^k]$ for some value of $k$.   Now we want to develop our ideas around this topic a little.
+
+ The term ``moments'' is borrowed from mechanics, and essentially measures the ``force'' exerted by the data given a ``pivot'' either at the origin ($0$) or the mean.   In summary, the
+
+Chapter 6 of Grinstead and Snell covers moments.
+
+
+\subsection{Population Moments}
+
+\begin{itemize}
+\item $k^{th}$ moment around zero = $E[X^{k}]$, often denoted $\mu_{k}$
+\item $k^{th}$ moment around the mean = $E[X - E[X]]^{2}$ (central moments)
+\end{itemize}
+
+The first sample moment is very familiar, you will already be familiar
+with its sample estimator (the sample mean based on sample of size
+$n$).   It will be of little surprise to note that the first
+moment $E[X]$ is often referred to as the $population$ mean.
+
+The second central moment is the variance.
+
+
+\fbox{It is possible for different distributions to have the same moments.}
+
+\subsection{Sample Moments}
+
+ The ``natural'' estimator of a population moment is
+its corresponding sample moment.    So for example, 
+
+\begin{itemize}
+\item the sample $k$th
+moment around zero is given by 
+\begin{displaymath}
+\frac{1}{n}\sum_{i=1}^{n}x_{i}^{k}
+\end{displaymath}
+and we are all utterly familiar with the sample mean where $k=1$.
+
+\item The sample $k$th moment around the mean is given by 
+\begin{displaymath}
+\frac{1}{n}
+\sum_{i=1}^{n} (x_{i} - \bar{x})^k
+\end{displaymath}
+\end{itemize}
+
+
+
+
+
+\subsection{Empirical distribution function / plug in estimation}
+(Sorry, this is a short aside.   I haven't really figured out where it
+belongs, but this becomes quite important when we look at techniques
+such as the bootstrap, so it's cluttering this file up here at the moment)
+
+
+\begin{itemize}
+  \item Let $x_{1}, x_{2}, \ldots,
+x_{n})$ be the observed values of a sample.   
+\item Define a discrete random
+variable $X^{*}$ such that $P(X^{*}=x_{i})=\frac{1}{n}$.  
+\item $X^{*}$ is
+called the \emph{empirical image} of $X$, and its (discrete) probability
+distribution is called the \emph{empirical distribution} of $X$.
+\item Note that $X^{*}$ is always discrete, and that the moments of $X^{*}$
+are the same as the observed values of the sample moments of $X$.
+\end{itemize}
+
+
+\newpage
+
+\subsubsection{Goodness of estimators}
+
+Sample moments are clearly the ``natural'' estimators of population
+moments.   But how do we know whether they are any good?   There are
+three promising properties of moments:
+
+\begin{itemize}
+\item We know that $E[\bar{X}] = E[X]$, so we know that the population
+  mean is close the centre of the distribution of the sample mean
+\item If $Var(X) = \sigma^{2}$ is finite then we know that
+  $Var(\bar{X}) = \frac{\sigma^{2}}{n}$, so the amount of variation of
+    the sample mean around the population mean gets smaller as $n$
+    gets bigger.
+\item We know that $\bar{X} \stackrel{P}{\to} E[X]$ (from Kinchine's
+  law of large numbers).   But provided $Var(X)$ is finite, we also
+  know this from Chebyshev's theorem.
+\end{itemize}
+
+These sound like quite ``good'' properties.
+
+
+\newpage
+
+
+
+
+\subsubsection{Expected value of a discrete random variable}
+
+Recall that we examined expected values when we first considered discrete random variables.   It is such an important concept that it is worth revising thoroughly.
+
+\begin{shortquiz}[Dice Game]
+Let's start with an example, and then work back to a definition of an
+\emph{expected} value.   Consider a game involving a die.   If we roll
+an \emph{odd} number we gain that amount of money, if we roll an
+\emph{even} number we lose that amount of money.   Is this a
+\emph{fair} game?\\
+In order to answer this question, consider all the elements in
+$\Omega$ (i.e. if we roll a $1$ we gain $\pounds 1$, so $X=1$, if we
+roll a $2$ we lose $\pounds 2$, so $X=-2$.   Think also of the
+associated probabilities, i.e. each event occurs with probability
+$\frac{1}{6}$.   The expected value of your gain if you play this game
+is:
+\begin{answers}[dg]{4}
+\Ans0 \pounds -1 & 
+\Ans1 \pounds -0.5 & 
+\Ans0 \pounds 0.5 & 
+\Ans0 \pounds 1
+\end{answers}
+\begin{solution}
+We have $6$ outcomes, each has probability $\frac{1}{6}$.   The \emph{average} gain is given by:
+
+\begin{displaymath}
+E[gain] = 1(\frac{1}{6}) - 2(\frac{1}{6}) + 3(\frac{1}{6}) - 4(\frac{1}{6}) + 5(\frac{1}{6}) - 6(\frac{1}{6})
+\end{displaymath}
+
+So $E[gain] = -0.5$.\\[0.5cm]
+This is not a good game to play!\\[1cm]
+Click that green box to return to the notes $\to$
+\end{solution}
+\end{shortquiz}
+
+\newpage
+
+
+\begin{df}
+For a discrete random variable, the expected value is given by:
+
+\begin{displaymath}
+E[X] = \sum_{x \in \Omega} x f(x)
+\end{displaymath}
+where $f(x)$ is the probability distribution function and $\Omega$ is the sample space.
+\end{df}
+
+\newpage
+
+\begin{shortquiz}{Three coins game}
+Another example.   Consider a game where you toss a coin three times.
+Let $X$ denote the number of heads in those three throws.   Find
+$E[X]$.  We know that $\Omega = (0,1,2,3)$ but you may find it
+convenient to work out the associated probabilities longhand.   For
+example, there is only one way of
+getting three heads (HHH) but there are three ways of getting two
+heads (HHT, HTH, THH).
+\begin{answers}[c3]{4}
+\Ans0 $\frac{1}{2}$ &
+\Ans0 $1$ &
+\Ans1 $\frac{3}{2}$ &
+\Ans0 $2$
+\end{answers}
+\begin{solution}
+If we write out all the possible outcomes by hand we find there are 8
+possible ways of getting an outcome, one way of getting 0, three ways of getting 1, three ways of getting
+2, one way of getting 3.   This then forms our p.d.f ($\frac{1}{8},
+\frac{3}{8} \ldots$).   We therefore find $E[X]$ as follows:
+\begin{displaymath}
+E[X] = 0 (\frac{3}{8}) + 1(\frac{3}{8}) + 2(\frac{3}{8}) + 3 (\frac{1}{8}) = \frac{3}{2}
+\end{displaymath}
+\end{solution}
+\end{shortquiz}
+
+
+\newpage
+
+\subsubsection{Expected value of a function of a discrete random
+  variable}
+
+It turns out that we often need to do rather more than just find
+$E[X]$.  A rather trite example will be given later, but for now
+consider the following definition.   If $X$ has sample space $\Omega$,
+and pdf $f(x)$, we can find $E[\phi (X)]$ where $\phi(X)$ is a real
+valued function with domain $\Omega$ using the following.
+
+
+\begin{df}
+The expected value of a function $\phi(x)$ of a random variable is
+given by:
+\begin{displaymath}
+E[\phi (X)] = \sum_{x \in \Omega} \phi (x) f(x)
+\end{displaymath}
+\end{df}
+
+This is known as the ``law of the lazy statistician''.   It looks like a nice formula, but it's not obvious that it's correct.
+
+\newpage
+
+
+\subsection{Variance of a discrete random variable}
+
+
+\begin{df}
+It turns out that the variance has a definition in terms of expected
+values.   Specifically, 
+\begin{displaymath}
+Var(X) = E[(X - E[X])^{2}]
+\end{displaymath}
+\end{df}
+
+If we therefore consider our function above, $\phi(x)$ to be a
+function denoting ``centre by the mean and square the result'', we
+have an example of finding the expected value of a function of a variable.
+
+\begin{shortquiz}{Variance}
+Consider a simple example, rolling a die, where we denote the number
+rolled as $X$.     Use the above definition to find the variance of
+$X$.
+\begin{answers}[vx]{4}
+\Ans1 $\frac{35}{2}$ &
+\Ans0 $\frac{35}{4}$ &
+\Ans0 $\frac{24}{8}$ &
+\Ans0 $\frac{35}{8}$
+\end{answers}
+\begin{solution}
+First, find $E[X]$:
+ \begin{displaymath}
+E[X] = 1(\frac{1}{6}) + 2(\frac{1}{6}) + 3(\frac{1}{6}) + 4(\frac{1}{6}) + 5(\frac{1}{6}) + 6(\frac{1}{6}) = \frac{7}{2}
+\end{displaymath}
+Now, find expectation of $(X - E[X])^{2}$
+\begin{displaymath}
+gain = \frac{25}{4}(\frac{1}{6}) -  \frac{9}{4}(\frac{1}{6}) +  \frac{1}{4}(\frac{1}{6}) -  \frac{1}{4}(\frac{1}{6}) +  \frac{9}{4}(\frac{1}{6}) -  \frac{25}{4}(\frac{1}{6}) = \frac{35}{2}
+\end{displaymath}
+
+%Or, find $E[X^2]$
+% \begin{displaymath}
+%E[X] = 1(\frac{1}{6}) + 2^2(\frac{1}{6}) + 3^2(\frac{1}{6}) + 4^2(\frac{1}{6}) + 5^2(\frac{1}{6}) + 6^2(\frac{1}{6}) = \frac{7}{2} = \frac{91}{6}
+%\end{displaymath}
+
+%We now wish to find 
+
+%\begin{eqnarray*}
+% \frac{91}{6} - \frac{49}{4} &=& \frac{182}{12} - \frac{147}{12} \\
+%&=& \frac{35}{12}
+%\end{eqnarray*}
+
+\end{solution}
+\end{shortquiz}
+
+\newpage
+
+\subsection{A simplification}
+
+
+Whilst this is all great fun, it must be clearly noted that the
+calcuation of $Var(X)$ is more easily done using a simplified
+formula.   Specifically, with a little manipulation:
+
+\begin{eqnarray*}
+Var(X) &=& E[(X-E[X])^{2}]\\
+ &=& E[X^{2} - 2E[X]X + 2E[X]]\\
+ &=& E[X^{2}] - 2E[X]E[X] + E[X]^2\\
+ &=& E[X^2] - E[X]^2
+\end{eqnarray*}
+
+So for our die, given we know that $E[X]^2 = \frac{7}{2}^2$, we only need:
+
+\begin{displaymath}
+E[X^2] = E[X] = 1(\frac{1}{6}) + 4(\frac{1}{6}) + 9(\frac{1}{6}) + 16(\frac{1}{6}) + 25(\frac{1}{6}) + 36(\frac{1}{6}) = \frac{91}{6}
+\end{displaymath}
+
+So $Var(X) = \frac{91}{6} - {7}{2}^{2} = \frac{35}{12}$
+
+
+\newpage
+\subsection{Some properties}
+
+
+Some properties of expectations are given without comment.
+
+\begin{eqnarray*}
+E[cX] &=& cE[X]\\
+E[X + c] &=& E[X] + c\\
+E[X+Y] &=& E[X] + E[Y]\\
+\end{eqnarray*}
+
+It can be seen for example that the expectation is a nice linear
+function (look at the effect of multiplying by or adding a constant).
+The same is not true of the variance: 
+
+\begin{eqnarray*}
+Var(cX) &=& c^2 Var(X)\\
+Var(X+c) &=& Var(X) \\
+\end{eqnarray*}
+
+Also, note that $Var(X+Y) = Var(X) + Var(Y)$ iff the two variables are \emph{independent}.   Why don't we require independence when finding $E[X+Y] =E[X] + E[Y]$?
+
+
+\newpage
+\subsection{Expecatation for Continuous Random Variables}
+
+
+Now consider the definition of the expectation of a continuous random
+variable.   This follows from the standard mathematical definition for
+the ``average'' of a function.
+
+\begin{df}
+The expected value of a continuous random variable is given by:
+\begin{displaymath}
+E[X] = \int_{-\infty}^{\infty} x f(x) dx
+\end{displaymath}
+
+and the expected value of a \emph{function of} a random variable is given by:
+\begin{displaymath}
+E[X] = \int_{-\infty}^{\infty} \phi (x) f(x) dx
+\end{displaymath}
+\end{df}
+
+\newpage
+
+\begin{shortquiz}{Expection of a function of a continuous random variable}
+Assume that $X$ has p.d.f. given by: 
+\begin{displaymath}
+f(x) = \left\{ \begin{array}{lll} e^{-x}& & \mbox{for}\ x>0 \\ 0 & & \mbox{elsewhere} \end{array} \right.
+\end{displaymath}
+Find the expected value of $g(x) = e^{3x/4}$
+\begin{answers}[ee]{4}
+\Ans0 1 & 
+\Ans0 2 & 
+\Ans0 3 & 
+\Ans1 4
+\end{answers}
+\begin{solution}
+Essentially, we wish to find:
+
+\begin{displaymath}
+E(e^{3x/4}) = \int_{0}^{\infty} e^{3x/4} e^{-x} dx
+\end{displaymath}
+wehich can be tidied up a little to give
+\begin{displaymath}
+E(e^{3x/4}) = \int_{0}^{\infty} e^{-x/4} dx
+\end{displaymath}
+and evaluating the indefinite integral at the two extremes gives:
+\begin{displaymath}
+E(e^{3x/4}) = 4
+\end{displaymath}
+\end{solution}
+\end{shortquiz}
+
+
+\newpage
+
+\subsection{Association (Correlation and Covariance)}
+
+
+\begin{df}
+The covariance can also be expressed in terms of expectations:
+
+\begin{displaymath}
+Cov(X,Y) = E[(X-E[X])(Y-E[Y])] = E[XY] - E[X]E[Y]
+\end{displaymath}
+\end{df}
+
+Note in passing that the \emph{sample} covariance can be calculated by:
+
+\begin{displaymath}
+\frac{1}{n} \sum_{i=1}^{n} (x_{i} - \bar{x})(y_{i} - \bar{y})
+\end{displaymath}
+
+
+
+\newpage
+
+
+Consider the following table of joint probabilities:
+
+\begin{tabular}{l|ll}
+ & $X_{Head}$ & $X_{Tail}$ \\
+\hline
+$Y_{Head}$ & $\frac{1}{4}$ & $\frac{1}{4}$ \\
+ & & \\
+$Y_{Tail}$ & $\frac{1}{8}$ & $\frac{3}{8}$
+\end{tabular}
+
+and then try the questions on the next page:
+
+\newpage
+
+\useBeginQuizButton
+\useEndQuizButton
+\begin{quiz}{summary}
+  \begin{questions}
+    \item Find the marginal probabilities for getting a head for coin X.
+      \begin{answers}[marg]{4}
+\Ans0 $\frac{1}{8}$ &
+\Ans0 $\frac{1}{4}$ &
+\Ans1 $\frac{3}{8}$ &
+\Ans0 $\frac{1}{2}$ 
+      \end{answers}
+      \begin{solution}
+It's as easy to work out the marginals for both coins.   These are
+simply the row and column sums:
+
+\begin{tabular}{l|lll}
+ & $X_{Head}$ & $X_{Tail}$ \\
+\hline
+$Y_{Head}$ & $\frac{1}{4}$ & $\frac{1}{4}$ & $\frac{1}{2}$ \\
+& & & \\
+$Y_{Tail}$ & $\frac{1}{8}$ & $\frac{3}{8}$ & $\frac{1}{2}$ \\
+ & & & \\
+ & $\frac{3}{8}$ & $\frac{5}{8}$ & \\
+\end{tabular}
+
+From this you can see that the marginal probability of getting a Head
+from a throw of coin $X$ is $\frac{3}{8}$
+    \end{solution}
+  \item Are both coins unbiased?
+    \begin{answers}[unbiased]{2}
+\Ans0 Yes &
+\Ans1 No
+    \end{answers}
+       \begin{solution}
+This follows from the previous solution.   They can't be unbiased, as
+one coin (X) has a marginal distribution that is clearly not 50:50
+       \end{solution}
+  \item What's the conditional probability of getting a head on Y given you have a head on X?   
+    \begin{answers}[cond]{4}
+\Ans0 $\frac{1}{8} $ &
+\Ans0 $\frac{3}{8} $ &
+\Ans0 $\frac{1}{4} $ &
+\Ans1 $\frac{2}{3} $ 
+    \end{answers}
+      \begin{solution}
+For a conditional probability, we only care about events in that slice
+defined by the outcome $X = Head$.   In this slice, according to the
+joint probabilities, Y is twice as likely to be a head ($\frac{1}{4}$)
+as a tail ($\frac{1}{8}$).   We effectively renormalise the outcomes
+to find the conditional probabilities.   If you look at this hard
+enough, you will see that there is something seriously wrong with
+these data.   Coin $Y$ seems to know the result of coin $X$ and vice
+versa (the conditional probabilities are different depending on the
+outcome of the other throw).   This is nice for illustrative purposes,
+but clearly it is absolutely bonkers. 
+      \end{solution}
+  \item Assign the following values to the observations, $X_{head} = 1$,
+  $Y_{head} = 1$, but for tail assign the value $0$.   By calculating $E[X]$ and $E[Y]$
+find $Cov(X,Y)$
+\begin{answers}[cov]{4}
+\Ans1 $\frac{3}{16}$ & 
+\Ans0 $\frac{1}{4}$ &
+\Ans0 $\frac{3}{8}$ &
+\Ans0 $\frac{1}{2}$ 
+\end{answers}
+\begin{solution}
+From the marginal totals given in an earlier solution we can find that
+$E[X] = 0 (\frac{1}{2}) + 1 (\frac{1}{2}) = \frac{1}{2}$.   Likewise
+$E[Y] = 0 (\frac{5}{8}) + 1 (\frac{3}{2}) = \frac{3}{2}$.   
+We then need to use the joint probabilities to arrive at $E[XY] =
+\frac{1}{4}$ (someone was very kind here coding tails as zero as it
+cancels out a lot of numbers we would otherwise have to run with).
+Consequently we get $Cov(X,Y) = \frac{1}{4} - \frac{3}{16}$
+      \end{solution}
+\end{questions}
+\end{quiz}
+
+\ScoreField{summary}
+Click on green dots or boxes to review the solutions.
+\eqButton{summary}
+
+\newpage
+
+\subsection{The moment generating function}
+
+As the name implies, moment generating functions (the MGF) can be used to generate moments.   They are not the only way to generate moments.   They may not be the easiest way.   But they are always useful as a means of characterisinga distribution.
+
+\begin{itemize}
+\item The MGF helps you find moments
+\item The MGF uniquely describes a distribution
+\item The MGF is useful for finding sums of random variables; specifically, providing $X$ and $Y$ are independent, then $M(t)_{X+Y} = M(t)_X \times M(t)_Y$
+\end{itemize}
+
+\newpage
+
+This is included here as a prelude to much greater things you will
+meet later in your statistical estimation life.   Moments are
+incredibly useful things, but once we get beyond playing with coins
+and dice and start using density functions that have some relationship
+to anything that goes on in the real world we need some method for
+``finding'' the moments of a density function.  
+
+
+\newpage
+
+
+ We can do this using
+the moment generating function $g(t)$.   This requires us to introduce a new variable $t$:
+
+\begin{displaymath}
+M(t) = E[e^{tX}]
+\end{displaymath}
+
+(If we use the notation $X \sim f(x)$ to denote that $X$ has the density $f(x)$ we can also say that $X$ has the distribution $F(x)$, and if we are being very careful with our notation we can use $F_{X}(x)$.   In a similar way we denote the mgf of $X$ by $M_X(t)$.)
+
+Consequently, we have:
+
+\begin{displaymath}
+M_X(t) = \left\{ \begin{array}{ll} \sum_{X} e^{tx} Pr(X=x) & \mbox{ for }x \mbox{ discrete} \\
+ \int_{-\infty}^{\infty} e^{tx} f(x) & \mbox{ for } x \mbox{ continuous}
+\end{array} \right.
+\end{displaymath}
+
+If we are being very very careful, we should add ``provided the expectation exists'' (for example, we have very briefly mentioned the Cauchy distribution, where the expectation doesn't exist).
+
+
+Let's instantly demystify this and remind ourselves (one form) of $e^{tX}$.   Specifically, we can say:
+
+\begin{displaymath}
+E[e^{tX} = E[ \sum_{n=0}^{\infty} \frac{x^nt^n}{n!}]
+\end{displaymath}
+
+Providing this is a finite sum (it must exist on some interval of $t$ around zero), then we can move the $E$ inside the sum, and tidy up to give us:
+
+\begin{displaymath}
+E[e^{tX}] = \frac{E[x^0]t^0}{0!} +  \frac{E[x^1]t^1}{1!} +  \frac{E[x^2]t^2}{0!} + \cdots
+\end{displaymath}
+
+So: $E[X^n]$ is the coefficient of $\frac{t^n}{n!}$ in the Taylor series expansion.   So: if we differentiate $n$ times we get rid of terms to the left, have a term where $t$ is removed, and remove all terms to the right by setting $t=0$.   So, denoting this $n$th derivative as follows:
+
+\begin{displaymath}
+M_X^{(n)}(0) = \left. \frac{d^n}{dt^n} \right|_{t=0}
+\end{displaymath}
+i.e. the $n$th derivative of the moment generating function, evaluated at $t=0$, we can use the fact that:
+
+\begin{displaymath}
+E[X^n] = M_X^{(n)}(0)
+\end{displaymath}
+as a means for finding moments. 
+
+I did say this wasn't necessarily the easiest method for finding moments.   But not every distribution is like the Bernoulli.     However, let's find the MGF of the Bernoulli.
+
+\subsubsection{Bernoulli MGF}
+
+\begin{displaymath}
+M(t) = E[e^{tX}] = \sum e^{tX}f(x) = e^{t \times 1}p + e^{t \times 0}q = pe^t+q
+\end{displaymath}
+
+\subsubsection{Binomial MGF}
+
+Now, we can use our property of combining independent Bernoullis.
+
+If the MGF for the Bernoulli is $(pe^t + q)$ and the Binomial is a sum of $n$ independent such r.vs, then all we need is $(pe^t+q)^n$.
+
+
+
+% \begin{displaymath}
+% \sum_{j=1}^{\infty} e^{tX} f(x_{j})
+% \end{displaymath}
+% where $f(x)$ denotes the density function of $X$.   If we now
+% differentiate this $q$ times, and set equal to zero we get an
+% expression for $\mu_{q}$, the $q^{th}$ moment of $f(x)$.
+
+% \begin{df}
+% The moments for $f(x)$ can be found from:
+% \begin{displaymath}
+% \frac{d^{q}}{dt^{q}} g(t) \rvert_{t=0} = g^{q}(0)
+% \end{displaymath}
+% \end{df}
+
+
+%It maybe makes much more sense to consider an example.   
+
+
+
+
+
+
+
+\subsubsection{Consider the Poisson distribution.}
+
+Assuming $X$ is a non-negative integer, with p.d.f. $f(x) = \frac{e^{-\lambda}\lambda^{x}}{x!}$ then:
+\begin{eqnarray*}
+M_x(t)  &=& \sum_{x=0}^{\infty} e^{tx}\frac{e^{-\lambda}\lambda^{x}}{x!}\\
+  &=&  e^{-\lambda} \sum_{x=0}^{\infty} \frac{(\lambda e^{t})^{x}}{x!}
+\end{eqnarray*}
+
+(Recall that
+\begin{displaymath}
+e^x = 1 + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots
+\end{displaymath} hence:)
+
+\begin{eqnarray*}
+ &=& e^{-\lambda} e^{\lambda e^{t}}\\
+ &=& e^{\lambda(e^{t} - 1)}
+\end{eqnarray*}
+
+
+Now all we need is
+
+\begin{eqnarray*}
+M_X^{(1)} &=& \left. \frac{d e^{\lambda(e^t-1)}}{dt} \right|_{t=0} = \lambda \\
+M_X^{(2)} &=& \left. \frac{d \left( e^{\lambda(e^t-1)} \right)^2}{d^2t} \right|_{t=0} = \lambda^2 + \lambda
+\end{eqnarray*}
+
+
+and we know that $E[X] = \lambda$ and that $Var(X) = E[X^2] - E[X]^2 = (\lambda^2 + \lambda) - (\lambda)^2$.   Of course, we already know the
+first and second moments of the Poisson distribution, they are printed
+in the appendix of most introductory textbooks.   The point about
+moment generating functions is that we have a method for finding the
+moments for any distribution we care to examine.
+
+
+\newpage
+
+Consider a convolution.   If we have $X \sim Pois(\lambda)$ and $Y \sim Pois(\mu)$ and they are independent, what is the distribution of $Z=X+Y$.   Sure, linearity of expectations tells us $E[X+Y] = E[X] + E[Y] = \lambda + \mu$, but what distribution does $Z$ have.
+
+The solution is to take the product of the MGFs.
+
+\begin{displaymath}
+M(t)_{X+Y} = M(t)_X \times M(t)_Y = e^{\lambda(e^t-1)}e^{\mu(e^t-1)} = e^{(\lambda+\mu)(e^t-1)}
+\end{displaymath}
+
+So not only do we know $E[X+Y]$, in this case we can see that it has a Poisson($\lambda+\mu$) distribution!!!!!
+
+%if they are not independent try X=Y, then we have $e^{\lambda(e^{2t}-1)}$ which doesn't immediately have an obvious correspondence with Poisson.  Also, it is only possible for even integers
+
+
+
+
+
+\newpage
+
+\subsubsection{Continuous: the Normal}
+
+Assume the standard Normal $Z \sim Normal(0,1)$, then:
+
+\begin{displaymath}
+M(t) = E[e^{tZ}] =   \int_{-\infty}^{\infty} e^{tz}   \frac{1}{\sqrt{2 \pi}} e^{- z^2/2}dz  =   \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} e^{tZ - z^2/2}dz
+\end{displaymath}
+
+What we need to do is complete the square on this strange term $tz - \frac{z^2}{2}$.
+
+Now, if we had $(t^2-2tz+z^2)=(t-z^2)$ it would be easy.   So clearly we need to take: $-\frac{1}{2}(t-z)^2+\frac{t^2}{2}$
+
+In other words, we want to have $e^{-\frac{1}{2}(t-z)^2}e^{\frac{t^2}{2}}$.   Noticing that the last term here doesn't involve $z$ we can bring it outside the integral and write:
+
+\begin{displaymath}
+M(t) =   \frac{e^{t^2/2}}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} \underbrace{e^{-\frac{1}{2}(z-t)^2}}_{A Normal Kernel}dz
+\end{displaymath}
+
+If we see the ``Normal Kernel'' $e^{\frac{1}{2}(z-t)^2}$ we know that this must integrate to $\sqrt{2 \pi}$ so we have an expression for the MGF as:
+
+\begin{displaymath}
+M(t) = e^{\frac{t^2}{2}}
+\end{displaymath}
+
+\newpage
+
+
+\subsubsection{The standard exponential}
+
+Consider $X \sim Exp(1)$, then:
+
+\begin{displaymath}
+M(t) = E[e^{tX}] = \int_0^{\infty} e^{tx}e^{-x}dx = \int_0^{\infty} e^{x(1-t)}dx
+\end{displaymath}
+
+Provided $t \leq 1$ we can use a result from a geometric series to tell us that this is:
+
+\begin{displaymath}
+M(t) = \frac{1}{1-t}
+\end{displaymath}
+
+If we do some funny trick and reverse this using our knowledge of $\frac{1}{1-t} = \sum_{n=0}^{\infty} t^n$ we can note that
+
+\begin{displaymath}
+\sum_{n=0}^{\infty} \frac{n!t^n}{n!}
+\end{displaymath}
+In other words, multiply by $\frac{n!}{n!}$ (i.e. $1$).   This recovers $e^t$ and gives us $E[X^n] = n!$.   You should check this result!
+
+Non-standard exponential ($X \sim Exponential(\lambda)$; $X=\lambda Y$, $Y=\frac{X}{\lambda}$:
+
+\fbox{$E[Y^n]  = \frac{n!}{\lambda^n}$}
+
+
+\subsubsection{Another continuous example}
+
+For the following pdf, find the corresponding mgf:
+
+\begin{displaymath}
+f(x) = \frac{1}{\Gamma (a) b^a} x^{a-1} e^{-x/b}
+\end{displaymath}
+
+\begin{shortquiz}{}
+This pdf is known as the:
+\begin{answers}[cp]{2}
+\Ans0 Beta density &
+\Ans1 Gamma Density \\
+\Ans0 Normal Density &
+\Ans0 Cauchy Density
+\end{answers}
+\end{shortquiz}
+
+
+Now this might look as if we have an intimidating piece of calculus ahead of us, but lets write out the expectation, and do some rearranging:
+
+\begin{eqnarray*}
+M_X(t) &=&  \frac{1}{\Gamma (a) b^a} \int_0^{\infty} e^{tx} x^{a-1} e^{-x/b} dt \\
+ &=&  \frac{1}{\Gamma (a) b^a} \int_0^{\infty}  x^{a-1} e^{-\left( \frac{1}{b} - t \right)x} dt \\
+&=&  \frac{1}{\Gamma (a) b^a} \int_0^{\infty}  x^{a-1} e^{-x/ \left( \frac{b}{1-bt} \right)} dt
+\end{eqnarray*}
+
+
+So what we have (and this is a common theme in statistics) is that we have maninpulated ourselves into seeing that we are looking at another Gamma density, but with slightly altered parameter values (with a ``new'' value for $b$ of ${\color{blue} \frac{b}{1-bt}}$   Now, we know from the Axioms that (where $a$ and $b$ are now taken very generally):
+
+\begin{displaymath}
+\int_0^\infty \frac{1}{\Gamma (a) b^a} x^{a-1} e^{-x/b} dx = 1
+\end{displaymath}
+
+We we therefore know that
+
+\begin{displaymath}
+\int_0^\infty  x^{a-1} e^{-x/b} dx = {\color{red} \Gamma (a)} {\color{blue} b^a}
+\end{displaymath}
+
+
+So if we return to our MGF, 
+
+
+\begin{eqnarray*}
+M_X(t) &=& \frac{1}{\Gamma (a) b^a} \int_0^{\infty}  x^{a-1} e^{-x/ \left( \frac{b}{1-bt} \right)}dt = {\color{red} \Gamma (a)} {\color{blue} \left( \frac{b}{1-bt} \right)^a}\\
+&=& \frac{1}{\Gamma (a) b^a}  \Gamma(a) \left( \frac{b}{1-bt} \right)^a = \left( \frac{1}{1-bt} \right)^a
+\end{eqnarray*}
+(at least, if $t<\frac{1}{b}$).
+
+Hence we want to find (for example)
+
+\begin{displaymath}
+E[X] = \left. \frac{d \left( \frac{1}{1-bt} \right)^a}{dt} \right|_{t=0} = \left. \frac{ab}{(1-bt)^{a+1}} \right|_{t=0} = ab
+\end{displaymath}
+
+
+
+\newpage
+
+
+\subsection{Some important consolidation work}
+
+\begin{itemize}
+\item If $X$ is Poisson distributed with parameter $\lambda$, show that $Var(X) = \lambda$.
+\item If $X$ has p.d.f. 
+
+\begin{displaymath}
+f(x) = \left\{ \begin{array}{lll} 0.5e^{-0.5x}& & \mbox{for}\ x>0 \\ 0 & & \mbox{elsewhere} \end{array} \right.
+\end{displaymath}
+then find the expected value of $g(x) = e^{2x}$
+\end{itemize}
+
+\newpage
+
+\subsubsection{A simple but practical exercise}
+
+
+
+\begin{shortquiz}{Home insurance}
+
+A home insurance company believes that each year:
+
+\begin{itemize}
+\item One in every 10,000 policies will lead to a claim of 200,000 euros
+\item One in every 1,000 policies will lead to a claim of 50,000 euros
+\item One in every 50 policies will lead to a claim of 2,000 euros
+\item The remainder will have zero claims.
+\end{itemize}
+
+What is the expected value of a payout?
+
+In other words, the pdf $f(x)$ is defined by $Pr[Claim = type A = 1/10000]$ and the function $g(x)$ is defined by $if\ claim\ = type\ A\ then\ payout\ = 200,000$.
+
+\begin{answers}[homeins]{4}
+\Ans0 50 & 
+\Ans1 110 & 
+\Ans0 50,000 & 
+\Ans0 85,667
+\end{answers}
+\begin{solution}
+This follows from the defintion of an expectation.   The pdf denotes the probability of each event, so we have for example $Pr[Claim = 200000] = 1/10000$, and so on.   We therefore calculate the expectation as follows:
+\begin{eqnarray*}
+&=&\left( \frac{1}{10,000} \times 200,000 \right) + \left( \frac{1}{1000} \times 50,000 \right)  + \left( \frac{1}{50} \times 2,000\right)  + \left( \frac{9789}{10,000} \times 0 \right) \\
+&=& 20 + 50 + 40 = 110
+\end{eqnarray*}
+So, given this knowledge, one can determine a suitable price for a premium.
+\end{solution}
+\end{shortquiz}
+
+\newpage
+
+\subsubsection{Here's some fun exercises for your own entertainment:}
+
+\begin{itemize}
+\item An uneven die.   A die is loaded so that the probability of a given face turning up is proportional to the number on that face.   If $X$ is the number displayed by the die, find $E[X]$ and $Var(X)$.
+\item A continuous density.   If $X$ has density:
+\begin{displaymath}
+f(x) = \left\{ \begin{array}{lll} 2(1-x)& & \mbox{for}\ 0 < x < 1 \\ 0 & & \mbox{elsewhere} \end{array} \right.
+\end{displaymath}
+find $Var(X)$
+\item A card is drawn at random from a deck of playing cards.   If it is red you win 1 euro, if black you lose two euros.  What the expected value of the game.
+\item A class has 20 students, 3 are 1.81m tall, 5 are 1.84m tall, 4 are 1.87m tall, 4 are 1.91m, 4 are 1.94m tall.   A student is chosen at random.  What is his/her expected height?
+\item This is suggested in ``Innumeracy'' by John Allen Paulos.   Consider flipping a coin, and counting how many flips there are until the coin shows tails.   If someone offers you the following game, should you enter.   You receive 1 million euros if that number if 20 (i.e. it takes 20 flips to get the first tail).   If it takes less than 20 flips, you have to pay 100 euros.
+\end{itemize}
+
+
+And life wouldn't be complete if there weren't some suggestions for further reading:
+
+\begin{itemize}
+\item What is the St.Petersburg Paradox?
+\item Chapter 6 of Amemiya (1994): Large Sample Theory
+\end{itemize}
+
+\NaviBarOff
+
+\end{document}

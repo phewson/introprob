@@ -1,0 +1,601 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}
+\title{ Conditional probability}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{4th September 2012}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=2.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Mathematics and Statistics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.2} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   concepts in probability.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+
+\newpage
+\section*{Aims}
+
+We wish to find out how we update probability (or belief!!!!) in the presence of additional information.
+
+\begin{itemize}
+\item To examine conditional probability
+\item To define the term ``independence'' a little more precisely
+\item To state Bayes Theorem
+\end{itemize}
+
+
+%\newpage
+
+%We start by quoting a table from Grimmett and Stirzaker (2004) which gives a full listing of set theory and probability theory notation.\\[0.5in]
+
+%{\color{blue}
+%\begin{footnotesize}
+%\begin{tabular}{lll}
+%%%Notation & Set theory & Probability Theory \\
+%\hline
+%$\Omega$ & A collection of objects & Sample space \\
+%$\omega$ & A subset of $\Omega$ & Elementary event/outcome\\
+%$A$ & A subset of $\Omega$ & Event that some condition $A$ occurs \\
+%$A^C$ & Complement of $A$ & No event $A$ occurs \\
+%$A \cap B$ & Intersection of $A$ and $B$ & Both $A$ and $B$ occur \\
+%$A \cup B$ & Union of $A$ and $B$ & Either $A$ occurs, or $B$ occurs or both
+%\\
+%$A \setminus B$ & Difference & $A$ occurs but $B$ does not occur \\
+%$ A \bigtriangleup B $ & Symmetric difference & Either A or B but not both \\
+%$A \subseteq B$ & Inclusion & If $A$ occurs then $B$ occurs \\
+%$\emptyset$ & Empty set & Impossible event \\
+%$\Omega$ & Whole space & Certain event
+%\end{tabular}
+%\end{footnotesize}
+%}
+
+\newpage
+
+\section{Conditional probability - why the fuss}
+
+For full details of these problems see Leonard Mlodnikov ``A drunkard's walk'', a lovely popular science book.
+
+\begin{itemize}
+\item Make the simplifying assumption that $p(\mbox{Baby is boy}) = 0.5$ and $p(\mbox{Baby is girl=0.5})$.
+\item Consider a two child family.   You know that one child is a girl.   What is the probability that the other child is a girl?
+\item Consider a two child family.   You know that one child is a girl called Mirabehn.   What is the probability that the other child is a girl
+\end{itemize}
+
+For a more formal, exam relevant coverage of this material see Chapter 4 in Grinstead and Snell.
+
+\newpage
+
+\subsection{Solution 1}
+
+Hopefully you gave the na\"ive answer $0.5$.   Now consider the (also slightly na\"ive) take on the sample space for a two child family which consists of:
+
+\begin{tabular}{r}
+BB \\
+{\color{red}BG} \\
+{\color{red}GB}\\
+{\color{red}GG}
+\end{tabular}
+
+So hopefully you see the ``correct'' answer is $\frac{2}{3}$, as we should condition on the three events where a family has a girl.
+
+\newpage
+
+\subsection{Solution 2}
+
+Here I simplify a little, and don't explain some of the simplifications in these notes (ask me or see Mlodnikov).   Denote $G_M$: a girl called Mirabehn and $G_N$ and girl not called Mirabehn.
+
+\begin{tabular}{rr}
+$G_N$ $G_M$ &  \\
+$G_M$ $G_N$ &  \\
+$G_M$ $B$   & $G_N$ $B$ \\
+$B$ $G_M$  & $B$ $G_N$ \\
+$G_M$ $G_M$ & $G_N$ $G_N$\\
+ & $B$ $B$ \\
+\end{tabular}
+
+(As it stands, that is no equal probability sample space, but by choosing a rare name when we choose only those events featuring $G_M$ we get some closeness to four events of similar probability - assuming we can discard the possibility of two girls of the same name).   
+
+Note when we condition on $G_M$ we get four events, two of which feature a second girl so the probability is (approximately) $\frac{1}{2}$
+
+\newpage 
+
+\subsection{Conditional probability defined}
+
+Hopefully, that little exercise has convinced you conditional probability is a topic where you need to be fully alert!   Most of the fun comes from carefully specifying and identifying the event on which you are conditioning.   But it's not all nuisance, being able to condition also helps us solve many problems.
+
+
+To date, we have only considered information obtained from:
+
+
+\begin{itemize}
+\item[(a)] Specifying the sample space and
+\item[(b)] explicitly or implicitly (or na\"ively) specifying a probability measure on that sample space
+\end{itemize}
+
+However, knowledge that a particular event has taken place can alter our assessment of the probability of other events.   Consider a student who wishes to pass his course.   However, this student doesn't like attending lectures.   he is told that his chances of passing the course will increase if he attends lectures.
+
+We can write this \emph{conditional probability} as:
+\begin{displaymath}
+p[\mbox{Student will pass course} | \mbox{Student attends lectures}]
+\end{displaymath}
+
+\newpage
+
+You have previously examined the situation where we could examine $A$ (the event that the student attends lectures, the circle on the left), $B$ (the event that the student passes, the circle on the right) as well as the intersection.   We could draw a Venn diagram something like the one below:
+
+
+
+\includegraphics[width = 0.3\textwidth]{venn1}
+
+
+However, once we know that the student has indeed attended lectures, the information we have on the problem changes the question.   We are no longer interested in $A^C$, as we know the student attended.   Hence, we {\color{green}\emph{condition}} our interest on $A$
+
+\begin{tiny}
+Please ignore the fact that this diagram seems to show rather a lot of probability associated with the event that the student passes when he doesn't attend lectures - this is only a simple illustration;-)
+\end{tiny}
+
+\newpage
+
+A reduced diagram would look like the following.   We therefore want to know the probability of the student passing, given that we know he attended lectures.
+
+\includegraphics[width = 0.3\textwidth]{venns}
+
+
+We can use the following statement:
+
+\begin{df}
+\begin{displaymath}
+p[A|B] = \frac{p[A \cap B] }{p[B]} \mbox{ if } p[B] > 0
+\end{displaymath}
+\end{df}
+to solve this problem.   This expression is undefined if $p[B] = 0$
+
+\newpage
+
+In frequency terms, this expression can be thought of as:
+
+\begin{displaymath}
+\frac{\mbox{Number of experiments in which both A and B occurred}}{\mbox{Number of experiments in which B occurred}}
+\end{displaymath}
+
+
+Strictly speaking, all probability is conditional.   Earlier in the course we could have referred to $p(A)$ as $p(A|\Omega)$.
+
+
+\newpage
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\subsection{Conditional problems CP1}
+
+\begin{quiz}{cprob1}
+A manufacturer of aeroplane equipment knows from past experience that 
+\begin{itemize}
+\item[(i)] The probability that an order will be ready for shipment is $p[R] =  0.8$
+\item[(ii)] The probability that an order will be ready for shipment \emph{and} delivered on time is $p[D] = 0.72$
+\end{itemize}
+
+\begin{questions}
+\item\PTs{1} What is the probability that an order will be delivered on time \emph{given} that it was ready on time?
+\RespBoxTxt{0}{0}[c1.1]{1}{0.9}
+\CorrAnsButton{0.9}
+\begin{solution}
+Exercise CP1.1
+We need to find:
+\begin{equation}
+p[D|R] = \frac{p[D \cap R]}{p[R]} = \frac{0.72}{0.80} = 0.9
+\end{equation}.\\[1in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\end{questions}
+\end{quiz} \quad\eqButton{cprob1}Points: \ScoreField{cprob1}
+
+ Click on the \fbox{Ans} box to get the correct answer; \fbox{shift}+\fbox{click} to get the solution.
+
+
+\newpage
+
+\subsection{Axioms of conditional probability}
+
+As with probability, we only need a few axioms for conditional probability.   
+%(See Amemiya, 1994, page 10, who provides the argument that you only need one axiom from which the others can be drawn)
+
+\begin{df}Axioms of conditional probability:
+
+\begin{itemize}
+\item $p[A|B] \geq 0$ for any event $A$
+\item $p[A|B] \leq 1$ for any event $A \supset B$
+\item If $A_1, A_2, \ldots$ is a sequence of mutually exclusive events then: $p[A_1 \cup A_2 \cup \ldots | B] = p[A_1|B] + p[A_2|B] + \ldots$
+\item If $A_1 \supset B$ and $A_2 \supset B$ and $p[B] \neq 0$ then $\frac{p[A_1|B]}{p[A_2|B]} = \frac{p[A_1]}{p[A_2]}$
+\end{itemize}
+
+\end{df}
+
+It can be seen that conditional axioms (1), (2) and (3) are analogous to the axioms of probability.   The fourth axiom tells us that the relative frequency $A_1$ versus $A_2$ remains the same after $B$ has happened. 
+
+\newpage
+\subsection{Consequences}
+
+A few small points worth mentioning:
+
+\begin{itemize}
+\item $p[B|B] = 1$
+\item $p[A^C|B] = 1 - p[A|B]$
+\item $p[A_1 \cup A_2 | B] = p[A_1|B] + p[A_2|B] - p[A_1 \cap A_2 | B]$
+\end{itemize}
+
+But let's really have some fun with our main definition:
+
+
+
+%But we have an additional theorem that is specific to conditional probability and quite useful:
+%\begin{df}
+%For any pair of events $A$ and $B$, where $p[B] > 0$:
+\begin{displaymath}
+p[A|B] = \frac{p[A \cap B]}{p[B]}
+\end{displaymath}
+%\end{df}
+
+
+\newpage
+
+Let's start by multiplying both sides by $p(B)$
+
+\begin{displaymath}
+p[A|B]p[B] = p[A \cap B]
+\end{displaymath}
+
+Now let's note that the labels $A$ and $B$ are arbitrary.   So it must also be true that
+\begin{displaymath}
+p[A \cap B] = p[B|A]p[A]
+\end{displaymath}
+
+In other words we have shown that
+
+\begin{displaymath}
+p[A|B]p[B] =  p[B|A]p[A]
+\end{displaymath}
+and if I divide both sides by $p[B]$ I have just proved Bayes' Theorem (which we define more carefully later).
+%\begin{df}
+\begin{displaymath}
+p[A|B] = \frac{p[B|A]p[A]}{p[B]}
+\end{displaymath}
+
+\newpage
+
+We need to say more about that $p[B]$ denominator, but first let's illustrate the key idea with natural frequencies.   Consider a dread disease, and consider that $1$ person in $10,000$ has this disease.   Now consider a screening test for that disease, if you have the disease, it will detect it with probability $0.95$.   If you don't have it, it will give you the all clear with probability $0.9$.   
+
+Now imagine you have gone to your physician, done the test, and been told you have the disease.   Should you be worried?
+
+\newpage
+
+First time round, let's consider this problem with natural frequencies.   Let's invent a population as follows:
+
+\begin{tabular}{rrrr}
+ & Disease & No disease & Total \\
+Test positive \phantom{95} & \phantom{99,990} & \phantom{100,085} \\
+Test negative \phantom{5} & \phantom{899,910} & \phantom{899,915} \\
+Total & 100 & 999,900 & 1,000,000
+\end{tabular}
+
+So, as you can see, with $1$ in $10,000$ having the disease, our ficitional population of $1,000,000$ has $100$ cases with the remainder being non-cases.
+
+\newpage
+
+Now, we were told that if you have the disease (if you are one of the $100$ people), the test will detect it $0.95$ of the time.   So let's fill in these numbers:
+
+\begin{tabular}{rrrr}
+ & Disease & No disease & Total \\
+Test positive 95 & \phantom{99,990} & \phantom{100,085} \\
+Test negative 5 & \phantom{899,910} & \phantom{899,915} \\
+Total & 100 & 999,900 & 1,000,000
+\end{tabular}
+
+So, as you can see, with $1$ in $10,000$ having the disease, our ficitional population of $1,000,000$ has $100$ cases with the remainder being non-cases.
+
+The next step will be to do the same for the people who don't have the disease:
+
+
+\newpage
+
+It's becoming obvious I think where this is going.   Look at the effect of adding $0.1$ of the disease free individuals to the row that test positive.  So we've leapt into adding the row totals.
+
+\begin{tabular}{rrrr}
+ & Disease & No disease & Total \\
+Test positive 95 & 99,990 & 100,085 \\
+Test negative 5 & 899,910 & 899,915 \\
+Total & 100 & 999,900 & 1,000,000
+\end{tabular}
+
+
+So now, if I want the probability that I have the disease, given I tested positive, it is $\frac{95}{100,085}$ which is about $0.000949$.    Not much to worry about really!!!
+
+Hopefully this explains the concept (Psychologists sometimes call this Baseline Bias), but we want to be a little more mathematical in our approach.
+
+
+
+\subsection{Law of alternatives}
+
+The only problem with the derivation given is that I've been a bit glib about where $p[B]$ came from.   Now we only know that one of several possible events $A_1$,$A_2$, $\ldots$ has occured (there may be infinitely many of these alternatives).
+
+If
+\begin{itemize}
+\item $A_i$ $i \geq 1$ are pairwise disjoint
+\item $p(\bigcup_i A_i)=1$ (we sometimes require the condition that $\bigcup_i A_i = \Omega$
+\item $p(A_i)>0$ for every $i$
+\end{itemize}
+then
+\begin{displaymath}
+p(B)=p(B|A_1)P(A_1) + p(B|A_2)p(A_2) + \cdots
+\end{displaymath}
+
+
+
+\newpage
+\subsection{Bayes Theorem}
+
+This is rather an important theorem, and follows from the above.   As stated here, this theorem is a well accepted argument.
+
+\begin{df}
+Let events $A_1, A_2, \ldots, A_n$ be mutually exclusive, such that $p[A_1 \cup A_2 \cup \ldots \cup A_n] = 1$ and $p[A_i] > 0$ for each $i$.   Let $B$ be an event such that $p[B] > 0$.  Then:
+
+\begin{displaymath}
+p[A_i | B] = \frac{p[B|A_i]p[A_i]}{\sum_{j=1}^n p[B|A_j]p[A_j]}, i=1,2,\ldots, n
+\end{displaymath}
+\end{df}
+
+\newpage
+
+As stated, Bayes theorem is a very simple and widely accepted result in conditional probability.   Occasionally we use the following terminology:
+
+\begin{itemize}
+\item Prior probability: $p[A_i]$
+\item Posterior probability $p[A_i | B]$
+\end{itemize}
+
+
+Where Bayes theorem starts to get interesting is when we no longer use simple probabilities in the calculations.  Specifically, when we start using the likelihood as $p[B|A_i]$ we can carry out some very interesting inference.
+
+
+\newpage
+
+\subsubsection{Conditional Probability Exercise CP2}
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{cprob2}
+Consider the following table, concerning the proportion of output produced by one of four machines, as well as the proportion of total defectives generated by these machines.
+
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}{lp{0.2in}rp{0.2in}r}
+Machine name & & Production (\%) & & Defectives (\%) \\
+%name && (\%) && (\%) \\
+\hline
+Paul && 15 && 4 \\
+Ringo && 30 && 3 \\
+John && 20 && 5 \\
+George && 35 && 2 
+\end{tabular}
+\end{footnotesize}
+\end{center}
+
+%(Machines 2 and 4 are newer, and have more production allocated than machines 1 and 3.)
+\begin{questions}
+\item\PTs{1} If a screw is picked at random from the inventory, what is the probability that it will be defective (please answer to 3 decimal places):
+\RespBoxTxt{0}{0}[c2.1]{1}{0.032}
+\CorrAnsButton{0.032}
+\begin{solution}
+Exercise CP2.1
+We solve this problem using:
+\begin{eqnarray*}
+p[D] &=& p[D|Paul]p[Paul] + p[D|Ringo]p[Ringo] \\
+&&+ p[D|John]p[John] +p[D|George]p[George]\\
+&=& 0.04 \cdot 0.15 + 0.03 \cdot 30 + 0.05 \cdot 0.20 + 0.02 \cdot 0.35\\
+&=& 0.032
+\end{eqnarray*}
+\end{solution}
+\item\PTs{1} If a randomly picked screw was defective, what is the probability that it was produced by John (i.e. find $p[John|D]$).   (3 d.p.)
+\RespBoxTxt{0}{0}[c2.2]{1}{0.31}
+\CorrAnsButton{0.31}
+\begin{solution}
+Exercise CP2.2
+We need to use the result:
+$p[John|D] = \frac{p[John \cap D]}{p[D]}$. \\  
+We just worked out $p[D] = 0.032$, in doing that we should have noticed that\\ $p[John \cap D] = 0.01$.    Hence we need\\ $p[John|D] = \frac{0.01}{0.032} = 0.31$  
+\end{solution}
+\end{questions}
+\end{quiz} \quad\eqButton{cprob2}Points: \ScoreField{cprob2}
+
+ Click on the \fbox{Ans} box to get the correct answer; \Shift +\fbox{click} to get the solution.
+
+
+\newpage
+
+Here are a number of related applications, all using the same formula ($p[A|B] = \frac{p[A \cap B]}{p[B]}$)
+
+\subsubsection{Exercises CP3}
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{cprob3}
+\begin{questions}
+\item \PTs{1} The probability that a student reaches level 3 on a computer game if it is noisy in the house is 0.4.   The corresponding probability, that a student reaches level 3 on a computer game if the house is quiet is 0.7.   The probability that the house is quiet on a given day is 0.3.   On a day chosen at random, what is the probability that the house is quiet, given the student has reached level 3.(please answer to 2 decimal places):
+\RespBoxTxt{0}{0}[c3.1]{1}{0.43}
+\CorrAnsButton{0.43}
+\begin{solution}
+Exercise CP3.1
+As above, first we need to find the denominator:\\ $p[Level 3]$ = $p[Level 3| Q] + p[Level 3| Noisy] = 0.4 \times 0.7 + 0.7 \times 0.3 = 0.49$.   \\We then need to use:\\
+$p[Q|Level 3] = \frac{p[Level 3 | Q]p[Quiet]}{p[Level 3]}$ \\which uses $\frac{0.21}{0.49} = 0.43$  
+
+Thanks to Prince for pointing out an error in this solution!
+\end{solution}
+\newpage
+\item\PTs{1} Alcohol tests are regularly conducted among drivers in a particular region.   Drivers are first subjected to a breath test.   Only after a positive breath test result is a driver taken for a blood test.   The breath test yields a positive result among 90\% of drunken drivers, and a positive result among 5\% of sober drivers.   If we believe that one out of every hundred drivers on the roads in the region is driving under the influence of alcohol, find the probability that a randomly selected driver who shows a positive breath test is sober.
+\RespBoxTxt{0}{0}[c3.2]{1}{0.8462}
+\CorrAnsButton{0.8462}
+\begin{solution}
+Exercise CP3.2
+This is interesting.   It follows the previous examples exactly.   \\We first need to know $p[Fail] = p[Fail|Sober] + p[Fail|Drunk]$\\$ = 0.9 \times 0.01 + 0.05 \times 0.99 = 0.0585$.
+
+  This suggests that we can anticipate $0.06$ tests (6\%) to yield a positive result (i.e., one needing confirmation by a blood test).   However, when we complete the calculation, we find that\\
+ $p[Sober|Fail] = \frac{p[Sober \cap Fail]}{p[Fail]} = \frac{0.0495}{0.0585} = 0.8462$
+\end{solution}
+\newpage
+\item\PTs{1} A shop owner is willing to cash personal cheques for amounts up to Euro 50, but has become wary of customers who wear sunglasses.   50\% of cheques written by sunglasses wearers are returned by the bank unpaid (``bounced'').   In contrast, 98\% of cheques written by non-sunglasses wearers are accepted by the bank.   The shopkeeper estimates that 10\% of customers wear sunglasses.   If a bank returns a cheque unpaid, what is the probability that it was written by a sunglasses wearing customer?   Please answer to 4 decimal places.
+\RespBoxTxt{0}{0}[c3.3]{1}{0.7353}
+\CorrAnsButton{0.7353}
+\begin{solution}
+Exercise CP3.3
+We first need to know 
+
+If we denote 
+\begin{itemize}
+\item a bounced cheque by $B^+$ 
+\item sunglasses wearing by $G^+$
+\item a non-sunglass wearer by $G^-$
+\end{itemize}
+we first need to find $p[B^+]$:
+
+We know from the question that $p[B^+|G^+]=0.5$, $p[B^+|G^-]=1-0.98=0.02$ and $p[G^+]=0.1$.   Therefore, by the law of alternatives, the denominator we want is given by:
+
+\begin{eqnarray*}
+p[B^+] &=& p[B^+|G^+]p[G^+] + p[B^+|G^-]p[G^-]\\
+&=& 0.5 \times 0.10 + 0.02 \times 0.90 = 0.0680.
+\end{eqnarray*} 
+
+  This suggests that we can anticipate $0.068$ (7\%) of cheques to be returned by the bank.  
+
+However, when we complete the calculation, we find that
+
+\begin{eqnarray*}
+p[G+|B^+] &=& \frac{p[B^+|G^+]p[G^+]}{p[B^+}\\ &=& \frac{0.5 \times 0.1}{0.0680} = 0.7353
+\end{eqnarray*}
+Thanks to Guglielmo Ferrari for identifying an error in the solution.
+\end{solution}
+\end{questions}
+\end{quiz}
+\quad\eqButton{cprob3}Points: \ScoreField{cprob3}
+
+ Click on the \fbox{Ans} box to get the correct answer; \Shift +\fbox{click} to get the solution.
+
+
+
+\newpage
+
+\subsection{Independence - in terms of conditional probability}
+
+What about the situation whereby the probability $p[A]$ is unchanged by our knowledge that $B$ has occurred, i.e., that $p[A] = p[A|B]$.   In this case, we regard $A$ and $B$ as being \emph{independent}.   This is only defined when $p[B] > 0$.
+
+\begin{df}
+Events $A$ and $B$ are called \emph{independent} if:
+\begin{displaymath}
+p[A] = p[A|B]
+\end{displaymath}
+\end{df}
+
+\newpage
+Noting that the result $P[A|B] = p[A \cap B|B] + p[A \cap B^C|B]$ simplifies (the last term is $\emptyset$ gives us:$p[A|B] = p[A \cap B|B]$ which leads us to another definition of independence.
+
+\begin{df} 
+Two events can be called independent if:
+\begin{displaymath}
+p[A \cap B] = p[A] \times p[B]
+\end{displaymath}
+
+and more formally, a family of events $\{A_i:i \in I\}$ is called \emph{independent} if:
+
+\begin{displaymath}
+p\left[ \bigcap_{i \in J} A_i \right] = \prod_{i \in J} p[A_i]
+\end{displaymath}
+for all finite subsets $J$ of $I$
+\end{df}
+
+\begin{itemize}
+\item Remember that if events are mutually exclusive then $p[A|B] = 0$.
+\item Do note that it is \emph{false} to claim that if $A \cap B = \emptyset$ then events are independent.
+\end{itemize}
+
+\newpage
+
+
+\subsubsection{Some problems}
+
+\begin{shortquiz}{Roads}
+There are two roads connecting town A and town B, and a further two roads connecting town B and town C.   Each of the four roads has a probability $p$ of being blocked by snow.   What is the probability that there is an open road from A to C
+\begin{answers}[c5.1]{1}
+\Ans0 $p^4$ \\
+\Ans1 $(1-p^2)^2$\\
+\Ans0 $1-p^4$\\
+\Ans0 $(1-p)^4$
+\end{answers}
+\begin{solution}
+Roads.
+We wish to define a probability for:
+\begin{eqnarray*}
+p[Open] &=& p[\mbox{A and B open}] \cap p[\mbox{B and C open}]\\
+ &=& p[\mbox{A and B open}] \times p[\mbox{B and C open}] \\
+ &=& \left( 1 - p[\mbox{A and B closed}]\times p[\mbox{B and C closed}] \right)
+\end{eqnarray*}
+Note the (rather unlikely) statement that $p$ is the same for all roads, hence this simplifies:
+\begin{eqnarray*}
+p[Open] &=& \left(1 - p[\mbox{A and B closed}] \right)^2 \\
+ &=& \left( 1 - p[\mbox{A and B (1) closed} \cap \mbox{A and B (2) closed}] \right)^2 \\
+ &=& \left( 1 - p[\mbox{A and B (1) closed}] \times p[\mbox{A and B (2) closed}] \right)^2\\
+ &=& (1 - p^2)^2
+\end{eqnarray*}
+\end{solution}
+\end{shortquiz}
+
+
+\NaviBarOff
+
+\end{document}

@@ -1,0 +1,979 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Estimation: The likelihood}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{10th September 2012}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=0.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.2} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+    There is a very good book in the library Yudi Pawitan (2001) ``In all likelihood: Statistical Modelling and Inference Using Likelihood'' Oxford (QA276.P286), particuarly chapter 2.\\  These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+
+
+\maketitle
+
+%tableofcontents
+
+\section{Overview}
+
+
+We have used long run frequency/symmetry arguments for some probability situations.   We have also met a number of formulae that can be used as probability density functions, such as:
+
+\begin{itemize}
+\item[] Binomial $f(x)= \binom{n}{x}\pi^x(1-\pi)^{n-x}$
+\item[] Exponential $f(x)= \theta e^{-\theta x}$
+\end{itemize}
+
+Our interest now turns to the problem of parameter estimation.   Given some data, we want a means of estimating the parameters such as $\pi$ and $\theta$) above.    There are a range of methods that can be used, such as:  
+
+\begin{itemize}
+\item Method of moments
+\item Method of least squares
+\item Method of maximum likelihood
+\end{itemize}
+
+We shall concentrate on the maximum likelihood method.
+
+\newpage
+
+
+The \emph{likelihood} is a \emph{function of the parameter}, given
+fixed data.  Now imagine that a head appears nine times in ten throws:   
+
+\begin{itemize}
+  \item If
+the coin were unbiased, \\
+$P(\mbox{nine heads}|p=0.5) = \mathrm{C}_{9}^{10}\left(\frac{1}{2}\right)^{10} \approx 0.01$.   
+\item If we allowed our coin to be biased, and repeated this calculation for $p=0.75$ we would find that\\
+  $P(\mbox{nine heads}|p=0.75) =
+\mathrm{C}_{9}^{10}\left(\frac{3}{4}\right)^{9}\left(\frac{1}{4}\right) \approx 0.19$.
+\item We can repeat this calculation for other values of $p$.
+ \end{itemize}
+Essentially, we carry out a this calculation to see how \emph{likely} those
+data were, given different parameter values.   We therefore call this
+calcuation ($P(\mbox{Observed data}|\theta)$) the \emph{likelihood function}.
+The \emph{maximum likelihood estimator} is the value of $\theta$ which
+maximises this function.
+
+\newpage
+
+\begin{df}
+{\color{red}The likelihood function}:
+let $X_1, X_2, \ldots, X_n)$ be a random sample on a distribution
+  characterised by parameters $\boldsymbol{\theta} = (\theta_{1},
+  \theta_{2} , \ldots, \theta_{k})$.   Let $x_{i}$ be the observed
+  value of $X_{i}$.   The function:
+  
+  \begin{displaymath}
+  L = \prod_{i=1}^{n} P(X_{i} = x_{i}| \boldsymbol{\theta})
+  \end{displaymath}
+  the \emph{likelihood function} for $\boldsymbol{\theta}$ given
+  $(x_1, x_2, \ldots, x_{n})$.   We wish to choose a value of
+  $\boldsymbol{\theta}$ that maximises $L$ (or equivantly which
+  maximises the log of $L$). 
+ \end{df}
+
+ 
+
+
+\newpage
+
+For a single observation from the Binomial distribution, the likelihood is simple:
+
+\begin{displaymath}
+L(\theta|x) = \binom{n}{x}\pi^x(1-\pi)^{n-1}
+\end{displaymath}
+
+For three separate experiments, each of size $n=10$, we can plot three likelihoods having observed $x=1$, $x=4$ and $x=8$:
+
+
+<<binomlike, fig = TRUE, results = hide, echo = FALSE>>=
+plot(c(0,1), c(0,0.6), type = "n", xlab = expression(pi), ylab = "Likelihood")
+curve(dbinom(1,10,x), add =TRUE, col= "red")
+curve(dbinom(4,10,x), add =TRUE, col = "green")
+curve(dbinom(8,10,x), add =TRUE, col = "blue")
+legend("topright", lwd = 1, col = c("red", "green", "blue"), legend = c("x=1", "x=4", "x=8"), bty = "n")
+@ 
+
+
+\begin{itemize}
+\item The main idea behind maximum likelihood estimation is to take our estimate of $\pi$ as the value that maximises this likelihood function.
+\item However, you should note immediately that there is other information here - specifically the curvature of the likelihood function
+\end{itemize}
+  
+
+\newpage
+
+This also works for continous density functions.   Consider an example with more than one observation, but also a continuous probability density function.
+
+We observe failure rates for 3 lightbulbs as 4,2,5 years.
+
+\begin{eqnarray*}
+L(\theta) &=& L(\theta|x_1) \times L(\theta|x_2) \times L(\theta|x_3)\\
+&=& \theta e^{-\theta x_1} \times \theta e^{-\theta x_2} \times \theta e^{-\theta x_3}\\
+&=& \theta^n e^{-\theta \sum_{i=1}^n x_i}
+\end{eqnarray*}
+
+
+As before we can plot this function:
+
+<<explike, fig = TRUE, results = hide, echo = FALSE>>=
+explike <- function(x, y){
+  n <- length(y)
+  sx <- sum(y)
+  like <- x^n * exp(-x*sx)
+  return(like)
+}
+plot(c(0,3), c(0,0.0005), type = "n", xlab = expression(theta), ylab = "Likelihood")
+curve(explike(x, y=c(4,5,6)), add = TRUE)
+
+
+@ 
+
+But we will now consider the log-Likelihood.
+
+\begin{displaymath}
+l(\theta) = n \log(\theta) - \theta \sum_{i=1}^n x_i
+\end{displaymath}
+
+So the method for finding the maximum should be clear
+
+\begin{displaymath}
+\frac{dl(\theta)}{d\theta} = \frac{n}{\lambda} - \sum_{i=1}^n x_i
+\end{displaymath}
+
+Set this equal to zero gives us:
+
+\begin{equation}
+\hat{\lambda} = \frac{n}{\sum_{i=1}^n x_i}
+\end{equation}
+
+Note the use of the hat symbol to denote that we have an estimate.  
+
+
+\newpage
+
+ It is also worth noting that many people use the parameterisation 
+ 
+\begin{displaymath}
+f(x) = \frac{1}{\lambda}e^{\frac{1}{\lambda}x} \mbox{ where } x \geq 0, \lambda \geq 0
+\end{displaymath}
+for this distribution which has $\hat{\lambda}=\bar{x}$.
+
+\newpage
+
+\subsection{Sufficiency}
+
+Note that we only need information on $\sum x_i$, we don't actually need to know $\boldsymbol{x}=(x_1,x_2,\ldots,x_n)$.
+
+\begin{df}
+A statistic $T(X)$ is sufficient for $\theta$ if, in an experiment, the conditional distribution of $X|T=t$ is free of $\theta$.
+\end{df}
+
+This can only be proven using Moments, which have not covered in any detail.   However, a further definition is also important:
+
+\begin{df}
+A statistic $T(X)$ is sufficient for $\theta$ in an experiment if and only if the model M can be factorised:
+\begin{displaymath}
+M_x=g(t(x),\theta) h(x)
+\end{displaymath}
+where $h(x)$ is free of $\theta$.
+\end{df}
+
+This is conventionally clarified by using the Normal distribution.   If $x_1, x_2, \ldots, x_n$ are iid from $N(\mu, \sigma^2)$ (so $\boldsymbol{\theta}=(\mu, \sigma^2)$) then:
+
+\begin{eqnarray*}
+M_x&=&(2 \pi \sigma^2)^{-n/2} \exp \left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i-\mu)^2 \right\}\\
+&=& (2 \pi \sigma^2)^{-n/2} \exp \left\{-\frac{\sum x^2}{2 \sigma^2}+\frac{\mu \sum x_i}{\sigma^2}-\frac{n \mu}{2 \sigma^2} \right\}
+\end{eqnarray*}
+
+If $\sigma^2$ is known then $\sum x_i$ is sufficient, if not $\sum x_i^2$ is also required.
+
+
+\newpage
+
+ \begin{shortquiz}
+Earlier we gave the likelihood function for a $X \sim Binomial(n, p)$ as:
+ 
+\begin{displaymath}
+   L = \mathrm{C}_{x}^{n}p^{x}(1-p)^{n-x}
+   \end{displaymath}
+   and could have stated the log-likelihood is given by:
+ \begin{displaymath}
+   \log(L) = log \mathrm{C}_{x}^{n} + x \log p + (n-x) \log(1-p)
+   \end{displaymath}
+ Find an expression for the value which maximises the likelihood or
+ log-likelihood 
+\begin{answers}[llbin]{4}
+\Ans0 $\hat{p} = \frac{x}{p}$ &
+\Ans1 $\hat{p} = \frac{x}{n}$ &
+\Ans0 $\hat{p} = \frac{n-x}{n}$ &
+\Ans0 $\hat{p} = \frac{n}{x}$ 
+   \end{answers}
+   \begin{solution}
+          The log-likelihood was given by:
+     \begin{displaymath}
+  \log(L) = log \mathrm{C}_{x}^{n} + x \log p + (n-x) \log(1-p)
+     \end{displaymath}
+     we want to find $\frac{d \log L}{dp} = 0$, i.e.
+ \begin{displaymath}
+ \frac{d \log L}{dp} = \frac{x}{p} - \frac{n-1}{1-p}
+ \end{displaymath}
+ set this equal to zero and solve:
+ \begin{displaymath}
+   \hat{p} = \frac{x}{n}
+   \end{displaymath}
+
+   To be very tidy, one perhaps should check that $\frac{d^2 \log
+     L}{dp^2}$ is negative.   Why?
+   \end{solution}
+   \end{shortquiz}
+ 
+   
+\newpage   
+
+\subsection{Maximum and curvature}
+
+A single number is not a good summary of a function.
+
+If we use the term Score, summarised by $S()$, we have just seen that:
+
+\begin{displaymath}
+S(\theta) = \frac{\partial \log L(\theta)}{\partial \theta}
+\end{displaymath}
+
+So the MLE $\hat{\theta}$ is the solution of the score equation $S(\theta)=0$
+
+At the maximum, the second derivative is negative.   The curvature at $\hat{\theta}$ is denoted by $I(\hat{\theta})$ where $I(\theta)$ is given by:
+
+\begin{displaymath}
+I(\theta) = - \frac{\partial^2 \log L(\theta)}{\partial \theta^2}
+\end{displaymath}
+
+Note that this is a value evaluated at the MLE and is therefore a single number and not a function.   $I(\hat{\theta}$ is called the observed Fisher information.   
+
+A large curvature at  $I(\hat{\theta}$ denotes a tight peak, and a more certain estimate concerning $\theta$.   
+
+
+
+\newpage
+
+We can use $I(\theta)$ in order to calculate a confidence interval.  Specifically, we can form a 95\% ``Wald'' confidence interval using $\hat{\pi} \pm z_{1-\alpha/2}
+I(\hat{\pi})^{-1/2}$ where $z_{1-\alpha/2}=1.96$. If we consider a binomial example (coins again) where $n=10$ and $x=8$ we have:
+
+\begin{displaymath}
+\hat{p} = \frac{8}{10}
+\end{displaymath}
+
+Recall that, for the Binomial distribution with parameter $\pi$, if
+  we observe $x$ successes from $n$ trials then:
+
+\begin{eqnarray*}
+\log L(\pi) &=& r \log \pi + (n-x) \log (1-\pi) \\
+S(\pi) &=& \frac{x}{\pi} - \frac{n-x}{1-\pi} \\
+I(\pi) &=& \frac{x}{\pi^2} + \frac{n-x}{(1-\pi)^2} 
+\end{eqnarray*}
+where $\log L(\pi)$ is the log-likelihood function, $S(\pi)$ is the
+score equations and $I(\pi)$ is the observed information.   
+
+
+
+  
+
+Given our expression for $I(\pi)$ as:
+
+\begin{displaymath}
+I(\pi)=\frac{x}{\pi^2}+\frac{n-x}{(1-\pi)^2}
+\end{displaymath}
+
+our estimate of the standard error is given by
+
+\begin{displaymath}
+I(\pi)^{-\frac{1}{2}}=1/ \sqrt{\frac{8}{0.8^2}+\frac{2}{(0.2)^2}}
+\end{displaymath}
+which is $1/ \sqrt{62.5}$.
+
+
+
+If we use the Wald formula for a confidence interval: $\pi \pm z_{\alpha/2}s.e.$ we have $0.8 \pm 1.96 \times 1/ \sqrt{62.5}$
+
+
+This gives the (somewhat implausible) C.I. as $0.55 < \pi < 1.05$.
+
+Maybe we can understand what's going on a little better if we think about what we are doing.
+
+\newpage
+\subsection{Quadratic approximation}
+
+If we take a second order Taylor's series expansion around $\hat{\theta}$ we get:
+
+\begin{displaymath}
+\log L(\theta) \approx \log L(\hat{\theta})+S(\hat{\theta})(\theta-\hat{\theta}) - \frac{1}{2} I(\hat{\theta})(\theta-\hat{\theta})^2
+\end{displaymath}
+
+If we are interested in the log-likelihood of $\theta$ around $\hat{\theta}$ we can therefore use:
+
+\begin{displaymath}
+  \log \frac{L(\theta)}{L(\hat{\theta})} =  -\frac{1}{2} I(\hat{\theta})(\theta-\hat{\theta})^2
+\end{displaymath}
+
+
+<<quadraticapprox, fig = TRUE, results = hide, echo = FALSE>>=
+par(las = 1)
+x <- 8
+n <- 10
+
+theta<- seq(0.5,.99,len=100)
+
+like <- dbinom(8,10,theta)
+like1 <- like/max(like)
+ll <- log(like1)
+##ll <- log(like) ##pjh
+
+that<- x/n
+  ihat<- n/that/(1-that)
+  la <- -ihat/2*(theta-that)^2
+##la <- log(exp(la)##*max(like))
+ra<- range(ll)
+
+plot(theta,ll,type='n',xlab=expression(pi), ylab='log-Likelihood')
+  lines(theta,ll,lwd=.4)
+  lines(theta,la,lty='dotted',lwd=1.52)
+legend("bottomleft", lty = c(1,3), legend=c("Analytical", "Quadratic approximation"), bty = "n")
+title(expression('Binomial distribution with n=10, x=8'))
+
+@ 
+
+Plotting the liklihood and the quadratic approximation tells us something about how good our quadratic approximation is, and how reasonable it is to summarise our knowledge of the likelihood by two pieces of information.
+
+
+
+
+<<droponechi, fig = FALSE, results = hide, echo = FALSE>>=
+par(las = 1)
+x <- 8
+n <- 10
+
+theta<- seq(0.5,.99,len=100)
+
+like <- dbinom(8,10,theta)
+like1 <- like/max(like)
+ll <- log(like1)
+##ll <- log(like) ##pjh
+
+that<- x/n
+  ihat<- n/that/(1-that)
+  la <- -ihat/2*(theta-that)^2
+##la <- log(exp(la)##*max(like))
+ra<- range(ll)
+
+plot(theta,ll,type='n',xlab=expression(pi), ylab='log-Likelihood')
+  lines(theta,ll,lwd=.4)
+##  lines(theta,la,lty='dotted',lwd=1.52)
+##legend("bottomleft", lty = c(1,3), legend=c("Analytical", "Quadratic approximation"), bty = "n")
+title(expression('Binomial distribution with n=10, x=8'))
+abline(h=-1.921)
+
+@ 
+
+
+
+\newpage
+
+
+\section{Measures of Closeness}
+
+We need to say a little about how we determine whether a particular estimator (including the ones we get from maximum likelihood methods) are any good.   It turns out that there are many (6 listed here) ways in which we can
+quantify how close an estimator is to the parameter of interest:
+\begin{enumerate}
+\item $P(\lvert T - \theta \rvert \leq \lvert S - \theta \rvert) = 1$
+\item $E[g(T-\theta)] \leq E[g(S-\theta)]$ for every continuous
+  function $g(\cdot)$ which is non-increasing for $x<0$ and
+  nondecreasing for $x>0$.
+\item $E[g(\lvert T-\theta \rvert )] \leq E[g( \lvert S-\theta \rvert
+  )]$ for every continuous and non-decreasing function $g(\cdot)$
+  (universal dominance)
+\item $P(\lvert T-\theta \rvert > \epsilon) \leq P(\lvert S-\theta
+  \rvert > \epsilon)$ for every $\epsilon$ (stochastic dominance)
+\item $E[(T-\theta)^{2}] \leq E[(S-\theta)^{2}]$ (mean squared error)
+\item $P(\lvert T - \theta \rvert < \lvert S - \theta \rvert) \geq P(\lvert T - \theta \rvert > \lvert S - \theta \rvert)$
+\end{enumerate}
+
+\newpage
+
+Here's a short game (intended to follow your mathematical logic).
+It's only intended as a way of seeing how well you understand what
+those six definitions mean (or alternatively whether you have a copy
+of Amemiya, 1994 to hand).   They are all true or false questions
+about which property of closeness implies another property of closeness.
+\begin{shortquiz}[True or false]
+\begin{questions}
+\item $(2) \implies (3)$
+\begin{answers}[tf1]{2}
+\Ans1 True
+\Ans0 False
+\end{answers}
+\item $(3) \implies (2)$
+\begin{answers}[tf2]{2}
+\Ans0 True
+\Ans1 False
+\end{answers}
+\item $(3) \implies (5)$
+\begin{answers}[tf3]{2}
+\Ans1 True
+\Ans0 False
+\end{answers}
+\item $(5) \implies (3)$
+\begin{answers}[tf4]{2}
+\Ans0 True
+\Ans1 False
+\end{answers}
+\item $(3) \implies (4)$
+\begin{answers}[tf5]{2}
+\Ans1 True
+\Ans0 False
+\end{answers}
+\item $(4) \implies (3)$
+\begin{answers}[tf6]{2}
+\Ans1 True
+\Ans0 False
+\end{answers}
+\item $(1) \implies (3)$
+\begin{answers}[tf7]{2}
+\Ans1 True
+\Ans0 False
+\end{answers}
+\item $(3) \implies (1)$
+\begin{answers}[tf8]{2}
+\Ans0 True
+\Ans1 False
+\end{answers}
+\item $(1) \implies (6)$
+\begin{answers}[tf9]{2}
+\Ans1 True
+\Ans0False
+\end{answers}
+\item $(6) \implies (1)$
+\begin{answers}[tf10]{2}
+\Ans0 True
+\Ans1 False
+\end{answers}
+\end{questions}
+\end{shortquiz}
+
+What a lot of fun this could be.   But it turns out convention
+suggests we most often use only one of these ``measures'' of closeness.
+
+
+\newpage
+
+\subsection{Mean square error}
+
+There is no \textit{a priori} reason to prefer any measure of
+closeness over another under all circumstances.   Nevertheless, the use of the mean square error has tended to be the preferred
+measure of closeness used in assessing estimators. You should note
+this was the fourth measure listed above!\\[0.5cm]  
+
+Let's illustrate this with an example that involves yet more coin
+tossing!   Imagine a population of coin tosses.   In the
+population, $X=1$ with probability $p$, and $X=0$ with probability
+$1-p$.   Given a sample of size $n=2$, we could suggest three three
+estimators you might like to use for $p$:
+
+\begin{itemize}
+\item $T_2=\frac{1}{2}(x_{1} + x_{2})$
+\item $S_2 = x_{1}$
+\item $W_2 = \frac{1}{2}$
+\end{itemize}
+
+\newpage
+
+Imagine that you have a biased coin and that $p=0.75$.   How do these
+three estimators behave.   You might need to note for example that $T_2$ can
+take on three values ($0, \frac{1}{2}, 1$) depending on whether 0, 1
+or 2 heads were thrown, $S_2$ takes on two values and $W_2$ has one
+value regardless of whatever data you have.   In order to work with expected values you
+need to determine the probability of obtaining these outcomes given $p=0.75$.
+\begin{shortquiz}[2-coin estimators]
+\begin{questions}
+\item Estimate the \emph{expected} mean square error for $T_2$, i.e.
+  $E[(T-0.75)^{2}]$ over the three possible values of $T_2$.
+\begin{answers}[t2]{4}
+\Ans0 $\frac{1}{32}$ &
+\Ans0 $\frac{1}{16}$ &
+\Ans1 $\frac{3}{32}$ & 
+\Ans0 $\frac{1}{8}$
+\end{answers}
+\begin{solution}
+
+We need to calculate $E[(T-0.75)^{2}]$.  We have four
+possible outcomes, tabulated below:
+
+\begin{tabular}{rrrrr|r}
+     & & $\nearrow$   & Head & $\frac{3}{4} \times \frac{3}{4}$ & {\color{blue}$\frac{9}{16}$} \\ 
+Head & $\frac{3}{4}$& &      &                                  & \\
+     & &$\searrow$   & Tail & $\frac{3}{4} \times \frac{1}{4}$ & {\color{green}$\frac{3}{16}$}\\
+\hline
+     & &$\nearrow$   & Head & $\frac{1}{4} \times \frac{3}{4}$ & {\color{green}$\frac{3}{16}$}\\
+Tail & $\frac{1}{4}$&  &      &                                  &  \\
+     & &$\searrow$   & Tail & $\frac{1}{4} \times \frac{1}{4}$ & {\color{red}$\frac{1}{16}$}
+ \end{tabular}
+ 
+The expected mean square is therefore:
+\begin{displaymath}
+E[\left(T-\frac{3}{4}\right)^{2}]=\left(0- \frac{3}{4}\right)^2\left(\frac{1}{16}\right) + \left(\frac{1}{2}
+- \frac{3}{4}\right)^2\left(\frac{3}{8}\right) + \left(1 -
+\frac{3}{4}\right)^2\left(\frac{9}{16} \right)
+\end{displaymath}
+which gives
+$$\frac{9}{16}\left(\frac{1}{16}\right) + \frac{1}{16}\left(\frac{6}{16}\right) +
+\frac{1}{16}\left(\frac{9}{16}\right) = \frac{9}{256} + \frac{6}{256} +
+\frac{9}{256} = \frac{24}{256} = \frac{3}{32}$$
+\end{solution}
+\item Estimate the expected mean square error for $S_2$ i.e. $E[\left(S_2 -
+  0.75\right)^2]$ over the two possible outcomes.
+\begin{answers}[s2]{4}
+\Ans0 $\frac{1}{16}$ &
+\Ans0 $\frac{1}{8}$ &
+\Ans1 $\frac{3}{16}$ & 
+\Ans0 $\frac{1}{4}$
+\end{answers}
+\begin{solution}
+Here we are only interested in $X_1$.   Hence if $X_1 = 1$ (an event
+that occurs with probability $0.75$) our
+estimate $\hat{p} = 1$, if $X_1 = 0$ (an event that occurs with
+probability $0.25$), our estimate $\hat{p} = 0$.   Hence
+$$E[(T-p)^2] = \left(1 - \frac{3}{4}\right)^2 \left(\frac{3}{4}\right) + \left(0-\frac{3}{4}\right)^2\left(\frac{1}{4}\right)$$
+which is $$\frac{1}{16} \left(\frac{3}{4}\right) + \frac{9}{16} \left(\frac{1}{4}\right) = \frac{3}{16}.$$
+\end{solution}
+\item Estimate the expected mean square error for $W_2$, i.e. $E[(W_2
+  - 0.75)^2]$ over the sole outcomes.
+\begin{answers}[s2]{4}
+\Ans1 $\frac{1}{16}$ &
+\Ans0 $\frac{1}{8}$ &
+\Ans0 $\frac{3}{16}$ & 
+\Ans0 $\frac{1}{4}$
+\end{answers}
+\begin{solution}
+This is the equivalent of the person who was offered one of two
+watches, one that was completely fixed and didn't move, one that was
+behind the time by an hour.   This person chose the first watch on the
+basis that it would be correct twice a day.
+
+So, we have to calculate only:
+$$E[\left(W_2 - \frac{3}{4}\right)] = \left(\frac{1}{2} - \frac{3}{4}\right)^2 = \frac{1}{16}$$
+Hey, this is the lowest mean square error!   And we didn't need any data to form our estimate.
+\end{solution}
+\end{questions}
+\end{shortquiz}
+
+
+\newpage
+
+\subsection{More generally}
+
+As it turns out, a little bit of algebra gives us a fairly general
+formula for each of these estimators, for any value of $p$.
+
+\begin{itemize}
+\item $E[(T_2-p)^2] = \frac{1}{2}p(1-p)$
+\item $E[(S_2-p)^2] = p(1-p)$
+\item $E[(W_2-p)^2] = \left( \frac{1}{2} - p \right)^2$
+\end{itemize}
+
+We can even graph these functions as a value of $p$:
+
+\begin{figure}
+<<mse, fig = TRUE, echo = FALSE, results = hide>>=
+f1 <- function(p){0.5 * p * (1-p)}
+f2 <- function(p){p * (1-p)}
+f3 <- function(p){(0.5-p)^2}
+x <- seq(from = 0.000001, to = 0.999999, length = 1000)
+plot(f2(x) ~ x, type = "l", lwd = 2, col = "red", ylim = c(0,0.3),
+main = "Expected mean square error for three estimators", xlab = "p", ylab = "MSE")
+lines(f1(x) ~ x, lty = 2, lwd = 2, col = "green")
+lines(f3(x) ~ x, lty = 3, lwd = 2, col = "blue")
+abline(v = 0.75)
+legend("topleft", legend = expression(T[2], S[2], W[2]), col = c("green", "red",
+"blue"), lty = c(2, 1, 3), ncol = 3)
+
+@ 
+\caption{A plot illustrating the Expected mean square estimator for
+  each of the three estimators in the two coins problem}
+\end{figure}
+
+
+\newpage
+
+You should see from the figure for example that for any value of $p$, $T_2$ has lower
+mean square error than $S_2$ and in some sense to be defined is
+clearly a better estimator.  A vertical line also illustrates the
+calculations we have just done assuming $p=0.75$.   This leads us into
+one desirable property of estimators:
+
+\begin{df}
+{\color{red} Efficiency}: consider $S$ and $T$ (in general, not in
+relation to the two estimators we have just been working with); two
+estimators of $\theta$.   $T$ is said to be
+\emph{more efficient} than $S$ if 
+
+\begin{displaymath}
+E[(T-\theta)^{2}] \leq E[(S-\theta)^{2}] \mbox{ for all } \theta \in \Theta
+\end{displaymath}
+\emph{and}
+\begin{displaymath}
+E[(T-\theta)^{2}] < E[(S-\theta)^{2}] \mbox{ for at least one value of } \theta \in \Theta
+\end{displaymath}
+\end{df}
+
+So \emph{efficiency} of an estimator is one way of deciding whether it
+is any good.   Note that the definition is all about the goodness of
+the estimator in terms of mean square!   
+
+Now, what about the terminology we use
+to compare estimators:
+
+\newpage
+
+\begin{df}
+{\color{red}Admissability}:  let $\hat{\theta}$ be an estimator of $\theta$.   We say that it is
+  \emph{inadmissable} if there is a more \emph{efficient} estimator
+  (and we have just defined efficiency).   An admissable estimator is
+  one that is not inadmissable.
+\end{df}
+
+\begin{shortquiz}
+In our example above, $S_{2}$ is said to be inadmissable
+\begin{answers}[t2ad]{2}
+\Ans1 True & 
+\Ans0 False
+\end{answers}
+\begin{solution}
+$S_{2}$ is said to be inadmissable because it is dominated by $T_{2}$,
+i.e. $T_2$ is a more efficient estimator than $S_2$
+\end{solution}
+\end{shortquiz}
+
+
+
+\newpage
+
+\section{Biased estimators}
+
+Now that we have made comparisons in terms of mean square.   But we
+need to look at a component of this, the way which our estimator could
+systematically depart from the true
+value.
+
+\begin{df}
+{\color{red}Unbiased estimators:}
+  $\theta$ is said to be an \emph{unbiased} estimator of $\theta$ if
+  $E[\hat{\theta}] = \theta$ for all $\theta \in \Theta$.   The quantity
+  $E[\hat{\theta} - \theta]$ is referred to as the \emph{bias}.
+  \end{df}
+  
+
+\begin{shortquiz}
+\begin{questions}
+\item   In our example above, $T_{2}$ is unbiased
+\begin{answers}[t2bias]{2}
+\Ans1 True & 
+\Ans0 False
+\end{answers}
+\begin{solution}
+We need to note that $E[\hat{\theta}] = 1\left(\frac{9}{16}\right) + \frac{1}{2}
+\left(\frac{3}{8}\right) + 0\left(\frac{1}{16}\right) = \frac{12}{16}$ hence the estimator is unbiased.
+\end{solution}  
+\item   Likewise, $S_{2}$ is unbiased
+\begin{answers}[s2bias]{2}
+\Ans1 True & 
+\Ans0 False
+\end{answers}
+\begin{solution}
+Here we only need to note that $E[\hat{\theta}] = 1\left(\frac{3}{4}\right) +
+0\left(\frac{1}{4}\right)$ hence the estimator is unbiased.
+\end{solution}
+\item   And finally, $W_{2}$ is unbiased
+\begin{answers}[w2bias]{2}
+\Ans0 True & 
+\Ans1 False
+\end{answers}
+\begin{solution}
+Here, I'm not sure whether $E[\hat{\theta}]$ is really defined, but if
+we follow the logic above it is $\frac{1}{2}(1)$ which looks pretty
+much biased to me.
+\end{solution}
+\end{questions}
+\end{shortquiz}
+
+
+However, when considering estimators in general, how important is
+bias.   Specifically:
+  
+\begin{shortquiz}
+  Is it more important to have an unbiased estimator at the expense of
+  higher mean square error than it is to reduce mean square error at
+  th expense of bias
+  \begin{answers}[bias]{2}
+    \Ans1 Yes
+    \Ans1 No
+  \end{answers}
+ \begin{solution}
+   Well, the convention has been to prefer to keep the mean square
+   error as small as possible, even if that means we have some bias in
+   our estimator.   But do note that this is only a convention!
+  \end{solution}
+ \end{shortquiz}
+  
+ 
+ \newpage
+ \subsection{Decomposition of mean square error}
+
+ Finally, it is valuable to know that we can  ``decompose'' the mean square error of an
+ estimator into these two constituent parts:
+ 
+\begin{df} 
+{\color{red} Decomposition of estimator variance}:  the mean square error is the sum of the variance and the bias
+  squared, i.e.
+
+  \begin{displaymath}
+    E[(\hat{\theta} - \theta)^2] = Var(\hat{\theta}) + (E[\hat{\theta}-\theta])^{2}
+ \end{displaymath}
+ \end{df}
+ 
+ So a large mean square error could mean either a large bias, or a
+ large variance, or a combination.
+ 
+ 
+ \newpage
+ 
+ \section{Asymptotic properties}
+ 
+  \subsection{Cram\'er-Rao Lower Bound}
+ 
+ It turns out that there is a well developed method for assessing the
+ quality of our estimators in terms of their theoretical variance.
+ Specifically, the term known as the Cram\'er-Rao Lower Bound places a
+ limit on the variance.    
+ 
+ \begin{df}
+   {\color{red} Cram\'er-Rao Lower Bound}: let $L(X_1, X_2, \ldots, X_n | \theta)$ be the likelihood function,
+and let $\theta(X_1, X_2, \ldots, X_n)$ be an \emph{unbiased}
+estimator of $\theta$.   Under some general conditions, we have:
+   \begin{displaymath}
+   Var(\hat{\theta}) \geq - \frac{1}{E\left[ \frac{d^2 \log L}{d
+         \theta^2} \right]}
+   \end{displaymath}
+\end{df}   
+   
+The phrase ``under general conditions'' provides me with an excuse to
+say nothing further about this formula.   If you like worrying about
+missing details, you may be reassured to note that these conditions
+include \emph{regularity conditions} such as the support of $L$ (the
+domain over which it is positive) must not depend on $\theta$.
+   
+ 
+ Mean square error, bias and so on are features of the finite sample
+ properties of the estimators we are working with.   It is commonly
+ quite difficult to obtain the exact moments, never mind the exact
+ distribution of estimators.   Under these circumstances we work with
+ an approximation to the distribution of the moments.   Such
+ \emph{asymptotic approximation} relies on us considering what happens
+ in the limit of the sample size going to infinity.   Our last session
+ considered the techniques necessary to be able to do this.   In order
+ to do this, we require our estimators to have the following properties:
+ 
+ \begin{df}
+ {\color{red}Consistency}:  $\hat{\theta}$ is a \emph{consistent} estimator of $\theta$ if
+   $\hat{\theta} \stackrel{P}{\to} \theta$.   Under general
+   conditions, the maximum likelihood estimators can be shown to be \emph{consistent}
+   estimators of their population values % Under reasonable
+   %assumptions, all the sample moments are \emph{consistent}
+   %estimators of their population values.
+   \end{df}
+   
+\begin{df}
+  {\color{red} Asymptotically Normal}:  let $L(X_1, X_2, \ldots, X_n |
+  \theta)$ be the likelihood function.   Under general conditions, the
+  maximum likelihood estimator $\hat{\theta}$ is asymptotically
+  distributed as:
+  
+  \begin{displaymath}
+    \hat{\theta} \stackrel{A}{\sim} Normal \left( \theta, -E\left[ \frac{d^2 \log L}{d
+         \theta^2} \right]^{-1} \right)
+   \end{displaymath}
+   \end{df}
+   
+You should recognise the variance term here!   The asymptotic variance
+of the maximum likelihood estimator is the same as the Cram\'er-Rao
+Lower Bound.   We can therefore say:
+
+\begin{df}
+ {\color{red}Asymptotic efficiency:}
+If the asymptotic distribution is indeed given as above, then we can
+regard a \emph{consistent} estimator as being \emph{asymptotically
+  efficient}.
+\end{df}
+
+The maximum likelihood estimator is therefore asymptotically efficient
+by definition.
+   
+
+
+  
+\newpage
+
+\section{Invariance principle}
+
+\begin{df}
+{\color{red}Invariance priniple}: if $\hat{\theta}$ is a maximum likelihood estimator of $\theta$, and $g(\theta)$ is a function of $\theta$ then $g(\hat{\theta})$ is a maximum likelihood estimator of $g(\theta)$.
+\end{df}
+
+
+Imagine $n=10$ and $x=8$.   Until now we've discussed the idea of a proportion $\frac{x}{n}$.   But we might also be interested in odds:  $\frac{x}{n-x}$
+\vspace{0.5cm}
+\begin{displaymath}
+\frac{\mbox{Number of successes}}{\mbox{Number of failures}}
+\end{displaymath}
+\vspace{0.5cm}
+
+Let's consider odds from the point of view of the parameters.   If $\pi$ is the proportion, then odds are $\frac{\pi}{1-\pi}$, and log odds are given as:
+
+\begin{displaymath}
+\psi = \log \left( \frac{\pi}{1-\pi} \right)
+\end{displaymath}
+
+\newpage
+
+So if we have an m.l.e. for $\pi$ such that $\hat{\pi}=\frac{8}{10}$, and if we have $g(\pi)=\log \left( \frac{\pi}{1-\pi} \right)$ then the m.l.e. for $g(\pi)$ is 
+
+\begin{displaymath}
+\hat{\psi}=\log \left( \frac{0.8}{1-0.8} \right) = 1.39
+\end{displaymath}
+
+\newpage
+
+\subsection{Transforming intervals}
+
+
+Instead of deriving an interval for $\pi$ directly, we can derive an interval
+  for a \textbf{transformation} of $\pi$. In order to form an interval estimate for $\psi$, we need to use:
+
+\begin{displaymath}
+\mbox{se}[g(\pi)] = \mbox{se}(\pi)\Big\lvert \frac{\delta g}{\delta
+\hat{\pi}} \Big\rvert .
+\end{displaymath}
+
+We know that $\frac{\delta g}{\delta \hat{\pi}} = \frac{1}{\hat{\pi}}+
+\frac{1}{1-\hat{\pi}}$.  Given that we earlier noted $s.e.(\pi) = 1/\sqrt{62.5}$
+
+\begin{displaymath}
+ s.e.[g(\pi)]=  1/\sqrt{62.5} \times \left( \frac{1}{0.8}+\frac{1}{1-0.8} \right)=0.79
+\end{displaymath}
+
+We therefore obtain a CI using $1.39 \pm 1.96 \times 0.79$ i.e., $-0.16 < \psi < 2.94$
+
+Noting that $g^{-1}(\psi)=\frac{\exp(\psi)}{1+\exp (\psi)}$ we can transform this interval to give the
+95\% Wald Interval for $\pi$:
+
+\begin{displaymath}
+0.46 < \pi < 0.95
+\end{displaymath}
+
+\begin{itemize}
+\item What do you think the quadratic approximation to the logit transformed likelihood might look like?
+\end{itemize}
+
+\newpage
+
+\subsection{Bayesian analysis}
+
+As we shall find out, in practice, we shall use Bayes theorem to give us:
+
+\begin{displaymath}
+\mbox{Posterior} \propto \mbox{Likelihood} \times \mbox{Prior}
+\end{displaymath}
+
+We shall essentially use the formula:
+\begin{displaymath}
+p[A_i | B] = \frac{p[B|A_i]p[A_i]}{\sum_{j=1}^n p[B|A_j]p[A_j]}, i=1,2,\ldots, n
+\end{displaymath}
+
+Which can be applied to discrete and continuous density functions:
+
+\begin{displaymath}
+f(\theta|x) = \frac{L(\theta)f(\theta)}{\int L(\theta)f(\theta)}
+\end{displaymath}
+
+But, given we are working with a likelihood (rather than a pdf which must sum/integrate to 1) we will often ignore the denominator and simply use
+
+\begin{displaymath}
+f(\theta|x) \propto L(\theta)f(\theta)
+\end{displaymath}
+
+It follows that properties of the Likelihood are important in both Bayesian and Frequentist statistics.
+
+
+
+But even if we assume that the prior $f(\pi)=1$, then the posterior:
+
+\begin{displaymath}
+post(\psi|x) = f(\theta(\psi)|x) \times \Big\lvert \frac{\partial \theta}{\partial \psi}\Big\rvert
+\end{displaymath}
+
+Which might or might not be a problem.   For the logit tranformation,  $\Big\lvert \frac{\partial \theta}{\partial \psi}\Big\rvert = \frac{e^\psi}{(1+e^{\psi})^2}$.
+
+If we examined the likelihood ratio of $\pi_1=0.8$ against $\pi_2=0.3$:
+ \begin{displaymath}
+ \frac{L(\pi_1=0.8)}{L(\pi_2=0.3)} = \frac{\pi^8_1 (1-\pi_1)^2}{\pi^8_2(1-\pi_2)^2}=208.7 
+ \end{displaymath}
+
+
+ But if we evaluate the Jacobian when comparing $\psi=1.386$ with $\psi=-0.847$ we find the likelihood ratio is reduced by $0.81$.
+ 
+ This matter needs some consideration!
+
+
+
+\NaviBarOff
+\end{document}

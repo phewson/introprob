@@ -1,0 +1,689 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage{textcomp}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Probability Crash Course: \\ Discrete distributions}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{5th September 2012}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=1.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.2} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   concepts in probability.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+%tableofcontents
+
+
+\section{Functions to describe probability}
+
+This formalises material that is hidden in Chapter 1 of Grinstead and Snell and assumed in Grinstead and Snell, Section 5.1 (page 183)
+
+\begin{df}
+If $\Omega$ is a \emph{sample space} with a \emph{probability measure} and $X$ is a \emph{real valued function} defined over the elements of $S$, then $X$ is called a random variable.
+  \begin{itemize}
+  \item (random variable $X$ upper case)
+  \item (realisation $x$ lower case)
+  \end{itemize}
+\end{df}
+
+
+Consider tossing a fair coin twice.   We have $\Omega=(HH,HT,TH,TT)$.   There are four events $\omega$ in the sample space.   If we define $X(\omega)$ as the number of heads, then we have $X(HH)=2$, $X(HT)=1$, $X(TH)=1$ and $X(TT)=0$.   It is the function $X(\omega)$ that is called a random variable.
+
+We often abbreviate our notation and just refer to the random variable as $X$, but do note that $X(\omega)$ is a function, not the value of that function at any particular $\omega$.   This point can often be ignored, but it is a formality that will be observed by many textbooks.
+
+
+\newpage
+
+\subsection{Mass and distribution}
+
+Having carried out some experiment, we know the particular outcome $\omega \in \Omega$, and can assign a value to $X(\omega)$.   We wish to assign some measure of probability to this eventually, and can do this either using a mass function:
+
+\begin{itemize}
+\item $f(x)$=probability that $X$ is equal to $x$
+\end{itemize}
+
+or more usefully through a distribution function:
+
+\begin{itemize}
+\item $F(x)$=probability that $X$ does not exceed $x$
+\end{itemize}
+
+Do note the convention $f(x)$ and $F(x)$.
+
+So far our discussion has been in terms of discrete variables.   It seems appropriate to refresh ideas about discrete and continuous variables before going further.
+
+\newpage
+
+\subsection{Variables}
+
+Variables can be classified in all kind of ways:
+\begin{itemize}
+\item Quantitative (where the values taken are numerical:
+  \begin{itemize}
+  \item Discrete (only particular values are possible, e.g. the
+    integers)
+  \item Continuous (where any value in a range is possible)
+  \end{itemize}
+\item Qualitative (where the object has some non-numerical quality)
+  \begin{itemize}
+  \item Ordinal (where these qualities can be ordered)
+  \item Categorical (where the qualities are simply of different
+    types, e.g., red bicycle, blue bicycle)
+  \end{itemize}
+\end{itemize}
+
+\newpage
+
+\begin{shortquiz}{\color{red}Variable types}\\
+Identify the type of variable in the following examples:
+\begin{questions}
+\item Power to a computer
+\begin{answers}[v1]{2}
+\Ans0 Qualitative (categorical) &
+\Ans0 Qualitative (ordinal) \\
+\Ans0 Quantitative (discrete) &
+\Ans1 Quantitative (continuous)
+\end{answers}
+\item The make of a computer
+\begin{answers}[v2]{2}
+\Ans1 Qualitative (categorical) &
+\Ans0 Qualitative (ordinal) \\
+\Ans0 Quantitative (discrete) &
+\Ans0 Quantitative (continuous)
+\end{answers}
+\item Number of icons on a desktop computer
+\begin{answers}[v3]{2}
+\Ans0 Qualitative (categorical) &
+\Ans0 Qualitative (ordinal) \\
+\Ans1 Quantitative (discrete) &
+\Ans0 Quantitative (continuous)
+\end{answers}
+\item Wind speed
+\begin{answers}[v4]{2}
+\Ans0 Qualitative (categorical) &
+\Ans0 Qualitative (ordinal) \\
+\Ans0 Quantitative (discrete) &
+\Ans1 Quantitative (continuous)
+\end{answers}
+\item Quality of a Hotel (e.g. Michelin 3 star)
+\begin{answers}[v5]{2}
+\Ans0 Qualitative (categorical) &
+\Ans1 Qualitative (ordinal) \\
+\Ans0 Quantitative (discrete) &
+\Ans0 Quantitative (continuous)
+\end{answers}
+\item Number of bedrooms in a hotel
+\begin{answers}[v6]{2}
+\Ans0 Qualitative (categorical) &
+\Ans0 Qualitative (ordinal) \\
+\Ans1 Quantitative (discrete) &
+\Ans0 Quantitative (continuous)
+\end{answers}
+\item Time spent travelling to lectures today
+\begin{answers}[v8]{2}
+\Ans0 Qualitative (categorical) &
+\Ans0 Qualitative (ordinal) \\
+\Ans0 Quantitative (discrete) &
+\Ans1 Quantitative (continuous)
+\end{answers}
+\end{questions}
+\end{shortquiz}
+
+\newpage
+
+
+In terms of defining probability measure, we 
+only worry about the two
+types of \emph{quantitative} variable listed; discrete and continuous.  
+We can only work with qualitative variables for example if we measure
+them or count them.
+
+\begin{itemize}
+\item A discrete random variable is a variable that takes a countable
+  (this can be countably finite or countably infinite)
+  set of real numbers with associated probabilities
+\item A continuous random variable is a variable which takes a
+  continuum of values in the real line according to a rule determined
+  by a density function
+\end{itemize}
+
+Let's concentrate on discrete random variables.
+
+\newpage
+
+\subsection{Discrete random variables}
+
+
+A frequentist interpretation would suggest that a random variable (usually denoted by a capital letter) is a numerical
+variable ``defined'' by the outcome of a random experiment.   Even the experiment hasn't happened, we evaluate relative to some sense of a long run of experimental outcomes.   
+We are
+interested in knowing something about random variables (the outcome) $X=x$
+and the probability $p[X=x]$associated with that event.
+
+\begin{df}
+A \emph{discrete} random variable is a real valued function defined on the
+sample space $\Omega$.  For such discrete random variables $X$, then
+$F_X(x)$ will have a finitely or infinitely countable range,
+$\Omega_x=x_1, x_2, \ldots$.
+\end{df}
+
+\newpage
+
+We illustrate the difference between countably finite and countably
+infinite with two examples:
+
+\begin{itemize}
+\item Suppose that the number of working days in a year is 250.   Absences
+from work are noted in employees records.   An experiment consists of
+randomly drawing a record to see the number of days absent during a
+year.   The random variable $X$ can be defined as the number of days
+absent, hence $\Omega_X=0,1,2,\ldots,250$.  
+
+\item A Geiger counter is connected to a gas tube in order to record the
+background radiation count for a selected time interval $[0,t)$ (where
+$t$ is fixed).   The random variable $X$ denotes the number of counts
+in this time period, and the sample space is $\Omega_X=0,1,2,\ldots,\infty$.
+\end{itemize}
+
+
+$X$ records the event of interest, in either case we could define the
+event $X=3$.   We wish to associate a probability with this event,
+that is $p[X=3]$.
+
+\newpage
+
+\subsection{The mass function}
+
+\begin{itemize}
+\item The function given by $f(x) = P(X=x)$ for each $x$ within the range of $X$ is called the \emph{probability mass} of $X$
+\item A function can serve as the probability mass function of a discrete random variable $x$ if and only if its values $f(x)$ satisfy
+\begin{itemize}
+\item[(i)] $f(x) \geq 0$ for each value within its domain
+\item[(ii)] $\sum_{x} f(x) = 1$ where the summation extends over all values in its domain
+\end{itemize}
+\end{itemize}
+
+\newpage
+
+<<pmf, fig =TRUE, echo = FALSE, results = hide>>=
+y = c(0,1,2,3,4,5,6)
+prob = c(0.10,0.15,0.20,0.25,0.20,0.06,0.04)
+# Plot PMF
+par(las = 1)
+plot(y,prob,type="h",xlab="y",ylab="P(Y=y)",ylim=c(0,0.30), yaxs="i", main  = "Fictional pmf")
+@
+
+\newpage
+
+\subsection{The distribution function}
+
+\begin{itemize}
+\item If $X$ is a discrete r.v., the function given by 
+
+\begin{displaymath}
+F(X) = P(X \leq x) = \sum_{t \leq x} f(t)\mbox{ for }-\infty < x < \infty
+\end{displaymath}
+where $f(t)$ is the value of the probability distribution of $X$ at $t$.
+\item $F(x)$ is called the \emph{distribution function} or \emph{cumulative distribution} of $X$
+\item The values $F(x)$ of the discrete function of a discrete r.v. $X$ satisfy the conditions:
+\begin{itemize}
+\item $F(-\infty) = 0$ and $F(\infty) = 1$
+\item If $a < b$ then $F(a) \leq F(b)$ for any real number $a$ and $b$.
+\end{itemize}
+\end{itemize}
+
+
+ 
+<<cdf, fig = TRUE, echo = FALSE, results = hide>>=
+
+cdf = c(0,cumsum(prob))
+
+cdf.plot = stepfun(y,cdf,f=0)
+par(las = 1, xpd=NA)
+plot.stepfun(cdf.plot,xlab="y",ylab="F(y)",verticals=FALSE,do.points=TRUE,pch=16, yaxs="i", main = "Corresponding cdf", bty = "n", lwd = 3, col = "blue")
+@
+
+
+\newpage
+
+\begin{itemize}
+\item If the range of a random variable $X$ consists of the values $x_{1} < x_{2} < x_{3} < \cdots < x_{n}$ then:
+\begin{itemize}
+\item $f(x_{1}) = F(x_{1})$
+\item $f(x_{i}) = F(x_{i}) - F(x_{i-1})$ for $i=2, \ldots, n$
+\end{itemize}
+\end{itemize}
+
+
+\newpage
+
+\begin{shortquiz}{\color{red}Mass and Distribution}
+\begin{questions}
+\item A discrete probability mass function gives us:
+\begin{answers}[dpdf]{2}
+\Ans1 $f(x) = Prob(X = x)$ &
+\Ans0 $f(x) = Prob(X \geq x)$ \\
+\Ans0 $f(x) = Prob(X \leq x)$
+\end{answers}
+\item A discrete distribution function gives us:
+\begin{answers}[dcdf]{2}
+\Ans0 $F(x) = Prob(X = x)$ &
+\Ans0 $F(x) = Prob(X \geq x)$ \\
+\Ans1 $F(x) = Prob(X \leq x)$
+\end{answers}
+\end{questions}
+\end{shortquiz}
+
+\newpage
+
+
+\subsubsection{An example}
+
+Consider a coin tossing experiment, where $X(H)=1$ and $X(T)=0$.   The distribution function is given by:
+
+\begin{displaymath}
+F(x) = \left\{ \begin{array}{ll} 0 & x < 0 \\ 1-\pi & 0  \leq x < 1 \\ 1 & x  \geq 1 \end{array} \right.
+\end{displaymath}
+
+We will find out later that this is the distribution function called Bernoulli.   Bernoulli variables can also be defined by Indicator variables:
+
+\begin{displaymath}
+I_A(\omega) =\left\{ \begin{array}{lrl} 1 & \mbox{ if } & \omega \in A \\ 0 & \mbox{ if } & \omega \in A^C \end{array} \right.
+\end{displaymath}
+
+\newpage
+
+
+
+
+\subsection{Expectation}
+
+For more information see Grinstead and Snell sections 6.1 and 6.1 (page 225 onwards)
+
+
+We can  define the \emph{expectation} of a discrete random variable as
+follows:
+
+\begin{df}
+\begin{displaymath}
+E[X] = \sum_{x \in \Omega_x} x\ p[X=x]
+\end{displaymath}
+\end{df}
+
+It's easiest to explain this with an example:
+
+\newpage
+
+Consider our coin example from earlier.   We had $\Omega = \{\omega_1, \ldots, \omega_4 \} = \{HH, HT, TH, TT\}$.   We defined the random variable $X(\omega)$ as the number of tails.   Hence, by the na\"ive defintion of probability we want the following pmf:
+
+\begin{tabular}{rrr}
+HH & $0$ & $1/4$ \\
+HT & $1$ & $1/4$ \\
+TH & $1$ & $1/4$ \\
+TT & $2$ & $1/4$ 
+\end{tabular}
+
+So the pmf ($Pr[X=x]$) reduces to 
+\begin{displaymath}
+\left\{ \begin{array}{rrr} 1/4 & \mbox{ if } & X=0 \\
+1/2 & \mbox{ if } & X=1 \\ 1/4 & \mbox{ if } & X = 2 \end{array} \right.
+\end{displaymath}
+
+Now use this to calculate the expected value:
+
+\begin{tabular}{rrr}
+$X$ & $f(x)$ & $x \times f(x)$ \\
+\hline
+$0$ & $1/4$ & $0$ \\
+$1$ & $1/2$ & $1/2$ \\
+$2$ & $1/4$ & $1/2$ \\
+\hline
+ & $\sum x\ f(x)$ & $1$
+\end{tabular}
+
+So here $E[X]=1$
+
+\newpage
+
+Now we need to consider the expected value of a function of $X$, quite often this will be as simple as $g(X) = X^2$.
+
+\begin{df}
+$E[g(X)] = \sum_{x \in \Omega} g(x) Pr[X=x]$
+\end{df}
+
+(although this is lovely and simple, it's never been obvious to me why it should be valid)
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{gxisxsquared}
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} For the two coin example, find E[g(X)] where $g(X) = X^2$ (hint, all you need to do is replace the values of $X$ in the above table by $X^2$ and complete the arirthmetic)\\
+\RespBoxTxt{0}{0}[gx11]{1}{1.5}
+\CorrAnsButton{1.5}
+\begin{solution}
+\begin{tabular}{rrr}
+$X^2$ & $f(x)$ & $x^2 \times f(x)$ \\
+\hline
+$0$ & $1/4$ & $0$ \\
+$1$ & $1/2$ & $1/2$ \\
+$4$ & $1/4$ & $1$ \\
+\hline
+ & $\sum x\ f(x)$ & $1.5$
+\end{tabular}
+ \\[0.3in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\end{questions}
+\end{quiz}\quad\eqButton{gxisxsquared}Points: \ScoreField{gxisxsquared}
+
+
+\newpage
+
+We're not restricted to $g(X)$ being quite so mathematical (in other words, the idea of Expectation comes up in lots of other useful places).
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{bakery}
+The manager of a bakery believes that the demand for the number of
+chocolate cakes he could sell on a single day is a random variable with the probability
+function $f(x)=\frac{1}{6}$ for $x=0,1,2,3,4,5$.   There is a profit
+of \texteuro 1.00 for each cake sold, and a loss of \texteuro 0.40 on
+each cake unsold.   Assume that a cake can only be sold on the day it
+is made.   We are therefore interested in $Y$, the profit (or loss) on each transaction.   What the expected profit ($E[Y]$) under each of the following scenarios:
+\begin{questions}
+%\begin{oQuestion}{p1}\\
+\item\PTs{1} A day on which he bakes 5
+  cakes (2d.p.)\\
+\RespBoxTxt{0}{0}[bakery1]{1}{1.50}
+\CorrAnsButton{1.50}
+\begin{solution}
+
+\begin{tabular}{lrr}
+x & p[X=x] & Profit \\
+\hline
+0 & $\frac{1}{6}$ & - \texteuro 2.00 \\
+1 & $\frac{1}{6}$ & - \texteuro 0.60 \\
+2 & $\frac{1}{6}$ & \texteuro 0.80 \\
+3 & $\frac{1}{6}$ & \texteuro 2.20 \\
+4 & $\frac{1}{6}$ & \texteuro 3.60 \\
+5 & $\frac{1}{6}$ & \texteuro 5.00
+\end{tabular}
+
+We need to find $E[X] = \sum_{x \in \Omega_x} xp[X=x]$ which is given
+by \\
+$\frac{1}{6} \times -2.00 + \frac{1}{6} \times -0.60 + \frac{1}{6}
+\times 0.80 + \frac{1}{6} \times 2.20 + \frac{1}{6} \times 3.60 +
+\frac{1}{6} \times 5$.   
+
+This suggests that $E[X]=$ \texteuro 1.5  \\[0.3in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1} A day on which he bakes 4
+  cakes (2 d.p. )\\
+\RespBoxTxt{0}{0}[bakery2]{1}{1.67}
+\CorrAnsButton{1.67}
+\begin{solution}
+
+\begin{tabular}{lrr}
+x & p[X=x] & Profit \\
+\hline
+0 & $\frac{1}{6}$ & - \texteuro 1.6 \\
+1 & $\frac{1}{6}$ & - \texteuro 0.20 \\
+2 & $\frac{1}{6}$ & \texteuro 1.20 \\
+3 & $\frac{1}{6}$ & \texteuro 2.60 \\
+4 & $\frac{1}{6}$ & \texteuro 4.00 \\
+5 & $\frac{1}{6}$ & \texteuro 4.00
+\end{tabular}
+
+We need to find $E[X] = \sum_{x \in \Omega_x} xp[X=x]$ which is given
+by $\frac{1}{6} \times -1.60 + \frac{1}{6} \times -0.20 + \frac{1}{6}
+\times 1.20 + \frac{1}{6} \times 2.60 + \frac{1}{6} \times 4.00 +
+\frac{1}{6} \times 4.00$.   This suggests that $E[X]=$ \texteuro 1.67  \\[0.3in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+
+\item\PTs{1} A day on which he bakes 3
+  cakes (2 d.p.)\\
+\RespBoxTxt{0}{0}[bakery3]{1}{1.60}
+\CorrAnsButton{1.60}
+\begin{solution}
+
+\begin{tabular}{lrr}
+x & p[X=x] & Y (Profit) \\
+\hline
+0 & $\frac{1}{6}$ & - \texteuro 1.20 \\
+1 & $\frac{1}{6}$ & \texteuro 0.20 \\
+2 & $\frac{1}{6}$ & \texteuro 1.60 \\
+3 & $\frac{1}{6}$ & \texteuro 3.00 \\
+4 & $\frac{1}{6}$ & \texteuro 3.00 \\
+5 & $\frac{1}{6}$ & \texteuro 3.00
+\end{tabular}
+
+We need to find $E[X] = \sum_{x \in \Omega_x} xp[X=x]$ which is given
+by:\\
+$\frac{1}{6} \times -1.20 + \frac{1}{6} \times 0.20 + \frac{1}{6}
+\times 1.60 + \frac{1}{6} \times 3.00 + \frac{1}{6} \times 3.00 +
+\frac{1}{6} \times 3.00$. 
+
+  This suggests that $E[X]=$ \texteuro 1.60  \\[0.3in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item Which of the three strategies maximises his expected return?
+\begin{answers}[bakery4]{3}
+\Ans0 5 a day &
+\Ans1 4 a day &
+\Ans0 3 a day
+\end{answers}
+\begin{solution}
+It is clear from this very simple and artificial exercises that the
+baker sees the best expected value for a strategy of baking 4 cakes a
+day.   However, in a business context you might also like to consider
+the cost of disappointed customers who might not come back (these are
+minimised in strategy 1), or the risk of a negative cash-flow (which is
+minimised in strategy 3) \\[0.3in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\end{questions}
+\end{quiz}\quad\eqButton{bakery}Points: \ScoreField{bakery}
+
+
+\newpage
+
+
+\subsection{Summary: Expectation of discrete random variables}
+
+To conclude, our definition of expectation is given as follows:
+
+\begin{df}
+The expected value of a discrete random variable ({\color{red} and the expected value of a \emph{function} of a random variable}) as follows:
+\begin{itemize}
+\item $E(x) = \sum_{x} x f(x)$
+\item {\color{red}$E[g(x)] = \sum_{x} g(x) f(x)$}
+\end{itemize}
+\end{df}
+
+This is useful in a number of ways, so useful we will look at it all
+again next week.   But for the moment we shall worry about only one
+particular function $g(x)=x^2$, as this lets us work with the variance.
+
+\newpage
+
+
+
+
+\subsection{Variance}
+
+We will re-examine this point later, but the variance of a random
+variable $X$ is defined as:
+
+
+\begin{df}
+\begin{displaymath}
+V[X] = E[(X-E[X])^2]
+\end{displaymath}
+\end{df}
+
+A little bit of algebra also tells us that:
+
+\begin{eqnarray*}
+V[X] &=& E[(X-E[X])^2]\\
+ &=& E\left[ (X^2)-2X(E[X]) + (E[X])^2 \right]\\
+ &=& E[X^2] - 2(E[X])^2 + (E[X])^2\\
+ &=& E[X^2] - (E[X])^2
+\end{eqnarray*}
+
+which can be a useful thing to know.   This can be illustrated with an example:
+
+
+\newpage
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+\begin{quiz}{moreexpdisc}
+Consider an experiment in which a coin is tossed twice.   Let $X$ be a
+random variable denoting the number of heads.  
+\begin{questions}
+\item The density function of $X$ is:
+\begin{answers}[e2.1]{1}
+\Ans1 \begin{tabular}{rp{0.1in}rp{0.1in}rp{0.1in}r}
+x && 0 && 1 && 2 \\
+p[X=x] && 0.25 && 0.50 && 0.25
+\end{tabular}
+\Ans0 \begin{tabular}{rp{0.1in}rp{0.1in}rp{0.1in}r}
+x && 0 && 1 && 2 \\
+p[X=x] && 0.33 && 0.33 && 0.33 
+\end{tabular}
+\end{answers}
+\begin{solution}
+Remember the need to evaluate all possible outcomes.   So we have $\Omega = (TT), (TH), (HT), (HH)$. \\
+  The value of $X$ associated with each value in the sample space is $0,1,1,2$ respectively, hence \\
+$p[X=x]$ for $x=0,1,2$ is given by $0.25, 0.50, 0.25$ \\[0.3in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1} Find $E[X]$\\
+\RespBoxTxt{0}{0}[e1.1]{1}{1}
+\CorrAnsButton{1}
+\begin{solution}
+We use $E[X] = \sum_{x \in \Omega_x} xp[X=x]$ which requires
+$\frac{1}{4} \times 0 + \frac{1}{2} \times 1 + \frac{1}{4} \times 2$
+which gives $E[X]=1$ \\[0.3in]
+Click on that green button to return to the quiz $\to$
+\end{solution}
+\item\PTs{1} Find $V[X]$\\
+\RespBoxTxt{0}{0}[e1.2]{1}{0.5}
+\CorrAnsButton{0.5}
+\begin{solution}
+We already know $E[X] = 1$, so need to find $E[X^2]$ which can be
+found as $\frac{1}{4} \times 0^2 + \frac{1}{2} \times 1^2 + \frac{1}{4} \times 2^2$
+which gives $E[X^2]=1.5$.   We therefore require $E[X^2] - E[X]^2 = 1.5-1=0.5$
+ \\[0.3in]
+Click on that green button to return to the quiz $\to$ 
+\end{solution}
+\end{questions}
+\end{quiz}\quad\eqButton{moreexpdisc}Points: \ScoreField{moreexpdisc}
+
+
+
+\newpage
+\subsection{Some properties of Expectation}
+
+
+Some properties of expectations are given without comment.
+
+\begin{eqnarray*}
+E[cX] &=& cE[X]\\
+E[X + c] &=& E[X] + c\\
+E[X+Y] &=& E[X] + E[Y]\\
+\end{eqnarray*}
+
+It can be seen for example that the expectation is a nice linear
+function (look at the effect of multiplying by or adding a constant).
+The same is not true of the variance: 
+
+\begin{eqnarray*}
+Var(cX) &=& c^2 Var(X)\\
+Var(X+c) &=& Var(X) \\
+\end{eqnarray*}
+
+Also, note that $Var(X+Y) = Var(X) + Var(Y)$ iff the two variables are \emph{independent}.
+
+
+
+
+
+\subsubsection{Empirical distribution function}
+
+The next set of slides will consider various well studied mathematical functions that provide a model for the way random variables behave.   But it is worth noting the existence of an ``empirical distribution function''.  For example, the Human Resources department of a business with 197 employees examined sickness records.   It summarised the length of time each employee was absent as follows:
+
+\begin{tiny}
+\begin{tabular}{lr}
+0 days absence & 100 staff \\
+1 days absence & 80 staff \\
+2 days absence & 10 staff \\
+3 days absence & 2 staff \\
+4 days absence & 0 staff \\
+5 days absence & 5 staff \\
+6 or more days absence & 0 staff
+\end{tabular}
+\end{tiny}
+
+We have an ``empirical distribution'' that for example suggests \\
+$p[\mbox{Staff taking 2 days absence in 1 year}] = \frac{10}{197}$.   
+
+We may or may not wish to fit some kind of mathematical model to this, but there are number of applications where we could work with this empirical distribution directly as it is here.   We will not consider the role of the empirical density function any further, and note it here only so that we have met the terminology.
+
+
+
+\NaviBarOff
+\end{document}

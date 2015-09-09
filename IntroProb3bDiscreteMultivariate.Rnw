@@ -1,0 +1,295 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage{textcomp}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+\usepackage{synttree}
+\usepackage{keystroke}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Statistics Crash Course: \\ Multivariate Discrete distributions}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{5th September 2012}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=0.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.2} 
+\copyrightyears{2008}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   concepts in probability.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+%tableofcontents
+
+
+
+\section{Multivariate discrete random variables}
+
+This picks up some more ideas from Chapter 4 of Grinstead and Snell.
+
+We now need to revisit and formalise our ideas about joint, marginal and conditional probability.   It is easiest to do this in the context of discrete random variables, and even simpler if we restrict ourselves to the \emph{bivariate} case, where we have to examine $(X,Y)$.
+
+\newpage
+
+\subsection{Joint probability}
+
+We require that the joint density of the random variables can be characterised by a joint probability mass function.   This consists of the set of values taken by $(X,Y)$ as well as the corresponding probabilities.
+
+\begin{df}
+The joint probability mass function for discrete variables $X$ and $Y$ is given by:
+\begin{displaymath}
+f(x,y) = p[X=x,Y=y]
+\end{displaymath}
+for each pair of values of $(x,y)$ within the sample space.
+\end{df}
+
+A bivariate function can serve as a joint probability mass function only if its values $f(x,y)$ satisfy:
+
+\begin{itemize}
+\item $f(x,y) \geq 0$ for each pair of values $(x,y)$
+\item $\sum_{x} \sum_{y} f(x,y) = 1$ (the double summation extends over all pairs $(x,y)$ within the domain.
+\end{itemize}
+
+\newpage
+
+\subsection{Marginal probability}
+
+\begin{df}
+Another way of expressing the marginal probability for $x$ is:
+\begin{displaymath}
+f(x) = p[X=x] = \sum_y p(x,y)
+\end{displaymath}
+\end{df}
+
+(if you excuse the over-simplified notation).  What this is telling us, is that in order to work out the marginal probability for $X$, we sum over all the relevant values of $Y$.   In the simple case above, with discrete variables and a 2 way table, it might well be simpler to work directly with counts in the margins and work the marginal probabilities accordingly.   But you should note that this won't apply when we move onto continuous distributions, so it's as well to get used to the idea of ``summing'' over the other variable.
+
+\newpage
+
+\subsection{Conditional probability}
+
+And we also need to consider how conditional probabilities apply when we are working with mass functions.
+
+\begin{df}
+The conditional distribution of $X$ given that $Y$ takes a value $y$ is given by:
+\begin{displaymath}
+f(x|y) = p[X=x|Y=y] = \frac{f(x,y)}{f(y)}
+\end{displaymath}
+\end{df}
+
+You should convince yourself that this definition (based on probability density) is analogous to the definition of conditional probability we examined earlier (although it does throw up some technical problems, i.e., it's not a probability)
+
+\newpage
+
+It is worth clarifying these ideas with an example:
+
+\subsubsection{Exercise Multi-1}
+
+\useBeginQuizButton
+\useEndQuizButton 
+
+
+
+\begin{quiz}{jointmarginal}
+A major metropolitan police force in the Eastern United States consists of 1200 officers, 960 men and 240 women.  Over the past 2 years, 324 officers have been awarded promotions.   The breakdown of promotion by gender is given in the following table:
+\vspace{0.2in}
+
+{\color{green} 
+\begin{tabular}{lrrp{0.1in}|r}
+ & Men (x=1) & Women (x=2) && Total \\
+Promoted (y=1) & 288 & 36 && 324 \\
+Not promoted (y=2) & 672 & 204 && 876 \\
+\hline
+Total & 960 & 240 && 1200
+\end{tabular}
+}
+
+\vspace{0.2in}
+We will use the following notation.   Let $X$ denote gender such that $X=1$ is male and $X=2$ is female.   $Y$ denotes promotion whereby $Y=1$ denotes a promotion and $Y=2$ denotes ``not promoted''.
+\newpage
+
+
+
+\begin{questions}
+\item\PTs{1} Find the joint probability of a promotion taking place and the candidate being male (2 d.p.)\\
+\RespBoxTxt{0}{0}[jmc1.1]{1}{0.24}
+\CorrAnsButton{0.24}
+\begin{solution}
+Exercise Multi1.1
+There were 288 events that fit the description ``Male'' ($X=1$) and ``Promoted'' ($Y=1$).   Hence the joint probability is $\frac{288}{1200}$
+\end{solution}
+\item\PTs{1} Find $p[X=1 \cap Y=2]$\\
+\RespBoxTxt{0}{0}[jmc1.2]{1}{0.56}
+\CorrAnsButton{0.56}
+\begin{solution}
+Exercise Multi1.2
+This is just a check on the probability notation.   Here we are looking for the joint probability of a male not being promoted, i.e. $\frac{672}{1200}$
+\end{solution}
+\item\PTs{1} Find the marginal probability $[X=1]$\\
+\RespBoxTxt{0}{0}[jmc1.3]{1}{0.80}
+\CorrAnsButton{0.80}
+\begin{solution}
+Exercise Multi1.3
+Here we know from the tables that we have 960 men so the relevant probability is given by $\frac{960}{1200}$.   But do note that we can also arrive at this by summing over all the joint probabilities, i.e. $p[X=1] = p[X=1|Y=1] + p[X=1|Y=2] = 0.56+0.24$
+\end{solution}
+\end{questions}
+\end{quiz}\quad\eqButton{jointmarginal}Points: \ScoreField{jointmarginal}
+
+\newpage
+
+\subsubsection{An introduction to the analysis of contingency tables}
+
+There is an obvious question which arises when we look at the table above: is there an association between gender and chance of promotion.
+
+\begin{itemize}
+\item If there were no association we would state that gender and promotion were \emph{independent}.   
+\item We know something about the probability $p[X=x \cap Y=y]$ when $X$ and $Y$ are independent.   Assuming independence, $p[X=x \cap Y=y] = p[X=x] \times p[Y=y]$, or $f(x,y)=f(x)f(y)$.   
+\item We can calculate the joint probabilities of each entry in the table as if the two were independent, and compare this value to the observed (empirical) joint density.
+\end{itemize}
+\newpage
+For example 
+\begin{itemize}
+\item[] $p[X=Men] = \frac{288}{1200} + \frac{672}{1200} = 0.8$, and 
+\item[] $p[Y=Promoted] = \frac{288}{1200} + \frac{36}{1200} = 0.27$.   
+\item[] If Gender and Promotion were independent, we would expect that $p[X=Men, Y=Promoted] = 0.80 \times 0.27 = 0.216$.   
+\end{itemize}
+
+Completing the table below:
+
+\begin{tabular}{lrrp{0.1in}rr}
+& \multicolumn{2}{c}{Empirical} & & \multicolumn{2}{c}{\color{blue}Independence} \\
+& Men & Women & & Men & Women \\
+\hline
+Promoted & 0.24 & 0.03 & & {\color{blue}0.216} & {\color{blue}0.054} \\
+Not promoted & 0.56 & 0.17 & & {\color{blue}0.584} & {\color{blue}0.146}
+\end{tabular}
+
+
+Obviously the numbers differ, this will happen whenever we measure anything that is subject to randomness.   But do they differ enough for us to disbelieve the assumption of independence.   We shall talk about such ``hypothesis testing'' next week.
+
+But in the meantime, consider the following (hypothetical) exercise:
+
+
+\newpage
+
+Consider a new flu remedy.
+
+\begin{center}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+&  Pain &  No pain  & Total  &  Percent with\\
+Treatment & relief & relief & number & pain relief \\
+\hline
+Remedy & 386 & 414 & 800 & {\color{red}48\%} \\
+Control & 317 & 483 & 800 & {\color{red}40\%}\\
+\hline
+Total & 703 & 897 & 1,600 & \\
+\hline
+\end{tabular}
+\end{center}
+
+A $2 \times 2$ contingency table
+
+\newpage
+
+We can use something called a $\chi^{2}$ test?
+
+%> table <- matrix(c(386,317,414,483),2,2)
+%> table
+%     [,1] [,2]
+%[1,]  386  414
+%[2,]  317  483
+%> chisq.test(table)
+
+Pearson's Chi-squared test with Yates' continuity correction
+
+\begin{displaymath}
+X^{2} = \frac{\sum(\lvert O-E \rvert - \frac{1}{2})^{2}}{E}
+\end{displaymath}
+$X^{2}$ has a $\chi^{2}$ distribution on $(r-1)(c-1)$ degrees of freedom.
+
+$X^{2}$= 11.7325, $df$ = 1, p-value = 0.0006142
+
+\fbox{The results are not consistent with independence}
+
+\newpage
+
+But wait!   What about females only 
+
+
+\begin{center}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+&  Pain &  No pain  & Total  &  Percent with\\
+Treatment & relief & relief & number & pain relief \\
+\hline
+Remedy  &  351 & 249 & 600 & {\color{red}59\%}\\
+Control & 142 &  58 &  200 & {\color{red}71\%}\\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+\newpage
+
+And what about Males only?
+
+
+\begin{center}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+&  Pain &  No pain  & Total  &  Percent with\\
+Treatment & relief & relief & number & pain relief \\
+\hline
+Remedy &    35 &  165  & 200 & {\color{red}18\%}\\
+Control & 175  & 425 & 600 & {\color{red}30\%}\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\newpage
+
+How can we have a situation whereby at the ``top'' level, the remedy is the best thing to take, but when we break down the data and consider males and females, in \emph{each} case they would be better off using the control?
+
+
+\NaviBarOff
+\end{document}
