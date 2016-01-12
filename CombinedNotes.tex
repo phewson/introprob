@@ -1,8 +1,8 @@
 \documentclass{book}
 \title{Probability with Applications: Course Notes}
 \author{Paul Hewson and Malgorzata Wojtys}
-\date{January 2016}
-\usepackage{amsmath,amssymb,amsfonts,graphics,hyperref,color,setspace}
+\date{February - May 2016}
+\usepackage{amsmath,amssymb,amsfonts,graphics,hyperref,color,setspace,synttree,keystroke}
 
 \begin{document}
 \sffamily
@@ -12,11 +12,306 @@
 
 \chapter{Background to the course}
 
-Blah blah blah
+
+\section{Background Definitions}
+
+There is a fascinating philosophical / linguistic / epistemological history behind the concept of probability.   For our purposes, \emph{Probability} is nothing more than a number between $0$ and $1$ that behaves in accordance with three axioms.   However, you can do a lot with numbers.   You can think of probability as being:
+
+\begin{itemize}
+\item A symmetrical thing (the coin has two faces, heads and tails)
+\item A long run frequency thing (out of 10,000 coin tosses, 5,023 were heads)
+\item A subjective thing (that person is obvious a crook and if they want me to bet on tails it is very likely they have a rigged coin)
+\end{itemize}
+
+
+
 
 \chapter{Brief review of Sets}
 
+
+
+
+
+
+\subsubsection{Set theory notation}
+
+% I might not cover this in a lecture, we need the first six rows at the moment, the rest are only needed if we were going to do a lot of proofs and some very formal probability theory.
+ 
+% For completeness, we quote a table from Grimmett and Stirzaker (2004) which gives a listing of set theory and probability theory notation.\\[0.5in]
+
+% {\color{blue}
+% \begin{footnotesize}
+% \begin{tabular}{lll}
+% Notation & Set theory & Probability Theory \\
+% \hline
+% $\Omega$ & A collection of objects & Sample space \\
+% $\omega$ & A subset of $\Omega$ & Elementary event/outcome\\
+% $A$ & A subset of $\Omega$ & Event that some condition $A$ occurs \\
+% $A^C$ & Complement of $A$ & No event $A$ occurs \\
+% $A \cap B$ & Intersection of $A$ and $B$ & Both $A$ and $B$ occur \\
+% $A \cup B$ & Union of $A$ and $B$ & Either $A$ occurs, or $B$ occurs or both
+% \\
+% $A \setminus B$ & Difference & $A$ occurs but $B$ does not occur \\
+% $ A \bigtriangleup B $ & Symmetric difference & Either A or B but not both \\
+% $A \subseteq B$ & Inclusion & If $A$ occurs then $B$ occurs \\
+% $\emptyset$ & Empty set & Impossible event \\
+% $\Omega$ & Whole space & Certain event
+% \end{tabular}
+% \end{footnotesize}
+% }
+
+
+
+
+\section{Sample spaces: how we use Sets}
+
+\textit{More information is given in Section 1.2 of Blitzstein and Hwang}
+
+Here are some key definitions:
+
+\fbox{
+  \begin{minipage}[c]{1.0\linewidth}
+An \emph{experiment} %(esperimento) 
+is any process that generates a set of outcomes where the outcome is uncertain.   For a random experiment:
+
+\begin{itemize}
+\item The \emph{sample space} $\Omega$ is the set of all possible outcomes 
+%(campione di spazio)
+\item An \emph{event} is a subset of the sample space 
+%(evento)
+  \begin{itemize}
+  \item A \emph{simple event} is an event which cannot be a union of other events
+  \item A \emph{composite event} is an event which is not a simple event
+  \end{itemize}
+\item The \emph{event space} is the set of all events (evento di spazio)
+\end{itemize}
+\end{minipage}
+}
+
+\subsection{Example}
+
+Consider an experiment in which three coins are tossed.   We are interested in the {\color{red}\emph{event}} that all coins will show the same face. 
+
+
+
+The following tree diagram denotes the breakdown of the sample space ($\Omega$).   After the first coin toss we have either a head or a tail.   After the second, for either of the possible outcomes of the first toss we also have a head or tail.   Finally, after the third coin toss, we have a row denoting that a head or tail is possible for any of the previous outcomes. 
+
+%% Cardano was the first person to start thinking about systematically evaluating sample spaces in this way, but he missed a trick in that to him HTH and HHT would be the same (two heads and a tail).   It took nearly 100 years and Galileo to really master the business of sample spaces.  
+
+
+\subsection{Tree diagram}
+
+\begin{figure}[!h]
+\synttree[$\Omega$ [H [H [H][T]][T [H][T]]]  [T [H [H][T]][T [H][T]]]] 
+\end{figure}
+
+
+In total therefore, the tree diagram shows on the bottom row that there are a total of $2^3$ possible outcomes in the sample space.   In other words, there are 8 different ways of travelling though the tree diagram,  resulting in the following outcomes: 
+\begin{itemize}
+\item {\color{red}HHH}, HHT, HTH, HTT, THH, THT, TTH, {\color{red}TTT}.
+\end{itemize}  
+
+
+
+ We are interested in the event that all faces are the same.   There are two outcomes in the sample space which correspond to this event - denoted in red.\\[0.25in]   
+
+\fbox{
+\begin{minipage}[c]{3.5in}
+Recap:
+\begin{itemize}
+\item {\color{blue}Sample Space} ($\Omega$) - the eight outcomes for the experiment: 
+\\{\color{red}HHH}, HHT, HTH, HTT, THH, THT, TTH, {\color{red}TTT}. 
+\item {\color{blue}Event} ($A$) - the two outcomes of interest: {\color{red}HHH}, {\color{red}TTT}
+\end{itemize}
+\end{minipage}
+}
+\vspace{0.25in}
+
+There are 8 outcomes in our sample space, two of them correspond to the event ``all three coins show the same space''.   If we continue to focus on naive definitions of probability, it pays us to consider Venn diagrams.
+
+
+% We can form collections $\mathfrak{B}$ of (overlapping or non-overlapping) subsets of our sample space $\Omega$.   There are some restrictions on these collections which must be:
+
+% \begin{itemize}
+% \item The empty set $\emptyset$ must be in the collection $\mathfrak{B}$
+% \item If $A \in \mathfrak{B}$ then $A^C \in \mathfrak{B}$
+% \item If $A_1, A_2, \ldots \in \mathfrak{B}$ then $\cup_{i=1}^\infty A_i \in \mathfrak{B}$
+% \end{itemize}
+
+% These might seem trivially obvious for the naive problems, and hopefully we won't need to say any more.   For example, the second condition tells you if you have a world cup final of Argentina versus Germany, you can't say the complement of Argentina winning is Brasil winning however happy Brasilian fans might be with a German victory.
+
+
+\subsection{Venn diagram}
+
+An alternative method of visualising is via a Venn Diagram.
+
+\begin{center}
+\begin{figure}[!h]
+\begin{picture}(200,110)
+\put(0,0){\framebox(200,110){}}
+\qbezier(15,55)(15,105)(65,105)
+\qbezier(65,105)(115,105)(115,55)
+\qbezier(115,55)(115,5)(65,5)
+\qbezier(65,5)(15,5)(15,55)
+
+%\qbezier(80,55)(80,105)(130,105)
+%\qbezier(130,105)(180,105)(180,55)
+%\qbezier(180,55)(180,5)(130,5)
+%\qbezier(130,5)(80,5)(80,55)
+\put(5,95){$\Omega$}
+\put(40,50){$A$ (HHH, TTT)}
+\put(130,50){$A^C$ }
+\put(120,30){ (HTH HTH HHT }
+\put(120,10){ THT TTH THH)}
+%\put(80,50){ $A \cap B$}
+\end{picture}
+\end{figure}
+\end{center}
+
+
+In this diagram, $A$ denotes the event ``all three faces show the same'', and $A^C$ denotes ``A complement'' (also known as ``not A''), in other words the six outcomes where the faces are not identical.  
+
+
+
+
+\subsection{Multiple events}
+
+For the same experiment, consider again the event $A$, ``all three coins show the same face''.   But now, consider a second event, $B$, which we define as ``two or more coins show a head''
+
+\begin{itemize}
+\item A: {\color{red}HHH}, HHT, HTH, HTT, THH, THT, TTH, {\color{red}TTT}.
+\item B: {\color{blue}HHH}, {\color{blue}HHT}, {\color{blue}HTH}, HTT, {\color{blue}THH}, THT, TTH, TTT
+\end{itemize}
+
+As before, 2 out the 8 outcomes correspond to event $A$.   We can also see that 4 of the 8 outcomes correspond to event $B$.   We can also see that one outcome (HHH) corresponds to both event $A$ and event $B$.   We can extend the Venn diagram to illustrate this:
+
+
+\begin{center}
+\begin{figure}[!h]
+\begin{picture}(200,110)
+\put(0,0){\framebox(200,110){}}
+\qbezier(15,55)(15,105)(65,105)
+\qbezier(65,105)(115,105)(115,55)
+\qbezier(115,55)(115,5)(65,5)
+\qbezier(65,5)(15,5)(15,55)
+
+\qbezier(80,55)(80,105)(130,105)
+\qbezier(130,105)(180,105)(180,55)
+\qbezier(180,55)(180,5)(130,5)
+\qbezier(130,5)(80,5)(80,55)
+\put(5,95){$\Omega$}
+\put(40,50){A}
+\put(35,35){(TTT)}
+\put(130,50){B}
+\put(125,35){(THH HTH}
+\put(125,20){ HHT)}
+\put(80,50){ $A \cap B$}
+\put(80,35){ (HHH)}
+\end{picture}
+\end{figure}
+\end{center}
+
+
+
+You can see that we use the Venn diagram to visually illustrate that the outcome HHH is in both event A and event B.   Standard set theory notation $A \cap B$ is used to denote that this is an ``intersection''.
+
+\begin{itemize}
+\item Which outcomes are in $(A \cup B)^C$?
+\end{itemize}
+%% don't know what to do here, these are the three events that are in neither A nor B
+
+
+
+
+
+We should be able to verify standard operations such as:
+\begin{itemize}
+\item $A \cap B$: HHH
+\item $A \cup B$: HHH, TTT, HTH, HHT, THH
+\item $B^C$: TTT, TTH, THT, HTT
+\item $(A \cup B)^C$: TTH, THT, HTT
+\end{itemize}
+
+
+
+John Venn has in interesting family background, see \href{http://www-groups.dcs.st-and.ac.uk/history/Biographies/Venn.html}{\color{blue}MacTutor article on John Venn}.
+
+%% I don't think I'd cover this in a lecture
+
+\subsubsection{Commutation and association}
+
+Some mathematical properties of sets.
+
+
+Commutativity:
+\begin{itemize}
+\item $A \cup B = B \cup A$
+\item $A \cap B  = B \cap A$
+\end{itemize}
+
+
+Associativity:
+\begin{itemize}
+\item $A \cup B \cup C = (A \cup B) \cup C = A \cup (B \cup C)$
+\item $A \cap B \cap C = (A \cap B) \cap C = A \cap (B \cap C)$
+\end{itemize}
+
+Distributivity:
+\begin{itemize}
+\item $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+\item $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
+\end{itemize}
+
+
+And De Morgan's laws say:
+\begin{itemize}
+\item $(A \cup B)^C = A^C \cap B^C$
+\item $(A \cap B)^C = A^C \cup B^C$
+\end{itemize}
+
+
+
+This material will get covered more formally in a pure maths course, hopefully we can see how these can be used as the basis for probability.
+
+
+
+
+
+
+
 \chapter{The naive definition of probability}
+
+\section{Na\'ive definition of Probability}
+
+Consider a random experiment with a finite number of outcomes, each with the same probability.   For event $A$, we claim that:
+
+\begin{displaymath}
+\tiny
+\mbox{Probability of an event} = \frac{\mbox{Number of possible sample points consistent with this event}}{\mbox{Total number of sample points}}
+\end{displaymath}
+
+Or in a better notation:
+
+\begin{equation}
+p[A] = \frac{n[A]}{n[\Omega]}
+\end{equation}
+where $A$ denotes the event we are interested in, $n[A]$ is the number of ways in which $A$ can happen and $n[\Omega]$ is the sample space.  
+
+
+Recall from our first Venn diagram, where we used $A^C$ to denote the \emph{complement} of $A$ (i.e. those outcomes that weren't in $A$), then the probability of $A^C$ (probability that $A$ doesn't happen), $p[A^C]$ is:
+
+\begin{displaymath}
+p[A^C] = 1 - p[A]
+\end{displaymath}
+
+
+Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denotes the probability of event $B$ happening we have:
+
+\begin{itemize}
+\item $P[A \cup B]$: probability that event $A$ or event $B$, or both happens
+\item $P[A \cap B]$: probability that both $A$ and $B$ happen
+\end{itemize}
+
 
 \chapter{The Axioms of Probability}
 
