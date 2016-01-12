@@ -4,6 +4,14 @@
 \date{February - May 2016}
 \usepackage{amsmath,amssymb,amsfonts,graphics,hyperref,color,setspace,synttree,keystroke}
 
+\usepackage{longtable}
+\usepackage{a4wide,color,Sweave,url,verbatim,xargs,longtable}
+\usepackage{tikz}
+\newenvironment{question}{\item \textbf{Problem}\newline}{}
+\newenvironment{solution}{\comment}{\endcomment}
+\newenvironment{answerlist}{\renewcommand{\labelenumi}{(\alph{enumi})}\begin{enumerate}}{\end{enumerate}}
+
+
 \begin{document}
 \sffamily
 \onehalfspacing
@@ -275,13 +283,20 @@ This material will get covered more formally in a pure maths course, hopefully w
 
 
 
-
+\section{Problems}
+\begin{enumerate}
+\input{Problems/dummy1/Set1_BasicSets.tex}
+\input{Problems/dummy1/Set1_SampleSpaces.tex}
+\input{Problems/dummy1/Set1_CoinTossing.tex}
+\end{enumerate}
 
 
 
 \chapter{The naive definition of probability}
 
 \section{Na\'ive definition of Probability}
+
+\textit{This is covered in section 1.3 of Blitzstein and Hwang}
 
 Consider a random experiment with a finite number of outcomes, each with the same probability.   For event $A$, we claim that:
 
@@ -314,6 +329,80 @@ Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denot
 
 
 \chapter{The Axioms of Probability}
+
+The system of probability we have been working through took a long time to develop, and wasn't fully formalised until the 1930's by Kolmogorov (see 
+\href{http://www.gap-system.org/~history/Biographies/Kolmogorov.html}{\color{blue}www.gap-system.org/~history/Biographies/Kolmogorov.html}).   He stated three fundamental Axioms, from which all other results can be derived.
+
+
+\section{Axioms of probability}
+
+\fbox{
+  \begin{minipage}[c]{1.0\linewidth}
+\begin{itemize}
+\item $p[A] \geq 0$ for any event $A$
+\item $p[\Omega] = 1$ where $\Omega$ is the sample space 
+\item If $[A_i];i=1,2,\ldots$ are mutually exclusive then $p[A_1] \cup p[A_2] \cup \ldots = p[A_1] + p[A_2] + \ldots$
+\end{itemize}
+\end{minipage}
+}
+
+Mutually exclusive means that $A_i \cap A_j = \emptyset$ for all $i \neq j$
+
+
+We shall examine the implications of these Axioms in terms of obtaining mathematical functions that can serve as models for probability (probability distribution functions) in week 2.   The intuitive consequences of these results are:
+
+\begin{itemize}
+\item (Non-negative) Probability can never be negative
+\item (Total probability) The probability of a sample space must equal 1 
+\item (Countable additivity) The probability of observing two (or more) mutually exclusive events is the sum of their individual probabilities
+\end{itemize}
+
+However, we need to derive some additional results from these Axioms in order to be able to carry out useful probability calculations.
+
+
+
+\subsection{Deriving $P(A^C)$}
+
+The sets $A$ and $A^C$ form a partition of the sample space so that $\Omega = A \cup A^C$.   We therefore know by the second axiom that $P(A \cup A^C) = 1$.   By the third axiom we know that $P(A \cup A^C) = P(A) + P(A^C)$ so we can rearrange this to give:
+
+\begin{align*}
+P(A \cup A^C) &= P(A) + P(A^C) \\
+P(A \cup A^C) - P(A) &= P(A^C) \\
+P(A^C) &= 1 - P(A)
+\end{align*}
+
+\subsection{Deriving $P(A) \leq 1$}
+
+If $P(A^C) \geq 0$ and $P(A) + P(A^C) = 1$ this is immediate.
+
+\subsection{Deriving the addition rule}
+
+Consider the set $B$, which we can expand as $B=(B \cap A) \cup (B \cap A^C)$.   This tells us (eventually) that
+
+\begin{displaymath}
+P(B) = P(B \cap A) + P(B \cap A^C)
+\end{displaymath}
+Note that the two terms on the right hand side are disjoint so we can use the third axiom.
+
+Now we want to think about $A \cup B = A \cup (B \cap A^C)$, again the two terms on the right hand side are mutually exclusive/disjoint.   
+
+\begin{align*}
+P(A \cup B) &= P(A) + P(B \cap A^C) \\
+ &= P(A) + P(B) - P(A \cap B)
+ \end{align*}
+
+
+
+You can verify this; draw the Venn Diagram.   If we merely added $p[A]$ to $p[B]$ for events with an intersection, we would add the probability corresponding to $p[A \cap B]$ twice, and hence we need to subtract one of these areas.
+
+{\color{green}What does this tell us about the value of $p[A \cap B]$ for for mutually exclusive events?}
+
+
+\section{Problems}
+\begin{enumerate}
+\input{Problems/dummy1/Set1_AdditionRuleProof.tex}
+\input{Problems/dummy1/Set1_AdditionRule.tex}
+\end{enumerate}
 
 \chapter{Counting rules OK}
 
