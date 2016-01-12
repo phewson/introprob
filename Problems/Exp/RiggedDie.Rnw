@@ -1,0 +1,66 @@
+<<echo=FALSE, results=hide>>=
+problem <- sample(c("odd", "even", "prime"),1)
+                  
+if(problem == "even"){
+answer <- (  -1*1 + 2*2 - 3*3 + 4*4 - 5*5 + 6*6)/21
+}                  
+
+if(problem == "odd"){
+answer <- (  1*1 - 2*2 + 3*3 - 4*4 + 5*5 - 6*6)/21
+}                  
+
+if(problem == "prime"){
+answer <- (  -1*1 + 2*2 + 3*3 - 4*4 + 5*5 - 6*6)/21
+}                  
+
+
+                  
+@
+\begin{question}
+
+You have a six sided die (1,2,\ldots,6) that has been configured such that the probability of getting a number is proportional to that number.
+
+Someone proposes a game in which you gain as many pounds as are shown if the number which appears is \Sexpr{problem}, and lose as many pounds otherwise.   What is the expected value of this game (for a written exam you might be asked whether it would be a good idea to play the game)
+
+
+\end{question}
+
+\begin{solution}
+
+The first thing is to note that the probabilities are:
+
+\begin{itemize}
+\item $P(X=1) = \frac{1}{21}$
+\item $P(X=2) = \frac{2}{21}$
+\item $P(X=3) = \frac{3}{21}$
+\item $P(X=4) = \frac{4}{21}$
+\item $P(X=5) = \frac{5}{21}$
+\item $P(X=6) = \frac{6}{21}$
+\end{itemize}
+
+Therefore the expected values for various games are:
+
+
+If you win on even you have a good game.
+\begin{displaymath}
+E[g(X)] = -1 \times \frac{1}{21} +2 \times \frac{2}{21} -3 \times \frac{3}{21} +4 \times \frac{4}{21} -5 \times \frac{5}{21} +6 \times \frac{6}{21} = 1
+\end{displaymath}
+
+If you win on odd you have a bad game.
+\begin{displaymath}
+E[g(X)] = 1 \times \frac{1}{21} -2 \times \frac{2}{21} +3 \times \frac{3}{21} -4 \times \frac{4}{21} +5 \times \frac{5}{21} -6 \times \frac{6}{21} = -1
+\end{displaymath}
+
+If you win on prime you have a bad game.
+\begin{displaymath}
+E[g(X)] = -1 \times \frac{1}{21} +2 \times \frac{2}{21} +3 \times \frac{3}{21} -4 \times \frac{4}{21} +5 \times \frac{5}{21} -6 \times \frac{6}{21} = -0.7142
+\end{displaymath}
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{RiggedDie}

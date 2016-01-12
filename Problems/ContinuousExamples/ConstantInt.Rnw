@@ -1,0 +1,55 @@
+<<echo=FALSE, results=hide>>=
+
+a <- sample(c(1:6),1)
+b <- sample(c((a+1):10),1)
+whichone <- sample(c(1:4),1)
+#deriv(~x^2/2, "x")
+#deriv(~x^3/3, "x")
+#deriv(~x^4/4, "x")
+deriv(~x^5/5, "x")
+
+if (whichone == 1){
+f1 <- function(x) x^2/2} 
+if(whichone == 2){
+f1 <- function(x) x^3/3}
+if(whichone ==3){
+f1 <- function(x) x^4/4}
+if(whichone ==4){
+f1 <- function(x) x^5/5}
+
+
+answer <- f1(b) - f1(a)
+
+
+
+
+@
+
+
+\begin{question}
+
+For a continuous random variable $\Sexpr{a} < X < \Sexpr{b}$ a colleague suggests that $f(x) = \frac{1}{k} x^{\Sexpr{whichone}}$ would make a sensible probability density function.   Find the value of $k$.
+
+
+\end{question}
+
+\begin{solution}
+The key here is that we know (Axioms of Probability):
+
+\begin{displaymath}
+\int_{a}^b \frac{1}{k} f(x)dx = 1
+\end{displaymath}
+
+And we know that $f(x) = x^\Sexpr{whichone}$ so we need to find:
+
+\begin{displaymath}
+k = \int_a^b x^\Sexpr{whichone} dx = \left| \frac{1}{\Sexpr{whichone+1}} x^\Sexpr{whichone+1} \right|_{\Sexpr{a}}^{\Sexpr{b}} = \Sexpr{round(answer, 4)}
+\end{displaymath}
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Constantint}

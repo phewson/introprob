@@ -1,0 +1,163 @@
+Introduction to R
+=================
+
+The R programming language is a mainstream statistical tool.   Part of the reason for its popularity is that it is free.   More details are available at the [R website](http://www.r-project.org).   As it's free, you can download it yourself on any computer you have (Windows, Mac, Linux, Old Tin Box) with the notable exception of an iPad.
+
+There are alternatives
+ - Python (named after Monty Python)
+ - Julia (not quite at version 1)
+ - Excel
+ - SAS
+ - SPSS
+ - Minitab
+ 
+ The first two of these are programming languages, Excel is a spreadsheet, and SAS/SPSS/Minitab are 1970s legagy statistical software packages.   We use R because it is a programming language - we don't just want to calculate things we want to check and test things.
+ 
+Introduction to R markdown
+--------------------------
+
+I don't want to say too much yet about this.    This is a plain text document which combines some symbols in the text as well as R code.   You can (and should) edit both.  If you click the mouse on a line of R code and either click the Run button (or press CTRL + ENTER) the R code gets run.   You can (and should) add your own notes and you should copy and paste and alter the code.   When you are finished you can click the Knit HTML button and get an HTML file which you can email to yourself and read on your iPad.
+ 
+ 
+Everything in R is an object
+----------------------------
+
+You can create data objects, model objects and much more.  Then you need to apply methods (print, plot, summary) to these objects.
+
+### Basic number object - a vector
+
+```{r basics}
+numbers <- c(1:100)
+sum(numbers)
+```
+
+ - We used the strange <- symbol as an "assignment operator" to create the object numbers.   Numbers is a vector.
+ - We then applied the sum() method and it printed the sum of these numbers for us
+ - Who did this question on paper incredible quickly?
+
+### Subsetting
+
+A square bracket operator lets us select part of an object.
+
+```{r subset}
+numbers[2]
+numbers[c(2,5)]
+```
+
+Note that when using the collection operator c(), a colon indicates all integers between (1:100 gives you all integers from 1 to 100) and a comma says just give me these numbers (2,5) just gives you 2 and 5.
+
+### Vectors don't have to be numbers
+
+```{r textvector}
+coins <- c("H", "T")
+print(coins)
+```
+
+### Generating data - using sample()
+
+We will use the sample() function a few times.   You need to tell it $x$, the vector you wish to sample from, $size$, the length of the output vector you want and (c) that you wish to sample "with replacement"
+
+```{r sample}
+sample(coins, size=6, replace = TRUE)
+```
+
+ - Amend the code to sample 10 coin tosses.   Count the number of heads you get and be ready with your answer.
+
+
+### Writing a function
+
+The whole point of using a programming language is to do things lots of times without having to retype all the instructions.   We do this by creating a function:
+
+
+```{r function}
+tossers <- function(mysize){
+coins <- c("H", "T")
+results <- sample(coins, size=mysize, replace = TRUE)
+return(results)
+}
+```
+
+Notice that I tell R that tossers is a function, with the argument size.   I then pass mysize to the code we already used and we get the vector back.
+
+```{r runfunction}
+tossers(20)
+results <- tossers(40)
+```
+
+Note that when I run tossers the second time, I assign the results to a vector called results.   You should be able to see it in the top right hand panel.
+
+### Counting the number of heads.
+
+I need to do two things.   length() tells me the length of a vector.   I can use the square brackets to select entries by logic rather than by index number.
+
+```{r logicalsubset}
+length(results)
+length(results[results == "H"])
+```
+
+Note that I have to use == (a double equal sign) to make the logical comparison.
+
+
+### Now run the function within a loop
+
+I want to see what happens to 
+ (a) The proportion of heads
+ (b) The difference between the number of heads and $\mbox{Number of Tosses} \times 0.5$ as we increase the sample size.   You'd get bored doing this by hand.
+
+First, let's create a vector of blanks to store the number of heads.
+```{r storagevector}
+converges <- vector("numeric", 10000)
+```
+
+
+Next, we run what is called a for loop.
+
+
+```{r runloop}
+for (i in 1:10000){
+run <- tossers(i)  
+converges[i] <- length(run[run == "H"])  
+}
+```
+
+So if I look at converges (top right hand pane) I get a summary of the number of heads.
+ - What happens to these numbers if you run the for loop again?
+
+
+
+Plotting the results
+--------------------
+
+We will spend a **lot** more time on plotting (one of R's strenghts is in it's plotting).   For now, we are just going to create scatterplots.
+
+```{r plotresults}
+plot(c(1:10000), converges-(c(1:10000)/2), type = "l", main = "Plot a", xlab = "Iteration", ylab = "?")
+
+
+plot(c(1:10000), converges/c(1:10000), type = "l", main = "Plot b", xlab = "Iteration", ylab = "?")
+```
+
+The logic of the plotting code is plot(x,y, other arguments) where $x$ is the vector that gets plotted on the $x$ axis, y is the vector which gets plotted on the $y$ axis, type="l" tells R to join the points with lines, and I think the rest are obvious.
+
+
+- **Quiz question** Which plot is which?   Is plot (a) showing convergence in probability or divergence in number?
+- **Challenge question** Alter the tossers function.   Replace the line "results <- sample(coins, size=mysize, replace = TRUE)" with "results <- sample(coins, size=mysize, replace = TRUE, prob=c(0.2,0.8))".   What difference does it make to plot(b).   Do you have any suggestion as to what we need to do to correct plot (a)
+- For next week **Tversky problem**
+
+A certain town is served by two hospitals. In the larger hospital about 45
+babies are born each day, and in the smaller hospital 15 babies are born each
+day. Although the overall proportion of boys is about 50 percent, the actual
+proportion at either hospital may be more or less than 50 percent on any day.
+At the end of a year, which hospital will have the greater number of days on
+which more than 60 percent of the babies born were boys?
+
+a) the large hospital
+b) the small hospital
+c) neither: the number of days will be about the same.
+
+Assume that the probability that a baby is a boy is .5 (actual estimates make
+                                                        this more like .513). Decide, by simulation, what the right answer is to the
+question. Can you suggest why so many people go wrong?
+
+
+For next week, plan a program that can answer this problem.  Clearly you can alter the tossers problem very easily to make babies.   But once you've simulated each hospital what do you do with the results?

@@ -1,0 +1,29 @@
+<<echo=FALSE, results=hide>>=
+match <- sample(c(4,5,7,8),1)
+digits <- sample(c(36,49,52,99),1)
+answer <- choose(digits, match)
+@
+
+\begin{question}
+To win the first prize in the UK lottery requires that you pick 6 numbers from 49.   You were bidding against Camelot and wanted to alter the winning changes.   Someone suggests that you award a jackpot if  a player matches $\Sexpr{match}$ numbers chosen from $\Sexpr{digits}$.  How many different sets of numbers could you pick.
+
+(If the jackpot rollover was very big, it might make sense to buy every possible set of numbers, how many tickets would you have to buy?)
+
+
+\end{question}
+
+\begin{solution}
+The answer is simply ${ \Sexpr{digits} \choose \Sexpr{match}} = \Sexpr{answer}$.
+
+There have been attempts to buy all tickets in rollover weeks (not only with the UK lottery).   For the UK lottery there are approximately $14$ million possible tickets (${49 \choose 6}=\Sexpr{choose(49,6)}$).   If the rollover jackpot exceeds (say) GBP28 million you will spend almost GBP14 million buying the tickets and are guaranteed a share of the jackpot.   What can you see going wrong with this strategy?
+
+
+Apparently you are far more likely to be struck by lightening: http://www.bbc.co.uk/news/blogs-magazine-monitor-26583325
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Lottery}

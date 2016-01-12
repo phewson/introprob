@@ -1,0 +1,53 @@
+<<echo=FALSE, results=hide>>=
+prob <- round(runif(1, 0.75, 0.9),2)
+visits <- sample(c(2:5),1)
+answer <- sum(dgeom(c(0:visits), prob))
+
+
+@
+
+\begin{question}
+People with a chronic condition (such as Asthma) sometimes have acute attacks and must be admitted to hospital to have their symptoms brought under control.   A single hospital visit may be insufficient to do this.   Consider that the probability of getting sympton control from a hospital visit in any given episode is \Sexpr{prob}.   Find the probability that our randomly selected patient will have their symptons under control after \Sexpr{visits} visits.
+
+For a written exam you will be asked to discuss whether your chosen probability model is realistic for such a problem.
+
+\end{question}
+
+\begin{solution}
+The key to this question is firstly recognising that you need to use the Geometric distribution.   
+
+The question uses the form
+
+\begin{displaymath}
+P(X=x) = (1-p)^x (p)
+\end{displaymath}
+
+where $p$ is the probability of succesful treatment on a given visit, $X$ is the number of visits required before successful treatment.
+
+Clearly here $p=\Sexpr{prob}$
+
+Unlike the dice example last week, here you are asked to directly find $P(X \leq \Sexpr{visits})$ i.e. $F(\Sexpr{visits}) = f(0) + \cdots + f(\Sexpr{visits})$
+
+You should have developed a nice recursion for doing this by now, so
+
+\begin{displaymath}
+P(X \leq \Sexpr{visits}) = \Sexpr{prob} + (1-\Sexpr{prob}) f(0) + \cdots + (1-\Sexpr{prob})f(\Sexpr{visits-1})
+\end{displaymath}
+
+So the answer to the question is
+
+\begin{displaymath}
+P(X \leq \Sexpr{visits}) = \Sexpr{round(answer,4)}
+\end{displaymath}
+
+In terms of appropriateness of fit, this really concerns the memoryless property of the Geometric distribution.   Do you really believe it is tenable to have a series of trips to the hospital, each with the same probability of cure?  
+
+
+
+\end{solution}
+
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Asthma}

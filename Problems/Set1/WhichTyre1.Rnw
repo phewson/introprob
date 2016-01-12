@@ -1,0 +1,32 @@
+\begin{question}
+\label{exer 1.2.30}
+(from vos~Savant\footnote{M.~vos~Savant, \emph{Parade Magazine}, 3 March 1996, p. 14.}\index{vos
+SAVANT, M.}) A reader of Marilyn vos~Savant's column wrote in with the following question: 
+\begin{quote}
+My dad heard this story on the radio. At Duke
+University, two students had received A's in chemistry all semester. But on the night before
+the final exam, they were partying in another state and didn't get back to Duke until it was
+over. Their excuse to the professor was that they had a flat tire, and they asked if they
+could take a make-up test. The professor agreed, wrote out a test and sent the two to separate
+rooms to take it. The first question (on one side of the paper) was worth 5 points, and they
+answered it easily. Then they flipped the paper over and found the second question, worth 95
+points: `Which tire was it?' What was the probability that both students would say the
+same thing? My dad and I think it's 1 in 16. Is that right?"
+\end{quote}
+
+What do you think the probability should be?
+
+\end{question}
+
+\begin{solution}
+Assuming the naive definition of probability, the first student can pick any of four tyres with probability 1/4.   However, the labelling of the tyres is arbitrary as we have a circle.   We could start counting from 1 to 4 front left so labelling  front right tyre $2$, rear left tyre $3$, rear right tyre $4$.   But if the first student picks the rear left tyre, we could just label them rear left $1$, rear right $2$, front left $3$, front right $4$.   
+
+So the question reduces to one where we are trying find out whether the second student picks the same label as the first student, and whichever tyre the first student picks we will call label 1.   Therefore the probability is $\frac{1}{4}$
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(0.25, nsmall = 3)}}
+%% \exname{Loaded Die}
+%% \extol{0.01}

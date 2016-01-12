@@ -1,0 +1,45 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+
+arrivaltime <- sample(c(20:30),1)
+arrivalm10 <- arrivaltime - 10
+arrivalm20 <- arrivaltime - 20
+arrivalm15 <- arrivaltime - 15
+arrivalm18 <- arrivaltime - 18
+results <- c(rep(1==0,4), 1==1)
+
+@
+
+\begin{question}
+This problem concerns customers in a coffee shop.    In this coffee shop you sit down and wait for someone to serve you at your table.   You are asked to assume that we can model the waiting times (times between arriving and getting served) as an Exponential($\theta$) random variable.   Assume that waiting times $X$ have expected value $E[X]=12$ minutes.
+
+It is now 12:\Sexpr{arrivaltime}.   Under which scenario do you get served the soonest?
+
+For a written exam question you might be asked to give a proof of your answer.
+
+
+
+\begin{answerlist}
+\item The last customer before you arrived at 12:\Sexpr{arrivalm10} 
+\item The last customer  before you arrived at 12:\Sexpr{formatC(arrivalm20, width = 2, format = "d", flag = "0")} 
+\item The last customer  before you arrived at 12:\Sexpr{formatC(arrivalm15, width = 2, format = "d", flag = "0")} 
+\item The last customer  before you arrived at 12:\Sexpr{formatC(arrivalm18, width = 2, format = "d", flag = "0")} 
+\item It doesn't make any difference when previous customer arrived
+\end{answerlist}
+
+\end{question}
+
+\begin{solution}
+
+The point of the question is to drill into the concept of memoryless.   It is a strong assumption to make.   One textbook example of the exponential distribution is failure time of some component, such as a light bulb.
+
+We did the proof in the lecture.
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{WaitingTime}

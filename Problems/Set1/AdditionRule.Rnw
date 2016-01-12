@@ -1,0 +1,46 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+A <- sample(c(1:10),1)
+B <- sample(c(1:10),1)
+C <- sample(c(1:(min(A,B)-1)),1)
+Omega <- sum(A + B)+sample(c(4:10),1)
+AC <- Omega - A
+BC <- Omega - B
+results <- round( (A+B-C)/Omega,3)
+@
+\begin{question}
+
+Let $A$ and $B$ be events such that
+
+  \begin{itemize}
+  \item $p(A \cap B) = \frac{\Sexpr{C}}{\Sexpr{Omega}}$
+  \item $p(A^C) = \frac{\Sexpr{AC}}{\Sexpr{Omega}}$
+  \item $p(B) = \frac{\Sexpr{B}}{\Sexpr{Omega}}$
+  \end{itemize}
+
+
+What is $p(A \cup B)$?   For the computer, please give your answer as a decimal (3dp)
+
+
+(Not for the computer, can you illustrate these results with a Venn Diagram)
+
+
+
+\end{question}
+
+\begin{solution}
+If $p(A^C)$ is $\frac{\Sexpr{AC}}{\Sexpr{Omega}}$ then $p(A)=1-\frac{\Sexpr{AC}}{\Sexpr{Omega}}=\frac{\Sexpr{A}}{\Sexpr{Omega}}$.
+
+We derived the addition rule from the Axioms, namely
+
+$p(A \cup B) = p(A)+p(B)-p(A \cap b)$ so we just need to substitute in the values
+
+$p(A \cup B) = \frac{\Sexpr{A}}{\Sexpr{Omega}} + \frac{\Sexpr{B}}{\Sexpr{Omega}} - \frac{\Sexpr{C}}{\Sexpr{Omega}} = \Sexpr{results} (3dp)$
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(results, nsmall = 3)}}
+%% \exname{Addition rule}

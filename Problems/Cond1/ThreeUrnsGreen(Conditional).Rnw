@@ -1,0 +1,51 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+balls <- sample(c("green", "white", "blue"),sample(c(20:40),1), replace = TRUE)
+tempout <- split(balls, sample(3, length(balls), replace = TRUE))
+bin1 <- tempout[[1]]
+bin2 <- tempout[[2]]
+bin3 <- tempout[[3]]
+## QUESTION/ANSWER GENERATION
+answer <- round((length(bin2[bin2=="green"])/length(balls))/(length(balls[balls=="green"])/length(balls)),3)
+@
+\begin{question}
+Consider three urns filled with coloured balls.   The contents of these three urns are as follows:
+
+\begin{itemize}
+\item Urn 1 has \Sexpr{length(bin1[bin1=="green"])} green ball(s),  \Sexpr{length(bin1[bin1=="blue"])} blue ball(s) and \Sexpr{length(bin1[bin1=="white"])} white ball(s).   
+
+\item Urn 2 has \Sexpr{length(bin2[bin2=="green"])} green ball(s),  \Sexpr{length(bin2[bin2=="blue"])} blue ball(s) and \Sexpr{length(bin2[bin2=="white"])} white ball(s).   
+
+\item Urn 3 has \Sexpr{length(bin3[bin3=="green"])} green ball(s),  \Sexpr{length(bin3[bin3=="blue"])} blue ball(s) and \Sexpr{length(bin3[bin3=="white"])} white ball(s).
+\end{itemize}
+
+
+If the only information you have is that a green ball was chosen, what is the probability that we had selected selected this ball from urn 1?   (As an extension you can check you can work out the corresponding probabilities for urn 2 and urn 3)? 
+  
+\end{question}  
+
+
+\begin{solution}
+We need to find $P(\mbox{Urn 1}|\mbox{Green}) = \frac{P(\mbox{Urn 1} \cap \mbox{Green})}{P(\mbox{Green})}$
+
+So for Urn 1 we have $P(\mbox{Box 1}|\mbox{green}) = \frac{\Sexpr{length(bin1[bin1=="green"])} / \Sexpr{length(balls)}}{\Sexpr{length(balls[balls=="green"])} / \Sexpr{length(balls)}} = \Sexpr{round((length(bin1[bin1=="green"])/length(balls))/(length(balls[balls=="green"])/length(balls)),3)}$
+
+
+The extension activity should have
+\begin{itemize}
+\item[] Urn 2  $P(\mbox{Urn 2}|\mbox{Green}) = \frac{\Sexpr{length(bin2[bin2=="green"])} / \Sexpr{length(balls)}}{\Sexpr{length(balls[balls=="green"])} / \Sexpr{length(balls)}} = \Sexpr{round((length(bin2[bin2=="green"])/length(balls))/(length(balls[balls=="green"])/length(balls)),3)}$
+\item[] Urn 3  $P(\mbox{Urn 3}|\mbox{Green}) = \frac{\Sexpr{length(bin3[bin3=="green"])} / \Sexpr{length(balls)}}{\Sexpr{length(balls[balls=="green"])} / \Sexpr{length(balls)}} = \Sexpr{round((length(bin3[bin3=="green"])/length(balls))/(length(balls[balls=="green"])/length(balls)),3)}$
+\end{itemize}
+
+
+
+
+
+  
+\end{solution}
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Three Urns Green (Conditional)}
+%% \extol{0.01}
+%% \exinput{\usepackage{amsmath,amssymb}}

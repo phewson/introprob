@@ -1,0 +1,53 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+BD <- sample(c(50:70),1)
+FD <- sample(c(40:60),1)
+GD <- sample(c(80:120),1)
+BO <- sample(BD,1)
+FO <- sample(FD,1)
+GO <- sample(GD,1)
+answer <- ( ( BO/BD ) *  ( BD/(BD+FD+GD))) / (    ( ( BO/BD ) *  ( BD/(BD+FD+GD))) +  ( ( FO/FD ) * (FD/(BD+FD+GD))) + ( (GO/GD) *  ( GD/(BD+FD+GD) )))
+
+@
+
+\begin{question}
+
+Professor Bonzo, Professor Fonzo and Professor Gonzo administer a common exam to their classes.  Their classes contain \Sexpr{BD}, \Sexpr{FD} and \Sexpr{GD} students respectively.    Suppose that \Sexpr{BO} of the students in the first class (Bonzo),
+\Sexpr{FO} students in the second class (Fonzo) and \Sexpr{GO} students in the third class (Gonzo)
+pass the exam.   
+
+If a student \emph{who has passed the exam} is chosen at
+random, what is the probability that the student is in the first class (Bonzo)
+
+\end{question}
+\begin{solution}
+The solution follows from Bayes' Theorem
+
+\begin{displaymath}
+P(A_i | B) = \frac{ P(B|A_i)P(A_i)}{\sum_{j=1}^3 P(B|A_i)P(A_i)}
+\end{displaymath}
+
+\begin{itemize}
+\item We need to note that $P(Pass)$ is denoted $P(B)$
+\item We need to note that the $P(Pass | Instruction = i)$ is denoted $P(B | A_i)$ for instructors $i=1,2,3$
+\end{itemize}
+
+The probabilities $P(Pass | Instruction = i)$ are given in the question.   There were \Sexpr{BD} students in Bonzo's class, \Sexpr{BO} of these students passed so $P(Pass | Instruction = 1) = \frac{\Sexpr{BO}}{\Sexpr{BD}} = \Sexpr{round(BO/BD,3)}$.
+
+The probability $P(A_i)$ is essentially the probability of a student picked at random being in that class (the proportion of students in each class).   So $P(A_1) = \frac{\Sexpr{BD}}{\Sexpr{BD}+\Sexpr{FD}+\Sexpr{GD}} = \Sexpr{round(BD/(BD+FD+GD),3)}$
+
+So, we just need to put the right numbers into the Bayes theorem espression:
+
+
+$P(A_i | B) = \frac{ \Sexpr{round(BO/BD,3)} \times \Sexpr{round(BD/(BD+FD+GD),3)}}{
+\Sexpr{round(BO/BD,3)} \times \Sexpr{round(BD/(BD+FD+GD),3)} + \Sexpr{round(FO/FD,3)} \times \Sexpr{round(FD/(BD+FD+GD),3)} + \Sexpr{round(GO/GD,3)} \times \Sexpr{round(GD/(BD+FD+GD),3)}}=\Sexpr{round(answer,3)}$
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer,nsmall=3)}}
+%% \exname{Bonzo, Fonzo and Gonzo}
+%% \extol{0.01}

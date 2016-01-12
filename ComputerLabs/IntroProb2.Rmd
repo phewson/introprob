@@ -1,0 +1,238 @@
+Capture-Recapture
+========================================================
+
+Here's a problem with many real world applications.  You tag $50$ fish.   You go back and catch $50$ fish and find $3$ were tagged.   How many are in the pond?
+
+
+
+### Problem 1.
+
+If there are $N$ fish in the lake, how many ways can I pick out 50 fish?
+
+$\binom{N}{50}$
+
+
+```{r}
+N <- 100
+choose(100,50)
+```
+
+
+Those numbers get big!   Let's work with logs.
+
+```{r}
+lchoose(N,50)
+```
+
+
+### Problem 2
+
+Now, if there are 50 fish in the lake that have been tagged, how many ways can I pick out three?   
+
+$\binom{50}{3}$
+
+```{r}
+lchoose(50,3)
+```
+
+And what about the untagged fish, that's just $\binom{N}{47}
+
+```{r}
+lchoose(N-50,47)
+```
+
+
+### THe probability that there are 100 fish in the lake
+
+
+exp( lchoose(50,3) + lchoose(N-50,47) - lchoose(N,50) )
+
+
+
+caprecap <- function(N){
+p <- exp( (lchoose(50,3) + lchoose(N-50,47)) - lchoose(N,50) )
+return(p)
+}
+
+
+
+results <- vector("numeric",1000)
+for (i in 50:1000){
+results[i] <- caprecap(i)
+
+}
+
+plot(c(1:1000), results, type  = "l")
+
+
+(50 * 50) / 3
+
+
+OK, now can you rework the calculations for a different context.
+
+According to Police records, there are 456 problem drug users in an area.
+
+According to the NHS there are 231 problem drug users.
+
+48 people appear on both lists.
+
+
+
+
+caprecap <- function(N){
+p <- exp( (lchoose(186,64) + lchoose(N-186,(186-64))) - lchoose(N,212) )
+return(p)
+}
+
+
+
+results <- vector("numeric",1000)
+for (i in 100:1000){
+results[i] <- caprecap(i)
+
+}
+
+plot(c(1:1000), results, type  = "l")
+
+
+
+
+Organisational Restructuring
+
+According to a law worked out by the famous German business Guru Herr Dr Gidiot (it was Willi to did the work, he had a brother called Frank), large public sector organisations undergo a reorganisation every four years.   These reorganisations follow a specific pattern.
+
+
+```{r}
+plot(c(0.5,3), c(1,3), bty = "n", type = "n", xaxt="n",yaxt="n",ylab="",xlab="")
+arrows(1,1,1,2,length=0.001)
+arrows(1,1,2,1,length=0.001)
+arrows(2,1,2,2,length=0.001)
+arrows(1,2,2,2,length=0.001)
+arrows(1,2,1.6,2.6,length=0.001)
+arrows(2,2,2.6,2.6,length=0.001)
+arrows(1.6,2.6,2.6,2.6,length=0.001)
+arrows(2,1,2.6,1.6,length=0.001)
+arrows(2.6,1.6,2.6,2.6,length=0.001)
+arrows(1,1,1.6,1.6,length=0.001,lty=3)
+arrows(1.6,1.6,1.6,2.6,length=0.001,lty=3)
+arrows(1.6,1.6,2.6,1.6,length=0.001,lty=3)
+text(c(1,2,1,2,1.6,2.6,1.6,2.6), c(1,1,2,2,1.6,1.6,2.6,2.6), LETTERS[1:8], adj=3, col = c(rep("black",4),rep("grey",2), rep("black",2)))
+```
+
+
+
+Consider that the organisation is currently at point A.
+
+If the organisation reaches point H our man, R. Biter will be very happy as he can retire, provided this happens in 20 years time.   16 years will be too soon, and any more than 20 years he will be retired anyway.
+
+Various organisation cynics also complain how often the company gets back in the position it started in.
+
+
+
+Write a function that takes an argument a (an integer from 1 to 8 denoting a node on the cube) and returns an integer denoting the possible walks that could be taken
+
+Hint
+
+walk <- function(a){
+if (a==1) {a <- sample(c(2,3,5),1)}
+
+### Fill in the gaps yourself
+
+if(a==8) a <- a
+return(a)
+}
+
+
+Cheat
+
+walk <- function(a){
+switch(a,
+a <- sample(c(2,3,5),1),
+a <- sample(c(1,4,6),1),
+a <- sample(c(1,4,7),1),
+a <- sample(c(3,2,8),1),
+a <- sample(c(1,6,7),1),
+a <- sample(c(2,5,8),1),
+a <- sample(c(5,8,3),1),
+a <- 8)
+return(a)
+}
+
+
+
+Hint.   You can't use a for loop.   You have to use a while loop.
+while(pos !=8){
+# do stuff
+}
+
+tells R to do something until you end up in position 8
+
+To make this work, you need to set up a counter
+
+start <- 0
+while(pos != 8){
+# do stuff
+
+start <- start + 1
+}
+
+#Every time round the loop, the counter goes up by 1.
+
+
+# do stuff needs to be replaced with a call to your walking function.
+
+
+dowalk <- function(){
+start <- 0
+pos <- 1
+while (pos != 8){
+pos <- walk(pos)
+cat(pos)
+start <- start + 1
+}
+return(start)}
+
+
+## The final step should be just as we have done.
+
+## Create a storage vector and run a loop where you call this function.
+
+results <- vector("numeric",10000)
+for (i in 1:10000){
+results[i] <- dowalk()
+}
+
+## Finally.
+
+xtabs(~results)/10000
+sum(xtabs(~results))
+
+This gives us the probability of being in position H after so many moves.   It appears impossible to get there is 16 years!   There is a high probability (1/3 times 2/3 you can verify) that R. Biter will be redundant after only 15 years.   
+
+What about restructuring.   In a 40 year period, count the number of times we visit A.
+
+
+
+dowalk2 <- function(n){
+store <- vector("numeric",n)
+pos <- 1
+for (i in 1:n){
+store[i] <- pos <- walk(pos)
+}
+results <- length(store[store == 1])
+return(results)
+}
+
+
+grumpy <- vector("numeric",1000)
+for (i in 1:1000){
+grumpy[i] <- dowalk2(10)
+}
+
+
+xtabs(~grumpy)/sum(xtabs(~grumpy))
+
+
+
+
+

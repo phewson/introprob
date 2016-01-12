@@ -1,0 +1,60 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+sanitizeLatexS <- function(str) {
+    gsub('([#$%&~_\\\\\\{}])', '\\\\\\\\\\1', str, perl = TRUE);
+}
+
+error <- sample(c(1:4),1)
+correct <- c("\\lambda", 
+             "p(1-p)",
+             "np",
+             "q/p")
+
+
+incorrect <- c("x/n ", 
+             "1/p ",
+             "np(1-p)",
+             "1/p")
+question <- correct
+question[error] <- incorrect[error]
+whatscorrect <- rep(0,4)
+whatscorrect[error] <- 1
+#correct[index == 5] <- 1
+#paste(round(runif(1)*100,3), "%", sep = "") can't display percentage sign yet
+
+results <- c(whatscorrect[1]==1, whatscorrect[2]==1, whatscorrect[3]==1, whatscorrect[4]==1)
+
+@
+
+\begin{question}
+You may be asked in an exam to find $E[X]$ (and $E[X^2]$ and hence $Var(X)$) for any of the common distributions we meet.   For a computer revision, which of the following is wrong:
+
+
+\begin{answerlist}
+\item For $Poisson(\lambda)$ $E[X]=$  $\Sexpr{sanitizeLatexS(question[1])}$
+\item For $Bern(p)$ $Var(X)=$ $\Sexpr{sanitizeLatexS(question[2])}$
+\item For $Binom(n, p)$ $E[X]=$ $\Sexpr{sanitizeLatexS(question[3])}$
+\item For $Geom(p)$ $E[X] = $ $\Sexpr{sanitizeLatexS(question[4])}$
+\end{answerlist}
+
+\end{question}
+
+\begin{solution}
+
+The error was on line \Sexpr{error}.   Correct answers are given below.   Note carefully that $E[X]=q/p$ is only true for $Geom(p)$ where we have defined $X$ to be the number of trials before a final 'success'.
+
+\begin{answerlist}
+\item For $Poisson(\lambda)$ $E[X]=$  $\Sexpr{sanitizeLatexS(correct[1])}$
+\item For $Bern(p)$ $Var(X)=$ $\Sexpr{sanitizeLatexS(correct[2])}$
+\item For $Binom(n, p)$ $E[X]=$ $\Sexpr{sanitizeLatexS(correct[3])}$
+\item For $Geom(p)$ $E[X] = $ $\Sexpr{sanitizeLatexS(correct[4])}$
+\end{answerlist}
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{EXVXEX2}

@@ -1,0 +1,25 @@
+<<echo=FALSE, results=hide>>=
+classize <- sample(c(20:40),1)
+termlength <- sample(c(12:24),1)
+repeats <- sample(c(0:4),1)
+answer <- dbinom(repeats, termlength, 1/classize)
+@
+
+\begin{question}
+In a class of \Sexpr{classize} students, every week Professor Bonzo calls one student out at random and asks them to prove a theorem.   In a term of \Sexpr{termlength} weeks, what is the probability that a given student is asked to prove \Sexpr{repeats} theorem(s).
+
+\end{question}
+
+\begin{solution}
+The key to this question is recognising that you need to use the Binomial distribution.   We have a probability of being selected of $p=\frac{1}{\Sexpr{classize}}$, and we have $n=\Sexpr{termlength}$ opportunities to be called out.   Then
+
+\begin{displaymath}
+P(X=\Sexpr{repeats}) = {\Sexpr{termlength} \choose \Sexpr{repeats}} \left(\frac{1}{\Sexpr{classize}} \right)^{\Sexpr{repeats}} \left(1-\frac{1}{\Sexpr{classize}}\right)^{(\Sexpr{termlength}-\Sexpr{repeats})} = \Sexpr{round(answer,3)}
+\end{displaymath}
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{StudentCallout}

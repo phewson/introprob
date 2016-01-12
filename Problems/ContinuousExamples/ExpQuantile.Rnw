@@ -1,0 +1,75 @@
+<<echo=FALSE, results=hide>>=
+
+theta <- round(runif(1,0,0.5),2)
+p <- sample(c(0.025,0.5, 0.25, 0.5, 0.75, 0.95, 0.975),1)
+
+
+
+answer <- log(1-p)/(-theta)
+
+@
+
+
+\begin{question}
+
+
+We consider the exponential distribution with pdf given by:
+
+\begin{displaymath}
+f(x) = \theta e^{-\theta x}.
+\end{displaymath}
+
+On a written paper you could be asked to find the quantile function, i.e. find $x$ such that
+
+\begin{displaymath}
+P(X \leq x) = p
+\end{displaymath}
+for a given value of p.
+
+Hint, (a) we did this in last week's lecture and (b) in last week's problem sheet you were asked to show that
+\begin{displaymath}
+P(X \leq x) = \int_{0}^x \theta e^{-\theta t} dt = 1-e^{-\theta x}
+\end{displaymath}
+so you just need to solve this for $x$.
+
+The next question (which you can answer in a computer) you are to assume that $X \sim \mbox{Exp}(\theta)$ where $\theta = \Sexpr{theta}$.   If $p$ = \Sexpr{p} then you should find $x$ such that
+
+
+\begin{displaymath}
+P(X \leq x) = \Sexpr{p}
+\end{displaymath}
+
+
+
+
+
+
+\end{question}
+
+\begin{solution}
+
+The first part of the question (which you could get on a written assessment) asks you to make x the subject of the following expression:
+
+\begin{displaymath}
+1 - e^{-\theta x} = p
+\end{displaymath}
+
+You should be able to show that this is:
+
+\begin{displaymath}
+\frac{\log(1-p)}{-\theta} = x
+\end{displaymath}
+
+
+The aim of using the workings is to get practice finding:
+
+\begin{displaymath}
+\frac{\log(1-\Sexpr{p})}{-\Sexpr{theta}} = \Sexpr{round(answer,4)}
+\end{displaymath}
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Expquantile}

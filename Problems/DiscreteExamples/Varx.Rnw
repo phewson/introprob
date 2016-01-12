@@ -1,0 +1,71 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+sanitizeLatexS <- function(str) {
+    gsub('([#$%&~_\\\\\\{}])', '\\\\\\\\\\1', str, perl = TRUE);
+}
+
+error <- sample(c(1:4),1)
+correct <- c("Var(X) = E[(X-E[X])^2]", 
+             "Var(X)=E[X^2 - 2XE[X] + E[X]^2]",
+             "Var(X)=E[X^2] - 2E[X]^2 + E[X]^2",
+             "Var(X)=E[X^2] - E[X]^2")
+
+
+incorrect <- c("Var(X) = E[(X-E[X]^2)]", 
+             "Var(X)=E[X^2 - 2XE[X] + E[X^2]]",
+             "Var(X)=E[X^2] - 2E[X^2] + E[X]^2",
+             "Var(X)=E[X]^2 - E[X^2]")
+question <- correct
+question[error] <- incorrect[error]
+whatscorrect <- rep(0,4)
+whatscorrect[error] <- 1
+#correct[index == 5] <- 1
+#paste(round(runif(1)*100,3), "%", sep = "") can't display percentage sign yet
+
+results <- c(whatscorrect[1]==1, whatscorrect[2]==1, whatscorrect[3]==1, whatscorrect[4]==1)
+
+@
+
+\begin{question}
+You may in an exam be asked to find $Var(X)$ as a function of $E[X]$ and $E[X^2]$.    You may also be asked to explain why this result is a special case of Jensen's inequality.
+
+
+As before, someone has tried to remember this using rote learning, and made a mistake writing it out.   Which line below has an error?
+
+
+\begin{answerlist}
+\item Stating the definition: $\Sexpr{sanitizeLatexS(question[1])}$
+\item Multiplying out the quadratic: $\Sexpr{sanitizeLatexS(question[2])}$
+\item Using linearity of expectations (and expectations of expectations) $\Sexpr{sanitizeLatexS(question[3])}$
+\item Tidying $\Sexpr{sanitizeLatexS(question[4])}$
+\end{answerlist}
+
+\end{question}
+
+\begin{solution}
+
+The error is on line \Sexpr{error}.   I think these are difficult to track - you really need to be clear about the difference between $E[X^2]$ and $E[X]^2$.    
+
+\begin{answerlist}
+\item $\Sexpr{sanitizeLatexS(correct[1])}$
+\item $\Sexpr{sanitizeLatexS(correct[2])}$
+\item $\Sexpr{sanitizeLatexS(correct[3])}$
+\item $\Sexpr{sanitizeLatexS(correct[4])}$
+\end{answerlist}
+
+
+Jensen's inequality tells us that for convex function $h(\cdot)$ then
+
+\begin{displaymath}
+E[h(X)] \geq h(E[X])
+\end{displaymath}
+
+Jensen's inequality is a result that gets used in several other places, such as physics, information theory, mathematical statistics.   But it's a nice check that we are clear about the difference between $E[h(X)]$ (e.g. $E[X^2]$) and $h(E[X])$ (e.g. $E[X]^2$).   Becuase of the quadratic definition we know $E[X^2]$ has to be larger than $E[X]^2$ and Jensen's inequality confirms and generalises this fact.
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{varx}

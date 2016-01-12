@@ -1,0 +1,56 @@
+<<echo=FALSE, results=hide>>=
+
+theta <- round(runif(1,0,0.5),2)
+a <- round(runif(1,0.5,1.1),2)
+b <- round(runif(1,1.2,1.8),2)
+
+answer <- 1-exp(-theta*b) - (1-exp(-theta*a))
+
+@
+
+
+\begin{question}
+
+
+For the exponential distribution which has pdf given by:
+
+\begin{displaymath}
+f(x) = \theta e^{-\theta x}
+\end{displaymath}
+
+you could be asked to show that the c.d.f. is given by
+
+\begin{displaymath}
+1 - e^{\theta x}
+\end{displaymath}
+
+Next assume that $X \sim \mbox{Exp}(\theta)$ where $\theta = \Sexpr{theta}$.   Using no more than this expression for the cdf, show you workings carefully and find $P(\Sexpr{a} < X < \Sexpr{b})$.
+
+
+
+
+
+\end{question}
+
+\begin{solution}
+
+The first part of the question (which you could get on a written assessment) asks you to show that
+
+\begin{displaymath}
+F(x) = f(x) \int_0^x f(z)dz = \int_0^x \theta e^{-\theta z} dz = \left| e^{-\theta z} \right|_0^z = -e^{-\theta x} - -1 = 1-e^{-\theta x}
+\end{displaymath}
+
+The aim of using the workings is to get practice finding:
+
+\begin{displaymath}
+P(a < X < b) = F(b) - F(a) = \Sexpr{round(1-exp(-theta*b),5)} - \Sexpr{round(1-exp(-theta*b),5)} = \Sexpr{round(answer, 5)}
+\end{displaymath}
+
+It's obviously not wrong to calculate $\int_{\Sexpr{a}}^{\Sexpr{b}} \Sexpr{theta} e^{\Sexpr{theta} x}$ directly.   However, it's good practice for later to understand the way we use $F(b)-F(b)$ (specifically because we meet functions where we cannot evaluate the integral directly).
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{ExpCDF}

@@ -1,0 +1,65 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+
+results <- c( rep(1==0,3),1==1,  1==0)
+
+@
+
+\begin{question}
+The following distributions have two parameters.
+
+
+
+
+\begin{itemize}  
+\item $X \sim Normal(\mu, \sigma^2)$
+\item $X \sim Gamma(a, \theta)$
+\item $X \sim Beta(a, b)$
+\end{itemize}
+
+(We are using $\theta$ as a rate parameter)
+
+
+Consider a random variable $X$, where $X>0$.
+The curve is a plot of the density function for one of these distributions.
+
+<<echo = FALSE, results = hide, fig = TRUE>>=
+curve(dgamma(x,50,50), from = 0, to = 2, ylab = "f(x)",main = "X > 0")
+@
+
+
+\begin{itemize}
+\item[Statement] $X$ must be a Normal distribution with $\mu$ close to one
+\item[because]
+\item[assertion] the function plotted is a bell shaped curve with a peak close to 1
+\end{itemize}
+
+
+
+
+\begin{answerlist}
+\item The statement is true and the assertion is true and the connection between them is valid.
+\item The statement is true and the assertion is true but there is no valid connection between them
+\item The statement is true but the assertion is false
+\item The statement is false but the assertion is true 
+\item Both the statement and the assertion are false
+\end{answerlist}
+
+
+
+\end{question}
+
+\begin{solution}
+
+The statement is false.   This cannot be a Normal distribution as $X$ is only defined for values greater than $0$.   That leaves the Gamma and the Beta.   It can't be a Beta distribution because there $0 < X < 1$.   So by elimination it must be a Gamma distribution.
+
+It is interesting to note that with certain values of $a$ and $\theta$ the Gamma density function can look rather like a Bell Shaped curve.
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{WaitingTime}

@@ -1,0 +1,47 @@
+<<echo=FALSE, results=hide>>=
+
+answer <- exp(lchoose(250,0) + lchoose(2250,30) - (lchoose(2500,30)))
+
+@
+
+\begin{question}
+Consider a geographical area with a population of 2,500.   You are concerned that 250 of them may have Global Acute Malnutrition (GAM).  You have data from a sample of 30 individuals, none of whom has symptons of Global Acute Malnutrition (GAM).   If 10\% of the population (i.e. 250 people) had Global Acute Malnutition, what is the probability you get no people with GAM in your sample.
+
+
+A colleague suggests that you use the Hypergeometic distribution where
+
+
+\begin{displaymath}
+P(X=x)  = \frac{{M \choose x} {N-M \choose n-x}}{{N \choose n}}
+\end{displaymath}
+
+and you have $X$ as the number of people in your sample with GAM, $N$ is the number of people in the population, $M$ is the number of people in the population with GAM and $n$ is the size of your sample.
+
+
+Hint.   Unless you have a very nice calculator, it might not cope with the large factorials.   R on the other hand has a log factorial function.   If you type \verb+lchoose(2250,30)+ in the console it will give you the log of the value of ${2250 \choose 30}$.
+
+
+\end{question}
+
+\begin{solution}
+
+The key here is that you need:
+
+\begin{displaymath}
+P(X=x)  = \exp \left( \log {M \choose x} + \log {N-M \choose n-x} - \log {N \choose x} \right) = \Sexpr{round(exp(lchoose(250,0) + lchoose(2250,30) - (lchoose(2500,30))),3)}
+\end{displaymath}
+
+In R you need the commands:
+
+\begin{verbatim}
+exp(lchoose(250,0) + lchoose(2250,30) - (lchoose(2500,30)))
+\end{verbatim}
+
+
+\end{solution}
+
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Asthma}

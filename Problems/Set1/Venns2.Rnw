@@ -1,0 +1,60 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+require(venneuler)
+vd <- venneuler(c(B=0.42, A=0.4, "A&B"=0.1))
+sampler <- sample(4,1)
+if (sampler == 1){
+questiona <- paste("text(c(0.2,0.5,0.8),c(0.5,0.5, 0.5), \"X\")")}
+if (sampler == 2){
+questiona <- paste("text(c(0.2,0.8),c(0.5,0.5), \"X\")")}
+if (sampler == 3){
+questiona <- paste("text(c(0.2,0.5,0.8,0.9), c(0.5,0.5,0.5,0.9), \"X\")")}
+if (sampler == 4){
+questiona <- paste("text(c(0.2,0.9), c(0.5,0.9), \"X\")")}
+answer <- ifelse(c(1:4)==sampler,1,0)
+results <- c(answer[1]==1, answer[2]==1, answer[3]==1, answer[4]==1)
+@
+
+
+\begin{question}
+
+Consider the figure~\ref{venn2}.   
+
+
+\begin{figure}[!h]
+<<plotfig2, echo = FALSE, results = hide, fig=TRUE>>=
+plot(c(0,1),c(0,1), type = "n", xlab = "", ylab = "", xaxt = "n", yaxt="n")
+par(new = TRUE)
+plot(vd)
+text(0.8,0.1, expression(Omega))
+eval(parse(text = questiona))
+@
+\caption{Venn diagram question}
+\label{venn2}
+\end{figure}
+
+
+Various subsets (or one subset) are marked by the piratical symbol "X".   Which of these statements denotes the set comprising all elements which have been marked with an "X"?
+
+\begin{answerlist}
+\item $A \cup B$ 
+\item $(A \cap B^C) \cup (B \cap A^C)$
+\item $\Omega$
+\item $(A \cap B^C) \cup B^C$
+\end{answerlist}
+
+\end{question}
+
+\begin{solution}
+\begin{answerlist}
+\item $A \cup B$: \Sexpr{if (answer[1]==1) print("Yes") else print("No") }
+\item $(A \cap B^C) \cup (B \cap A^C)$: \Sexpr{if (answer[2]==1) print("Yes") else print("No") }
+\item $\Omega$: \Sexpr{if (answer[3]==1) print("Yes") else print("No") }
+\item $(A \cap B^C) \cup B^C$: \Sexpr{if (answer[4]==1) print("Yes") else print("No") }
+\end{answerlist}
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{Venns 2}

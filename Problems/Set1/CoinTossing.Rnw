@@ -1,0 +1,49 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+A <- c("HHH, HHT, HTH, HTT")
+B <- c("HHH, TTT")
+C <- c("HHT, HTH, THH")
+D <- c("HHT, HTH, HTT, THH, THT, TTH, TTT")
+question <- list(A=A, B=B, C=C, D=D)
+answer <- c(0.5, 0.25, 3/8, 7/8)
+choice <- sample(4,1)
+myquestion <- question[[choice]]
+myanswer <- answer[choice]
+@
+
+\begin{question}
+\label{exer 1.2.4} Describe in words the events specified by
+the following subsets of 
+$$\Omega = \{HHH,\ HHT,\ HTH,\ HTT,\ THH,\ THT,\ TTH,\ TTT\}$$
+%(see Example~\ref{exam 1.5}).
+\begin{enumerate}
+\item $E = \{\mbox{HHH,HHT,HTH,HTT}\}$. 
+\item $E = \{\mbox{HHH,TTT}\}$.
+\item $E = \{\mbox{HHT,HTH,THH}\}$. 
+\item $E =
+\{\mbox{HHT,HTH,HTT,THH,THT,TTH,TTT}\}$.
+\end{enumerate}
+
+
+For the computer you should assume that you are given the set $E = \{\Sexpr{myquestion}\}$. Using the naive definition of probability, what is $P[E]$?   Please enter your answer as a decimal (3dp).
+
+\end{question}
+
+\begin{solution}
+\begin{enumerate}
+\item[] In three tosses of a coin, the first coin is a head
+\item[] In three tosses of a coin, the same side turns up on each toss
+\item[] In three tosses of a coin, exactly one tail turns up
+\item[] In three tosses of a coin, at least one tail turns up.
+
+\end{enumerate}
+
+The computer answer is that $P[E]=P[\Sexpr{myquestion}]=\Sexpr{round(myanswer,3)}$
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(myanswer, nsmall = 3)}}
+%% \exname{Coin Tossing}
+%% \extol{0.01}

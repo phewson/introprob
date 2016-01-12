@@ -1,0 +1,52 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+
+results <- c(1==1,rep(1==0,3), 1==0)
+
+@
+
+\begin{question}
+The following distributions have two parameters.
+
+\begin{itemize}  
+\item $X \sim Normal(\mu, \sigma^2)$
+\item $X \sim Gamma(a, \theta)$
+\item $X \sim Beta(a, b)$
+\end{itemize}
+
+(We are using $\theta$ as a rate parameter)
+
+\begin{itemize}
+\item[Statement] The Normal distribution is the only one of these distributions where $E[X]$ and $Var(X)$ are independent in terms of the parameters 
+\item[because]
+\item[assertion] the other distributions have expressions for $E[X]$ and $Var(X)$ which both involve both parameters..
+\end{itemize}
+
+
+
+\begin{answerlist}
+\item The statement is true and the assertion is true and the connection between them is valid.
+\item The statement is true and the assertion is true but there is no valid connection between them
+\item The statement is true but the assertion is false
+\item The statement is false but the assertion is true 
+\item Both the statement and the assertion are false
+\end{answerlist}
+
+
+
+\end{question}
+
+\begin{solution}
+
+Both the statement and the assertion are true.   The Normal has a striking property that both $E[X]$ and $Var(X)$ are independent in terms of the parameters which describe their behaviour.   This means you can alter $E[X]$ by altering $\mu$ yet leave $Var(X)$ unchanged, or you can alter $Var(X)$ by altering $\sigma^2$ leaving $E[X]$ unchanged.   Or you can alter both.
+
+However, with most other distributions we have looked at, if you alter the value of one parameter you change both the value of $E[X]$ and $Var(X)$.
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{WaitingTime}

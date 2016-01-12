@@ -1,0 +1,42 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+baseline <- sample(c(40,50,60,70),1)
+p1 <- sample(c(0.08,0.09,0.1, 0.11, 0.12),1)
+p2 <- sample(c(0.01,0.02,0.03, 0.04, 0.05),1)
+
+a <- (1-baseline/100)*p1 + baseline/100*p2
+@
+
+\begin{question}
+\Sexpr{baseline}\% of new drivers in a particular country have had additional driving education.   During their first year of driving, new drivers who have \emph{not} had additional driving education have a probability of \Sexpr{p1} of having an accident, while new drivers who \emph{have} had additional driving instruction have a probabililty \Sexpr{p2} of having an accident.
+
+Calculate the probability that a new driver does not have an accident during their first year of driving.   Be prepared to show full workings.
+\end{question}
+
+
+
+
+\begin{solution}
+Denote the probability that a driver has an accident as $P(A)$ and so the probability that a driver has no accidents is $P(A^C)=1-P(A)$.
+
+Set the event $B$, the event that a driver has additional education we have $P(B)=\Sexpr{round(baseline/100,2)}$.   Also, we can see that $P(B^C)$, the probability that they have not had additional driving education is $1-P(B)=\Sexpr{round(1-baseline/100,2)}$
+
+\begin{itemize}
+\item We know that $P(A|B)=\Sexpr{p2}$ 
+\item We know that $P(A|B^C)=\Sexpr{p1}$
+\end{itemize}
+
+The numerator P(A) is therefore $\Sexpr{p1} \times + \Sexpr{1-baseline/100} \times \Sexpr{p2} \times \Sexpr{baseline/100} = \Sexpr{a} $
+ 
+
+
+We can therefore find the probability that a driver does not have an accident as $P(A^C)=1-P(A)
+=1=\Sexpr{a}=\Sexpr{1-a}$
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format((1-a), nsmall = 3)}}
+%% \exname{IoA1}
+

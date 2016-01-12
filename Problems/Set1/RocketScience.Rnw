@@ -1,0 +1,22 @@
+\begin{question}
+This is a problem to discuss in tutorials.   You will not be asked about this question in the ``in class test''.
+
+
+Two technicians are discussing the relative merits of two rockets.   One rocket has two engines, the other four.   The engines used are all identical.   To ensure success, the engines are redundant, i.e. the rocket will achieve it's mission even if half the engines fail.   The first technician argues that the four engine rocket should be the better one.   The second technician says that he cannot reveal the failure probability, because it is a secret.   But he does say that either rocket is as likely to succeed as the other.   The first technician points out that this is enough information to calculate the failure probability for both an engine and a rocket.   Can you work out this probability?
+
+
+Hint: I had to work out the probability that a rocket would be succesful under each possible success scenario,  e.g. for the four engine rocket, $p[All work] = p^4$, and add this to $p[Three work]=4p^3q$ (because there are four different ways in which we can have one rocket failing) and so on.   Sum all the probabilities associated with either rocket working and work the algebra through.
+\end{question}
+
+\begin{solution}
+%Let $p$ be the probability of an engine succeeding, and assume that the engines succeed and fail independently. %We also assume that $p$ is neither $0$ nor $1$, i.e., an engine is neither perfectly good nor perfectly bad.
+%The 4-engine rocket will succeed with probability $p^4 + 4p^3 q + 6p^2 q^2$ where $q = (1−p)$. The 2-engine rocket will succeed with probability $p^2 +2pq$. These two probabilities are the same, so $p^4 + 4p^3 q + 6p^2 q^2 = p^2 + 2pq$. Since $p  \leq 0$ we may divide both sides of the equation by $p$. (It is easy to see that
+%$p = 1$, $q = 0$ is a solution to this equation, but it is not the solution we are seeking because of our assumption that $p$ is neither $0$ nor $1$. 
+
+%If we substitute $1 − p$ for $q$ and multiply out, we get the equation: $3p^3 − 8p^2 + 7p − 2 = 0$. This is a cubic equation in $p$. As we have already noted, $p = 1$ is a solution, so $(p−1)$ is a factor of the cubic polynomial. Dividing this factor out gives the quadratic equation $3p^2 − 5p + 2 = 0$. One can now use the quadratic formula to get the solutions $p = 1, 2/3$. Again, since we assumed that $p = 1$ is not the solution, it follows that the probability of an engine failure is $2/3$.
+\end{solution}
+
+%% META-INFORMATION
+%% extype{num}
+%% exsolution{format(0.666, nsmall = 3)}
+%% exname{RocketScience}

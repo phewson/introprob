@@ -1,0 +1,67 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+sanitizeLatexS <- function(str) {
+    gsub('([#$%&~_\\\\\\{}])', '\\\\\\\\\\1', str, perl = TRUE);
+}
+
+error <- sample(c(1:6),1)
+correct <- c("P(B|A) = P(A \\cap B) / P(A) ", 
+             "P(B|A) P(A) = P(A \\cap B) ",
+             "P(A|B) = P(A \\cap B) / P(B)",
+             "P(A|B) P(B) = P(A \\cap B)",
+             "P(A|B) P(B) = P(B|A) P(A)",
+             "P(A|B) = {P(B|A) P(A)}/P(B)")
+
+
+incorrect <- c("P(B|A) = P(A \\cap B) / P(B) ", 
+             "P(B|A) P(B) = P(A \\cap B) ",
+             "P(A|B) = P(A \\cap B) / P(A)",
+             "P(A|B) P(A) = P(A \\cap B)",
+             "P(A|B) P(A) = P(B|A) P(B)",
+             "P(A|B) = {P(B|A) P(B)}/P(A)")
+question <- correct
+question[error] <- incorrect[error]
+whatscorrect <- rep(0,6)
+whatscorrect[error] <- 1
+#correct[index == 5] <- 1
+#paste(round(runif(1)*100,3), "%", sep = "") can't display percentage sign yet
+
+results <- c(whatscorrect[1]==1, whatscorrect[2]==1, whatscorrect[3]==1, whatscorrect[4]==1, whatscorrect[5]==1,  whatscorrect[6]==1)
+
+@
+
+\begin{question}
+You are asked in an exam to derive Bayes rule from the definition of conditional probability.   On paper you would first state the definition.  Then you manipulate the formula to give an alternative expression for conditional probability.   However, an error has been made below - which line is wrong?
+
+
+\begin{answerlist}
+\item Stating the definition of conditional probability $\Sexpr{sanitizeLatexS(question[1])}$
+\item Rearranging $\Sexpr{sanitizeLatexS(question[2])}$
+\item Also stating the definition of conditional probability $\Sexpr{sanitizeLatexS(question[3])}$
+\item And rearranging $\Sexpr{sanitizeLatexS(question[4])}$
+\item So $\Sexpr{sanitizeLatexS(question[5])}$
+\item Divide both sides to get $\Sexpr{sanitizeLatexS(question[6])}$
+\end{answerlist}
+
+\end{question}
+
+\begin{solution}
+
+The error was on line \Sexpr{error}.   A correct derivation (hopefully) is given as:
+
+\begin{answerlist}
+\item Stating the definition of conditional probability $\Sexpr{sanitizeLatexS(correct[1])}$
+\item Rearranging $\Sexpr{sanitizeLatexS(correct[2])}$
+\item Also stating the definition of conditional probability $\Sexpr{sanitizeLatexS(correct[3])}$
+\item And rearranging $\Sexpr{sanitizeLatexS(correct[4])}$
+\item So $\Sexpr{sanitizeLatexS(correct[5])}$
+\item Divide both sides to get $\Sexpr{sanitizeLatexS(correct[6])}$
+\end{answerlist}
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{BayesTheoremProof}

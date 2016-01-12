@@ -1,0 +1,19 @@
+<<echo=FALSE, results=hide>>=
+group <- sample(c(24:40),1)
+committee <- sample(c(3:8),1)
+answer <- choose(group,committee)
+@
+
+\begin{question}
+You belong to a group (class, club) of \Sexpr{group} people.   You wish to form a committee of \Sexpr{committee} people.   How many ways can you do this?
+
+\end{question}
+
+\begin{solution}
+The answer is $\left( \frac{\Sexpr{group}}{\Sexpr{committee}}\right) = \frac{\Sexpr{group}!}{(\Sexpr{group}-\Sexpr{committee})!\Sexpr{committee}!}=\Sexpr{answer}$    
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Committee}

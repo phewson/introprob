@@ -1,0 +1,44 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+A <- sample(c(2:6),1)
+B <- sample(c(3:6),1)
+C <- sample(c(1:4),1)
+answer <- 1/4*A + 1/4*B + 1/4*C
+@
+\begin{question}
+James Bond is a prisoner in a cell.   There are four possible routes of escape:
+
+\begin{itemize}
+\item Air conditioning duct (this leads to a \Sexpr{A} hour trip when he falls through a trap door on his head, to the huge enjoyment of his captors)
+\item Sewer Pipe (a \Sexpr{B} hour trip before he falls through a trap door again to the amusement of his captors)
+\item Chimney (a \Sexpr{C} hour trip before he falls through a trap door again to the amusement of his captors)
+\item The door (which actually isn't locked, i.e. it takes zero time to escape)
+\end{itemize}
+
+Assume he picks either of the three routes with equal probability.   Further assume each time he has a fall he gets amnesia and forgets how he tried to get out last time and is put back in his cell immediately.
+
+What is the expected value of the time taken for James Bond to realise the door is unlocked?
+
+
+\end{question}
+
+\begin{solution}
+The exit routes Duct, Sewer, Chimney, Door.   $X$ is the time taken to exit, and the possible outcomes are $x_1 = \Sexpr{A}, x_2=\Sexpr{B}, x_3=\Sexpr{C}, x_4=0)$.
+
+Because we are still working with naive probability we assume that $P(X=x) = \frac{1}{4}$ for each route. 
+
+Therefore, the expectation of time taken is $E[X] = \sum_{i=1}^4 x_i \times P(X=x_i)$ which is:
+
+\begin{displaymath}
+E[X] = \Sexpr{A} \times \frac{1}{4} + \Sexpr{B} \times \frac{1}{4} + \Sexpr{C} \times \frac{1}{4} + 0 \times \frac{1}{4} = \Sexpr{answer}
+\end{displaymath}
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{JamesBond}

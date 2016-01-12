@@ -1,0 +1,17 @@
+
+
+\begin{question}
+A student must choose one subject as an elective from the following list: Computational Econometrics (C), Quantum Physics (P), Survey Methods (S).
+
+If he/she is equally likely to choose C and P, but twice as likely to choose S, what is the probability she chooses to study Quantum Physics?
+\end{question}
+
+\begin{solution}
+$\frac{1}{4}$.   Clearly the total probability must be $1$, we need to solve $1 = x + x + 2x$
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{0.25}
+%% \exname{Options}
+%% \extol{0.01}

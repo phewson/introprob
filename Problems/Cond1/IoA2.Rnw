@@ -1,0 +1,78 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+baseline <- sample(c(40,50,60,70),1)
+p1 <- sample(c(0.08,0.09,0.1, 0.11, 0.12),1)
+p2 <- sample(c(0.01,0.02,0.03, 0.04, 0.05),1)
+
+a <- (1-baseline/100)*p1 + baseline/100*p2
+answer <- (1-p2)*(baseline/100) /( (1-baseline/100)*(1-p1) + baseline/100*(1-p2))
+
+
+
+@
+
+\begin{question}
+Now we have that \Sexpr{baseline}\% of new drivers in a particular country have had additional driving education.   During their first year of driving, new drivers who have \emph{not} had additional driving education have a probability of \Sexpr{p1} of having an accident, while new drivers who \emph{have} had additional driving instruction have a probabililty \Sexpr{p2} of having an accident.
+
+Calculate the probability that a new driver has had additional driving eduction, given that the driver had no accidents in the first year.
+\end{question}
+
+
+
+
+\begin{solution}
+As before denote the probability that a driver has an accident as $P(A)$.   You can therefore find the probability that a driver has no accident using $P(A^C)=1-P(A)$ as before, but we are going to do it the other way round this time (check both approaches give the same answer).
+
+
+If we sent the event $B$, the event that a driver has additional education we have $P(B)=\Sexpr{baseline/100}$.   
+
+Ultimately we want to find $P(B|A^C)$ and can do this using Bayes Rule.
+
+In general, Bayes rule tells us
+\begin{displaymath}
+P(B|A) = \frac{P(A|B)P(B)}{P(A)}
+\end{displaymath}
+
+However, for us, we aren't intested in the event $A$ (driver has an accident), we want it's complement $A^C$ (driver does not have an accident).   Because $A$ and $A^C$ are mutually exclusive partitions of $\Omega$ and $A|B$ and $A^C|B$ are mutually exclusive partitions of $B$ we can pick various points to take the complement.  We're only substituting symbols.   But it might be more consistent if we do everything the same way.
+
+Firstly, lets work out the denominator.
+
+\begin{itemize}
+\item We know that $P(A|B)=\Sexpr{p1}$ and so $P(A^C|B) = 1-\Sexpr{p2}=\Sexpr{1-p2}$
+\item We know that $P(A|B^C)=\Sexpr{p2}$ and so $P(A^C|B^C) = 1-\Sexpr{p1}=\Sexpr{1-p1}$
+\end{itemize}
+
+This time it might be easier to work out $P(A^C)$ directly using the law of total probability, $P(A^C) = P(A^C|B)P(B) + P(A^C|B^C)P(B^C)$ (you can check the other method of doing this gives the same answer)
+
+So we want to find:
+\begin{displaymath}
+P(A^C) = \Sexpr{1-p1} \times  \Sexpr{1-baseline/100} + \Sexpr{1-p2} \times \Sexpr{baseline/100} = \Sexpr{1-a} 
+\end{displaymath}
+
+
+The main reason for doing it this way is that the numerator terms match those in the denominator.    We now want to find $P(A^C|B)P(B)$.   We know that $P(A|B)=\Sexpr{p2}$ so we know that $P(A^C|B) = 1-P(A|B) = 1-\Sexpr{p2} = \Sexpr{1-p2}$.    So the numerator is:
+
+\begin{displaymath}
+P(A^C|B)P(B) = \Sexpr{1-p2} \times \Sexpr{round(baseline/100,3)}
+\end{displaymath}
+
+Putting it all together, we have Bayes rule
+
+\begin{displaymath}
+P(B|A^C) = \frac{P(A^C|B)P(B)}{P(A^C)} = \frac{\Sexpr{1-p2} \times \Sexpr{round(baseline/100,3)}}{\Sexpr{round((1-a),3)}} = \Sexpr{round(answer,3)}
+\end{displaymath}
+
+
+
+
+
+
+\end{solution}
+
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{IoA1}
+
+

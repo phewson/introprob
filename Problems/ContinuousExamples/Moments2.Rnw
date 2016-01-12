@@ -1,0 +1,45 @@
+<<echo=FALSE, results=hide>>=
+floors <- people <- sample(c(3:8),1)
+
+@
+
+\begin{question}
+
+
+Find the Moment Generating Function $M_X (t)$ for the following probability density functions.   In each case the random variable $X>0$ 
+
+\begin{itemize}
+\item $f_X(x)  = 2e^{-2x}$
+\item $f_X(x)  = e^{-2x}+\frac{1}{2}e^{-x}$
+\item $f_X(x)  = 4xe^{-2x}$
+\item $f_X(x)  = \frac{\lambda(\lambda x)^{n-1} e^{-\lambda x}}{(n-1)!}$
+
+\end{itemize}
+
+Having found the MGF, find the first and second moments of each distribution (by differentiating the MGF one / two times and setting t=0)
+
+\end{question}
+\begin{solution}
+
+\begin{itemize}
+\item $M_X(t) =\frac{2}{2-t}$
+\item $M_X(t) = \frac{4-3t}{2(1-t)(2-t)}$
+\item $M_X(t) =\frac{4}{(2-t)^2}$
+\item $M_X(t) =\frac{\lambda}{\lambda+t}$$ for $$t<\lambda$
+\end{itemize}
+
+
+\begin{itemize}
+\item 1st 1/2
+\item 2nd 5/4
+\item 1st 1
+\item 1st  $\frac{n}{\lambda}$
+\end{itemize}
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(factorial(people)/floors^floors, nsmall = 3)}}
+%% \exname{Moments1}

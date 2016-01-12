@@ -1,0 +1,156 @@
+Matrix representation
+======================
+
+
+The first thing you need to do is copy paste the following code into R to install and load some packages:
+  
+  
+```{r}  
+#install.packages("diagram")
+#install.packages("expm")
+library(diagram)
+library(expm)
+```
+
+The first package draws graphs given matrices, the second finds powers of matrices.
+
+
+Rewrite the "random walk on a cube"" as a graph
+----------------------------------------------
+
+It might be easier to follow an explanation on the white board than read all of this, but in case you are well ahead here are the key ideas.  We're going to represent the random walk on a cube as a graph problem, and in turn represent this as a matrix problem.
+
+The first idea is that can reduce the cube to four positions.   The start position, three nodes adjacent to the start position, three nodes adjacent to the end position and the end position.   Each of the three nodes adjacent to the start position for example are identical.   They are one step away from the start and two steps away from the end.   You can't get to any of these nodes from each other.
+
+The next step is a little more involved given written instructions.  We can then represent the transition probabilities as a matrix.   
+
+Each row of this transition matrix is a vector which states the probability of moving from one position to the next.   So the rows should sum to one.   If you consider position 1, the start, we said we are guaranteed to move to position 2 (nodes adjacent to the start).  So the first row of our transition matrix is a vector as follows:
+
+(0,1,0,0)
+
+
+You need to write three more vectors, the transition probabilities from each of the other positions.
+
+Row four is easy because once you are at the end position you stay there, so it's just
+0,0,0,1
+
+
+Row 2 and Row three are the more interesting ones.
+
+
+
+### Specifying a matrix in R
+
+To write a very boring diagonal matrix in R you can use
+
+```{r}
+X <- matrix(c(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1),4,4,byrow=TRUE)
+X
+```
+- The matrix command says to create a matrix
+- The vector within the collection operator c() are the numbers that will fill the matrix, and we tell R to fill the matrix by rows (byrow = TRUE)
+- the two numbers after the collection operation c() are the dimensions, in other words this is a 4 by 4 matrix.
+
+That matrix isn't much use, you need to set up a matrix for the four rows of our random walk.
+
+### Specify the transition matrix for our random walk on a cube
+
+
+
+```{r}
+X <- matrix(c(0,1,0,0, 2/3,0,1/3,0, 0,1/3,0,2/3, 0,0,0,1),4,4,byrow = TRUE)
+```
+
+### Check you did it right
+
+If you have entered the matrix X correctly you can draw the graph using the function plotmat.
+
+You need to transpose the matrix using t() because plotmat was written by someone odd.   The relsize argument just makes the graph smaller. 
+
+```{r}
+plotmat(t(X), relsize = 0.7)
+```
+
+If you are happy you have the right graph you can continue.
+
+
+
+### Evaluating steps on our random walk
+
+To examine our random walk, we just need to create a vector to specify a start position, and do some matrix multiplication.
+
+
+```{r}
+y <- matrix(c(1,0,0,0),1,4)
+```
+
+(here we have specified that we have a matrix with 1 column and 4 rows, just to be absolutely sure R gets the dimensions right)
+
+
+The command %*% does matrix multiplication.
+
+
+So, if you do:
+
+
+```{r}
+y1 <- y %*% X
+y1
+```
+
+You get the probability of being in each state after one move.   It should be guaranteed that you will be in position 2.
+
+
+
+To complete the walk, you just need to continue the matrix multiplication.
+
+```{r}
+y2 <- y1 %*% X
+y3 <- y2 %*% X
+y4 <- y3 %*% X
+y5 <- y4 %*% X
+y6 <- y5 %*% X
+y7 <- y6 %*% X
+y8 <- y7 %*% X
+y9 <- y8 %*% X
+y10 <- y9 %*% X
+y10
+```
+
+If you look at y3 you can check the probabiliity you get to the end position after three moves
+If you look at y4 you can check the probability you get to the end position after four moves.
+
+
+You should also see that there is a much quicker way of doing this.   Just take a matrix power (assuming such things exist).   Here, we just need to use %^% as the matrix exponent operator.
+
+```{r}
+y %*% ( X %^% 10)
+
+X %^% 100
+```
+
+
+So, we have a far more efficient way of running our random walk than simulation.   We can find the exact probabilities for being in any given state after as many steps as we want.   Basic tree diagrams would be awful.
+
+
+
+Fun.
+----
+
+Seeing the link between walks on a cube and graphs and matrices is fun, but the resulting transition matrix is a bit of an annoying transition matrix because it has an absorbing state (so called).   Once you are in the end position you stay there.
+
+Look what happens if you have no absorbing states:
+
+```{r}
+Xm <- matrix(c(0,1,0,0, 2/3,0,1/3,0, 0,0,1/3,2/3, 0,0.5,0,0.5),4,4,byrow = TRUE)
+Xm %^% 10
+Xm %^% 100
+Xm %^% 1000
+plotmat(t(Xm%^%100))
+```
+
+For a transition matrix to be regular like this, some power of the matrix must contain all positive entries.   You can imagine how ideas from linear algebra can be applied to these kinds of problems.
+
+
+
+

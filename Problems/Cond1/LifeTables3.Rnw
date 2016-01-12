@@ -1,0 +1,41 @@
+<<echo=FALSE, results=hide>>=
+life <- read.csv("~/gitfiles/regnotes/introprob/Problems/Cond1/ONSLifeTables20102012.csv", sep = "\t")
+head(life)
+rownames(life) <- life[,1]
+life[,1] <- NULL
+life[,1] <- round(life[,1])
+life[,2] <- round(life[,2])
+head(life)
+
+start <- sample(c(20:40),1)
+end <- sample(c(55:65),1)
+gender <- sample(1:2,1)
+qgender <- c("Male", "Female")[gender]
+answer <- life[(end+1),gender] / life[(start+1),gender]
+@
+
+
+
+
+\begin{question}
+Please use the life table given in the question before.
+
+If $A$ is the event that you are a \Sexpr{qgender}  of \Sexpr{start} years old and $B$ is the event that you survive to \Sexpr{end} years old, what is $P(B|A)$?
+
+
+\end{question}
+\begin{solution}
+
+You need to note that there are a fictional 10,000 \Sexpr{qgender}  aged \Sexpr{life[(start+1),gender]} years.   The tables suggest that there are \Sexpr{life[(end+1),gender]} of these who live to be \Sexpr{end} years old.   The conditional probability is therefore:
+
+$P(\Sexpr{end}|\Sexpr{start}) = \frac{\Sexpr{life[(end+1),gender]}}{\Sexpr{life[(start+1),gender]}} = \Sexpr{round(answer,3)}$
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{LifeTable1}
+%% \extol{0.01}
+

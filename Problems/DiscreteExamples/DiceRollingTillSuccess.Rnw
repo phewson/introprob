@@ -1,0 +1,52 @@
+<<echo=FALSE, results=hide>>=
+sides <- sample(c(4:12),1)
+x <- sample(c(1:4),1)
+companswer <- sum(dgeom(c(0:x), 1/sides))
+answer <- 1-companswer
+@
+
+\begin{question}
+A \Sexpr{sides} sided die is rolled $T$ times until the number \Sexpr{sides} is observed.   In other words $T$ is the number of rolls where \Sexpr{sides} was not seen before the game is stopped.
+
+What is $P(T>\Sexpr{x})$?
+
+
+\end{question}
+
+\begin{solution}
+The key to this question is firstly recognising that you need to use the Geometric distribution.   
+
+The question uses the form
+
+\begin{displaymath}
+P(T=t) = (1-p)^t (p)
+\end{displaymath}
+
+Clearly here $p=\frac{1}{\Sexpr{sides}}$
+
+Secondly, you need to recognise that in order to find $P(T>\Sexpr{x})$ you are going to have to find the probability of the complement of the event $T>\Sexpr{x}$ (which is $T \leq \Sexpr{x}$) and then use
+$1-P(T \leq \Sexpr{x})$
+
+Unless you can find a recursion this can be a little tedious, but essentially you want:
+
+
+\begin{displaymath}
+P(T \leq \Sexpr{x}) =\sum_{i=0}^{\Sexpr{x}} \left(1-\frac{\Sexpr{1}}{\Sexpr{sides}}\right)^{i} \left(\frac{1}{\Sexpr{sides}}\right) = \Sexpr{round(companswer, 4)}
+\end{displaymath}
+
+So the answer to the question is
+
+\begin{displaymath}
+P(T > \Sexpr{x}) = 1-P(T \leq \Sexpr{x}) = 1 - \Sexpr{round(companswer,4)} = \Sexpr{round(answer,4)}
+\end{displaymath}
+
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{DieRollingTillSuccess}

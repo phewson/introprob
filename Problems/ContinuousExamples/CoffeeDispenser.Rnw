@@ -1,0 +1,59 @@
+<<echo=FALSE, results=hide>>=
+
+mu <- round(runif(1,8,10),1)
+sigma2 <- round(runif(1,0.8,1.5),2)
+b <- round(runif(1, mu+sqrt(sigma2), mu+2*sqrt(sigma2)),1)
+
+
+answer <- 1-pnorm(b,mu,sqrt(sigma2))
+@
+
+
+
+
+\begin{question}
+Assume that a coffee vending machine dispenses amounts of coffee which vary a little (this part of the problem is easy to believe).   Now assume that the amount of coffee dispensed (in fluid ounces) can be modelled as a random variable with mean \Sexpr{mu} and variance \Sexpr{sigma2} (this part of the problem is much harder to believe).   
+
+
+If the coffee cups have a capacity of \Sexpr{b} fluid ounces, find the probability that a randomly selected visit to the vending machine will yield an overflowing cup.
+
+Hint 1. This is similar to the previous problem but with a few more words thrown in.
+
+Hint 2. Although we want to find P(X > b)
+
+\end{question}
+\begin{solution}
+
+To find $P(X > b)$ we first need to shift and scale b.
+
+In other words, we need to find $P(Z > \frac{b-\mu}{\sigma})$.
+
+It's important to recognise this as $1-P(Z \leq t)$ i.e., $1-\Phi(t)$
+
+As it happens, we can read this directly off the tables.
+
+
+Shift and scale $b$ to get 
+$\frac{\Sexpr{b}-\Sexpr{mu}}{\Sexpr{round(sqrt(sigma2),2)}}$ which is \Sexpr{round((b-mu)/sqrt(sigma2),3)}
+
+
+We should be able to verify that $1-\Phi(\Sexpr{round((b-mu)/sqrt(sigma2),3)})$ = \Sexpr{round(1-pnorm(b,mu,sqrt(sigma2)),3)}.
+
+
+
+Verify: \Sexpr{answer}
+
+
+
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{CoffeeDispense}
+%% \extol{0.01}
+

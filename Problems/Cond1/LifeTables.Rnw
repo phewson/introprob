@@ -1,0 +1,53 @@
+<<echo=FALSE, results=hide>>=
+life <- read.csv("~/gitfiles/regnotes/introprob/Problems/Cond1/ONSLifeTables20102012.csv", sep = "\t")
+head(life)
+rownames(life) <- life[,1]
+life[,1] <- NULL
+life[,1] <- round(life[,1])
+life[,2] <- round(life[,2])
+head(life)
+
+life[61,]/life[1,]
+life[61,]/life[2,]
+life[61,]/life[3,]
+life[61,]/life[19,]
+life[61,]/life[48,]
+
+gender <- sample(1:2,1)
+qgender <- c("Male", "Female")[gender]
+answer <- life[61,gender] / life[1,gender]
+@
+
+
+
+
+\begin{question}
+The following is the ONS lifetables for 2010-2012 for the UK, taken from \url{www.ons.gov.uk/ons/rel/lifetables/national-life-tables/2010---2012/stb-uk-2010-2012.html}.
+
+
+If $A$ is the event that you are a \Sexpr{qgender} baby (0 years old) and $B$ is the event that you survive to 60 years old, what is $P(B|A)$?
+
+
+<<printlifetables, echo = FALSE, results=tex>>=
+require(xtable)
+
+blah <- xtable(life, digits = rep(0,3))
+print(blah, tabular.environment="longtable", floating = FALSE, include.colnames = TRUE,hline.after = c(-1,nrow(blah)),add.to.row = list(pos = list(0),command = "\\hline \\endhead "))
+@
+
+\end{question}
+\begin{solution}
+
+You need to note that there are a fictional 10,000 \Sexpr{qgender} babies aged $0$ years.   The tables suggest that there are \Sexpr{life[61,gender]} of these who live to be 60 years old.   The conditional probability is therefore:
+
+$P(60|0) = \frac{\Sexpr{life[61,gender]}}{\Sexpr{life[1,gender]}} = \Sexpr{round(answer,3)}$
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{LifeTable1}
+%% \extol{0.01}
+

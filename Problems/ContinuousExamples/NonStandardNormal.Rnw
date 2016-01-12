@@ -1,0 +1,71 @@
+<<echo=FALSE, results=hide>>=
+
+mu <- round(runif(1,-10,10),1)
+sigma2 <- round(runif(1,2,5),2)
+a <- round(runif(1, mu-sqrt(sigma2), mu),1)
+b <- round(runif(1, mu, mu+sqrt(sigma2)),1)
+
+
+answer <- pnorm(b,mu,sqrt(sigma2)) - pnorm(a,mu, sqrt(sigma2))
+@
+
+
+
+
+\begin{question}
+Assume $X \sim N(\Sexpr{mu},\Sexpr{sigma2})$.   Find $P(a < X < b)$ where $a=\Sexpr{a}$ and $b=\Sexpr{b}$.
+
+Hint.   You need to shift and scale X to give you a standard Normal variate and use the tables in the previous question.
+
+Big important hint.   We say $X \sim N(\mu, \sigma^2)$ so \Sexpr{sigma2} is the variance, i.e. $\sigma^2$.   Shifting and scaling works in terms of $\sigma$!!
+
+
+\end{question}
+\begin{solution}
+
+To find $P(a < X < b)$ we need to use $P(\frac{a-\mu}{\sigma} < Z < \frac{b-\mu}{\sigma})$ and hence find $\Phi(\frac{b-\mu}{\sigma}) - \Phi(\frac{a-\mu}{\sigma})$
+
+
+\begin{itemize}
+\item We shift and scale $a$ to get 
+$\frac{\Sexpr{a}-\Sexpr{mu}}{\Sexpr{round(sqrt(sigma2),2)}}$ which is \Sexpr{round((a-mu)/sqrt(sigma2),3)}
+
+As before, by symmetry, we can find $\Phi(-t)$ just by looking up $1-\Phi(t)$.
+
+So we should be able to verify that $\Phi(\Sexpr{round((a-mu)/sqrt(sigma2),3)})$ = $1-\Phi(\Sexpr{round(-1 * (a-mu)/sqrt(sigma2),3)})$ = \Sexpr{round(pnorm(a,mu,sqrt(sigma2)),3)}.
+
+
+\item Now shift and scale $b$ to get 
+$\frac{\Sexpr{b}-\Sexpr{mu}}{\Sexpr{round(sqrt(sigma2),2)}}$ which is \Sexpr{round((b-mu)/sqrt(sigma2),3)}
+
+To find $\Phi(t)$ we need to use $1-( 1-\Phi(t))$.
+
+So we should be able to verify that $\Phi(\Sexpr{round((b-mu)/sqrt(sigma2),3)})$ = $1-\big( 1-\Phi(\Sexpr{round(-1 * (b-mu)/sqrt(sigma2),3)}) \big)$ = \Sexpr{round(pnorm(b,mu,sqrt(sigma2)),3)}.
+
+
+
+
+
+
+\end{itemize}
+
+Hence we can find $\Phi(b) - \Phi(a)$ as \Sexpr{round(pnorm(b,mu,sqrt(sigma2)),3)} - \Sexpr{round(pnorm(a,mu,sqrt(sigma2)),3)} = \Sexpr{round(pnorm(b,mu,sqrt(sigma2))-pnorm(a,mu,sqrt(sigma2)),3)}
+
+
+
+
+
+
+
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{NonStandardNormal}
+%% \extol{0.01}
+

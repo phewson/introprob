@@ -1,0 +1,51 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+
+results <- c(rep(1==0,3), 1==0, 1==1)
+
+@
+
+\begin{question}
+The following distributions have two parameters.
+
+\begin{itemize}  
+\item $X \sim Normal(\mu, \sigma^2)$
+\item $X \sim Gamma(a, \theta)$
+\item $X \sim Beta(a, b)$
+\end{itemize}
+
+(We are using $\theta$ as a rate parameter)
+
+\begin{itemize}
+\item[Statement] The parameter $b$ is the only parameter which is restricted to be an integer
+\item[because]
+\item[assertion] the Gamma function $\Gamma(b)$ is only defined for integers
+\end{itemize}
+
+
+
+
+\begin{answerlist}
+\item The statement is true and the assertion is true and the connection between them is valid.
+\item The statement is true and the assertion is true but there is no valid connection between them
+\item The statement is true but the assertion is false
+\item The statement is false but the assertion is true 
+\item Both the statement and the assertion are false
+\end{answerlist}
+
+
+
+\end{question}
+
+\begin{solution}
+
+Both the statement and the assertion are false.  For the Beta distribution, $a$ and $b$ can take on any non-negative real numbers.
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{WaitingTime}

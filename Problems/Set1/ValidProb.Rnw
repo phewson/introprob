@@ -1,0 +1,36 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+
+
+answers <- list(sprintf("%1.3f", 0), sprintf("%1.3f",1), paste("\"", sample(12,1), "/", sample(c(12:24),1), "\"", sep = ""), sprintf("%1.3f",sample(16,1)/sample(c(16:30),1)), sprintf("%1.3f",sample(c(16:30),1)/sample(15,1)))
+
+#, sprintf("%1.3f", runif(1,-1,0)))
+k <- 5
+index <- sample(c(1:k), k, replace = FALSE)
+answers <- answers[index]
+correct <- ifelse(index == k,1,0 )
+#correct[index == 5] <- 1
+#paste(round(runif(1)*100,3), "%", sep = "") can't display percentage sign yet
+
+results <- c(correct[1]==1, correct[2]==1, correct[3]==1, correct[4]==1, correct[5]==1)
+
+@
+
+\begin{question}
+Which of the following is NOT a valid probability?  
+\begin{answerlist}
+\item \Sexpr{answers[1]}
+\item \Sexpr{answers[2]}
+\item \Sexpr{answers[3]}
+\item \Sexpr{answers[4]}
+\item \Sexpr{answers[5]}
+\end{answerlist}
+\end{question}
+\begin{solution}
+Probability is any number between $0$ and $1$.   Four of these numbers are valid probabilities.
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{Valid Prob}

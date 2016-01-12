@@ -1,0 +1,52 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+sanitizeLatexS <- function(str) {
+    gsub('([#$%&~_\\\\\\{}])', '\\\\\\\\\\1', str, perl = TRUE);
+}
+samplespace <- c("Poisson(\\lambda)" , "Binomial(n,p)", "Geometric(p)","Bernoulli(p)")
+chooser <- sample(1:4,1)
+question <- samplespace[chooser]
+results <- rep(0,4)
+results[chooser] <- 1
+
+@
+
+\begin{question}
+Two reasonable exam questions, which are little hard to ask online are:
+
+\begin{itemize}
+\item[(a)] Show that the Bernoulli/Binomial/Poisson/Geometric family are a valid pmf (i.e. non-negative and sum to one over their entire sample space)
+\item[(b)] For the Bernoulli/Binomial/Poisson/Geometric family find $E[X]$, $E[X^2]$ and hence $V(X)$
+\end{itemize}
+
+Somewhat easier to ask online, is to figure out which distribution is appropriate when.   For which scenario below would it be appropriate to use the $\Sexpr{sanitizeLatexS(question)}$ distribution?
+
+
+
+\begin{answerlist}
+\item The number of deaths due to Ebola in a given month for a given country 
+\item The number of deaths due to Ebola in a sample of 20 inquests
+\item The number of trips an aid worker can make before they die of Ebola 
+\item The event that an individual dies from Ebola
+\end{answerlist}
+
+\end{question}
+
+\begin{solution}
+
+Best answers are as follows:
+
+\begin{answerlist}
+\item The number of deaths due to Ebola in a given month for a given country - best choice $\Sexpr{sanitizeLatexS(samplespace[1])}$
+\item The number of deaths due to Ebola in a sample of 20 inquests  - best choice $\Sexpr{samplespace[2]}$
+\item The number of trips an aid worker can make to an area before they die of Ebola   - best choice $\Sexpr{samplespace[3]}$
+\item The event that an individual dies from Ebola  - best choice $\Sexpr{samplespace[4]}$
+\end{answerlist}
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{Valid Prob}

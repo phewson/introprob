@@ -1,0 +1,24 @@
+<<echo=FALSE, results=hide>>=
+repairs <- round(runif(1, 1.7, 2.3),2)
+answer <- dpois(0, repairs)
+
+@
+
+\begin{question}
+A major recent survey has suggested that the average student house requires \Sexpr{repairs} repairs during any given year.   What is the probability that your house requires no repairs?
+
+\end{question}
+
+\begin{solution}
+The key to this question is firstly recognising that you need to use the Poisson distribution with $\lambda=\Sexpr{repairs}$ 
+
+Then, you just need to use $P(X=0) = e^{-\lambda} = e^{\Sexpr{repairs}} = \Sexpr{round(exp(-repairs),3)} = \Sexpr{round(dpois(0, repairs),3)}$
+
+
+\end{solution}
+
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Asthma}

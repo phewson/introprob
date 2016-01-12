@@ -1,0 +1,47 @@
+<<echo=FALSE, results=hide>>=
+floors <- people <- sample(c(3:8),1)
+
+@
+
+\begin{question}
+\label{exer 3.1.11} 
+
+Find the Moment Generating Function $M_X (t)$ for the following probability density functions.   In each case the random variable $X$ is $0 < X < 2$.
+
+\begin{itemize}
+\item $f_X(x) = \frac{1}{2}$
+\item $f_X(x) = \frac{x}{2}$
+\item $f_X(x) = 1-\frac{x}{2}$
+\item $f_X(x) = |1-x|$
+\item $f_X(x) = \frac{3x^2}{8}$
+\end{itemize}
+
+Having found the MGF, find the first and second moments of each distribution (by differentiating the MGF one / two times and setting t=0)
+
+\end{question}
+\begin{solution}
+
+\begin{itemize}
+\item $M_X(t)=\frac{1}{2t} (e^t-1)$
+\item $M_X(t)=\frac{e^{2t}(2t-1)+1}{ 2t^2}$
+\item $M_X(t)=\frac{e^{2t}-2t-1}{2t^2}$
+\item $M_X(t)=\frac{e^{2t}(tx-1)+2e^t-t-1}{t^2}$
+\item $M_X(t)=\frac{3}{8} \left( \frac{e^{2t}(4t^2-4t+2)-2}{t^3} \right)$
+\end{itemize}
+
+
+\begin{itemize}
+\item 2nd $\frac{4}{3}$
+\item 2nd 2
+\item 1st $\frac{2}{3}$
+\item 2nd $\frac{3}{2}$
+\item 2nd $\frac{12}{5}$
+\end{itemize}
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(factorial(people)/floors^floors, nsmall = 3)}}
+%% \exname{Moments1}

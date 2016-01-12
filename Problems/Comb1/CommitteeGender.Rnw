@@ -1,0 +1,44 @@
+<<echo=FALSE, results=hide>>=
+group <- sample(c(24:40),1)
+males <- sample(c(round(0.25*group,0):round(0.75*group,0)),1)
+committee <- sample(c(5:8),1)
+males <- max(males, committee)
+females <- group - males
+committee <- min(committee, females)
+femalescommittee <- sample(c(1:(committee-1)),1)
+
+answerv <- rep(0,length(femalescommittee:committee))
+for (j in 1:length(femalescommittee:committee)){
+  answerv[j] <- choose(males,(committee-j))*choose((group-males), j)
+ 
+}
+answer <- sum(answerv) 
+@
+
+\begin{question}
+You now wish to form a committee of \Sexpr{committee} members of whom at least \Sexpr{femalescommittee} must be female.   
+
+In the group (class/club) there are \Sexpr{males} men and \Sexpr{group-males} women.
+
+
+\end{question}
+
+\begin{solution}
+Denote the number of females in the group as $f$ (here we have $\Sexpr{group}-\Sexpr{males}=\Sexpr{group-males}$  females).   Denote the number of males by $m$ (here we have \Sexpr{males} males).   Then if we need $c = \Sexpr{committee}$ people on our committee the long solution is given by:
+
+
+
+$$\sum_{j=\Sexpr{femalescommittee}}^{c} {m \choose c-j} \times {f \choose j}$$
+
+$$\sum_{j=\Sexpr{femalescommittee}}^{\Sexpr{committee}} {\Sexpr{males} \choose \Sexpr{committee}-j} \times {\Sexpr{group-males} \choose j} = \Sexpr{answer}$$
+
+You should be able to find a more elegant way of writing this!
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{CommitteeGender}

@@ -1,0 +1,53 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+A <- c("an even number")
+B <- c("an odd number")
+C <- c("a number less than 4")
+D <- c("a number four of more")
+question <- list(A=A, B=B, C=C, D=D)
+answer <- c(4/7, 3/7, 2/7, 5/7)
+choice <- sample(4,1)
+myquestion <- question[[choice]]
+myanswer <- answer[choice]
+@
+
+\begin{question}
+\label{exer 1.2.6} A die is loaded in such a way that the probability of
+each face turning
+up is proportional to the number of dots on that face.  (For example, a six
+is
+three times as probable as a two.)  What is the probability of getting \Sexpr{myquestion} in one throw?
+
+
+
+
+
+\end{question}
+
+\begin{solution}
+
+We first need to note the elementary events:
+\begin{itemize}
+\item[] $m(1) = 1/21$
+\item[] $m(2) = 2/21$
+\item[] $m(3) = 3/21$
+\item[] $m(4) = 4/21$
+\item[] $m(5) = 5/21$
+\item[] $m(6) = 6/21$
+\end{itemize}
+
+Then you can find your answer as one of the following:
+\begin{itemize}
+\item[] $P(\mbox{Even})=m(2)+m(4)+m(6)=\frac{12}{21}=\frac{4}{7}$
+\item[] $P(\mbox{Odd})=m(1)+m(3)+m(5)=\frac{9}{21}=\frac{3}{7}$
+\item[] $P(\mbox{Less than four})=m(1)+m(2)+m(3)=\frac{6}{21}=\frac{2}{7}$
+\item[] $P(\mbox{Four or more})=m(4)+m(5)+m(6)=\frac{15}{21}=\frac{5}{7}$
+\end{itemize}
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(myanswer, nsmall = 3)}}
+%% \exname{Loaded Die}
+%% \extol{0.01}

@@ -1,0 +1,30 @@
+\begin{question}
+\label{exer1.2.1} Let $\Omega = \{a,b,c\}$ be a sample space, where $a,b,c$ are mutually exclusive.  Assign a probability mass to each of these events as follows: $m(a)
+= 1/2$, $m(b) =
+1/3$, and $m(c) = 1/6$.  Find the probabilities for all eight subsets of
+$\Omega$.
+
+
+For the computer, please just enter $P(A \cup B)$ as a decimal (3dp)
+\end{question}
+
+\begin{solution}
+\begin{itemize}
+\item[] $P(\{a,b,c\})=1$
+\item[] $P(\{a,b\})=5/6$
+\item[] $P(\{a,c\})=2/3$
+\item[] $P(\{b,c\})=1/2$
+\item[] $P(\{a\})=1/2$
+\item[] $P(\{b\})=1/3$
+\item[] $P(\{c\})=1/6$
+\item[] $P(\{\emptyset\})=0$
+\end{itemize}
+
+The electronic answer for $P(A \cup B) =  P(\{a,b\})$ is \Sexpr{round(5/6,3)}
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(5/6, nsmall = 3)}}
+%% \exname{Basic sets}

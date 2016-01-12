@@ -1,0 +1,44 @@
+<<echo=FALSE, results=hide>>=
+results <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
+@
+
+\begin{question}
+\label{exer 1.2.2} Give a possible sample space $\Omega$ for each of
+the following experiments:
+\begin{enumerate}
+\item An election decides between two candidates A and B.
+\item A two-sided coin is tossed.
+\item A student is asked for the month of the year and the day of the week
+on which his/her birthday falls.
+\item A student is chosen at random from a class of ten students.
+\item You receive a grade in this course.
+\end{enumerate}
+
+%\begin{tikzpicture}
+%    \draw [thin, step=0.1, lightgray] (0,0) grid (15,15);
+%    \draw [thick, lightgray] (0,0) grid (15,15);
+%\end{tikzpicture}
+
+Having written out the sample spaces, identify which of these where it would be appropriate to assign a discrete uniform distribution.
+
+%\begin{tikzpicture}
+%    \draw [thin, step=0.1, lightgray] (0,0) grid (15,5);
+%    \draw [thick, lightgray] (0,0) grid (15,5);
+%\end{tikzpicture}
+
+\end{question}
+
+\begin{solution}
+\begin{answerlist}
+\item $\Omega = \{A \mbox{ elected}, B \mbox{ elected}\}$
+\item $\Omega = \{\mbox{Head}, \mbox{Tail}\}$
+\item $\Omega = \{ (\mbox{Jan.,Mon.)},  \mbox{(Jan, Tue.)}, \ldots, \mbox{(Jan., Sun.)}, \ldots, \mbox{(Dec. Sun.)}\}$
+\item $\Omega = \{\mbox{Student } 1, \ldots, \mbox{Student } 10\}$
+\item $\Omega = \{A, B, C, D, E, F\}$
+\end{answerlist}
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = FALSE)}}
+%% \exname{SampleSpaces}

@@ -1,0 +1,28 @@
+<<echo=FALSE, results=hide>>=
+cookiebatch <- sample(c(600,700,800,900,1000,1100,1200,1300),1)
+chocchips <- sample(seq(from = 300, to = cookiebatch, by = 100),1)
+question <- sample(2:4,1)
+lambda <- chocchips/cookiebatch
+answer <- dpois(question, lambda)
+@
+
+\begin{question}
+You are making a batch of \Sexpr{cookiebatch} chocolate chip cookies.   You put \Sexpr{chocchips} chocolate chips into your cookie mix.   You randomly select one for yourself and give the remainder to your friends.   What is the probability that you have \Sexpr{question} chocolate chips in your cookie?
+
+\end{question}
+
+\begin{solution}
+The key to this question is recognising that you need to use the Poisson distribution.   We can regard $n=\Sexpr{cookiebatch}$ as large and hence use $\lambda = \frac{\Sexpr{chocchips}}{\Sexpr{cookiebatch}}$.   The question therefore reduces to finding
+
+\begin{displaymath}
+P(X=\Sexpr{question}) = \frac{\lambda^x e^{-\lambda}}{x!} = \frac{\Sexpr{round(chocchips/cookiebatch,3)}^{\Sexpr{question}} e^{-\Sexpr{round(chocchips/cookiebatch,3)}}}{\Sexpr{question}!} = \Sexpr{round(dpois(question, chocchips/cookiebatch),3)}
+\end{displaymath}
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Cookies}

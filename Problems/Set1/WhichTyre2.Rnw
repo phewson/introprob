@@ -1,0 +1,43 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+front <- sample(500:1000,1)
+rear <- 1000-front
+rear+front
+frontleft <- sample(c(round(front/2,0):front),1)
+frontleft
+front
+rearleft <- sample(rear,1)
+p <- c((front-frontleft), frontleft, (rear-rearleft), rearleft)/1000
+answer <- sum(p^2)
+@
+
+\begin{question}
+The following question was asked of a class of students.  ``I was driving to
+school today, and one of my tires went flat.  Which tire do you think it was?"
+The responses were as follows:  right front, \Sexpr{round(100*p[1],2)}\%, left front, \Sexpr{round(100*p[2],2)}\%, right rear, 
+\Sexpr{round(100*p[3],2)}\%, left rear, \Sexpr{round(100*p[4],2)}\%.  Suppose that this distribution holds in the general population,
+and assume that the two test-takers are randomly chosen from the general population.  What
+is the probability that they will give the same answer to the second question?
+
+\end{question}
+
+\begin{solution}
+The labels we give the tyres are no longer arbitrary.
+
+Assuming the answers are independent, we therefore have:
+\begin{itemize}
+\item $P(\mbox{Both say front right}) = \Sexpr{round(p[1],4)}^2$
+\item $P(\mbox{Both say front left}) = \Sexpr{round(p[2],4)}^2$
+\item $P(\mbox{Both say rear right}) = \Sexpr{round(p[3],4)}^2$
+\item $P(\mbox{Both say rear left}) = \Sexpr{round(p[4],4)}^2$
+\end{itemize}
+
+So $P(\mbox{Both say same}) = \Sexpr{round(p[1],4)}^2+\Sexpr{round(p[2],4)}^2 + \Sexpr{round(p[3],4)}^2 + \Sexpr{round(p[4],4)}^2 = \Sexpr{round(answer,3)}$
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Which Tyre 2}
+%% \extol{0.01}

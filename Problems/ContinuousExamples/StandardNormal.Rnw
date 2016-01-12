@@ -1,0 +1,69 @@
+<<echo=FALSE, results=hide>>=
+
+qn <- matrix(1-pnorm(seq(from = 0, to = 2.29, by=0.01)),23,10, byrow = TRUE)
+rownames(qn) <- seq(from =0, to = 2.2, by = 0.1)
+colnames(qn) <- seq(from = 0, to = 0.09, by = 0.01)
+a <- round(runif(1, -2,-0.5),2)
+b <- round(runif(1, 0.5,2),2)
+answer <- pnorm(b) - pnorm(a)
+@
+
+
+
+
+\begin{question}
+Assume $Z \sim N(0,1)$.   Find $P(a < Z < b)$ where $a=\Sexpr{a}$ and $b=\Sexpr{b}$.
+
+You are given a table of values of $1-\Phi(z)$ where $\Phi$ denotes the cumulative distribution function of a Normal(0,1) random variate.   More mathematically the table is giving us the value of:
+
+\begin{displaymath}
+\Phi(t) = 1 - \int_{-\infty}^t \frac{1}{\sqrt{2 \pi}} e^{- \frac{z^2}{2}} dx
+\end{displaymath}
+
+for different values of t.
+
+
+<<printlifetables, echo = FALSE, results=tex>>=
+require(xtable)
+
+blah <- xtable(qn, digits = c(2,rep(3,10)), caption = "Table of 1 - F(z) for standard Normal")
+print(blah, tabular.environment="longtable", floating = FALSE, include.colnames = TRUE,hline.after = c(-1,nrow(blah)),add.to.row = list(pos = list(0),command = "\\hline \\endhead "))
+@
+
+\end{question}
+\begin{solution}
+
+To find $P(a < Z < b)$ you need to use $\Phi(b) - \Phi(a)$
+
+In this problem, neither are given directly by the tables.   The table gives us $1-\Phi(t)$.   
+
+
+\begin{itemize}
+\item By symmetry, we can find $\Phi(-t)$ just by looking up $1-\Phi(t)$.
+
+So we should be able to verify that $\Phi(\Sexpr{a})$ = $1-\Phi(\Sexpr{-1 * a})$ = \Sexpr{round(pnorm(a),3)}.
+
+\item We can find $\Phi(b)$ more directly.  The table tells us that $1-\Phi(\Sexpr{b})$ = \Sexpr{round(1-pnorm(b),3)}, so $\Phi(b)$ = 1-\Sexpr{round(1-pnorm(b),3)} = \Sexpr{round(pnorm(b),3)}.
+
+\end{itemize}
+
+Hence we can find $\Phi(b) - \Phi(a)$ as \Sexpr{round(pnorm(b),3)} - \Sexpr{round(pnorm(a),3)} = \Sexpr{round(pnorm(b)-pnorm(a),3)}
+
+
+
+
+
+
+
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{StandardNormal}
+%% \extol{0.01}
+

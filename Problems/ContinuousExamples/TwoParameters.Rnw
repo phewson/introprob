@@ -1,0 +1,53 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+
+results <- c(rep(1==0,3), 1==1,1==0)
+
+@
+
+\begin{question}
+The following distributions have two parameters.
+
+\begin{itemize}  
+\item $X \sim Normal(\mu, \sigma^2)$
+\item $X \sim Gamma(a, \theta)$
+\item $X \sim Beta(a, b)$
+\end{itemize}
+
+(We are using $\theta$ as a rate parameter)
+
+\begin{itemize}
+\item[Statement] The Normal distribution is the only one of these distributions which is ever symmetric 
+\item[because]
+\item[assertion] The function $e^{-z^2/2}$ is clearly a quadratic and symmetric function.
+\end{itemize}
+
+
+
+
+\begin{answerlist}
+\item The statement is true and the assertion is true and the connection between them is valid.
+\item The statement is true and the assertion is true but there is no valid connection between them
+\item The statement is true but the assertion is false
+\item The statement is false but the assertion is true 
+\item Both the statement and the assertion are false
+\end{answerlist}
+
+
+
+\end{question}
+
+\begin{solution}
+
+There are certainly examples of the Beta distribution which are symmetric - for example we found out that the Standard Uniform distribution is a special case of the Beta distribution with $a=1$ and $b=1$.
+
+However, it is certainly true that $e^{-z^2/2}$ is a symmetric function.
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{WaitingTime}

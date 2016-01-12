@@ -1,0 +1,58 @@
+<<echo=FALSE, results=hide>>=
+
+a <- sample(c(1:6),1)
+b <- sample(c((a+2):10),1)
+cee <- round(runif(1,a+1, b-1),2)
+whichone <- sample(c(1:4),1)
+#deriv(~x^2/2, "x")
+#deriv(~x^3/3, "x")
+#deriv(~x^4/4, "x")
+deriv(~x^5/5, "x")
+
+if (whichone == 1){
+f1 <- function(x) x^2/2} 
+if(whichone == 2){
+f1 <- function(x) x^3/3}
+if(whichone ==3){
+f1 <- function(x) x^4/4}
+if(whichone ==4){
+f1 <- function(x) x^5/5}
+
+const <- (f1(b)-f1(a))
+
+answer <- 1/const* (f1(cee) - f1(a))
+
+
+
+
+@
+
+
+\begin{question}
+
+For a continuous random variable $\Sexpr{a} < X < \Sexpr{b}$ a colleague suggests that $f(x) = \frac{1}{\Sexpr{round(const,5)}} x^{\Sexpr{whichone}}$ would make a sensible probability density function.   Find the value of $F(\Sexpr{cee})$
+
+
+\end{question}
+
+\begin{solution}
+
+The key here is that $F(x)$ is $P(X \leq x)$ which for a continuous random variable means finding $\int_{-\infty}^x \frac{1}{k} f(t)dt$.   So here we want to find:
+
+\begin{displaymath}
+\int_{a}^{\Sexpr{cee}} \frac{1}{\Sexpr{(round(const,5))}} f(x)dx.
+\end{displaymath}
+
+
+
+\begin{displaymath}
+\int_{\Sexpr{a}}^{\Sexpr{cee}} \frac{1}{\Sexpr{round(const,5)}} x^{\Sexpr{whichone}} dx = \left| \frac{1}{\Sexpr{round(const,5)}} \frac{1}{\Sexpr{whichone+1}} x^{\Sexpr{whichone+1}} \right|_{\Sexpr{a}}^{\Sexpr{cee}} = \Sexpr{round(1/const*f1(cee),5)}-\Sexpr{round(1/const*f1(a),5)} = \Sexpr{round(1/const*(f1(cee)-f1(a)),5)}
+\end{displaymath}
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Constantint}
