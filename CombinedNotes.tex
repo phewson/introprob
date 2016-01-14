@@ -18,8 +18,20 @@
 
 \maketitle
 
-\chapter{Background to the course}
+\chapter{Background to the course and course administration}
 
+\section{How you will be assessed}
+
+\begin{itemize}
+\item 2 hour Exam (70\%)
+\item Coursework (30\%)
+\end{itemize}
+
+The coursework will consist of a mixture of exam type questions which you can complete electronically on Moodle as well as a small activity that you have to write up and also submit to Moodle.
+
+\section{How you pass the assessment}
+
+We set a lot of problems, which you should attempt.   You will be given chances in computer labs to attempt some problems where you can ask for clarification if needs be.   The problems we do in class are the same kind of problems as you get on the exam.
 
 \section{Why study probability?}
 
@@ -198,6 +210,18 @@ In this diagram, $A$ denotes the event ``all three faces show the same'', and $A
 
 \subsection{Multiple events}
 
+
+\fbox{
+\begin{minipage}[c]{1.0\textwidth}
+\textbf{Notation}
+\begin{itemize}
+\item $\cup$ denotes the ``union'' of two sets, e.g., $A \cup B$ is the event that either $A$ occurred, or $B$ occurred or both occurred
+\item $\cap$ denotes the ``intersection'' of two sets, e.g. $A \cap B$ is the event that both $A$ and $B$ occurred
+\item ``Mutually exclusive"" means that either $A$ can happen, or $B$ but not both
+\end{itemize}
+\end{minipage}
+}
+
 For the same experiment, consider again the event $A$, ``all three coins show the same face''.   But now, consider a second event, $B$, which we define as ``two or more coins show a head''
 
 \begin{itemize}
@@ -315,7 +339,6 @@ This material will get covered more formally in a pure maths course, hopefully w
 Consider a random experiment with a finite number of outcomes, each with the same probability.   For event $A$, we claim that:
 
 \begin{displaymath}
-\tiny
 \mbox{Probability of an event} = \frac{\mbox{Number of possible sample points consistent with this event}}{\mbox{Total number of sample points}}
 \end{displaymath}
 
@@ -324,7 +347,7 @@ Or in a better notation:
 \begin{equation}
 p[A] = \frac{n[A]}{n[\Omega]}
 \end{equation}
-where $A$ denotes the event we are interested in, $n[A]$ is the number of ways in which $A$ can happen and $n[\Omega]$ is the sample space.  
+where $A$ denotes the event we are interested in, $n[A]$ is the number of ways in which $A$ can happen and $n[\Omega]$ is the number of events in the sample space.  
 
 
 Recall from our first Venn diagram, where we used $A^C$ to denote the \emph{complement} of $A$ (i.e. those outcomes that weren't in $A$), then the probability of $A^C$ (probability that $A$ doesn't happen), $p[A^C]$ is:
@@ -342,7 +365,13 @@ Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denot
 \end{itemize}
 
 
-\chapter{The Axioms of Probability}
+
+\chapter{Counting rules OK}
+
+\chapter{A non-naive definition of probability}
+
+
+\section{The Axioms of Probability}
 
 The system of probability we have been working through took a long time to develop, and wasn't fully formalised until the 1930's by Kolmogorov (see 
 \href{http://www.gap-system.org/~history/Biographies/Kolmogorov.html}{\color{blue}www.gap-system.org/~history/Biographies/Kolmogorov.html}).   He stated three fundamental Axioms, from which all other results can be derived.
@@ -418,14 +447,15 @@ You can verify this; draw the Venn Diagram.   If we merely added $p[A]$ to $p[B]
 \input{Problems/dummy1/Set1_AdditionRule.tex}
 \end{enumerate}
 
-\chapter{Counting rules OK}
 
-\chapter{A non-naive definition of probability}
 
 \chapter{Conditional Probability}
 
 \chapter{Discrete Probability Functions}
 
+\chapter{Expectation}
+
 \chapter{Continuous Probability Functions}
+\chapter{Moments}
 
 \end{document}
