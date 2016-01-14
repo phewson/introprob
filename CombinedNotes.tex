@@ -3,6 +3,7 @@
 \author{Paul Hewson and Malgorzata Wojtys}
 \date{February - May 2016}
 \usepackage{amsmath,amssymb,amsfonts,graphics,hyperref,color,setspace,synttree,keystroke}
+\usepackage{calculator}
 
 \usepackage{longtable}
 \usepackage{a4wide,color,Sweave,url,verbatim,xargs,longtable}
@@ -10,7 +11,7 @@
 \newenvironment{question}{\item \textbf{Problem}\newline}{}
 \newenvironment{solution}{\comment}{\endcomment}
 \newenvironment{answerlist}{\renewcommand{\labelenumi}{(\alph{enumi})}\begin{enumerate}}{\end{enumerate}}
-
+\newtheorem{df}{Definition}[section]
 
 \begin{document}
 \sffamily
@@ -366,7 +367,329 @@ Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denot
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Perms and Combs
+%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Counting rules OK}
+
+We've spent a lot of time looking at dice and coins.   If we have $i=1,2,3$ die, each of these three dice can show one of $n_i=6$ faces.   Together the number of possible outcomes are given by $n_1 \times n_2 \times n_3 = 6^3$.   (And using our na\"ive definition of probability we would say each outcome can occur with probability $\frac{1}{6^3}$).   However, drawing tree diagrams to explore the sample space is rather tedious.   We need some ideas that can let us evaluate the number of possible outcomes in a more efficient manner.
+
+For more in depth information see Blitzstein Section 1.4.
+
+ 
+\fbox{\begin{minipage}[c]{1.0\textwidth}
+Nice proof in Baklawski of multiplication rule
+\end{minipage}
+}
+
+
+\subsubsection{N-tuple}
+
+So, broadening the problem a little, so that we don't have all $r$ objects with the same size $n$.
+
+\begin{df}
+An N-tuple is a finite ordered set with an unspecified number of members
+\end{df}
+
+For example, a 5-tuple is an ordered set with 5 members.
+
+Suppose that each outcome (i.e., element) of $A$ takes the form of an n-dimensional vector (or n-tuple) such as ($a_1, a_2, \ldots a_n$).   If there are $N_1$ objects that can be used for $a_1$, and $N_2$ for $a_2$ then:
+
+\begin{equation}
+n(A) = N_1N_2 \ldots N_n   
+\end{equation}
+assuming that sets $A_1, A_2, \ldots A_k$ have respectively $n_1, n_2, \ldots, n_k$ different ways in which one can first take an element of $A_1$, then an element of $A_2$ and so on.
+
+
+So for our factory problem, we have $N_1 = 15$, $N_2=8$ and $N_3=4$, with $15 \times 8 \times 4 = 480$.  This is rather an intuitive result, but it seems too convenient to be true that we needed exactly one maintenance person, one production person and one supervisor.   
+
+
+
+
+\section{Some common scenarios}
+
+We consider two scenarios:
+\begin{itemize}
+\item Permutations (the order of the elements is important)
+\item Combinations (the order of the elements is not important)
+\end{itemize}
+
+Within each scenario, we consider two types of sampling:
+\begin{itemize}
+\item Sampling with replacement (for example with dice or coins, if we use a second roll/throw, we have the same number of possible outcomes)
+\item Sampling without replacement (for example with cards, once we have removed a card from a pack of (say) $n=52$ cards, on the next draw we have $n-1=51$ cards to choose from
+\end{itemize}
+
+
+
+ 
+
+
+
+\fbox{\begin{minipage}[c]{1.0\textwidth}
+\textbf{Summary of key formulae}
+
+(Do note it's better to be able to derive these from first principles)
+
+\begin{tabular}{lcc}
+& With replacement & Without replacement \\
+Ordered & $n^k$ & $\frac{n!}{(n-k)!}$ \\
+Unordered & $\binom{n+k-1}{k}$ & $\binom{n}{k}$
+\end{tabular}
+
+Where $\binom{a}{b}$ denotes $\frac{a!}{b!(a-b)}$
+
+\end{minipage}
+}
+
+
+ 
+
+
+\subsection{Permutation: Ordered sets}
+
+
+
+Given a population of $n$ distinct elements, we wish to count how many ways are there of creating $r$ ordered samples?   We can easily do both with and without replacement.
+
+\begin{itemize}
+\item[(i)] with replacement: $n^r$ (this is the fundamental theorem of counting)
+\item[(ii)] without replacement $n(n-1)(n-2)\ldots(n-r+1)$,  calculation reduces to: $\frac{n!}{(n-r)!}$ 
+\end{itemize}
+
+\begin{eqnarray*}
+&=& n(n-1)(n-2)\ldots(n-r+1) \\
+&=& \frac{ {\color{red} n(n-1)(n-2)\ldots(n-r+1)} {\color{blue} (n-r)(n-r-1)(n-r-2)\ldots(1)}}{{\color{blue} (n-r)(n-r-1)(n-r-2)\ldots(1)}} \\
+&=& \frac{n!}{(n-r)!}
+\end{eqnarray*}
+
+%(that's probably a dumb way of calculating it, but a very neat way of writing it)
+
+Note, if we want to know all possible ways of arranging $n$ items we just need $n!$ - $0! = 1$
+
+ 
+
+ 
+
+\section{Combinations}
+
+\subsection{Unordered sets}
+
+Two sets are regarded as disjoint if and only if the properties of the membership are mutually exclusive.   
+A \emph{partition} is defined as a set of disjoint and exhaustive subclasses of a given class that is divided in such a way that each member of the given class is a member of exactly one such subclass.
+
+ 
+
+\subsection{Without replacement}
+
+The number of ways a set of $n$ objects can be partitioned into 2 distinct subsets of size $r$ and $n-r$ is given by:
+
+\begin{equation}
+{n \choose r} = \frac{n!}{r!(n-r)!}
+\end{equation}
+
+(This is what Baclawski calls the Shepherd principle.   If you get tired counting sheep, count the legs and divide by four.   We saw above that there were $\frac{n!}{(n-r)!}$ different ordered sets, we need to divide by the $r!$ different ordering of each combination)
+
+\subsubsection{Important shorthand: $n$ choose $r$}
+
+This is such an important idea that it has it's own shorthand:
+
+\begin{displaymath}
+\frac{n!}{r!(n-r)!} = \binom{n}{r}
+\end{displaymath}
+
+ 
+
+
+
+\subsubsection{Side issue 1: Partitioning into k-subsets}
+
+The number of ways a set of $n$ objects can be partitioned into $k$ distinct subsets, where set 1 has $r_1$ elements, set 2 has $r_2$ elements, \ldots, set $k$ has $_k$ elements is:
+
+\begin{equation}
+\frac{n!}{r_1!r_2! \ldots r_k!}
+\end{equation}
+
+
+
+
+%\subsection{Permutations and combinations}
+
+%Consider the probability of getting two of a kind and three of a kind when rolling five dice e.g., $(2,2,5,5,5)$ or $(4,4,1,1,1)$.   If we denote the number on the $i$th die by $n_i$, we have a sample space that consists of all the ordered 5-tuples ($n_1, n_2, n_3, n_4, n_5$) we have $n(\Omega)=6^5$.   Now introduce an ordered pair $(i,j)$ where $i$ is the number appearing twice, and $j$ the number that appears three times.  There are $\frac{6!}{(6-2)!}$ ways of obtaining 
+
+
+
+ 
+\subsubsection{Side issue 2: Pascal's Triangle}
+
+It's not worth losing sleep over, but it's impossible at this stage not to mention Pascal's\footnote{apparently discovered by Jia Xian in 1050, published by Zhu Shije in 1303, discussed by Cardano in 1570} triangle:
+
+\begin{footnotesize}
+\begin{tabular}{rrrrrrrrrrrrrrr}
+ & &  &  &  &  &  &1 &  &  &  &  & &\\
+ & &  &  &  &  & 1&  &1 &  &  &  & &\\
+ & &  &  &  & 1&  &2 &  & 1&  &  & &\\
+ & &  &  & 1&  &3 &  &3 &  &1 &  & &\\
+ & &  & 1&  &4 &  &6 &  &4 &  &1 & &\\
+ & &1 &  & 5&  &10&  &10&  & 5&  &1& \\
+ &1&  &6 &  &15&  &20&  &15&  & 6& & 1\\
+1& & 7&  &21&  &35&  &35&  &21&  &7&1
+\end{tabular}
+\end{footnotesize}
+
+Note that each number in the triangle is the sum of the two numbers either side of it in the row above.   Now consider you have a pool of $7$ objects, and wish to know how many different ways there are of arranging them into sets of $3$.   We used above ${n \choose r} = {7 \choose 3} =  \frac{7!}{3!(7-3)!} = 35$.   However, if we number the rows of Pascal's triangle from 0 (at the top) to 7, take row 7 and count along to the 4th entry, we have 35.   Isn't that cute?
+
+
+ 
+
+\subsection{Combinations: Undordered with replacement}
+
+To keep this simple let's roll a die three time, and work out something like the probability of getting two faces showing $3$ and one showing $6$.   Let's illustrate the idea as:
+
+\begin{tabular}{lr|r|r|r|r|r}
+Face & 1 & 2 & 3 & 4 & 5 & 6\\
+Hits &   &   &Y Y&   &   & Y
+\end{tabular}
+
+Note how this reduces to a problems of bins and walls such that we can specify this particular arrangement as:
+
+$||YY|||Y$
+
+Note we have walls between $1$ and $2$, between $2$ and $3$, then two entries in the bin marked $3$.   This problem is therefore equivalent to finding an ordered arrangement of $n$ items and $k-1$ walls hence the number of combinations is given by:
+
+\begin{displaymath}
+\binom{n+r-1}{r}
+\end{displaymath}
+
+
+
+ 
+
+
+\subsection{A word problem}
+
+Just to convince you that these problems don't just consist of finding the right formulae from the four given above, here is related idea (which you can easily solve if you think a little).   Consider the manager of a small plant wishes to determine the number of ways which he can assign staff to the first shift.   There are $15$ staff who can serve as operators of the production equipment, $8$ who can serve as maintenance personnel and $4$ who can be supervisors.
+
+If a shift requires one operator, one maintenance person and one supervisor, how many different ways can the shift the staffed?    The answer is $480$, which is rather tedious if one had to draw the tree diagram, and doesn't quite fit the formulae above, although the principles set out there do apply.
+
+ 
+
+ 
+
+%\subsection{Side issue: Bose Einstein}
+
+%Imagine tossing two coins, but the coins have three faces (H, T, S).   If you were asked for the sample space of such an experiment you might say there are 9 events in the sample space.
+
+%\begin{itemize}
+%\item[] $H_1, H_2$
+%%\item[] $T_1, T_2$
+%\item[] $S_1, S_2$
+%\item[] $H_1, T_2$ and $T_1, H_2$ 
+%\item[] $H_1, S_2$ and $S_1, H_2$ 
+%\item[] $T_1, S_2$ and $S_1, T_2$
+%\end{itemize}
+
+%By the naive definition, we have $P(\mbox{One head, one tail})=\frac{2}{9}$.
+% 
+
+%Very roughly speaking, you could imagine a simple gas made up of two particles (two coins), each of which can take on one of three quantum states (here $H$, $T$ or $S$).   As I understand it, this situation above roughly corresponds to Maxwell-Boltzmann statistics.   The fascinating thing is that under Bose-Einstein statistics, the particles (coins) are indistinguishable, and under Bose-Einstein you might say we would have a sample space:
+% 
+
+%\begin{itemize}
+%\item[] $H,H$
+%%\item[] $T,T$
+%\item[] $S,S$
+%\item[] $H,T$
+%\item[] $H,S$
+%\item[] $T,S$
+%\end{itemize}
+
+%and if this were indeed a sample space then $P(\mbox{One head, one tail})=\frac{1}{6}$.   This seems to trash 100 years of mediaeval work on the enumeration of sample spaces.   Neverthless, Bose-Einstein did rather a lot more work and predicted a ``condensate'' which was discovered experimentally 70 years after their theoretical work.
+
+
+%You can rest assured that there will be no exam questions on Bose-Einstein.   The reason for mentioning this is really to highlight the importance of probability within quantum physics, and to admit that physicists develop the basic idea in a very different direction to statisticians.
+
+
+\section{Circular permutations}
+
+To be honest I've not seen a huge need for this in undergraduate statistics.   It is an important topic in other branches of mathematics.  As this is a probability course and you have all signed up to study either BSc Mathematics or BSc Mathematics with something, we're going to do some work on this topic.
+
+The key idea is one of redundancy.   
+
+\subsection{Clockwise and anti-clockwise order matters (tables)}
+
+\begin{minipage}[t]{.45\textwidth}
+\textbf{Dinner party 1}
+\begin{tikzpicture}
+
+\def \n {4}
+\def \radius {3cm}
+\def \margin {8} % margin in angles, depends on the radius
+
+\foreach \s in {1,...,\n}
+{
+\SUBTRACT{\s}{1}\a
+  \node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {$\a$};
+  \draw[-, >=latex] ({360/\n * (\s - 1)+\margin}:\radius) 
+    arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
+}
+\end{tikzpicture}
+\end{minipage}%
+\begin{minipage}[t]{.45\textwidth}
+\textbf{Dinner party 2}
+\begin{tikzpicture}
+
+\def \n {4}
+\def \radius {3cm}
+\def \margin {8} % margin in angles, depends on the radius
+
+\foreach \s in {1,...,\n}
+{
+\ADD{\s}{1}\a
+\INTEGERDIVISION{\a}{4}{\zzz}{\b}
+  \node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {$\b$};
+  \draw[-, >=latex] ({360/\n * (\s - 1)+\margin}:\radius) 
+    arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
+}
+\end{tikzpicture}
+\end{minipage}
+
+If we moved the table by 180 degrees (assuming the chairs are fixed to the table) both settings are identical.
+
+
+
+Hence, we can find the number of permutations using $(n-1)!$
+
+\subsection{Clockwise and anti-clockwise doesn't matter (necklaces)}
+
+We can look from the top or the bottom, in other words we need to apply the shepherd principle.
+
+\begin{tikzpicture}
+
+\def \n {4}
+\def \radius {3cm}
+\def \margin {8} % margin in angles, depends on the radius
+
+\foreach \s in {1,...,\n}
+{
+\MULTIPLY{\s}{-1}\a
+\ADD{\a}{4}\b
+  \node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {$\b$};
+  \draw[-, >=latex] ({360/\n * (\s - 1)+\margin}:\radius) 
+    arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
+}
+\end{tikzpicture}
+
+Is this equivalent to the previous representation?
+
+$\frac{(n-1)!}{2!}$
+
+
+\subsection{Fusions}
+
+The Tony Blair problem.
+
 
 \chapter{A non-naive definition of probability}
 
