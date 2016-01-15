@@ -1,5 +1,5 @@
 <<echo=FALSE, results=hide>>=
-life <- read.csv("~/gitfiles/regnotes/introprob/Problems/Cond1/ONSLifeTables20102012.csv", sep = "\t")
+life <- read.csv("~/gitfiles/introprob/Problems/Cond1/ONSLifeTables20102012.csv", sep = "\t")
 head(life)
 rownames(life) <- life[,1]
 life[,1] <- NULL
