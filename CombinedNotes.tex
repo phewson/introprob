@@ -1231,7 +1231,7 @@ that is $p[X=3]$.
 
 
 
-\includegraphics{IntroProb3DiscreteFunctions-pmf}
+\includegraphics{acrodocs/IntroProb3DiscreteFunctions-pmf}
 
 
 \subsection{The distribution function}
@@ -1253,7 +1253,7 @@ where $f(t)$ is the value of the probability distribution of $X$ at $t$.
 
 
  
-\includegraphics{IntroProb3DiscreteFunctions-cdf}
+\includegraphics{acrodocs/IntroProb3DiscreteFunctions-cdf}
 
 
 
@@ -1319,12 +1319,11 @@ We may or may not wish to fit some kind of mathematical model to this, but there
 \chapter{Expectation}
 
 
-\subsection{Expectation}
-
 For more information see Grinstead and Snell sections 6.1 and 6.1 (page 225 onwards)
 
+\section{Expectation for discrete random variables}
 
-We can  define the \emph{expectation} of a discrete random variable as
+We define the \emph{expectation} of a discrete random variable as
 follows:
 
 \begin{df}
@@ -1366,6 +1365,8 @@ $2$ & $1/4$ & $1/2$ \\
 So here $E[X]=1$
 
 
+\subsection{Expectation of a function of a discrete random variable}
+
 
 Now we need to consider the expected value of a function of $X$, quite often this will be as simple as $g(X) = X^2$.
 
@@ -1401,7 +1402,7 @@ particular function $g(x)=x^2$, as this lets us work with the variance.
 
 
 
-\subsection{Variance}
+\section{Variance}
 
 We will re-examine this point later, but the variance of a random
 variable $X$ is defined as:
@@ -1447,10 +1448,880 @@ Var(X+c) &=& Var(X) \\
 
 Also, note that $Var(X+Y) = Var(X) + Var(Y)$ iff the two variables are \emph{independent}.
 
+\chapter{Celebrity discrete probability distributions}
+
+
+
+\section{Bernoulli trials}
+
+{\color{green}By convention we write $Z \sim Bern(p)$}
+
+\fbox{
+\begin{minipage}[c]{1.0\textwidth}
+\textbf{Notation alert!}
+
+\begin{itemize}
+\item $Z$ is upper case to denote it is a random variable
+\item The tilde $\sim$ denotes ``is simulated as''
+\item Bern is short for Bernoulli, the name of the distribution
+\item $p$ is the parameter.  There are an infinity of Bernoulli distributions, one for each possible value of $p$.
+\end{itemize}
+\end{minipage}
+}
+
+
+Repeated \emph{independent} trials are called Bernoulli if:
+\begin{itemize}
+\item There are two possible outcomes (events) conventionally denoted success
+  and failure.   More broadly we should think of this as an indicator random variable where:
+
+\begin{displaymath}
+Z = \left\{ \begin{array}{rrr} 1 & \mbox{ if } & \mbox{ Event happens} \\ 
+0 & & \mbox{Otherwise} \end{array} \right.
+\end{displaymath}
+\item The probabilities ($P[X=1]=p$ and $P[X=0]=(1-p)=q$) remain the same from trial
+  to trial
+\end{itemize}
+
+An example of a Bernoulli trial is a coin tossing experiment.   Also,
+if we have a stable production process the probability of selecting a
+defective item might be Bernoulli.   Can you suggest some other examples?
+
+
+If we denote the parameter by $pi$, we have:
+
+\begin{displaymath}
+\left\{ \begin{array}{rrl} p[Z=1] & =& p\\
+p[Z=0] & =& 1-p
+\end{array} \right.
+\end{displaymath}
+
+We can simply check that $\sum_{x=0}^1 Pr[X=i] = 1$ as we have $p$ = $1-p=1$.
+
+The mean of $Z$ i.e. $E[Z]$ is found as: 
+\begin{displaymath}
+1 \times p + 0 \times (1-p) = p
+\end{displaymath}
+
+To find the variance, we first need 
+\begin{displaymath}
+E[Z^2] = 1^2 \times p + 0^2 \times 1-p = p
+\end{displaymath}, so 
+
+\begin{displaymath}
+E[Z^2]-E[Z]^2 = p - p^2 = p(1 - p).
+\end{displaymath}
+
+
+\subsection{Indicator random variables}
+
+Note that the probability that an event $A$ happens, i.e. $P[A]=p$ is the same as the expectation $E[Z]$.
+
+So note that in this indicator variable example we have a link where:
+
+\begin{displaymath}
+E[Z] = P[A]
+\end{displaymath}
+
+Demonstrating a close relationship between expectation and probability.
+
+\section{Binomial distribution}
+
+{\color{green}By convention we write $X \sim B(n, p)$}
+
+
+Suppose we have a sequence of $n$ Bernoulli trials, with Bernoulli
+random variables $Z_1, Z_2, \ldots, Z_n$ (all taking on values 1 or
+0).   The random variable $X=Z_1 + Z_2 + \ldots + Z_n$ essentially
+denotes the number of \emph{successes} amongst the $n$ Bernoulli
+trials.
+
+We could alternatively just think of it as the number of \emph{successes} in $n$ trials and forget the Bernoulli link.
+
+This value has a formula as follows:
+
+\begin{displaymath}
+f(x) = p[X=x] = {n \choose x} p^x (1-p)^{n-x} \mbox{ for }
+x=0,1,2,\ldots,n
+\end{displaymath}
+
+\newpage
+
+Let's think a little about why.   Assuming that $P[Success]=p$ and $P[Failure] = (1-p) = q$, consider the probability of the following event:
+
+\begin{tabular}{rrrrrr}
+F & S & F & F & S & S \\
+q & p & q & q & p & p \\
+\end{tabular}
+
+As the individual events are independent, we can just multiply the probabilities and so we have $q \times p \times q \times q \times p \times p = p^3q^3$.   Or if we said we had $n$ trials and $x$ successes, with $n-x$ failures we have $p^xq^{(n-x)}$.
+
+The only problem here is that this is the probability of getting that particular ordering of Failures and Successes.   We could have got 3 successes from (S, S, S, F, F, F), or a number of other orderings.   How many orderings.   We did that already, it's $\binom{n}{x}$.   So, the probability of getting $x$ successes in $n$ trials is going to be:
+
+\begin{displaymath}
+P[X=x] = \binom{n}{x}p^xq^{n-x}
+\end{displaymath}
+as required.
+
+
+
+We can check that this is non-negative.   What about summing to one.   Well:
+
+\begin{displaymath}
+\sum_{x=0}^n \binom{n}{x} p^xq^{n-x} = (p+q)^n
+\end{displaymath}
+by the Binomial theorem.  And for this particular problem, we know that $(p+q)=1$, so it is a pmf which obeys the second Kolmogorov Axiom.
+
+
+Find $E[X]$ the hard way:
+
+\begin{displaymath}
+E[X] = \sum_{x=0}^n x \binom{n}{x} p^xq^{n-x}
+\end{displaymath}
+The first term is $0$ at $x=0$ so start the summation at $x=1$ and use Committee Chairman trick to change the permutation counter:
+\begin{displaymath}
+E[X] = \sum_{x=1}^n  n \binom{n-1}{x-1} p^xq^{n-x} 
+\end{displaymath}
+Now take that $n$ (and one $p$) outside the summation
+\begin{displaymath}
+E[X] = np \sum_{x=1}^n   \binom{n-1}{x-1} p^{x-1}q^{n-x}
+\end{displaymath}
+
+Now just let $j=x-1$ (and $m=n-1$ if you worry about that sort of thing.   The term on the right becomes $1$ so we have
+\begin{displaymath}
+E[X] = 1
+\end{displaymath}
+
+
+
+Find $E[X]$ the easy way.
+
+We said it's the sum of $n$ iid Bernoulli r.v.s.   So by linearity:
+\begin{displaymath}
+E[X] = E[Z_1 + Z_2 + \cdots + Z_n] = E[Z_1] + E[Z_2] + \cdots + E[Z_n]
+\end{displaymath}
+We said before $E[Z] = p$, so this is just $np$.   We can find $E[X^2]$ in the same way and hence confirm:
+
+\fbox{For $X \sim Binomial(n,p)$: $E[X] = np$ and $V[X]=npq$.}
+
+
+Nowadays, it is pretty straightforward to compute these values, but
+once upon a time it was conventional to work with tables of
+probabilities.  
+\begin{figure}
+\includegraphics{acrodocs/IntroProb3cDiscreteExamples-bin}
+\end{figure}
+
+
+
+\subsection{The Geometric Distribution}
+
+{\color{green} By convention we write $X \sim Go(p)$} 
+
+We shall briefly consider the scenario whereby successive Bernoulli trials are continued until the first success occurs.   Let $X$ denote the number of trials up to but not including the first success.   This gives rise to what we call the Geometric distribution.
+
+\begin{df}
+For data assumed to follow the Geometric distribution, $X$ has a probability density function:
+\begin{displaymath}
+p[X=x] = (1-\pi)^{x}\pi; x=1,2,\ldots; 0 \leq p \leq 1
+\end{displaymath}
+\end{df}
+
+
+
+It is quite simple to derive this pmf.   We have (for example):
+\begin{tabular}{rrrrr}
+F & F & F & F & S \\
+$q$ & $q$ & $q$ & $q$ & $p$
+\end{tabular}
+
+There is clearly only one way in which we can obtain this set of events.
+
+It is clearly non-negative, to check it sums to one we need:
+
+\begin{displaymath}
+\sum_{x=0}^{\infty} pq^x = p \sum_{x=0}^{\infty} q^x
+\end{displaymath}
+That term is a standard geometric series which we can write also as $\frac{1}{1-q}$.   So we have 
+
+
+\begin{displaymath}
+\sum_{x=0}^{\infty} pq^x = \frac{p}{1-q} = \frac{p}{p} = 1
+\end{displaymath}
+
+
+A little more work is needed to obtain the expectation.
+
+\begin{displaymath}
+E[X] = \sum_{x=0}^{\infty} x p q^x =  p \sum_{x=1}^{\infty} x q^x
+\end{displaymath}
+Note the trick of removing $x=0$ as the sequence is zero at that point.   This looks a little, but not entirely like a geometric series.   Let's do some maninpulation.  On line 2 we have differentiated both sides, on row three we have multiplied both sides by $a$:
+
+\begin{eqnarray*}
+\sum_{b=0}^{\infty} a^b &=& \frac{1}{1-a} \\
+\sum_{b=0}^{\infty} b a^{b-1} &=& \frac{1}{(1-a)^2} \\
+\sum_{b=0}^{\infty} b a^{b} &=& \frac{a}{(1-a)^2} \\
+\end{eqnarray*}
+
+So this gives us the expression we need.
+
+\begin{displaymath}
+ E[X] = p \sum_{x=1}^{\infty} x q^x = p \frac{q}{(1-q)^2} = \frac{pq}{p^2} = \frac{q}{p}
+\end{displaymath}
+
+
+
+Note carefully.   You can also define the Geometric as the number number of trials, \emph{including} the first success.   In that case we have:
+
+\begin{displaymath}
+P[X=x] = q^{x-1}p
+\end{displaymath}
+
+and (no proof):
+
+\fbox{Note that $E[X] = \frac{1}{p}$ and $V[X]=\frac{1-p}{p^2}$.}
+
+
+
+  
+For example, if a salesperson wishes to calculate the probability that they will make their first successful sale of the day to the fifth customer, given that the probability of a sale $\pi=0.2$ is given by $p[X=5]=(1-0.2)^{5-1}0.2 = 0.08192$
+
+We can also define $X$ to be the number of trials preceding the first success, in which case the probability density function is given by:
+\begin{displaymath}
+p[X=x]=(1-p)^x p
+\end{displaymath}
+
+For example, a burglar want to know that he will get away with three ``jobs'' before he finally gets caught.  Assuming the probability of being caught (a success for the rest of us) is $\pi=0.6$ we have $p[X=3]=(1-0.6)^30.6=0.0384$
+
+
+
+
+\section{The negative binomial distribution}
+
+{\color{green}By convention we would write $X \sim NB(r,p)$}
+
+If we extend the previous idea so that we can continue the Bernoulli trials until the $r$th success, and denote $X$ as the number of such trials required, then $X$ has a negative binomial distribution.
+
+
+\begin{df}
+The negative binomial distribution is given by:
+\begin{displaymath}
+p[X=x]={x-1 \choose r-1} \pi^r (1-\pi)^{x-r}
+\end{displaymath}
+\end{df}
+
+\fbox{  Note that $E[X]=\frac{r}{p}$ and $V[X]=\frac{r(1-p)}{p^2}$}
+
+
+
+Consider a country where the prime minister has an interesting private life   The probability that a person believes a rumour about this prime minister is $p=0.25$.  
+
+
+\begin{itemize} 
+\item What are the probabilities that the sixth person to hear the rumour will be the sixth to believe it: $p[X=6|r=6,p=0.25] = {(6-1) \choose (6-1)} 0.25^6 (1-0.25)^{6-6}$ which should equal $0.00024$
+\item What is the probability that the twelfth person to hear the rumour will be the fourth to believe it: $p[X=4|r=12,p=0.25] = {(12-1) \choose (4-1)} 0.25^4 (1-0.25)^{12-4}$ which should equal $0.065$
+\end{itemize}
+
+
+\section{The Hypergeometric distribution}
+
+This isn't what happens to a geometric distribution if you give it too many sugary sweets and fizzy drinks.   A random variable $X$ is said to follow the hypergeometric distribution if its probability mass function (pmf) is given by:
+
+$$P(X=k) = {{{K \choose k} {{N-K} \choose {n-k}}}\over {N \choose n}}$$
+
+Where:
+\begin{itemize}
+\item    $N$ is the population size
+\item $K$ is the number of "successes" in the population
+\item $n$ is the sample size
+\item $k$ is the number of successes in the sample.
+\end{itemize}
+Do note that ${a \choose b}$ is a binomial coefficient for integers $a$ and $b$.
+
+
+Showing that this is a valid p.m.f. - see tutorial sheets.
+
+
+
+
+\section{The Poisson distribution}
+
+{\color{green}By convention we would write $X \sim P(\lambda)$} 
+
+The Poisson distribution is used to model events occurring at random in time, area, volume.
+
+\begin{df}
+The Poisson distribution, with parameter $\lambda$ is given as follows:
+\begin{displaymath}
+p[X=x] = \frac{\lambda^x e^{-\lambda}}{x!};x=0,1,2,\ldots; 0 \leq \lambda \leq \infty
+\end{displaymath}
+\end{df}
+
+
+
+You can check it's non-negative.   What about summing to one:
+
+\begin{displaymath}
+\sum_{x=0}^{\infty} \frac{e^{-\lambda}\lambda^x}{x!} = e^{-\lambda} \sum_{x=0}^{\infty} \frac{\lambda^x}{x!}
+\end{displaymath}
+
+You should check that the right hand part here is the Taylor series for $e^{\lambda}$ so we have
+\begin{displaymath}
+\sum_{x=0}^{\infty} \frac{e^{-\lambda}\lambda^x}{x!} = e^{-\lambda}e^{\lambda} = 1
+\end{displaymath}
+
+
+
+A little bit more work is needed to find the expecation.
+
+\begin{displaymath}
+E[X] = \sum_{x=0}^{\infty} x \frac{e^{-\lambda}\lambda^x}{x!} = e^{-\lambda} \sum_{x=0}^{\infty} x \frac{\lambda^x}{x!}
+\end{displaymath}
+
+We can repeat our trick of starting the summation from $x=1$, and note that in $\frac{x}{x!}$ we can cancel one $x$ giving us $\frac{1}{(x-1)!}$
+
+\begin{displaymath}
+E[X]  = e^{-\lambda} \sum_{x=1}^{\infty}  \frac{\lambda^x}{(x-1)!}
+\end{displaymath}
+
+We can also bring one $\lambda$ into the front of the sum
+
+\begin{displaymath}
+E[X]  = \lambda e^{-\lambda} \sum_{x=1}^{\infty}  \frac{\lambda^{(x-1)}}{(x-1)!}
+\end{displaymath}
+
+We can now do some change-of-variables: $j=k-1$ but you should be able to see where this is going.   The rightmost term is our Taylor series for $e^{\lambda}$ again.   So that:
+
+\begin{displaymath}
+E[X] = \lambda e^{-\lambda} e^{\lambda} = \lambda
+\end{displaymath} 
+
+We will though find a much simpler way to get $Var(X)$
+
+
+
+
+\fbox{Summary: $E[X]=\lambda$ and $V[X]=\lambda$.}
+
+
+
+The number of accidents on the Pasadena Freeway between 9am and 10am on a Sunday morning is a random variable, thought to follow a Poisson distribution with $\lambda = 7.3$.   Find the probability that there will be:
+
+\begin{itemize}
+\item Exactly 6 accidents.\\ For this we need to find $p[X=6|\lambda=7.3]$ which is given by $ \frac{7.3^6e^{-7.3}}{6!} = 0.1420$
+\item Less than 4 accidents.\\ For this we need the distribution which is given by  $p[X < 4 |\lambda=7.3]$.   We find this by taking the following\\ $ p[X =0 |\lambda=7.3] + p[X = 1 |\lambda=7.3] + p[X =2  |\lambda=7.3] + p[X =3|\lambda=7.3]$.   This is given by calculating\\ $\frac{7.3^0e^{-7.3}}{0!} + \frac{7.3^1e^{-7.3}}{1!} + \frac{7.3^2e^{-7.3}}{2!} + \frac{7.3^3e^{-7.3}}{3!}$ which should give $0.0674$
+\end{itemize}
+
+
+
+
+
+These are the most important examples of discrete probability functions (although there are hundreds available).   It is worth being familiar with the key properties of these densities.
 
 
 
 \chapter{Continuous Probability Functions}
+
+\section*{Aims}
+\begin{itemize}
+\item To state some key properties of continuous random variables
+\item To examine some important continuous distributions
+\item To become comfortable solving problems involving the normal distribution
+\end{itemize}
+
+
+\section{Continuous r.v.s}
+
+Further information is given in Section 5.2 (page 205) of Grinstead and Snell.
+
+\subsection{Probability density function}
+
+\begin{itemize}
+\item A function with values $f(x)$ defined over the set of all real numbers, is called a \emph{probability density function} of the continuous random variable $X$ if and only if $P(a \leq X \leq b) = \int_{a}^{b} f(x) dx$ for any real constants $a$ and $b$ with $a < b$
+\item Note that if $X$ is a continuous random variable and $a$ and $b$ are real constants ith $a \leq b$ then $P(a \leq X \leq b) = P(a \leq X < b) = P(a < X \leq b) = P(a < X < b)$
+\end{itemize}
+i.e. the value of a pdf can be changed for some of the values on an r.v. without changing the probabilities.
+
+
+Some points about this definition:
+\begin{itemize}
+\item For discrete random variables, the probability mass function is easy to understand: $f(x) = P[X=x]$.
+\item But note the terminology, if probability is mass, what is density?
+\item For a continuous random variable, $p[X=x]=0$
+\item But if we think of density as mass per volume, perhaps we gain a few insights
+\item Try thinking about a tiny number $\epsilon$.  Then think about $\int_{x-(\epsilon/2)}^{x+(\epsilon/2)} f(t)dt$.   If $\epsilon$ is small enough then we have a rectangle of area $\epsilon \times f(x)$; this area is the probability.
+\end{itemize}
+
+
+
+
+
+
+ \begin{itemize}
+\item A function can serve as a probability density function of a continuous r.v. $X$ if its values $f(x) $ satisfy the conditions:
+\begin{itemize}
+\item $f(x) \geq 0$ for $-\infty < x < \infty$
+\item $\int_{-\infty}^{\infty} f(x) dx = 1$
+\end{itemize}
+\end{itemize}
+
+\subsection{Cumulative distribution function}
+
+\begin{itemize}
+\item If $X$ is a continuous r.v. and the value of its probability density at $t$ is $f(t)$, then the function given by $F(x) = P(X \leq x) = \int_{-\infty}^{x} dt$ for $-\infty < x < \infty$ is called the \emph{distribution function} or cumulative distribution of $X$
+\item If $f(x)$ and $F(x)$ are values of the probability density and distribution function of $X$ at $x$ then $P(a \leq X \leq b) = F(b) - F(a)$ for any real constants $a$ and $b$ with $a \leq b$ and $f(x) = \frac{dF(x)}{dx}$ where the derivative exists
+\end{itemize}
+ 
+
+
+
+Give the fundamental theorem of calculus, it is perhaps no surprise that if
+
+\begin{displaymath}
+F(x) = \int_{-\infty}^x f(t)dt
+\end{displaymath}
+
+Then
+
+\begin{displaymath}
+f(x) = \frac{dF(x)}{dx} = F'(x)
+\end{displaymath}
+
+
+
+
+
+\subsection{Computer illustration}
+
+Nowadays, it is trivial to use a computer to randomly generate some continuous variables (although strictly we should note that computers can only generate \emph{pseudo} random numbers, but for our purposes this is close enough).  
+
+\begin{itemize}
+\item  For the moment we will not concern ourselves with the density used to create these variables, 
+\item Instead, we will consider only the empirical density.   
+\item In other words, for a sample of size $n$, the probability of observing any particular value will be $\frac{1}{n}$.   
+\end{itemize}
+
+We can generate a range of sample sizes (25, 100, 1000, 10000), observe both the value of $x$ and the empirical density for that value, and plot these as a set of lines.   The position on the x-axis denotes the value of $x$, the height of the line denotes the empirical density for observing that variable.
+
+\begin{itemize}
+\item Look very carefully at each of the four plots, noting that the scaling of the $y$ axis changes.
+\item What will happen to the height of these lines when, instead of using the empirical density, we use a continuous density function that must allow for an infinite range of possible values of $x$?
+\end{itemize}
+
+
+\includegraphics{acrodocs/IntroProb4Continuous-discreteprob}
+
+
+
+
+
+What is also apparent is that these plots are not use if we wish to visualise set containing a large number of realisations of $x$.   When $n$ is too large, we have a large pool of black ink in the middle of the charts.  
+
+\begin{itemize}
+\item The conventional way of dealing with this is by means of a histogram
+\item We break the x-axis into ``bins'' (a range of values) and count the number of values in that range
+\item The area of a given bar therefore tells us something about the probability density.   
+\item Note that as the sample size increases (and I have used narrower and narrower bins), we see a clear shape emerging.
+\end{itemize}
+All we need to do know is to define some mathematical formula that can adequately describe this, or any other shape, as necessary.
+
+
+\includegraphics{acrodocs/IntroProb4Continuous-hist}
+
+
+
+
+\subsection{Expectation}
+
+Where we used the summation operator for discrete densities, for a continuous random variable we define expectation using the integration operator.   This follows from the standard mathematical definition for
+the ``average'' of a function.
+
+\begin{df}
+The expected value of a continuous random variable is given by:
+\begin{displaymath}
+E[X] = \int_{-\infty}^{\infty} x f(x) dx
+\end{displaymath}
+
+and the expected value of a \emph{function of} a random variable is given by:
+\begin{displaymath}
+E[X] = \int_{-\infty}^{\infty} \phi (x) f(x) dx
+\end{displaymath}
+\end{df}
+
+
+
+
+\subsection{Variance}
+
+The Variance of a continuous density is defined in exactly the same way as for discrete random variables ($V(X) = E[X-E(X)]^2$.   We shall revisit this point next week when we consider \emph{moments}.
+
+
+
+\subsection{Summary}
+
+\begin{tabular}{rll}
+What & $X$ Discrete & $X$ continuous \\
+\hline
+pmf: &    $f(x) =P[X=x]$ & Not defined \\
+pdf: & Not defined &  $f(x)$ s.t. $P[a<X<b]=\int_a^b f(x)dx$\\
+cdf:  & $F(x) = P[X \leq x] = \sum_{-\infty}^x f(t)$ & cdf: $F(x) = P[X \leq x] = \int_{-\infty}^x f(t)dt$\\
+Expectation & $E[X] = \sum_x x f(x)$ & $E[X] = \int_x x f(x) dx$\\
+Expect of a fn & $E[g(X)] = \sum_x g(x) f(x)$ & $E[g(X)] = \int_x f(x) f(x) dx$\\
+\end{tabular}
+
+This last fact lets us find $Var(X)$ in either case.
+
+
+
+
+
+\section{The uniform distribution}
+
+{\color{green}By convention we write $X \sim U(a, b)$}
+
+
+The random variable $X$ has a uniform distribution if its probability density function is constant over the range defined by $a$ and $b$.   For example, the following is meant to show $x$ in the middle of the range: $a---x---b$, we would expect $P[X<x]=P[X>x]$.   Now imagine $a--x----b$.  Here we would expect $P[X<x] =  \frac{1}{2}P[X>x]$ (because the first interval is meant to be half the length of the second interval).   Maybe it helps to think of probability as proportional to length.
+
+Basically, this means we want:
+
+\begin{displaymath}
+f(x) = \left\{ \begin{array}{rrr} c & \mbox{ if } & a \leq x \leq b\\
+0 & & \mbox{otherwise} \end{array} \right.
+\end{displaymath}
+
+If we want this to obey $P(\Omega)=1$ we need $\int_a^bc=1$ which gives us $\frac{1}{b-a}$
+
+  The cumulative distribution function therefore is given as follows:
+
+\begin{displaymath}
+F(x|a,b) = \left\{ \begin{array}{ll} 0 & \mbox{ for }  x \leq a \\
+\frac{x-a}{b-a} & \mbox{ for } a \leq x \leq b \\ 
+0 & \mbox{ for } x > b \end{array} \right.
+\end{displaymath}
+
+
+
+One important example is the ``standard'' uniform, i.e. where $X \sim U(0,1)$ (the building block of all other random numbers):
+
+For $U \sim Unif(a,b)$ we have that:
+
+\begin{displaymath}
+E[X] = \int_a^b x \frac{1}{b-a} = \frac{x^2}{2}b-a|^b_a=\frac{a+b}{2}
+\end{displaymath}
+
+So for $U \sim Unif(0,1)$ this gives us $E[X] = \frac{1}{2}$
+
+For $E[X^2]$ we get $\frac{x^3}{3}(b-a)|^b_a$ which for $a=0$, $b=1$ yields $\frac{1}{3}$  Therefore, using $Var(X)=E[X^2]-E[X]^2$ we have $Var(X)=\frac{1}{3}-\frac{1}{4}=\frac{1}{12}$
+
+
+\fbox{Summary: for $a=0$ and $b=1$ that $E[X] = \frac{1}{2}$ and $V[X]=\frac{1}{12}$.}
+
+
+
+
+\subsection{The negative exponential distribution}
+
+{\color{green} By convention we write $X \sim NE(\lambda)$}
+
+\begin{displaymath}
+f(x|\lambda) = \left\{ \begin{array}{rrr} \  \lambda e^{-\lambda x} & & \mbox{ for } 0 \leq x \leq \infty \\ 0 & & \mbox{ elsewhere } \end{array} \right.
+\end{displaymath}
+
+It should be obvious that this is non-negative and $\int_0^{\infty}f(x)dx=1$
+
+Here, we have a distribution function expressed as:
+\begin{displaymath}
+F(x|\lambda) = 1-e^{-\lambda x}
+\end{displaymath}
+
+%One feature here is that this density is only defined for non-negative values of $x$.   This distribution is commonly used as a simple model for time between events; and a little thought is required here.   For example, if the count of events that happens in a given time period $Y \sim P(\theta)$ and the waiting time between those events is $X \sim NE(\theta)$ it should come as no surprise that $\theta$ and $\theta$ are related ($\theta = \frac{1}{\theta}$
+
+
+
+
+We can define a standard Exponential, i.e., $Y=\theta X$ where $Y \sim Exp(1)$.
+For this, we can then find $E[Y]$:
+
+\begin{displaymath}
+E[Y] = \int_{0}^{\infty} y e^{-y}dy
+\end{displaymath}
+
+Now use use integration by parts: $\int u\ dv = uv - \int v\ du$ such that:
+\begin{itemize}
+\item[] $u=y \therefore du=dy$
+\item[] $dv=e^{-y} \therefore v=-e^{-y}$
+\end{itemize}
+
+\begin{displaymath}
+\int_{0}^{\infty} y e^{-y}dy = \underbrace{-ye^{-y}|^{\infty}_o}_{0} - -\underbrace{\int_0^{\infty} e^{-y}dy}_{1} = 1
+\end{displaymath}
+
+Similarly, we can find $E[Y^2]=2$   Hence $Var(Y) = 2-1^2=1$
+
+
+We now need to rescale our standard exponential, noting that $X=\frac{Y}{\lambda}$, so $E[X] = \frac{1}{\lambda}$ and $Var(X)=\frac{1}{\lambda^2}$
+
+
+
+\fbox{Note that $E[X] = \frac{1}{\lambda}$, $Var(X)=\frac{1}{\lambda^2}$}
+
+%\fbox{Also note it is possible to use the parameterisation $f(x) = \frac{1}{\lambda} e^{-\frac{1}{\lambda} x}$}
+
+
+\subsubsection{Memoryless}
+
+A vital property of the Exponential distribution is that:
+
+\begin{displaymath}
+P[X \geq a+b | X \geq a] = P[X \geq b]
+\end{displaymath}
+
+Proof.
+
+Firstly, let's find the so-called survivor function:
+
+\begin{eqnarray*}
+P[X \geq a] &=& 1-F(a)\\ 
+&=& 1 - (1-e^{\lambda a}) \\
+&=& e^{\lambda a}
+\end{eqnarray*}
+
+
+Now let's use basic conditional probability:
+
+\begin{displaymath}
+P[A|B] = \frac{P[A \int B]}{P[B]}
+\end{displaymath}
+
+%But if $A$,$B$ are independent, then $P[A \cap B] = P[A,B]$
+
+\begin{eqnarray*}
+P[X \geq a+b | X \geq a] &=& \frac{P[X \geq a+b, X \geq a]}{P[X \geq b]}\\
+&=& \frac{e^{-\lambda(a+b)}}{e^{-\lambda b} = e^{-\lambda a}}
+\end{eqnarray*}
+
+%Side note (more on conditional expectation to follow):
+
+%\begin{displaymath}
+%E[X|X>a] = a + E[X-a|X+a]=a+\frac{1}{\lambda}
+\%end{displaymath}
+
+
+
+Memoryless can be great in some applications (failure times of lightbulbs) but not in others (life expectancy).
+
+
+
+
+\section{The Gamma distribution}
+
+{\color{green} By convention we write $Y \sim Gamma(a,\theta)$}
+
+By way of introduction, recall the Gamma function:
+\begin{displaymath}
+\Gamma (a) = \int_0^{\infty} x^{a-1} e^{-x} dx
+\end{displaymath}
+
+If we want to use this as a pdf (for random variable $X$ and parameter $a$, we need to make it integrate to one.   How?   The clue should be in the resursive nature of the Gamma function.   Let's divide it by itself!
+
+\begin{displaymath}
+f(x) = \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx
+\end{displaymath}
+
+We can check this is non-negative, and we know $P(\Omega)=1$ because we just made it so.
+
+
+
+
+At the moment, this has only one parameter.   We can add another by rescaling, such that we then have $Y \sim Gamma(a,\theta)$ where $Y = \frac{X}{\theta}$:
+
+\begin{displaymath}
+f(y) = \frac{\theta^a}{\Gamma (a)} x^{a-1} e^{-\theta x} dx
+\end{displaymath}
+%Do I need \theta^a?????????????
+
+This can be thought of as a nice extension to the negative exponential.  There are two parameters, hence there is more flexibility in defining the sahpe than you have with the negative exponential distribution.   If you restrict $a$ to being an integer, you can think of the $Gamma(a, \theta)$ as the time taken to the arrival of the $a$th independent $Exponential(\theta)$ random variables (but $a$ isn't restricted to the integers.   One word of warning, there are two very different ways of specifying the density!  % Here's one:
+
+%\begin{displaymath}
+%f(x|a,b) = \frac{a^bx^{b-1}e^{-ax}}{\Gamma(b)}; 0 \leq x < \infty.
+%\end{displaymath}
+
+%It might be worth pointing out that $\frac{a^b}{\Gamma(b)}$ is a constant of integration here, the shape and scale is determined by $x^{b-1}e^{-ax}$
+
+
+
+Because of the recursive properties of the $Gamma$ function, it will turn out to be worryingly easy to find moments.   Taking a ``standard'' Gamma density (i.e., with $\theta=1$:
+
+\begin{eqnarray*}
+E[X^c] &=&  \int_0^{\infty} x^c \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx \\
+&=& \frac{1}{\Gamma (a)} \underbrace{\int_0^{\infty}  x^{a+c-1} e^{-x} dx}_{\mbox{A }\Gamma \mbox{ function}} \\
+&=& \frac{\Gamma(a+c)}{\Gamma(a)}
+\end{eqnarray*}
+
+Hence we can find $E[X^n]$ very simply:
+
+\begin{displaymath}
+E[X] = \frac{\Gamma (a+1)}{\Gamma(a)} = \frac{a \Gamma(a)}{\Gamma(a)} = a
+\end{displaymath}
+
+
+\begin{displaymath}
+E[X^2] = \frac{\Gamma (a+2)}{\Gamma(a)} = \frac{a+1 \Gamma(a+1)}{\Gamma(a)} = \frac{(a+1)a\Gamma(a)}{\Gamma(a)}  = a^2+a
+\end{displaymath}
+
+So $Var(X) = a^2+a-a^2 = a$
+
+Remember that $Y = \frac{X}{\theta}$
+
+\fbox{Rescaling gives us $E[Y] = \frac{a}{\theta}$ and $Var(Y) = \frac{a}{\theta^2}$}
+
+
+%\fbox{Note that $E[X] = \frac{b}{a}$ and $V[X] = \frac{b}{a^2}$}
+
+
+
+%\section{The Cauchy distribution}
+
+%(first considered by Poisson)
+
+%\begin{displaymath}
+%f(x) = \frac{1}{\pi (1+x^2)}, -\infty < x < \infty.
+%\end{displaymath}
+
+%The most interesting feature of this density is that it has no moments (which we examine next week), and it's most common use is in ``counter examples'' (or trick questions).
+
+
+
+\section{The Beta distribution}
+
+{\color{green} By convention we write $X \sim Beta(a,b)$}
+
+\begin{displaymath}
+f(x|a,b) = \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)} x^{a-1}(1-x)^{b-1};0 \leq x \leq 1
+\end{displaymath}
+
+The expression $\frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}$ might look intimidating, but it is only a \emph{constant} to make sure that $\int f(x)=1$ for this distribution (it's the reciprocal of the Beta function, so you can guess where this distributio gets its name).   In other words, all the important work in terms of the shape of of the curve is done by $ x^{a-1}(1-x)^{b-1}$; but we need to multiply it by some constant to get the integral over the whole domain equal to one.
+
+It turns out that the uniform distribution is just an example of a beta distribution where $a=1$ and $b=1$.
+
+
+
+
+Finding $E[X^n]$ is easy like the $Gamma$
+
+\begin{eqnarray*}
+E[X^n] &=& \frac{1}{Beta(a,b)} \int_{0}^1 x^n x^{(a-1)}(1-x)^{(b-1)}dx \\
+&=&  \frac{1}{Beta(a,b)} \int_{0}^1 \underbrace{x^{(a+n-1)}(1-x)^{(b-1)}dx}_{\mbox{A } Beta \mbox{ density}} 
+\end{eqnarray*}
+
+So, we know that:
+
+\begin{displaymath}
+E[X^n] = \frac{Beta(a-n, b)}{Beta(a,b)} = \frac{\Gamma(a+n) Gamma(a+b)}{\Gamma(a+b+n)}{Gamma(a)}
+\end{displaymath}
+
+So that:
+
+
+
+\fbox{Note that $E[X] = \frac{a}{a+b}$ and $V[X] = \frac{ab}{(a+b)^2(a + b + 1)}$}
+
+(check these: for $a=b=1$ does it match the standard Uniform as promised?
+
+
+
+
+\section{The Normal distribution}
+
+{\color{green}By convention we write $X \sim N(\mu, \sigma^2)$}
+
+This is sometimes named the Gaussian distribution, after Karl Friedrich Gauss who studied some of its key properties.
+
+\begin{df}
+The normal density is given by:
+\begin{displaymath}
+f(x|\mu, \sigma^2)=\frac{1}{\sqrt 2 \pi \sigma} \exp \left\{ -\frac{1}{2} \left(\frac{x-\mu}{\sigma} \right)^2 \right\}, -\infty < x < \infty, \sigma > 0 
+\end{displaymath}
+\end{df}
+
+There's no easy way of working with the integral (there is no expression for an indefinite integral) so for our purposes we have to assume that with such a well used density someone somewhere has checked that $\int_{-\infty}^{\infty}f(x)=1$.  Again, it might be interesting to know that $=\frac{1}{\sqrt 2 \pi \sigma}$ is another of these constants that ensures the integation is equal to unity.
+
+
+\fbox{Note that $E[X] = \mu$ and $V[X]=\sigma^2$.}
+
+
+
+
+
+A nice property of the normal density is that linear functions of a random variable $X$ distributed according the normal distribution will also be normal.
+
+\begin{df}
+Let $X \sim N(\mu, \sigma^2)$, and let $Y=\alpha + \beta X$.   Then we have:
+\begin{displaymath}
+Y \sim N(\alpha + \beta \mu, \beta^2\sigma^2)
+\end{displaymath}
+
+As a consequence, if we have a variable $X \sim N(\mu, \sigma^2)$ then we have the identity:
+
+\begin{displaymath}
+Z = \frac{X-\mu}{\sigma} \sim N(0,1)
+\end{displaymath}
+This variable $Z$ is referred to as the \emph{standard normal}.
+\end{df}
+
+It is important that we can ``transform'' any given variable to a standard normal because we can very easily make probability statements about the standard normal.   Specifically:
+
+\begin{displaymath}
+p[x_1 < X < x_2] = p \left[ \frac{x_1-\mu}{\sigma} < Z < \frac{x_2 -\mu}{\sigma} \right]
+\end{displaymath}
+
+We can easily obtain (via printed tables or the computer) values for $p[X \leq x]$ for the Normal distribution, as illustrated by this figure:
+%\begin{center}
+%\includegraphics[width=0.25\textwidth]{normtabs}
+%\end{center}
+Some values for the area under the curve, for integer values of $z$ are given here:
+
+\begin{tiny}
+\begin{center}
+\begin{tabular}{rr}
+  \hline
+  $z$ & $p[Z \leq z]$ \\ 
+  \hline
+ -3 & 0.0013 \\ 
+ -2 & 0.0228 \\ 
+ -1 & 0.1587 \\ 
+  0 & 0.5000 \\ 
+  1 & 0.8413 \\ 
+  2 & 0.9772 \\ 
+  3 & 0.9987 \\ 
+   \hline
+\end{tabular}
+\end{center}
+\end{tiny}
+
+\newpage
+\subsubsection{A problem}
+
+If $X \sim N(10,4)$, calculate $p[4 < X < 8]$
+
+We want:
+\begin{eqnarray*}
+p[4 < X < 8] &=& p \left[ \frac{4-10}{2} < \frac{X-10}{2} < \frac{8-10}{2} \right]\\
+&=& p[-3 < Z < -1]\\
+&=& p[Z < -1] - p[Z < -3]
+\end{eqnarray*}
+
+From the table, we can see that the values we need are $0.1587$ and $0.0013$, hence
+
+\begin{eqnarray*}
+p[4 < X < 8] &=& 0.1587-0.0013\\
+ &=& 0.1574
+\end{eqnarray*}
+
+There are some more detailed tables posted on the web.
+
+
+
 \chapter{Moments}
 
 \end{document}
