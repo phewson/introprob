@@ -1,9 +1,10 @@
-\documentclass{book}
+\documentclass[12pt]{extbook}
 \title{Probability with Applications: Course Notes}
 \author{Paul Hewson and Malgorzata Wojtys}
 \date{February - May 2016}
 \usepackage{amsmath,amssymb,amsfonts,graphics,hyperref,color,setspace,synttree,keystroke}
 \usepackage{calculator}
+\usepackage{longtable}
 
 \usepackage{longtable}
 \usepackage{a4wide,color,Sweave,url,verbatim,xargs,longtable}
@@ -59,14 +60,15 @@ There is a fascinating philosophical / linguistic / epistemological history behi
 \end{itemize}
 
 
+%%%%%%%%%%%%
+%%%%%%%%%%%% Need to add a timetable here I think
+%%%%%%%%%%%%
+
+
+
 
 
 \chapter{Brief review of Sets}
-
-
-
-
-
 
 \subsubsection{Set theory notation}
 
@@ -94,8 +96,6 @@ There is a fascinating philosophical / linguistic / epistemological history behi
 % \end{tabular}
 % \end{footnotesize}
 % }
-
-
 
 
 \section{Sample spaces: how we use Sets}
@@ -324,14 +324,17 @@ This material will get covered more formally in a pure maths course, hopefully w
 
 \section{Problems}
 \begin{enumerate}
-\input{Problems/dummy1/Set1_BasicSets.tex}
-\input{Problems/dummy1/Set1_SampleSpaces.tex}
-\input{Problems/dummy1/Set1_CoinTossing.tex}
-\input{Problems/dummy1/Set1_Venns1.tex}
-\input{Problems/dummy1/Set1_Venns2.tex}
+\input{Problems/dummy2/Set1_BasicSets.tex}
+\input{Problems/dummy2/Set1_SampleSpaces.tex}
+\input{Problems/dummy2/Set1_CoinTossing.tex}
+%\input{Problems/dummy1/Set1_Venns1.tex}
+%\input{Problems/dummy1/Set1_Venns2.tex}
 \end{enumerate}
 
 
+%%%%%%%%%%
+%%% Chapter 3 Naive definition 
+%%%%%%%%%% Very short chapter
 
 \chapter{The naive definition of probability}
 
@@ -369,8 +372,10 @@ Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denot
 
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%% Perms and Combs
+%%%%%%%%%% Perms and Combs Chapter 4
 %%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Counting rules OK}
@@ -569,11 +574,11 @@ Note we have walls between $1$ and $2$, between $2$ and $3$, then two entries in
  
 
 
-\subsection{A word problem}
+%\subsection{A word problem}
 
-Just to convince you that these problems don't just consist of finding the right formulae from the four given above, here is related idea (which you can easily solve if you think a little).   Consider the manager of a small plant wishes to determine the number of ways which he can assign staff to the first shift.   There are $15$ staff who can serve as operators of the production equipment, $8$ who can serve as maintenance personnel and $4$ who can be supervisors.
+%Just to convince you that these problems don't just consist of finding the right formulae from the four given above, here is related idea (which you can easily solve if you think a little).   Consider the manager of a small plant wishes to determine the number of ways which he can assign staff to the first shift.   There are $15$ staff who can serve as operators of the production equipment, $8$ who can serve as maintenance personnel and $4$ who can be supervisors.
 
-If a shift requires one operator, one maintenance person and one supervisor, how many different ways can the shift the staffed?    The answer is $480$, which is rather tedious if one had to draw the tree diagram, and doesn't quite fit the formulae above, although the principles set out there do apply.
+%If a shift requires one operator, one maintenance person and one supervisor, how many different ways can the shift the staffed?    The answer is $480$, which is rather tedious if one had to draw the tree diagram, and doesn't quite fit the formulae above, although the principles set out there do apply.
 
  
 
@@ -693,6 +698,15 @@ $\frac{(n-1)!}{2!}$
 The Tony Blair problem.
 
 
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy4/Comb1_CommitteeGender.tex}
+\input{Problems/dummy4/Comb1_Committee.tex}
+\input{Problems/dummy4/Comb1_Lottery.tex}
+\end{enumerate}
+
+
 \chapter{A non-naive definition of probability}
 
 
@@ -701,6 +715,9 @@ The Tony Blair problem.
 The system of probability we have been working through took a long time to develop, and wasn't fully formalised until the 1930's by Kolmogorov (see 
 \href{http://www.gap-system.org/~history/Biographies/Kolmogorov.html}{\color{blue}www.gap-system.org/~history/Biographies/Kolmogorov.html}).   He stated three fundamental Axioms, from which all other results can be derived.
 
+
+%%%%%%%%%%%%%%%%%
+%%% chapter 5 Axioms of probability
 
 \section{Axioms of probability}
 
@@ -768,8 +785,10 @@ You can verify this; draw the Venn Diagram.   If we merely added $p[A]$ to $p[B]
 
 \section{Problems}
 \begin{enumerate}
-\input{Problems/dummy1/Set1_AdditionRuleProof.tex}
-\input{Problems/dummy1/Set1_AdditionRule.tex}
+\input{Problems/dummy5/Set1_AdditionRuleProof.tex}
+\input{Problems/dummy5/Set1_AdditionRule.tex}
+\input{Problems/dummy5/Set1_LoadedDie.tex}
+\input{Problems/dummy5/Set1_Options.tex}
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%
@@ -931,23 +950,23 @@ Strictly speaking, all probability is conditional.   Earlier in the course we co
 
  
 
-\subsection{Axioms of conditional probability}
+%\subsection{Axioms of conditional probability}
 
-As with probability, we only need a few axioms for conditional probability.   
-%(See Amemiya, 1994, page 10, who provides the argument that you only need one axiom from which the others can be drawn)
+%As with probability, we only need a few axioms for conditional probability.   
+%%(See Amemiya, 1994, page 10, who provides the argument that you only need one axiom from which the others can be drawn)
 
-\begin{df}Axioms of conditional probability:
+%\begin{df}Axioms of conditional probability:
 
-\begin{itemize}
-\item $p[A|B] \geq 0$ for any event $A$
-\item $p[A|B] \leq 1$ for any event $A \supset B$
-\item If $A_1, A_2, \ldots$ is a sequence of mutually exclusive events then: $p[A_1 \cup A_2 \cup \ldots | B] = p[A_1|B] + p[A_2|B] + \ldots$
-\item If $A_1 \supset B$ and $A_2 \supset B$ and $p[B] \neq 0$ then $\frac{p[A_1|B]}{p[A_2|B]} = \frac{p[A_1]}{p[A_2]}$
-\end{itemize}
+%\begin{itemize}
+%\item $p[A|B] \geq 0$ for any event $A$
+%\item $p[A|B] \leq 1$ for any event $A \supset B$
+%\item If $A_1, A_2, \ldots$ is a sequence of mutually exclusive events then: $p[A_1 \cup A_2 \cup \ldots | B] = p[A_1|B] + p[A_2|B] + \ldots$
+%\item If $A_1 \supset B$ and $A_2 \supset B$ and $p[B] \neq 0$ then $\frac{p[A_1|B]}{p[A_2|B]} = \frac{p[A_1]}{p[A_2]}$
+%\end{itemize}
 
-\end{df}
+%\end{df}
 
-It can be seen that conditional axioms (1), (2) and (3) are analogous to the axioms of probability.   The fourth axiom tells us that the relative frequency $A_1$ versus $A_2$ remains the same after $B$ has happened. 
+%It can be seen that conditional axioms (1), (2) and (3) are analogous to the axioms of probability.   The fourth axiom tells us that the relative frequency $A_1$ versus $A_2$ remains the same after $B$ has happened. 
 
  
 \subsection{Consequences}
@@ -1022,8 +1041,8 @@ Now, we were told that if you have the disease (if you are one of the $100$ peop
 
 \begin{tabular}{rrrr}
  & Disease & No disease & Total \\
-Test positive 95 & \phantom{99,990} & \phantom{100,085} \\
-Test negative 5 & \phantom{899,910} & \phantom{899,915} \\
+Test positive & 95 & \phantom{99,990} & \phantom{100,085} \\
+Test negative & 5 & \phantom{899,910} & \phantom{899,915} \\
 Total & 100 & 999,900 & 1,000,000
 \end{tabular}
 
@@ -1091,6 +1110,21 @@ As stated, Bayes theorem is a very simple and widely accepted result in conditio
 
 
 Where Bayes theorem starts to get interesting is when we no longer use simple probabilities in the calculations.  Specifically, when we start using the likelihood as $p[B|A_i]$ we can carry out some very interesting inference.
+
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy6/Cond1_BayesRuleProof.tex}
+\input{Problems/dummy6/Cond1_BonzoFonzoGonzo.tex}
+\input{Problems/dummy6/Cond1_IoA1.tex}
+\input{Problems/dummy6/Cond1_IoA2.tex}
+\input{Problems/dummy6/Cond1_ThreeUrnsRed.tex}
+\input{Problems/dummy6/Cond1_ThreeUrnsGreen(Conditional).tex}
+\input{Problems/dummy6/Cond1_LifeTables.tex}
+\input{Problems/dummy6/Cond1_LifeTables2.tex}
+\input{Problems/dummy6/Cond1_LifeTables3.tex}
+\end{enumerate}
+
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -1297,7 +1331,6 @@ I_A(\omega) =\left\{ \begin{array}{lrl} 1 & \mbox{ if } & \omega \in A \\ 0 & \m
 
 The next set of slides will consider various well studied mathematical functions that provide a model for the way random variables behave.   But it is worth noting the existence of an ``empirical distribution function''.  For example, the Human Resources department of a business with 197 employees examined sickness records.   It summarised the length of time each employee was absent as follows:
 
-\begin{tiny}
 \begin{tabular}{lr}
 0 days absence & 100 staff \\
 1 days absence & 80 staff \\
@@ -1307,7 +1340,6 @@ The next set of slides will consider various well studied mathematical functions
 5 days absence & 5 staff \\
 6 or more days absence & 0 staff
 \end{tabular}
-\end{tiny}
 
 We have an ``empirical distribution'' that for example suggests \\
 $p[\mbox{Staff taking 2 days absence in 1 year}] = \frac{10}{197}$.   
@@ -1449,6 +1481,15 @@ Var(X+c) &=& Var(X) \\
 \end{eqnarray*}
 
 Also, note that $Var(X+Y) = Var(X) + Var(Y)$ iff the two variables are \emph{independent}.
+
+
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy7/DiscreteExamples_Varx.tex}
+\end{enumerate}
+
+
 
 \chapter{Celebrity discrete probability distributions}
 
@@ -1820,6 +1861,21 @@ The number of accidents on the Pasadena Freeway between 9am and 10am on a Sunday
 
 These are the most important examples of discrete probability functions (although there are hundreds available).   It is worth being familiar with the key properties of these densities.
 
+
+
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy7/DiscreteExamples_ValidPMF.tex}
+\input{Problems/dummy7/DiscreteExamples_Asthma.tex}
+\input{Problems/dummy7/DiscreteExamples_Cookies.tex}
+\input{Problems/dummy7/DiscreteExamples_RoadAccidents.tex}
+\input{Problems/dummy7/DiscreteExamples_HouseRepairs.tex}
+\input{Problems/dummy7/DiscreteExamples_GAM.tex}
+\input{Problems/dummy7/DiscreteExamples_GAM2.tex}
+\input{Problems/dummy7/DiscreteExamples_DiceRollingTillSuccess.tex}
+\input{Problems/dummy7/DiscreteExamples_StudentCallout.tex}
+\end{enumerate}
 
 
 \chapter{Continuous Probability Functions}
@@ -2322,7 +2378,18 @@ p[4 < X < 8] &=& 0.1587-0.0013\\
 
 There are some more detailed tables posted on the web.
 
+\section{Problems}
 
+\begin{enumerate}
+\input{Problems/dummy9/ContinuousExamples_FindF.tex}
+\input{Problems/dummy9/ContinuousExamples_StandardNormal.tex}
+\input{Problems/dummy9/ContinuousExamples_NonStandardNormal.tex}
+\input{Problems/dummy9/ContinuousExamples_CoffeeDispenser.tex}
+\input{Problems/dummy9/ContinuousExamples_ExpCDF.tex}
+\input{Problems/dummy9/ContinuousExamples_ExponentialConcept.tex}
+\input{Problems/dummy9/ContinuousExamples_ExpQuantile.tex}
+\input{Problems/dummy9/ContinuousExamples_BetaQuantile.tex}
+\end{enumerate}
 
 \chapter{Moments}
 
