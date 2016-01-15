@@ -2148,21 +2148,21 @@ P[X \geq a] &=& 1-F(a)\\
 Now let's use basic conditional probability:
 
 \begin{displaymath}
-P[A|B] = \frac{P[A \int B]}{P[B]}
+P[A|B] = \frac{P[A \cap B]}{P[B]}
 \end{displaymath}
 
 %But if $A$,$B$ are independent, then $P[A \cap B] = P[A,B]$
 
 \begin{eqnarray*}
 P[X \geq a+b | X \geq a] &=& \frac{P[X \geq a+b, X \geq a]}{P[X \geq b]}\\
-&=& \frac{e^{-\lambda(a+b)}}{e^{-\lambda b} = e^{-\lambda a}}
+&=& \frac{e^{-\lambda(a+b)}}{e^{-\lambda b}} = e^{-\lambda a}
 \end{eqnarray*}
 
 %Side note (more on conditional expectation to follow):
 
 %\begin{displaymath}
 %E[X|X>a] = a + E[X-a|X+a]=a+\frac{1}{\lambda}
-\%end{displaymath}
+%\end{displaymath}
 
 
 
