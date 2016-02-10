@@ -1,0 +1,82 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+
+whatscorrect <- rep(0,4)
+whatscorrect[3] <- 1
+
+results <- c(whatscorrect[1]==1, whatscorrect[2]==1, whatscorrect[3]==1, whatscorrect[4]==1)
+
+@
+
+\begin{question}
+The so-called Logarithmic random variable has a probability mass function (p.m.f.) given as follows:
+
+\begin{displaymath}
+f_X(k) = c \frac{p^k}{k}
+\end{displaymath}
+
+Where $0 < p  < 1$ and $X=1,2,\ldots$
+
+Find $Var(X)$
+
+
+\begin{answerlist}
+\item $\frac{cp-cp^2)}{(1-p)^2}$
+\item $\frac{cp(1-cp)}{(1-p)^2}$
+\item $\frac{cp}{(1-p)^2}$
+\item $\frac{c^2p^2}{(1-p)^2}$
+\end{answerlist}
+
+
+
+
+\end{question}
+
+\begin{solution}
+
+First find
+
+\begin{align*}
+E[X^2]  &= \sum_{x=1}^{\infty} x^2 f(x)\\
+&=  c \sum_{x=1}^{\infty} x p^x \\
+\end{align*}
+
+Not as nice as before, but we can differentiate both sides of the standard geometric result w.r.t. p
+
+\begin{align*}
+\sum_{x=0}^{\infty} p^x = \frac{1}{1-p} \\
+\sum_{x=0}^{\infty} x p^{x-1} = \frac{1}{(1-p)^2} \\
+\end{align*}
+
+Now with a little pattern matching.
+
+\begin{displaymath}
+\sum_{x=1}^{\infty} x p^x = p \sum_{x=1}^{\infty} xp^{x-1} = \frac{p}{(1-p)^2}
+\end{displaymath}
+
+Hence
+
+\begin{displaymath}
+c \sum_{x=1}^\infty xp^{x} = cp \sum_{x=1}^\infty xp^{x-1} =  \frac{cp}{(1-p)^2}
+\end{displaymath}
+
+
+So we just need
+
+\begin{displaymath}
+Var(X) = E[X^2] - E[X]^2 = \frac{cp}{(1-p)^2} - \frac{c^2p^2}{(1-p)^2} = \frac{cp(1-cp)}{(1-p)^2}
+\end{displaymath}
+
+
+
+
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{LogarithmicEx}

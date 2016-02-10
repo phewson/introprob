@@ -1,0 +1,55 @@
+<<echo=FALSE, results=hide>>=
+## DATA GENERATION
+
+whatscorrect <- rep(0,4)
+whatscorrect[3] <- 1
+
+results <- c(whatscorrect[1]==1, whatscorrect[2]==1, whatscorrect[3]==1, whatscorrect[4]==1)
+
+@
+
+\begin{question}
+The so-called Logarithmic random variable has a probability mass function (p.m.f.) given as follows:
+
+\begin{displaymath}
+f_X(k) = c \frac{p^k}{k}
+\end{displaymath}
+
+Where $0 < p  < 1$ and $X=1,2,\ldots$
+
+Find $E[X]$
+
+
+\begin{answerlist}
+\item $cp$
+\item $p$
+\item $\frac{cp}{1-p}$
+\item $\frac{p^{\bar{x}}}{\bar{x}}$
+\end{answerlist}
+
+
+
+
+\end{question}
+
+\begin{solution}
+
+
+\begin{align*}
+E[X]  &= \sum_{x=1}^{\infty} x f(x)\\
+&=  \sum_{x=1}^{\infty} x c \frac{p^x}{x} \\
+&=  c \sum_{x=1}^{\infty} x \frac{p^x}{x} \\
+&=  c \sum_{x=1}^{\infty} p^x \\
+&= c \frac{p}{1-p}
+\end{align*}
+
+(result from geometric series, we were told $0 < p < 1$)
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = TRUE)}}
+%% \exname{LogarithmicEx}
