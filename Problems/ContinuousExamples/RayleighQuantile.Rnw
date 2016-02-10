@@ -4,7 +4,7 @@
 Q <- round(runif(1, 0.5,0.95),1)
 
 answer <- sqrt(-2*log(1-Q) )
-answer
+#answer
 
 
 
@@ -51,13 +51,13 @@ q &= \sqrt{ -2 \log (1-\Sexpr{Q})}\\
 
  
 
-which gives \Sexpr{round(answer,4)} 
+which gives \Sexpr{round(answer,3)} 
 
 \end{solution}
 
 %% META-INFORMATION
 %% \extype{num}
 %% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
-%% \exname{Rayleigh}
+%% \exname{RayleighQuantile}
 %% \extol{0.01}
 

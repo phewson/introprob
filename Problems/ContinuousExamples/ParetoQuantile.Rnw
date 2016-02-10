@@ -1,12 +1,11 @@
 <<echo=FALSE, results=hide>>=
 
-
-A <- round(runif(1, 0.2,1.5),1)
-B <- round(runif(1, 2.2,3.6),1)
-a <- round(runif(1,0,6),1)
-
-answer <- (1-1/B^(a))-(1-1/A^(a))
-
+a <- round(runif(1,2,6),1)
+Q <- round(runif(1, 0.5,0.95),1)
+#Q <- 0.9
+#a <- 4
+answer <- (1-Q)^{-1/a}
+answer
 
 
 
@@ -24,16 +23,16 @@ f_X(x) = \frac{a}{x^{a+1}}
 
 for $x \geq 1$ and $a>)$
 
-Find $P(\Sexpr{A} < X < \Sexpr{B})$
 
-Hint 1. You could find $F_X(x)$
+Find the $\Sexpr{Q}th$ quantile of the Pareto distribution.
 
-Hint 2. You can then find $P(\Sexpr{A} < X < \Sexpr{B}) = F(\Sexpr{B})-F(\Sexpr{A})$
+Hint. You are trying to find $q$ where $\int_0^q  \frac{a}{x^{a+1}}  dx = \Sexpr{Q}$
 
 \end{question}
 \begin{solution}
 
-First find $F(x)$ (you did this in the last question?)
+First find $F_X(x)$
+
 \begin{align*}
 F_X(x) &= \int_1^x f(t)dt \\
  &=\int_0^x \frac{a}{t^{a+1}} dt \\
@@ -44,21 +43,25 @@ F_X(x) &= \int_1^x f(t)dt \\
  &= 1-\frac{1}{y^a}\\
 \end{align*}
  
- So to find
  
- $P(\Sexpr{A} < X < \Sexpr{B}) = F(\Sexpr{B})-F(\Sexpr{A})$
  
- we just need
- 
- $\left( 1 - \frac{1}{\Sexpr{B}^{\Sexpr{a}}} \right) - \left( 1 - \frac{1}{\Sexpr{A}^{\Sexpr{a}}} \right)$
+Then find an expression for $F(x)=\Sexpr{Q}$ and solve for $x$.
 
-which gives \Sexpr{round(answer,4)} 
+\begin{align*}
+1 - \frac{1}{q^a} &= \Sexpr{Q} \\
+q &= (1-\Sexpr{Q})^{-\frac{1}{a}}\\
+ &= \Sexpr{round(answer,4)}\\
+ \end{align*}
+
+ 
+
+which gives \Sexpr{round(answer,3)} 
 
 \end{solution}
 
 %% META-INFORMATION
 %% \extype{num}
 %% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
-%% \exname{Pareto}
+%% \exname{ParetoQuantile}
 %% \extol{0.01}
 

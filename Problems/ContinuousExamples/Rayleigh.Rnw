@@ -21,6 +21,8 @@ The Rayleigh distribution has p.d.f.
 f_X(x) = x e^{x^2/2}
 \end{displaymath}
 
+for $X>0$.
+
 Find $P(\Sexpr{A} < X < \Sexpr{B})$
 
 Hint 1. You could find $F_X(x)$
