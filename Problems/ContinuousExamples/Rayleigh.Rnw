@@ -1,0 +1,59 @@
+<<echo=FALSE, results=hide>>=
+
+
+A <- round(runif(1, 0.2,1.5),1)
+B <- round(runif(1, 2.2,3.6),1)
+
+answer <- (1-exp(-B^2/2))-(1-exp(-A^2/2))
+
+
+
+
+@
+
+
+
+
+\begin{question}
+The Rayleigh distribution has p.d.f.
+
+\begin{displaymath}
+f_X(x) = x e^{x^2/2}
+\end{displaymath}
+
+Find $P(\Sexpr{A} < X < \Sexpr{B})$
+
+Hint 1. You could find $F_X(x)$
+
+Hint 2. You can then find $P(\Sexpr{A} < X < \Sexpr{B}) = F(\Sexpr{B})-F(\Sexpr{A})$
+
+\end{question}
+\begin{solution}
+
+\begin{align*}
+F_X(x) &= \int_0^x f(t)dt \\
+ &=\int_0^x t e^{-t^2/2} \\
+ &= \left[ -e^{-t^2/2} \right]^x_0 \\
+ &= -e^{-x^2/2} - -e^{0^2/2} \\
+ &= -e^{-x^2/2} - -1 \\
+ &= 1-e^{x^2/2}\\
+\end{align*}
+ 
+ So to find
+ 
+ $P(\Sexpr{A} < X < \Sexpr{B}) = F(\Sexpr{B})-F(\Sexpr{A})$
+ 
+ we just need
+ 
+ $\left( 1 - e^{\Sexpr{A}^2/2} \right) - \left( 1 - e^{\Sexpr{B}^2/2} \right)$
+
+which gives \Sexpr{round(answer,4)} 
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
+%% \exname{Rayleigh}
+%% \extol{0.01}
+
