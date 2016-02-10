@@ -1,0 +1,39 @@
+<<echo=FALSE, results=hide>>=
+#match <- sample(c(4,5,7,8),1)
+#digits <- sample(c(36,49,52,99),1)
+#answer <- choose(digits, match)
+r <- sample(c(3:7),1)
+
+answer <- choose(14,r) / 2 * r
+@
+
+\begin{question}
+At the time of writing this question, Angelina Jolie is married to Brad Pitt.   Brad Pitt has had 14 nominations for an MTV Movie Award (6 of which won).   How many ways can Angelina made a necklace of \Sexpr{r} beads from a set of 14 beads representing these nominations?
+
+
+
+
+(As an extension activity, what is the probability that a randomly made necklace of 6 beads represented the 6 MTV Movie Award wins)
+
+
+
+\end{question}
+
+\begin{solution}
+
+Instead of thinking of circular permutations as having a redundancy and so using $(k-1)!$ it might pay to think about multiplying $k-1$ by $1=\frac{k}{k}$.   In other words we would use $\frac{k!}{k}$ to determine the number of circular combinations.
+
+We now want to select $k$ beads from $n$.   We can do this using $\frac{n!}{(n-k)!k!}$.   However, we need to divide by an additional $k$ term to account for the first position redunancy, and another $2$ to account for the fact we can wear the neckace either way round.   We could attempt to write this as $\frac{{\binom{n}{k}}}{2k}$ if we like formulae.   
+
+So we get the answer as \Sexpr{answer}.
+
+
+(The extension activity, the probability $\frac{1}{\left( \frac{{\binom{14}{6}}}{2 \times 6} \right)}$
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 0)}}
+%% \exname{AngelinaJolie2}

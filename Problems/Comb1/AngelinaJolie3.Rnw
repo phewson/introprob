@@ -1,0 +1,38 @@
+<<echo=FALSE, results=hide>>=
+#match <- sample(c(4,5,7,8),1)
+#digits <- sample(c(36,49,52,99),1)
+#answer <- choose(digits, match)
+n <- sample(c(2,4,6,8,10),1)
+
+answer <- factorial(n)*factorial(n-1)
+@
+
+\begin{question}
+At the time of writing this question, Angelina Jolie is married to Brad Pitt, and they have six children, three boys, three girls.   One boy and one girl have a birthday similar in time and both invite one friend of the same gender round.   In other words we have $\Sexpr{n}$ male friends making $\Sexpr{n+3}$ boys to seat and $\Sexpr{n}$ female friends making $\Sexpr{n+3}$ girls to seat.     Angelina and Brad are too busy sorting out the party food, so we only need to seat the children.   How many ways are there of seating the children assuming we decide that a boy has to sit opposite a girl?
+
+
+
+
+(As an extension activity, what would your answer be if they had invited one friend each?)
+
+
+
+\end{question}
+
+\begin{solution}
+
+To keep the solution short, we will assume we start seating boys, but clearly we could have started with the girls.
+
+Again, the first position is redundant.   So we have $\Sexpr{n+3}$ boys to seat in the first but don't count this.   We then have to sit one of the $\Sexpr{n+3}$ girls in the opposite table position and start counting from here.   We then have to select one of the $\Sexpr{n+2}$ girls to occupy a position next to the first boy, and then have to pick one of the $\Sexpr{n+2}$ boys to go in the opposite position.   We can see that the pattern forming generally is $\Sexpr{n+3}!\Sexpr{n+2}!$.   
+
+(The extension activity, if you think about, tells us that it is impossible to apply this seating arrangement to an even number of pairs of children)
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 0)}}
+%% \exname{AngelinaJolie2}

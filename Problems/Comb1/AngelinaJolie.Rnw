@@ -1,0 +1,26 @@
+<<echo=FALSE, results=hide>>=
+#match <- sample(c(4,5,7,8),1)
+#digits <- sample(c(36,49,52,99),1)
+#answer <- choose(digits, match)
+answer <- factorial(7)*2
+@
+
+\begin{question}
+At the time of writing this question, Angelina Jolie is married to Brad Pitt, and they have six children, three boys, three girls.   How many ways are there of arranging them around a circular table assuming Brad and Angelina want to sit together?
+
+
+\end{question}
+
+\begin{solution}
+We apply a fusion.   We have 7 people to sit down - forming one person called Brad-Angelina.   Therefore we have $(7-1)!$ ways of arranging the family, multiplied by the $2!$ ways we can un-merge Brad and Angelina.
+
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 0)}}
+%% \exname{AngelinaJolie}

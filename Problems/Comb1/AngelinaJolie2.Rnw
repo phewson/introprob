@@ -1,0 +1,26 @@
+<<echo=FALSE, results=hide>>=
+#match <- sample(c(4,5,7,8),1)
+#digits <- sample(c(36,49,52,99),1)
+#answer <- choose(digits, match)
+answer <- factorial(4)*factorial(3)
+@
+
+\begin{question}
+At the time of writing this question, Angelina Jolie is married to Brad Pitt, and they have six children, three boys, three girls.   How many ways are there of arranging them around a circular table assuming we have to alternate gender?   Assume Brad and Angelina want to sit with the children.
+
+
+\end{question}
+
+\begin{solution}
+The first (redundant) position can be made up of any of 4 persons of one gender.   We can then put any of four persons of gender B next to them, then we get a choice of 3 from the first gender.   So the answer will be $4!3!$.
+
+
+
+
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{num}
+%% \exsolution{\Sexpr{format(answer, nsmall = 0)}}
+%% \exname{AngelinaJolie2}

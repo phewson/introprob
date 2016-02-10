@@ -5,7 +5,7 @@ answer <- choose(digits, match)
 @
 
 \begin{question}
-To win the first prize in the UK lottery requires that you pick 6 numbers from 49.   You were bidding against Camelot and wanted to alter the winning changes.   Someone suggests that you award a jackpot if  a player matches $\Sexpr{match}$ numbers chosen from $\Sexpr{digits}$.  How many different sets of numbers could you pick.
+To win the first prize in the old UK lottery required that you pick 6 numbers from 49.   You were bidding against Camelot and wanted to alter the winning changes.   Someone suggests that you award a jackpot if  a player matches $\Sexpr{match}$ numbers chosen from $\Sexpr{digits}$.  How many different sets of numbers could you pick.
 
 (If the jackpot rollover was very big, it might make sense to buy every possible set of numbers, how many tickets would you have to buy?)
 
