@@ -22,24 +22,26 @@ answer
 @
 \begin{question}
 
+(You may prefer to revisit this question \emph{after} we have studied the Poisson distribution in the next chapter)
+
 A small car dealer is negotiating with a manufacturer. They have space for up to
 five new cars on their forecourt. Each car they store on this forecourt will cost them
-\pounds 150 for a month in display charges. The gross commission for the total sales
+\textrm{\pounds} 150 for a month in display charges. The gross commission for the total sales
 made in a given month has been agreed as:
 
 \begin{tabular}{lr}
-0 Cars & \pounds 0 \\
-1 Car & \pounds \Sexpr{comm[1]}\\
-2 Cars & \pounds \Sexpr{comm[2]}\\
-3 Cars & \pounds \Sexpr{comm[3]}\\
-4 Cars  & \pounds \Sexpr{comm[4]}\\
-5 Cars & \pounds \Sexpr{comm[5]}\\
+0 Cars & \textrm{\pounds} 0 \\
+1 Car & \textrm{\pounds}\Sexpr{comm[1]}\\
+2 Cars & \textrm{\pounds} \Sexpr{comm[2]}\\
+3 Cars & \textrm{\pounds}\Sexpr{comm[3]}\\
+4 Cars  & \textrm{\pounds} \Sexpr{comm[4]}\\
+5 Cars & \textrm{\pounds} \Sexpr{comm[5]}\\
 \end{tabular}
 
 
 
-In other words, if they display and sell 5 cars they have to pay \pounds \Sexpr{5*display} in display charges
-but they stand to receive \pounds \Sexpr{comm[5]} commission. As a result they make \pounds \Sexpr{comm[5]-5*display} profit.
+In other words, if they display and sell 5 cars they have to pay \textrm{\pounds} \Sexpr{5*display} in display charges
+but they stand to receive \textrm{\pounds} \Sexpr{comm[5]} commission. As a result they make \textrm{\pounds} \Sexpr{comm[5]-5*display} profit.
 
 The car dealer believes they can model demand for sales each month as a Poisson random variable, where $\lambda = \Sexpr{lambda}$
 
@@ -49,17 +51,17 @@ What is the expected net income if they adopt a policy of displaying \Sexpr{n} c
 Hint 1: Just expand 
 
 \begin{displaymath}
-E[g(X)] = \sum_{x=0}^5 g(x)f(x)
+E[g(X)] = \sum_{k=0}^5 g(k)f(k)
 \end{displaymath}
 
-where $g(x)$ is the function for the profit made given $x$ cars sold and $f(x)$ is the probability that x cars were sold.
+where $g(k)$ is the function for the profit made given $k$ cars sold and $p(k)$ is the probability that $k$ i.e. $P(X=k)$ cars were sold.
 
-Hint 2: The formula for the p.m.f. ($f(x)$) for the  demand probability is given by 
+Hint 2: The formula for the p.m.f. $p(k)$ for the  demand probability is given by 
 
 \begin{displaymath}
-P(X=x) = \frac{\lambda^x e^{-\lambda}}{x!},
+P(X=k) = \frac{\lambda^x e^{-\lambda}}{k!},
 \end{displaymath}
-and can be computed in \textbf{R} using \verb+dpois(x,lambda)+.   The CDF, i.e. $P(X \leq x)$ or $f(x)$ is given by \verb+ppois(x,lambda)+.   Note that if the demand for sales is five or more, you sell five cars.
+and can be computed in \textbf{R} using \verb+dpois(x,lambda)+.   The CDF, i.e. $P(X \leq k)$ or $p(k)$ is given by \verb+ppois(x,lambda)+.   Note that if the demand for sales is five or more, you sell five cars.
 
 
 

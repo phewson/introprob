@@ -19,19 +19,19 @@ The key to this question is firstly recognising that you need to use the Geometr
 The question uses the form
 
 \begin{displaymath}
-P(X=x) = (1-p)^x (p)
+P(X=k) = (1-p)^k (p)
 \end{displaymath}
 
 where $p$ is the probability of succesful treatment on a given visit, $X$ is the number of visits required before successful treatment.
 
 Clearly here $p=\Sexpr{prob}$
 
-Unlike the dice example last week, here you are asked to directly find $P(X \leq \Sexpr{visits})$ i.e. $F(\Sexpr{visits}) = f(0) + \cdots + f(\Sexpr{visits})$
+Unlike the dice example, here you are asked to directly find $P(X \leq \Sexpr{visits})$ i.e. $F(\Sexpr{visits}) = p(0) + \cdots + p(\Sexpr{visits})$
 
 You should have developed a nice recursion for doing this by now, so
 
 \begin{displaymath}
-P(X \leq \Sexpr{visits}) = \Sexpr{prob} + (1-\Sexpr{prob}) f(0) + \cdots + (1-\Sexpr{prob})f(\Sexpr{visits-1})
+P(X \leq \Sexpr{visits}) = \Sexpr{prob} + (1-\Sexpr{prob}) p(0) + \cdots + (1-\Sexpr{prob})p(\Sexpr{visits-1})
 \end{displaymath}
 
 So the answer to the question is

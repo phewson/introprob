@@ -35,10 +35,10 @@ Caution: For an exam question you could also be asked to SKETCH the c.d.f. (or t
 
 \begin{solution}
 
-We need to find $\sum_{x=1}^{\infty} c \frac{p^x}{x} = 1$.  
+We need to find $\sum_{k=1}^{\infty} c \frac{p^k}{k} = 1$.  
 We know that $\frac{p^1}{1} + \frac{p^2}{2} + \cdots = -\log(1-p)$.   So we can write
 
-$\sum_{x=1}^{\infty}  \frac{p^x}{x} = -\log(1-p)$
+$\sum_{k=1}^{\infty}  \frac{p^k}{k} = -\log(1-p)$
 
 To make the right hand side equal to $1$ we therefore need to divide both sides by $-\log(1-p)$.   
 Hence we find that $c=\frac{-1}{\log(1-p)}$

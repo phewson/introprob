@@ -14,7 +14,11 @@ myanswer <- answer[choice]
 \begin{question}
 \label{exer 1.2.4} Describe in words the events specified by
 the following subsets of 
-$$\Omega = \{HHH,\ HHT,\ HTH,\ HTT,\ THH,\ THT,\ TTH,\ TTT\}$$
+
+\begin{displaymath}
+\Omega = \{HHH,\ HHT,\ HTH,\ HTT,\ THH,\ THT,\ TTH,\ TTT\}
+\end{displaymath}
+
 %(see Example~\ref{exam 1.5}).
 \begin{enumerate}
 \item $E = \{\mbox{HHH,HHT,HTH,HTT}\}$. 
@@ -25,7 +29,13 @@ $$\Omega = \{HHH,\ HHT,\ HTH,\ HTT,\ THH,\ THT,\ TTH,\ TTT\}$$
 \end{enumerate}
 
 
-For the computer you should assume that you are given the set $E = \{\Sexpr{myquestion}\}$. Using the naive definition of probability, what is $P[E]$?   Please enter your answer as a decimal (3dp).
+For the computer you should assume that you are given the set:
+
+\begin{displaymath}
+E = \{\Sexpr{myquestion}\}.
+\end{displaymath}
+
+Using the naive definition of probability, what is $P[E]$?   Please enter your answer as a decimal (3dp).
 
 \end{question}
 

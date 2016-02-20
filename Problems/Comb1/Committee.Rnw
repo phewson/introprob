@@ -10,7 +10,7 @@ You belong to a group (class, club) of \Sexpr{group} people.   You wish to form 
 \end{question}
 
 \begin{solution}
-The answer is $\left( \frac{\Sexpr{group}}{\Sexpr{committee}}\right) = \frac{\Sexpr{group}!}{(\Sexpr{group}-\Sexpr{committee})!\Sexpr{committee}!}=\Sexpr{answer}$    
+The answer is $\binom{\Sexpr{group}}{\Sexpr{committee}}  = \frac{\Sexpr{group}!}{(\Sexpr{group}-\Sexpr{committee})!\Sexpr{committee}!}=\Sexpr{answer}$    
 \end{solution}
 
 %% META-INFORMATION

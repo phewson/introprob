@@ -15,7 +15,7 @@ You are making a batch of \Sexpr{cookiebatch} chocolate chip cookies.   You put 
 The key to this question is recognising that you need to use the Poisson distribution.   We can regard $n=\Sexpr{cookiebatch}$ as large and hence use $\lambda = \frac{\Sexpr{chocchips}}{\Sexpr{cookiebatch}}$.   The question therefore reduces to finding
 
 \begin{displaymath}
-P(X=\Sexpr{question}) = \frac{\lambda^x e^{-\lambda}}{x!} = \frac{\Sexpr{round(chocchips/cookiebatch,3)}^{\Sexpr{question}} e^{-\Sexpr{round(chocchips/cookiebatch,3)}}}{\Sexpr{question}!} = \Sexpr{round(dpois(question, chocchips/cookiebatch),3)}
+P(X=\Sexpr{question}) = \frac{\lambda^k e^{-\lambda}}{k!} = \frac{\Sexpr{round(chocchips/cookiebatch,3)}^{\Sexpr{question}} e^{-\Sexpr{round(chocchips/cookiebatch,3)}}}{\Sexpr{question}!} = \Sexpr{round(dpois(question, chocchips/cookiebatch),3)}
 \end{displaymath}
 
 

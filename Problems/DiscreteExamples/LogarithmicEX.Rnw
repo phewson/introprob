@@ -36,10 +36,10 @@ Find $E[X]$
 
 
 \begin{align*}
-E[X]  &= \sum_{x=1}^{\infty} x f(x)\\
-&=  \sum_{x=1}^{\infty} x c \frac{p^x}{x} \\
-&=  c \sum_{x=1}^{\infty} x \frac{p^x}{x} \\
-&=  c \sum_{x=1}^{\infty} p^x \\
+E[X]  &= \sum_{k=1}^{\infty} k f(k)\\
+&=  \sum_{k=1}^{\infty} k c \frac{p^k}{k} \\
+&=  c \sum_{k=1}^{\infty} k \frac{p^k}{k} \\
+&=  c \sum_{k=1}^{\infty} p^k \\
 &= c \frac{p}{1-p}
 \end{align*}
 

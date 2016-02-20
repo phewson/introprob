@@ -1,0 +1,34 @@
+<<echo=FALSE, results=hide>>=
+results <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
+@
+
+\begin{question}
+
+Prove De Morgan's Laws
+\begin{itemize}
+\item $(A \cup B)^C = A^C \cap B^C$
+\item $(A \cap B)^C = A^C \cup B^C$
+\end{itemize}
+
+%\begin{tikzpicture}
+%    \draw [thin, step=0.1, lightgray] (0,0) grid (15,15);
+%    \draw [thick, lightgray] (0,0) grid (15,15);
+%\end{tikzpicture}
+
+
+
+%\begin{tikzpicture}
+%    \draw [thin, step=0.1, lightgray] (0,0) grid (15,5);
+%    \draw [thick, lightgray] (0,0) grid (15,5);
+%\end{tikzpicture}
+
+\end{question}
+
+\begin{solution}
+
+\end{solution}
+
+%% META-INFORMATION
+%% \extype{mchoice}
+%% \exsolution{\Sexpr{mchoice2string(results, single = FALSE)}}
+%% \exname{SampleSpaces}

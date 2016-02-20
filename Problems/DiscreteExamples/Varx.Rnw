@@ -27,7 +27,7 @@ results <- c(whatscorrect[1]==1, whatscorrect[2]==1, whatscorrect[3]==1, whatsco
 @
 
 \begin{question}
-You may in an exam be asked to find $Var(X)$ as a function of $E[X]$ and $E[X^2]$.    You may also be asked to explain why this result is a special case of Jensen's inequality.
+You may in an exam be asked to find $Var(X)$ as a function of $E(X)$ and $E(X^2)$.    You may also be asked to explain why this result is a special case of Jensen's inequality.
 
 
 As before, someone has tried to remember this using rote learning, and made a mistake writing it out.   Which line below has an error?

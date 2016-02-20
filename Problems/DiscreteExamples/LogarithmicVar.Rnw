@@ -37,34 +37,34 @@ Find $Var(X)$
 First find
 
 \begin{align*}
-E[X^2]  &= \sum_{x=1}^{\infty} x^2 f(x)\\
-&=  c \sum_{x=1}^{\infty} x p^x \\
+E[X^2]  &= \sum_{k=1}^{\infty} k^2 f(k)\\
+&=  c \sum_{k=1}^{\infty} k p^k \\
 \end{align*}
 
 Not as nice as before, but we can differentiate both sides of the standard geometric result w.r.t. p
 
 \begin{align*}
-\sum_{x=0}^{\infty} p^x = \frac{1}{1-p} \\
-\sum_{x=0}^{\infty} x p^{x-1} = \frac{1}{(1-p)^2} \\
+\sum_{k=0}^{\infty} p^k = \frac{1}{1-p} \\
+\sum_{k=0}^{\infty} k p^{k-1} = \frac{1}{(1-p)^2} \\
 \end{align*}
 
 Now with a little pattern matching.
 
 \begin{displaymath}
-\sum_{x=1}^{\infty} x p^x = p \sum_{x=1}^{\infty} xp^{x-1} = \frac{p}{(1-p)^2}
+\sum_{k=1}^{\infty} k p^k = p \sum_{k=1}^{\infty} kp^{k-1} = \frac{p}{(1-p)^2}
 \end{displaymath}
 
 Hence
 
 \begin{displaymath}
-c \sum_{x=1}^\infty xp^{x} = cp \sum_{x=1}^\infty xp^{x-1} =  \frac{cp}{(1-p)^2}
+c \sum_{k=1}^\infty kp^{k} = cp \sum_{k=1}^\infty kp^{k-1} =  \frac{cp}{(1-p)^2}
 \end{displaymath}
 
 
 So we just need
 
 \begin{displaymath}
-Var(X) = E[X^2] - E[X]^2 = \frac{cp}{(1-p)^2} - \frac{c^2p^2}{(1-p)^2} = \frac{cp(1-cp)}{(1-p)^2}
+Var(X) = E(X^2) - E(X)^2 = \frac{cp}{(1-p)^2} - \frac{c^2p^2}{(1-p)^2} = \frac{cp(1-cp)}{(1-p)^2}
 \end{displaymath}
 
 

@@ -5,7 +5,7 @@
 \usepackage{amsmath,amssymb,amsfonts,graphics,hyperref,color,setspace,synttree,keystroke}
 \usepackage{calculator}
 \usepackage{longtable}
-
+\everymath{\displaystyle}
 \usepackage{longtable}
 \usepackage{a4wide,color,Sweave,url,verbatim,xargs,longtable}
 \usepackage{tikz}
@@ -13,7 +13,7 @@
 \newenvironment{solution}{\comment}{\endcomment}
 \newenvironment{answerlist}{\renewcommand{\labelenumi}{(\alph{enumi})}\begin{enumerate}}{\end{enumerate}}
 \newtheorem{df}{Definition}[section]
-
+\newtheorem{tm}{Theorem}[section]
 \begin{document}
 \sffamily
 \onehalfspacing
@@ -310,11 +310,7 @@ Distributivity:
 \end{itemize}
 
 
-And De Morgan's laws say:
-\begin{itemize}
-\item $(A \cup B)^C = A^C \cap B^C$
-\item $(A \cap B)^C = A^C \cup B^C$
-\end{itemize}
+
 
 
 
@@ -324,11 +320,11 @@ This material will get covered more formally in a pure maths course, hopefully w
 
 \section{Problems}
 \begin{enumerate}
-\input{Problems/dummy2/Set1_BasicSets.tex}
 \input{Problems/dummy2/Set1_SampleSpaces.tex}
 \input{Problems/dummy2/Set1_CoinTossing.tex}
-%\input{Problems/dummy1/Set1_Venns1.tex}
-%\input{Problems/dummy1/Set1_Venns2.tex}
+%\input{Problems/dummy2/Set1_Venns1.tex}
+%\input{Problems/dummy2/Set1_Venns2.tex}
+\input{Problems/dummy2/Set1_DeMorgan.tex}
 \end{enumerate}
 
 
@@ -371,7 +367,9 @@ Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denot
 \end{itemize}
 
 
-
+\begin{enumerate}
+\input{Problems/dummy3/Set1_ValidProb.tex}
+\end{enumerate}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -384,22 +382,33 @@ We've spent a lot of time looking at dice and coins.   If we have $i=1,2,3$ die,
 
 For more in depth information see Blitzstein Section 1.4.
 
- 
-\fbox{\begin{minipage}[c]{1.0\textwidth}
-Nice proof in Baklawski of multiplication rule
-\end{minipage}
-}
 
+\section{First Rule of Counting}
+
+We wish to set out the principles as generally as possible, in order that we can apply them beyond the ``standard formulae''.
 
 \subsubsection{N-tuple}
 
-So, broadening the problem a little, so that we don't have all $r$ objects with the same size $n$.
+Consider that we have $k$ objects with size  $n_i$, $i=1, \dots k$.
 
 \begin{df}
 An N-tuple is a finite ordered set with an unspecified number of members
 \end{df}
 
-For example, a 5-tuple is an ordered set with 5 members.
+A specific example would be a 5-tuple which is an ordered set with 5 members.   How many ways can we form such a Tuple?
+
+\begin{tm}
+If a task consists of $k$ separate tasks, the $i$th of which can be done in $n_i$ ways $i=1,\ldots,k$ then the entire job can be done in $n_1 \times n_2 \times \cdots \times n_k$ ways
+\end{tm}
+
+\fbox{
+\begin{minipage}[c]{0.9\textwidth}
+Proof for $k=2$.   If the first task can be done in $n_1$ ways, then for each of these ways we have $n_2$ choices for the second task.   Thus we can do the job in 
+
+$\underbrace{(1 \times n_2) + (1 \times n_2) + \dots + (1 + n_2)}_{n_1 \mbox{ terms }} = n_1 \times n_2$
+\end{minipage}
+}
+
 
 Suppose that each outcome (i.e., element) of $A$ takes the form of an n-dimensional vector (or n-tuple) such as ($a_1, a_2, \ldots a_n$).   If there are $N_1$ objects that can be used for $a_1$, and $N_2$ for $a_2$ then:
 
@@ -409,7 +418,7 @@ n(A) = N_1N_2 \ldots N_n
 assuming that sets $A_1, A_2, \ldots A_k$ have respectively $n_1, n_2, \ldots, n_k$ different ways in which one can first take an element of $A_1$, then an element of $A_2$ and so on.
 
 
-So for our factory problem, we have $N_1 = 15$, $N_2=8$ and $N_3=4$, with $15 \times 8 \times 4 = 480$.  This is rather an intuitive result, but it seems too convenient to be true that we needed exactly one maintenance person, one production person and one supervisor.   
+Imagine a factory where you have $15$ electricians, $8$ machine operators and $4$ supervisors.   How many ways can you arrange a shift of three staff.  We have $N_1 = 15$, $N_2=8$ and $N_3=4$, with $15 \times 8 \times 4 = 480$.  This is rather an intuitive result, but it seems too convenient to be true that we needed exactly one maintenance person, one production person and one supervisor.   
 
 
 
@@ -441,8 +450,8 @@ Within each scenario, we consider two types of sampling:
 
 \begin{tabular}{lcc}
 & With replacement & Without replacement \\
-Ordered & $n^k$ & $\frac{n!}{(n-k)!}$ \\
-Unordered & $\binom{n+k-1}{k}$ & $\binom{n}{k}$
+Ordered & $n^k$ & $\frac{n!}{(n-k)!}$ \\[1.2ex]
+Unordered & $\binom{n+k-1}{k}$ & $\binom{n}{k}$\\[1.2ex]
 \end{tabular}
 
 Where $\binom{a}{b}$ denotes $\frac{a!}{b!(a-b)}$
@@ -461,8 +470,8 @@ Where $\binom{a}{b}$ denotes $\frac{a!}{b!(a-b)}$
 Given a population of $n$ distinct elements, we wish to count how many ways are there of creating $r$ ordered samples?   We can easily do both with and without replacement.
 
 \begin{itemize}
-\item[(i)] with replacement: $n^r$ (this is the fundamental theorem of counting)
-\item[(ii)] without replacement $n(n-1)(n-2)\ldots(n-r+1)$,  calculation reduces to: $\frac{n!}{(n-r)!}$ 
+\item[(i)] with replacement: $n^r$ (this is an immediate application of first rule of counting where $n_1=n_2=\cdots=n_k$)
+\item[(ii)] without replacement $n(n-1)(n-2)\ldots(n-r+1)$,  calculation reduces to: $\frac{n!}{(n-r)!}$ (this is also an application of the first rule of counting, but clearly the $n_2=n_1-1$ because of the lack of replacement)
 \end{itemize}
 
 \begin{eqnarray*}
@@ -483,9 +492,11 @@ Note, if we want to know all possible ways of arranging $n$ items we just need $
 
 \subsection{Unordered sets}
 
-Two sets are regarded as disjoint if and only if the properties of the membership are mutually exclusive.   
-A \emph{partition} is defined as a set of disjoint and exhaustive subclasses of a given class that is divided in such a way that each member of the given class is a member of exactly one such subclass.
+Recall that two sets are regarded as disjoint if and only if the properties of the membership are mutually exclusive.  
 
+\begin{df}
+A \emph{partition} is defined as a set of disjoint and exhaustive subclasses of a given class that is divided in such a way that each member of the given class is a member of exactly one such subclass.
+\end{df}
  
 
 \subsection{Without replacement}
@@ -620,14 +631,16 @@ Note we have walls between $1$ and $2$, between $2$ and $3$, then two entries in
 
 \section{Circular permutations}
 
-To be honest I've not seen a huge need for this in undergraduate statistics.   It is an important topic in other branches of mathematics.  As this is a probability course and you have all signed up to study either BSc Mathematics or BSc Mathematics with something, we're going to do some work on this topic.
-
-The key idea is one of redundancy.   
+This is an important topic in other branches of mathematics, and I've seen questions around this topic in a lot of online numeracy tests.  The key idea is one of redundancy.   
 
 \subsection{Clockwise and anti-clockwise order matters (tables)}
 
+We are going to consider permutations (the order matters) around a dinner table.   The clue to the problem is that there is only one way of looking at a dinner table (from the top).
+
+
 \begin{minipage}[t]{.45\textwidth}
 \textbf{Dinner party 1}
+
 \begin{tikzpicture}
 
 \def \n {4}
@@ -645,6 +658,7 @@ The key idea is one of redundancy.
 \end{minipage}%
 \begin{minipage}[t]{.45\textwidth}
 \textbf{Dinner party 2}
+
 \begin{tikzpicture}
 
 \def \n {4}
@@ -670,7 +684,9 @@ Hence, we can find the number of permutations using $(n-1)!$
 
 \subsection{Clockwise and anti-clockwise doesn't matter (necklaces)}
 
-We can look from the top or the bottom, in other words we need to apply the shepherd principle.
+An extension to the previous problems is where we regard clockwise and anti-clockwise positions as equivalent.   The conventional word problem involves a necklace, and the logic is that you can look at a necklace from either side.   
+
+These problems are a simple extension to the dinner table problems in that we only need apply the shepherd principle (divide by the number of ways we can look at the necklace).
 
 \begin{tikzpicture}
 
@@ -688,14 +704,24 @@ We can look from the top or the bottom, in other words we need to apply the shep
 }
 \end{tikzpicture}
 
-Is this equivalent to the previous representation?
+You have to consider whether this is equivalent to the previous representation if you were looking at the circular arrangement from the opposite side.   If so, the number of permutations is given by:
 
 $\frac{(n-1)!}{2!}$
 
 
 \subsection{Fusions}
 
-The Tony Blair problem.
+The general idea is that we have a simple restriction on the number of permutations we seek.   For example, if at a G7 summit we wanted to consider how many ways we can line up the seven world leaders such that George and Tony are standing next to each other.
+
+We split this into two problems
+\begin{itemize}
+\item Fuse together the object (George and Tony) as if one object, and work out how many ways there are of arranging the resulting objects (in this case there are six objects, so there are $6!$ permutations)
+\item Then multiply by the number of ways you can un-fuse the object.   There are $2!$ ways we can stand George and Tony next to each other
+\item There are therefore $6!2!$ ways in which we can arrange seven world leaders such that George and Tony are standing next to each other.
+\end{itemize}
+
+
+
 
 
 \section{Problems}
@@ -704,8 +730,18 @@ The Tony Blair problem.
 \input{Problems/dummy4/Comb1_CommitteeGender.tex}
 \input{Problems/dummy4/Comb1_Committee.tex}
 \input{Problems/dummy4/Comb1_Lottery.tex}
+\input{Problems/dummy4/Comb1_AngelinaJolie.tex}
+\input{Problems/dummy4/Comb1_AngelinaJolie2.tex}
+\input{Problems/dummy4/Comb1_AngelinaJolie3.tex}
+\input{Problems/dummy4/Comb1_AngelinaJolie4.tex}
 \end{enumerate}
 
+
+Using the counting rules in probability (naive definition)
+
+\begin{enumerate}
+\input{Problems/dummy3/Naive_family.tex}
+\end{enumerate}
 
 \chapter{A non-naive definition of probability}
 
@@ -789,6 +825,9 @@ You can verify this; draw the Venn Diagram.   If we merely added $p[A]$ to $p[B]
 \input{Problems/dummy5/Set1_AdditionRule.tex}
 \input{Problems/dummy5/Set1_LoadedDie.tex}
 \input{Problems/dummy5/Set1_Options.tex}
+\input{Problems/dummy5/Set1_BasicSets.tex}
+\input{Problems/dummy5/Set1_WhichTyre1.tex}
+\input{Problems/dummy5/Set1_WhichTyre2.tex}
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%
@@ -803,6 +842,7 @@ We wish to find out how we update probability (or belief!!!!) in the presence of
 \begin{itemize}
 \item To examine conditional probability
 \item To define the term ``independence'' a little more precisely
+\item To state the law of total probability
 \item To state Bayes Theorem
 \end{itemize}
 
@@ -882,7 +922,7 @@ p[\mbox{Student will pass course} | \mbox{Student attends lectures}]
 
  
 
-You have previously examined the situation where we could examine $A$ (the event that the student attends lectures, the circle on the left), $B$ (the event that the student passes, the circle on the right) as well as the intersection.   We could draw a Venn diagram something like the one below:
+You have previously examined the situation where we could examine $A$ (the event that the student attends passes, the circle on the left), $B$ (the event that the student attends, the circle on the right) as well as the intersection.   We could draw a Venn diagram something like the one below:
 
 
 \def\firstcircle{(0,0) circle (1.5cm)}
@@ -897,29 +937,24 @@ You have previously examined the situation where we could examine $A$ (the event
 \setlength{\parskip}{5mm}
 % Set A and B
 \begin{tikzpicture}
-\begin{scope}
+\begin{scope}[fill opacity=0.5]
         \clip \secondcircle;
-        \draw[filled, even odd rule] \firstcircle
+        \draw[outline, even odd rule] \firstcircle
                                      \secondcircle node {$B$};
+    \fill[red] \secondcircle;
     \end{scope}
     \draw[outline] \firstcircle node {$A$}
                    \secondcircle;
-    \node[anchor=south] at (current bounding box.north) {$B - A$};
+    \node[anchor=south] at (current bounding box.north) {$B \cap A$};
 \end{tikzpicture}    
 
 
 %\includegraphics[width = 0.3\textwidth]{venn1}
 
+However, once we know that the student has indeed attended lectures, the information we have on the problem changes the question.   We are no longer interested in $B^C$, as we know the student attended.   Hence, we {\color{green}\emph{condition}} our interest on $B$
 
-However, once we know that the student has indeed attended lectures, the information we have on the problem changes the question.   We are no longer interested in $A^C$, as we know the student attended.   Hence, we {\color{green}\emph{condition}} our interest on $A$
 
-\begin{tiny}
-Please ignore the fact that this diagram seems to show rather a lot of probability associated with the event that the student passes when he doesn't attend lectures - this is only a simple illustration;-)
-\end{tiny}
-
- 
-
-A reduced diagram would look like the following.   We therefore want to know the probability of the student passing, given that we know he attended lectures.
+We therefore want to know the probability of the student passing, given that we know (s)he attended lectures.
 
 %\includegraphics[width = 0.3\textwidth]{venns}
 
@@ -941,8 +976,6 @@ In frequency terms, this expression can be thought of as:
 \frac{\mbox{Number of experiments in which both A and B occurred}}{\mbox{Number of experiments in which B occurred}}
 \end{displaymath}
 
-
-Strictly speaking, all probability is conditional.   Earlier in the course we could have referred to $p(A)$ as $p(A|\Omega)$.
 
 
  
@@ -984,12 +1017,12 @@ But let's really have some fun with our main definition:
 
 
 %But we have an additional theorem that is specific to conditional probability and quite useful:
-%\begin{df}
-%For any pair of events $A$ and $B$, where $p[B] > 0$:
+\begin{df}
+For any pair of events $A$ and $B$, where $p[B] > 0$:
 \begin{displaymath}
 p[A|B] = \frac{p[A \cap B]}{p[B]}
 \end{displaymath}
-%\end{df}
+\end{df}
 
 
  
@@ -1057,8 +1090,8 @@ It's becoming obvious I think where this is going.   Look at the effect of addin
 
 \begin{tabular}{rrrr}
  & Disease & No disease & Total \\
-Test positive 95 & 99,990 & 100,085 \\
-Test negative 5 & 899,910 & 899,915 \\
+Test positive & 95 & 99,990 & 100,085 \\
+Test negative & 5 & 899,910 & 899,915 \\
 Total & 100 & 999,900 & 1,000,000
 \end{tabular}
 
@@ -1073,6 +1106,10 @@ Hopefully this explains the concept (Psychologists sometimes call this Baseline 
 
 The only problem with the derivation given is that I've been a bit glib about where $p[B]$ came from.   Now we only know that one of several possible events $A_1$,$A_2$, $\ldots$ has occured (there may be infinitely many of these alternatives).
 
+\begin{df}[The Law of Total Probability]
+
+(We will illustrate this with a Venn diagram in the lecture)
+
 If
 \begin{itemize}
 \item $A_i$ $i \geq 1$ are pairwise disjoint
@@ -1084,7 +1121,7 @@ then
 p(B)=p(B|A_1)P(A_1) + p(B|A_2)p(A_2) + \cdots
 \end{displaymath}
 
-
+\end{df}
 
  
 \subsection{Bayes Theorem}
@@ -1114,15 +1151,17 @@ Where Bayes theorem starts to get interesting is when we no longer use simple pr
 \section{Problems}
 
 \begin{enumerate}
+\input{Problems/dummy6/Cond1_ThreeUrnsRed.tex}
+\input{Problems/dummy6/Cond1_LifeTables.tex}
+\input{Problems/dummy6/Cond1_LifeTables2.tex}
+\input{Problems/dummy6/Cond1_LifeTables3.tex}
 \input{Problems/dummy6/Cond1_BayesRuleProof.tex}
 \input{Problems/dummy6/Cond1_BonzoFonzoGonzo.tex}
 \input{Problems/dummy6/Cond1_IoA1.tex}
 \input{Problems/dummy6/Cond1_IoA2.tex}
-\input{Problems/dummy6/Cond1_ThreeUrnsRed.tex}
+
 \input{Problems/dummy6/Cond1_ThreeUrnsGreen(Conditional).tex}
-\input{Problems/dummy6/Cond1_LifeTables.tex}
-\input{Problems/dummy6/Cond1_LifeTables2.tex}
-\input{Problems/dummy6/Cond1_LifeTables3.tex}
+
 \end{enumerate}
 
 
@@ -1185,16 +1224,16 @@ This chapter concentrates on discrete random variables.
 Having carried out some experiment, we know the particular outcome $\omega \in \Omega$, and can assign a value to $X(\omega)$.   We wish to assign some measure of probability to this eventually, and can do this either using a mass function:
 
 \begin{itemize}
-\item $f(x)$=probability that $X$ is equal to $x$
+\item $p(k)$=probability that $X$ is equal to $k$ where $k \in \mathbb{Z}$
 \end{itemize}
 
 or more usefully through a distribution function:
 
 \begin{itemize}
-\item $F(x)$=probability that $X$ does not exceed $x$
+\item $F(k)$=probability that $X$ does not exceed $x$ where $x \in \mathbb{R}$
 \end{itemize}
 
-Do note the convention $f(x)$ and $F(x)$.
+Do note the convention $p(k)$ and $F(x)$.
 
 
 \fbox{
@@ -1202,8 +1241,8 @@ Do note the convention $f(x)$ and $F(x)$.
 \textbf{Vital notation}
 \begin{itemize}
 \item[] $X$ (upper case) a random variable
-\item[] $x$ (lower case) a realization of a random variable
-\item[] $f(x)$ Probability Mass Function $P(X=x)$
+\item[] $k$ (lower case) a realization of a random variable
+\item[] $p(k)$ Probability Mass Function $P(X=k)$
 \item[] $F(x)$ Cumulative Distribution Function $P(X \leq x)$
 \end{itemize}
 \end{minipage}
@@ -1217,17 +1256,16 @@ So far our discussion has been in terms of discrete variables.   It seems approp
 \subsection{Discrete random variables}
 
 
-A frequentist interpretation would suggest that a random variable (usually denoted by a capital letter) is a numerical
-variable ``defined'' by the outcome of a random experiment.   Even the experiment hasn't happened, we evaluate relative to some sense of a long run of experimental outcomes.   
-We are
-interested in knowing something about random variables (the outcome) $X=x$
-and the probability $p[X=x]$associated with that event.
+A frequentist interpretation would suggest that a random variable (usually denoted by a capital letter) is a numerical variable ``defined'' by the outcome of a random experiment.   Even the experiment hasn't happened, we evaluate relative to some sense of a long run of experimental outcomes.   
+
+
+We are interested in knowing something about the event that a random variables $X$ took on a particular value $k$ i.e  $A: \left\{ X=k \right\}$ and the probability $P[X=k]$ associated with that event.
 
 \begin{df}
 A \emph{discrete} random variable is a real valued function defined on the
 sample space $\Omega$.  For such discrete random variables $X$, then
-$F_X(x)$ will have a finitely or infinitely countable range,
-$\Omega_x=x_1, x_2, \ldots$.
+$F_X(k)$ will have a finitely or infinitely countable range,
+$\Omega_X: \left\{ k_1, k_2, \ldots \right\}$.
 \end{df}
 
 
@@ -1239,7 +1277,7 @@ infinite with two examples:
 from work are noted in employees records.   An experiment consists of
 randomly drawing a record to see the number of days absent during a
 year.   The random variable $X$ can be defined as the number of days
-absent, hence $\Omega_X=0,1,2,\ldots,250$.  
+absent, hence $\Omega_X: \left\{ 0,1,2,\ldots,250 \right\}$.  
 
 \item A Geiger counter is connected to a gas tube in order to record the
 background radiation count for a selected time interval $[0,t)$ (where
@@ -1257,11 +1295,11 @@ that is $p[X=3]$.
 \subsection{The mass function}
 
 \begin{itemize}
-\item The function given by $f(x) = P(X=x)$ for each $x$ within the range of $X$ is called the \emph{probability mass} of $X$
-\item A function can serve as the probability mass function of a discrete random variable $x$ if and only if its values $f(x)$ satisfy
+\item The function given by $p(k) = P(X=k)$ for each $k$ within the range of $X$ is called the \emph{probability mass} of $X$
+\item A function can serve as the probability mass function of a discrete random variable $X$ if and only if its values $f(k)$ satisfy
 \begin{itemize}
-\item[(i)] $f(x) \geq 0$ for each value within its domain
-\item[(ii)] $\sum_{x} f(x) = 1$ where the summation extends over all values in its domain
+\item[(i)] $f(k) \geq 0$ for each value within its domain
+\item[(ii)] $\sum_{k \in \Omega} f(k) = 1$ where the summation extends over all values in its domain
 \end{itemize}
 \end{itemize}
 
@@ -1276,9 +1314,9 @@ that is $p[X=3]$.
 \item If $X$ is a discrete r.v., the function given by 
 
 \begin{displaymath}
-F(X) = P(X \leq x) = \sum_{t \leq x} f(t)\mbox{ for }-\infty < x < \infty
+F(X) = P(X \leq x) = \sum_{k \leq x} p(k)\mbox{ for }-\infty < k < \infty
 \end{displaymath}
-where $f(t)$ is the value of the probability distribution of $X$ at $t$.
+where $p(k)$ is the value of the probability distribution of $X$ at $k$.
 \item $F(x)$ is called the \emph{distribution function} or \emph{cumulative distribution} of $X$
 \item The values $F(x)$ of the discrete function of a discrete r.v. $X$ satisfy the conditions:
 \begin{itemize}
@@ -1295,13 +1333,14 @@ where $f(t)$ is the value of the probability distribution of $X$ at $t$.
 
 
 \begin{itemize}
-\item If the range of a random variable $X$ consists of the values $x_{1} < x_{2} < x_{3} < \cdots < x_{n}$ then:
+\item If the range of a random variable $X$ consists of the values $k_{1} < k_{2} < k_{3} < \cdots < k_{n}$ then:
 \begin{itemize}
-\item $f(x_{1}) = F(x_{1})$
-\item $f(x_{i}) = F(x_{i}) - F(x_{i-1})$ for $i=2, \ldots, n$
+\item $f(k_{1}) = F(k_{1})$
+\item $f(k_{i}) = F(k_{i}) - F(k_{i-1})$ for $i=2, \ldots, n$
 \end{itemize}
 \end{itemize}
 
+(Note here that we are substituting the specific value $k_1$ for $x$ in the general expression $F(x)$)
 
 
 
@@ -1327,26 +1366,24 @@ I_A(\omega) =\left\{ \begin{array}{lrl} 1 & \mbox{ if } & \omega \in A \\ 0 & \m
 
 
 
-\subsubsection{Empirical distribution function}
+%\subsubsection{Empirical distribution function}
 
-The next set of slides will consider various well studied mathematical functions that provide a model for the way random variables behave.   But it is worth noting the existence of an ``empirical distribution function''.  For example, the Human Resources department of a business with 197 employees examined sickness records.   It summarised the length of time each employee was absent as follows:
+%The next set of slides will consider various well studied mathematical functions that provide a model for the way random variables behave.   But it is worth noting the existence of an ``empirical distribution function''.  For example, the Human Resources department of a business with 197 employees examined sickness records.   It summarised the length of time each employee was absent as follows:
 
-\begin{tabular}{lr}
-0 days absence & 100 staff \\
-1 days absence & 80 staff \\
-2 days absence & 10 staff \\
-3 days absence & 2 staff \\
-4 days absence & 0 staff \\
-5 days absence & 5 staff \\
-6 or more days absence & 0 staff
-\end{tabular}
+%\begin{tabular}{lr}
+%0 days absence & 100 staff \\
+%1 days absence & 80 staff \\
+%2 days absence & 10 staff \\
+%3 days absence & 2 staff \\
+%4 days absence & 0 staff \\
+%5 days absence & 5 staff \\
+%6 or more days absence & 0 staff
+%\end{tabular}
 
-We have an ``empirical distribution'' that for example suggests \\
-$p[\mbox{Staff taking 2 days absence in 1 year}] = \frac{10}{197}$.   
+%We have an ``empirical distribution'' that for example suggests \\
+%$p[\mbox{Staff taking 2 days absence in 1 year}] = \frac{10}{197}$.   
 
-We may or may not wish to fit some kind of mathematical model to this, but there are number of applications where we could work with this empirical distribution directly as it is here.   We will not consider the role of the empirical density function any further, and note it here only so that we have met the terminology.
-
-
+%We may or may not wish to fit some kind of mathematical model to this, but there are number of applications where we could work with this empirical distribution directly as it is here.   We will not consider the role of the empirical density function any further, and note it here only so that we have met the terminology.
 
 
 
@@ -1362,7 +1399,7 @@ follows:
 
 \begin{df}
 \begin{displaymath}
-E[X] = \sum_{x \in \Omega_x} x\ p[X=x]
+E(X) = \sum_{k \in \Omega_X} k\ P(X=k)
 \end{displaymath}
 \end{df}
 
@@ -1378,37 +1415,37 @@ TH & $1$ & $1/4$ \\
 TT & $2$ & $1/4$ 
 \end{tabular}
 
-So the pmf ($Pr[X=x]$) reduces to 
+So the p.m.f. $Pr(X=k)$ reduces to 
+
 \begin{displaymath}
-\left\{ \begin{array}{rrr} 1/4 & \mbox{ if } & X=0 \\
+P(X=k) = \left\{ \begin{array}{rrr} 1/4 & \mbox{ if } & X=0 \\
 1/2 & \mbox{ if } & X=1 \\ 1/4 & \mbox{ if } & X = 2 \end{array} \right.
 \end{displaymath}
 
 Now use this to calculate the expected value:
 
 \begin{tabular}{rrr}
-$X$ & $f(x)$ & $x \times f(x)$ \\
+$k$ & $p(k)$ & $k \times f(k)$ \\
 \hline
 $0$ & $1/4$ & $0$ \\
 $1$ & $1/2$ & $1/2$ \\
 $2$ & $1/4$ & $1/2$ \\
 \hline
- & $\sum x\ f(x)$ & $1$
+ & $\sum k\times p(k)$ & $1$
 \end{tabular}
 
-So here $E[X]=1$
+So here $E(X)=1$
 
 
 \subsection{Expectation of a function of a discrete random variable}
 
-
-Now we need to consider the expected value of a function of $X$, quite often this will be as simple as $g(X) = X^2$.
+Blitzstein refers to this as the Law Of The Unconcious Statistician (LOTUS).   Although this is lovely and simple, it's not obvious why it should be valid.
+  Now we need to consider the expected value of a function of $X$, quite often this will be as simple as $g(X) = X^2$.
 
 \begin{df}
-$E[g(X)] = \sum_{x \in \Omega} g(x) Pr[X=x]$
+$E\big( g(X) \big) = \sum_{k \in \Omega} g(k) Pr[X=k]$
 \end{df}
 
-(although this is lovely and simple, it's never been obvious to me why it should be valid)
 
 
 
@@ -1422,39 +1459,31 @@ To conclude, our definition of expectation is given as follows:
 \begin{df}
 The expected value of a discrete random variable ({\color{red} and the expected value of a \emph{function} of a random variable}) as follows:
 \begin{itemize}
-\item $E(x) = \sum_{x} x f(x)$
-\item {\color{red}$E[g(x)] = \sum_{x} g(x) f(x)$}
+\item $E(X) = \sum_{k \in \Omega_X} k p(k)$
+\item {\color{red}$E\big( g(X) \big) = \sum_{x \in \Omega_X} g(k) p(k)$}
 \end{itemize}
 \end{df}
-
-This is useful in a number of ways, so useful we will look at it all
-again next week.   But for the moment we shall worry about only one
-particular function $g(x)=x^2$, as this lets us work with the variance.
-
-
-
-
 
 
 \section{Variance}
 
-We will re-examine this point later, but the variance of a random
+The variance of a random
 variable $X$ is defined as:
 
 
 \begin{df}
 \begin{displaymath}
-V[X] = E[(X-E[X])^2]
+V (X) = E \big( (X-E[X])^2 \big)
 \end{displaymath}
 \end{df}
 
 A little bit of algebra also tells us that:
 
 \begin{eqnarray*}
-V[X] &=& E[(X-E[X])^2]\\
- &=& E\left[ (X^2)-2X(E[X]) + (E[X])^2 \right]\\
- &=& E[X^2] - 2(E[X])^2 + (E[X])^2\\
- &=& E[X^2] - (E[X])^2
+V(X) &=& E \big( (X-E[X])^2 \big) \\
+ &=& E\big( (X^2)-2X(E[X]) + (E[X])^2 \big) \\
+ &=& E(X^2) - 2(E[X])^2 + (E[X])^2\\
+ &=& E(X^2) - \big(E(X)\big)^2
 \end{eqnarray*}
 
 which can be a useful thing to know.   This can be illustrated with an example:
@@ -1463,12 +1492,12 @@ which can be a useful thing to know.   This can be illustrated with an example:
 \subsection{Some properties of Expectation}
 
 
-Some properties of expectations are given without comment.
+Some properties of expectations are given below; proofs will be given in class.
 
 \begin{eqnarray*}
-E[cX] &=& cE[X]\\
-E[X + c] &=& E[X] + c\\
-E[X+Y] &=& E[X] + E[Y]\\
+E(cX) &=& cE(X)\\
+E(X + c) &=& E(X) + c\\
+E(X+Y) &=& E(X) + E(Y)\\
 \end{eqnarray*}
 
 It can be seen for example that the expectation is a nice linear
@@ -1486,7 +1515,10 @@ Also, note that $Var(X+Y) = Var(X) + Var(Y)$ iff the two variables are \emph{ind
 \section{Problems}
 
 \begin{enumerate}
-\input{Problems/dummy7/DiscreteExamples_Varx.tex}
+\input{Problems/dummy8/DiscreteExamples_Varx.tex}
+\input{Problems/dummy8/Exp_RiggedDie.tex}
+\input{Problems/dummy8/Exp_JamesBond.tex}
+\input{Problems/dummy8/Exp_Forecourt.tex}
 \end{enumerate}
 
 
@@ -1531,39 +1563,40 @@ if we have a stable production process the probability of selecting a
 defective item might be Bernoulli.   Can you suggest some other examples?
 
 
-If we denote the parameter by $pi$, we have:
+If we denote the parameter by $p$ where $0 < p < 1$, we have:
 
 \begin{displaymath}
-\left\{ \begin{array}{rrl} p[Z=1] & =& p\\
-p[Z=0] & =& 1-p
+P(Z=k) = \left\{ \begin{array}{rrl} $p$ & & \mbox{ if } Z = 1\\
+1-p & & \mbox{ if } Z=0 \\
+0 & & \mbox{ otherwise}
 \end{array} \right.
 \end{displaymath}
 
-We can simply check that $\sum_{x=0}^1 Pr[X=i] = 1$ as we have $p$ = $1-p=1$.
+We can simply check that $\sum_{k=0}^1 Pr[X=k] = 1$ as we have $p + (1-p)=1$.
 
-The mean of $Z$ i.e. $E[Z]$ is found as: 
+The mean of $Z$ i.e. $E(Z)$ is found as: 
 \begin{displaymath}
 1 \times p + 0 \times (1-p) = p
 \end{displaymath}
 
 To find the variance, we first need 
 \begin{displaymath}
-E[Z^2] = 1^2 \times p + 0^2 \times 1-p = p
+E(Z^2) = 1^2 \times p + 0^2 \times 1-p = p
 \end{displaymath}, so 
 
 \begin{displaymath}
-E[Z^2]-E[Z]^2 = p - p^2 = p(1 - p).
+V(Z) = E(Z^2)-E(Z)^2 = p - p^2 = p(1 - p).
 \end{displaymath}
 
 
 \subsection{Indicator random variables}
 
-Note that the probability that an event $A$ happens, i.e. $P[A]=p$ is the same as the expectation $E[Z]$.
+Note that the probability that an event $A$ happens, i.e. $P(A)=p$ is the same as the expectation $E[Z]$.
 
 So note that in this indicator variable example we have a link where:
 
 \begin{displaymath}
-E[Z] = P[A]
+E(Z) = P(A)
 \end{displaymath}
 
 Demonstrating a close relationship between expectation and probability.
@@ -1579,16 +1612,16 @@ random variables $Z_1, Z_2, \ldots, Z_n$ (all taking on values 1 or
 denotes the number of \emph{successes} amongst the $n$ Bernoulli
 trials.
 
-We could alternatively just think of it as the number of \emph{successes} in $n$ trials and forget the Bernoulli link.
+We could alternatively just think of it as the number of \emph{successes} in $n$ trials and forget the Bernoulli story.
 
 This value has a formula as follows:
 
 \begin{displaymath}
-f(x) = p[X=x] = {n \choose x} p^x (1-p)^{n-x} \mbox{ for }
-x=0,1,2,\ldots,n
+f(k) = p[X=k] = \left\{  \begin{array}{crr}  {n \choose k} p^k (1-p)^{n-k} & &  \mbox{ for }
+k=0,1,2,\ldots,n \\
+0 & & \mbox{ otherwise.} \end{array} \right.
 \end{displaymath}
 
-\newpage
 
 Let's think a little about why.   Assuming that $P[Success]=p$ and $P[Failure] = (1-p) = q$, consider the probability of the following event:
 
@@ -1597,12 +1630,12 @@ F & S & F & F & S & S \\
 q & p & q & q & p & p \\
 \end{tabular}
 
-As the individual events are independent, we can just multiply the probabilities and so we have $q \times p \times q \times q \times p \times p = p^3q^3$.   Or if we said we had $n$ trials and $x$ successes, with $n-x$ failures we have $p^xq^{(n-x)}$.
+As the individual events are independent, we can just multiply the probabilities and so we have $q \times p \times q \times q \times p \times p = p^3q^3$.   Or if we said we had $n$ trials and $k$ successes, with $n-k$ failures we have $p^k  q^{(n-k)}$.
 
-The only problem here is that this is the probability of getting that particular ordering of Failures and Successes.   We could have got 3 successes from (S, S, S, F, F, F), or a number of other orderings.   How many orderings.   We did that already, it's $\binom{n}{x}$.   So, the probability of getting $x$ successes in $n$ trials is going to be:
+The only problem here is that this is the probability of getting that particular ordering of Failures and Successes.   We could have obtained 3 successes from (S, S, S, F, F, F), or a number of other orderings.   How many orderings.   We did that already, it's $\binom{n}{k}$.   So, the probability of getting $k$ successes in $n$ trials is going to be:
 
 \begin{displaymath}
-P[X=x] = \binom{n}{x}p^xq^{n-x}
+P[X=k] = \binom{n}{k}p^k q^{n-k}
 \end{displaymath}
 as required.
 
@@ -1611,33 +1644,37 @@ as required.
 We can check that this is non-negative.   What about summing to one.   Well:
 
 \begin{displaymath}
-\sum_{x=0}^n \binom{n}{x} p^xq^{n-x} = (p+q)^n
+\sum_{k=0}^n \binom{n}{k} p^k q^{n-k} = (p+q)^n
 \end{displaymath}
 by the Binomial theorem.  And for this particular problem, we know that $(p+q)=1$, so it is a pmf which obeys the second Kolmogorov Axiom.
 
 
-Find $E[X]$ the hard way:
+Find $E(X)$ the hard way:
 
 \begin{displaymath}
-E[X] = \sum_{x=0}^n x \binom{n}{x} p^xq^{n-x}
+E(X) = \sum_{k=0}^n k \binom{n}{k} p^k q^{n-k}
 \end{displaymath}
-The first term is $0$ at $x=0$ so start the summation at $x=1$ and use Committee Chairman trick to change the permutation counter:
+
+The first term is $0$ at $k=0$ so start the summation at $k=1$ and use Committee Chairman trick to change the permutation counter:
+
 \begin{displaymath}
-E[X] = \sum_{x=1}^n  n \binom{n-1}{x-1} p^xq^{n-x} 
+E(X) = \sum_{k=1}^n  n \binom{n-1}{k-1} p^k q^{n-k} 
 \end{displaymath}
+
 Now take that $n$ (and one $p$) outside the summation
+
 \begin{displaymath}
-E[X] = np \sum_{x=1}^n   \binom{n-1}{x-1} p^{x-1}q^{n-x}
+E(X) = np \sum_{k=1}^n   \binom{n-1}{k-1} p^{k-1}q^{n-k}
 \end{displaymath}
 
-Now just let $j=x-1$ (and $m=n-1$ if you worry about that sort of thing.   The term on the right becomes $1$ so we have
+Now just let $j=k-1$ (and $m=n-1$ if you worry about that sort of thing.   The term on the right becomes $1$ so we have
 \begin{displaymath}
-E[X] = 1
+E(X) = np
 \end{displaymath}
 
 
 
-Find $E[X]$ the easy way.
+Find $E(X)$ the easy way.
 
 We said it's the sum of $n$ iid Bernoulli r.v.s.   So by linearity:
 \begin{displaymath}
@@ -1645,7 +1682,7 @@ E[X] = E[Z_1 + Z_2 + \cdots + Z_n] = E[Z_1] + E[Z_2] + \cdots + E[Z_n]
 \end{displaymath}
 We said before $E[Z] = p$, so this is just $np$.   We can find $E[X^2]$ in the same way and hence confirm:
 
-\fbox{For $X \sim Binomial(n,p)$: $E[X] = np$ and $V[X]=npq$.}
+\fbox{For $X \sim Binomial(n,p)$: $E(X) = np$ and $V(X)=npq$.}
 
 
 Nowadays, it is pretty straightforward to compute these values, but
@@ -1655,18 +1692,19 @@ probabilities.
 \includegraphics{acrodocs/IntroProb3cDiscreteExamples-bin}
 \end{figure}
 
-
+\clearpage
 
 \subsection{The Geometric Distribution}
 
 {\color{green} By convention we write $X \sim Go(p)$} 
 
-We shall briefly consider the scenario whereby successive Bernoulli trials are continued until the first success occurs.   Let $X$ denote the number of trials up to but not including the first success.   This gives rise to what we call the Geometric distribution.
+We shall briefly consider the scenario whereby successive Bernoulli trials are continued until the first success occurs.   Let $X$ denote the number of trials up to but not including the first success.   This gives rise to what we call the Geometric distribution.   Note that $0 < p < 1$.
 
 \begin{df}
 For data assumed to follow the Geometric distribution, $X$ has a probability density function:
 \begin{displaymath}
-p[X=x] = (1-\pi)^{x}\pi; x=1,2,\ldots; 0 \leq p \leq 1
+P[X=k] = p(k) =  \left\{ \begin{array}{crr} (1-p)^{k}p; & & \mbox{ for } k=1,2,\ldots\\
+0 & & \mbox{ otherwise } \end{array} \right.
 \end{displaymath}
 \end{df}
 
@@ -1683,22 +1721,23 @@ There is clearly only one way in which we can obtain this set of events.
 It is clearly non-negative, to check it sums to one we need:
 
 \begin{displaymath}
-\sum_{x=0}^{\infty} pq^x = p \sum_{x=0}^{\infty} q^x
+\sum_{k=0}^{\infty} pq^k = p \sum_{k=0}^{\infty} q^k
 \end{displaymath}
-That term is a standard geometric series which we can write also as $\frac{1}{1-q}$.   So we have 
+That term to the right of the $p$ on the right hand side is a standard geometric series which we can write also as $\frac{1}{1-q}$.   So we have 
 
 
 \begin{displaymath}
-\sum_{x=0}^{\infty} pq^x = \frac{p}{1-q} = \frac{p}{p} = 1
+\sum_{k=0}^{\infty} pq^k = \frac{p}{1-q} = \frac{p}{p} = 1
 \end{displaymath}
 
 
 A little more work is needed to obtain the expectation.
 
 \begin{displaymath}
-E[X] = \sum_{x=0}^{\infty} x p q^x =  p \sum_{x=1}^{\infty} x q^x
+E(X) = \sum_{k=0}^{\infty} k p q^k =  p \sum_{k=1}^{\infty} k q^k
 \end{displaymath}
-Note the trick of removing $x=0$ as the sequence is zero at that point.   This looks a little, but not entirely like a geometric series.   Let's do some maninpulation.  On line 2 we have differentiated both sides, on row three we have multiplied both sides by $a$:
+
+Note the trick of removing $k=0$ as the sequence is zero at that point.   This looks a little, but not entirely like a geometric series.   Let's do some maninpulation.  On line 2 we have differentiated both sides, on row three we have multiplied both sides by $a$:
 
 \begin{eqnarray*}
 \sum_{b=0}^{\infty} a^b &=& \frac{1}{1-a} \\
@@ -1709,61 +1748,54 @@ Note the trick of removing $x=0$ as the sequence is zero at that point.   This l
 So this gives us the expression we need.
 
 \begin{displaymath}
- E[X] = p \sum_{x=1}^{\infty} x q^x = p \frac{q}{(1-q)^2} = \frac{pq}{p^2} = \frac{q}{p}
+ E(X) = p \sum_{k=1}^{\infty} k q^k = p \frac{q}{(1-q)^2} = \frac{pq}{p^2} = \frac{q}{p}
 \end{displaymath}
 
 
+  
+For example, if a salesperson wishes to calculate the probability that they will make their first successful sale of the day to the fifth customer, given that the probability of a sale $p=0.2$ is given by $P[X=5]=(1-0.2)^{5-1}0.2 = 0.08192$
 
-Note carefully.   You can also define the Geometric as the number number of trials, \emph{including} the first success.   In that case we have:
+Note carefully.   You can also define the Geometric as the number number of trials, \emph{up to but not including} the first success.   In that case we have:
 
 \begin{displaymath}
-P[X=x] = q^{x-1}p
+P(X=k) = q^{k-1}p
 \end{displaymath}
 
 and (no proof):
 
-\fbox{Note that $E[X] = \frac{1}{p}$ and $V[X]=\frac{1-p}{p^2}$.}
+\fbox{Note that $E(X) = \frac{1}{p}$ and $V(X)=\frac{1-p}{p^2}$.}
 
 
-
-  
-For example, if a salesperson wishes to calculate the probability that they will make their first successful sale of the day to the fifth customer, given that the probability of a sale $\pi=0.2$ is given by $p[X=5]=(1-0.2)^{5-1}0.2 = 0.08192$
-
-We can also define $X$ to be the number of trials preceding the first success, in which case the probability density function is given by:
-\begin{displaymath}
-p[X=x]=(1-p)^x p
-\end{displaymath}
-
-For example, a burglar want to know that he will get away with three ``jobs'' before he finally gets caught.  Assuming the probability of being caught (a success for the rest of us) is $\pi=0.6$ we have $p[X=3]=(1-0.6)^30.6=0.0384$
+For example, a burglar want to know that he will get away with three ``jobs'' before he finally gets caught.  Assuming the probability of being caught (a success for the rest of us) is $p=0.6$ we have $p[X=3]=(1-0.6)^30.6=0.0384$
 
 
 
 
-\section{The negative binomial distribution}
+%\section{The negative binomial distribution}
 
-{\color{green}By convention we would write $X \sim NB(r,p)$}
+%{\color{green}By convention we would write $X \sim NB(r,p)$}
 
-If we extend the previous idea so that we can continue the Bernoulli trials until the $r$th success, and denote $X$ as the number of such trials required, then $X$ has a negative binomial distribution.
-
-
-\begin{df}
-The negative binomial distribution is given by:
-\begin{displaymath}
-p[X=x]={x-1 \choose r-1} \pi^r (1-\pi)^{x-r}
-\end{displaymath}
-\end{df}
-
-\fbox{  Note that $E[X]=\frac{r}{p}$ and $V[X]=\frac{r(1-p)}{p^2}$}
+%If we extend the previous idea so that we can continue the Bernoulli trials until the $r$th success, and denote $X$ as the number of such trials required, then $X$ has a negative binomial distribution.
 
 
+%\begin{df}
+%The negative binomial distribution, with parameter $p; 0 < p < 1$ and size $n=1,\dots \infty$ is given by:
+%\begin{displaymath}
+%P(X=k) = \left\{ \begin{array}{crr} {k-1 \choose r-1} \pi^r (1-\pi)^{k-r} & & \mbox{ for } k = 0,1, \ldots N \\ 0 & & \mbox{ otherwise.} \end{array} \right.
+%\end{displaymath}
+%\end{df}
 
-Consider a country where the prime minister has an interesting private life   The probability that a person believes a rumour about this prime minister is $p=0.25$.  
+%\fbox{  Note that $E(X)=\frac{r}{p}$ and $V(X)=\frac{r(1-p)}{p^2}$}
 
 
-\begin{itemize} 
-\item What are the probabilities that the sixth person to hear the rumour will be the sixth to believe it: $p[X=6|r=6,p=0.25] = {(6-1) \choose (6-1)} 0.25^6 (1-0.25)^{6-6}$ which should equal $0.00024$
-\item What is the probability that the twelfth person to hear the rumour will be the fourth to believe it: $p[X=4|r=12,p=0.25] = {(12-1) \choose (4-1)} 0.25^4 (1-0.25)^{12-4}$ which should equal $0.065$
-\end{itemize}
+
+%Consider a country where the prime minister has an interesting private life   The probability that a person believes a rumour about this prime minister is $p=0.25$.  
+
+
+%\begin{itemize} 
+%\item What are the probabilities that the sixth person to hear the rumour will be the sixth to believe it: $p(X=6|n=6,p=0.25) = {(6-1) \choose (6-1)} 0.25^6 (1-0.25)^{6-6}$ which should equal $0.00024$
+%\item What is the probability that the twelfth person to hear the rumour will be the fourth to believe it: $p(X=4|n=12,p=0.25) = {(12-1) \choose (4-1)} 0.25^4 (1-0.25)^{12-4}$ which should equal $0.065$
+%\end{itemize}
 
 
 \section{The Hypergeometric distribution}
@@ -1794,9 +1826,9 @@ Showing that this is a valid p.m.f. - see tutorial sheets.
 The Poisson distribution is used to model events occurring at random in time, area, volume.
 
 \begin{df}
-The Poisson distribution, with parameter $\lambda$ is given as follows:
+The Poisson distribution, with parameter $\lambda: \left\{0 \leq \lambda \leq \infty \right\}$ is given as follows:
 \begin{displaymath}
-p[X=x] = \frac{\lambda^x e^{-\lambda}}{x!};x=0,1,2,\ldots; 0 \leq \lambda \leq \infty
+P(X=k) = \left\{ \begin{array}{crr} \frac{\lambda^k e^{-\lambda}}{k!}; & & \mbox{ if } k=0,1,2,\ldots; \\ 0 & & \mbox{otherwise.} \end{array} \right.
 \end{displaymath}
 \end{df}
 
@@ -1805,12 +1837,12 @@ p[X=x] = \frac{\lambda^x e^{-\lambda}}{x!};x=0,1,2,\ldots; 0 \leq \lambda \leq \
 You can check it's non-negative.   What about summing to one:
 
 \begin{displaymath}
-\sum_{x=0}^{\infty} \frac{e^{-\lambda}\lambda^x}{x!} = e^{-\lambda} \sum_{x=0}^{\infty} \frac{\lambda^x}{x!}
+\sum_{k=0}^{\infty} \frac{e^{-\lambda}\lambda^k}{k!} = e^{-\lambda} \sum_{k=0}^{\infty} \frac{\lambda^k}{k!}
 \end{displaymath}
 
 You should check that the right hand part here is the Taylor series for $e^{\lambda}$ so we have
 \begin{displaymath}
-\sum_{x=0}^{\infty} \frac{e^{-\lambda}\lambda^x}{x!} = e^{-\lambda}e^{\lambda} = 1
+\sum_{k=0}^{\infty} \frac{e^{-\lambda}\lambda^k}{k!} = e^{-\lambda}e^{\lambda} = 1
 \end{displaymath}
 
 
@@ -1818,25 +1850,25 @@ You should check that the right hand part here is the Taylor series for $e^{\lam
 A little bit more work is needed to find the expecation.
 
 \begin{displaymath}
-E[X] = \sum_{x=0}^{\infty} x \frac{e^{-\lambda}\lambda^x}{x!} = e^{-\lambda} \sum_{x=0}^{\infty} x \frac{\lambda^x}{x!}
+E(X) = \sum_{k=0}^{\infty} k \frac{e^{-\lambda}\lambda^k}{k!} = e^{-\lambda} \sum_{k=0}^{\infty} k \frac{\lambda^k}{k!}
 \end{displaymath}
 
-We can repeat our trick of starting the summation from $x=1$, and note that in $\frac{x}{x!}$ we can cancel one $x$ giving us $\frac{1}{(x-1)!}$
+We can repeat our trick of starting the summation from $k=1$, and note that in $\frac{k}{k!}$ we can cancel one $k$ giving us $\frac{1}{(k-1)!}$
 
 \begin{displaymath}
-E[X]  = e^{-\lambda} \sum_{x=1}^{\infty}  \frac{\lambda^x}{(x-1)!}
+E(X)  = e^{-\lambda} \sum_{k=1}^{\infty}  \frac{\lambda^k}{(k-1)!}
 \end{displaymath}
 
 We can also bring one $\lambda$ into the front of the sum
 
 \begin{displaymath}
-E[X]  = \lambda e^{-\lambda} \sum_{x=1}^{\infty}  \frac{\lambda^{(x-1)}}{(x-1)!}
+E(X)  = \lambda e^{-\lambda} \sum_{k=1}^{\infty}  \frac{\lambda^{(k-1)}}{(k-1)!}
 \end{displaymath}
 
 We can now do some change-of-variables: $j=k-1$ but you should be able to see where this is going.   The rightmost term is our Taylor series for $e^{\lambda}$ again.   So that:
 
 \begin{displaymath}
-E[X] = \lambda e^{-\lambda} e^{\lambda} = \lambda
+E(X) = \lambda e^{-\lambda} e^{\lambda} = \lambda
 \end{displaymath} 
 
 We will though find a much simpler way to get $Var(X)$
@@ -1844,15 +1876,14 @@ We will though find a much simpler way to get $Var(X)$
 
 
 
-\fbox{Summary: $E[X]=\lambda$ and $V[X]=\lambda$.}
+\fbox{Summary: $E(X)=\lambda$ and $V(X)=\lambda$.}
 
 
-
-The number of accidents on the Pasadena Freeway between 9am and 10am on a Sunday morning is a random variable, thought to follow a Poisson distribution with $\lambda = 7.3$.   Find the probability that there will be:
+Example. The number of accidents on the Pasadena Freeway between 9am and 10am on a Sunday morning is a random variable, thought to follow a Poisson distribution with $\lambda = 7.3$.   Find the probability that there will be:
 
 \begin{itemize}
-\item Exactly 6 accidents.\\ For this we need to find $p[X=6|\lambda=7.3]$ which is given by $ \frac{7.3^6e^{-7.3}}{6!} = 0.1420$
-\item Less than 4 accidents.\\ For this we need the distribution which is given by  $p[X < 4 |\lambda=7.3]$.   We find this by taking the following\\ $ p[X =0 |\lambda=7.3] + p[X = 1 |\lambda=7.3] + p[X =2  |\lambda=7.3] + p[X =3|\lambda=7.3]$.   This is given by calculating\\ $\frac{7.3^0e^{-7.3}}{0!} + \frac{7.3^1e^{-7.3}}{1!} + \frac{7.3^2e^{-7.3}}{2!} + \frac{7.3^3e^{-7.3}}{3!}$ which should give $0.0674$
+\item Exactly 6 accidents.\\ For this we need to find $P(X=6|\lambda=7.3)$ which is given by $ \frac{7.3^6e^{-7.3}}{6!} = 0.1420$
+\item Less than 4 accidents.\\ For this we need the distribution which is given by  $P(X < 4 |\lambda=7.3)$.   We find this by taking the following\\ $ P(X =0 |\lambda=7.3) + P(X = 1 |\lambda=7.3) + P(X =2  |\lambda=7.3) + P(X =3|\lambda=7.3)$.   This is given by calculating\\ $\frac{7.3^0e^{-7.3}}{0!} + \frac{7.3^1e^{-7.3}}{1!} + \frac{7.3^2e^{-7.3}}{2!} + \frac{7.3^3e^{-7.3}}{3!}$ which should give $0.0674$
 \end{itemize}
 
 
@@ -1866,15 +1897,18 @@ These are the most important examples of discrete probability functions (althoug
 \section{Problems}
 
 \begin{enumerate}
-\input{Problems/dummy7/DiscreteExamples_ValidPMF.tex}
-\input{Problems/dummy7/DiscreteExamples_Asthma.tex}
-\input{Problems/dummy7/DiscreteExamples_Cookies.tex}
-\input{Problems/dummy7/DiscreteExamples_RoadAccidents.tex}
-\input{Problems/dummy7/DiscreteExamples_HouseRepairs.tex}
-\input{Problems/dummy7/DiscreteExamples_GAM.tex}
-\input{Problems/dummy7/DiscreteExamples_GAM2.tex}
-\input{Problems/dummy7/DiscreteExamples_DiceRollingTillSuccess.tex}
-\input{Problems/dummy7/DiscreteExamples_StudentCallout.tex}
+\input{Problems/dummy9/DiscreteExamples_Asthma.tex}
+\input{Problems/dummy9/DiscreteExamples_Cookies.tex}
+\input{Problems/dummy9/DiscreteExamples_RoadAccidents.tex}
+\input{Problems/dummy9/DiscreteExamples_HouseRepairs.tex}
+\input{Problems/dummy9/DiscreteExamples_GAM.tex}
+\input{Problems/dummy9/DiscreteExamples_GAM2.tex}
+\input{Problems/dummy9/DiscreteExamples_DiceRollingTillSuccess.tex}
+\input{Problems/dummy9/DiscreteExamples_StudentCallout.tex}
+\input{Problems/dummy9/DiscreteExamples_LogarithmicConstant.tex}
+\input{Problems/dummy9/DiscreteExamples_LogarithmicEX.tex}
+\input{Problems/dummy9/DiscreteExamples_LogarithmicVar.tex}
+\input{Problems/dummy9/DiscreteExamples_LogarithmicCDF.tex}
 \end{enumerate}
 
 
@@ -2380,16 +2414,16 @@ There are some more detailed tables posted on the web.
 
 \section{Problems}
 
-\begin{enumerate}
-\input{Problems/dummy9/ContinuousExamples_FindF.tex}
-\input{Problems/dummy9/ContinuousExamples_StandardNormal.tex}
-\input{Problems/dummy9/ContinuousExamples_NonStandardNormal.tex}
-\input{Problems/dummy9/ContinuousExamples_CoffeeDispenser.tex}
-\input{Problems/dummy9/ContinuousExamples_ExpCDF.tex}
-\input{Problems/dummy9/ContinuousExamples_ExponentialConcept.tex}
-\input{Problems/dummy9/ContinuousExamples_ExpQuantile.tex}
-\input{Problems/dummy9/ContinuousExamples_BetaQuantile.tex}
-\end{enumerate}
+%\begin{enumerate}
+%\input{Problems/dummy9/ContinuousExamples_FindF.tex}
+%\input{Problems/dummy9/ContinuousExamples_StandardNormal.tex}
+%\input{Problems/dummy9/ContinuousExamples_NonStandardNormal.tex}
+%\input{Problems/dummy9/ContinuousExamples_CoffeeDispenser.tex}
+%\input{Problems/dummy9/ContinuousExamples_ExpCDF.tex}
+%\input{Problems/dummy9/ContinuousExamples_ExponentialConcept.tex}
+%\input{Problems/dummy9/ContinuousExamples_ExpQuantile.tex}
+%\input{Problems/dummy9/ContinuousExamples_BetaQuantile.tex}
+%\end{enumerate}
 
 \chapter{Moments}
 
