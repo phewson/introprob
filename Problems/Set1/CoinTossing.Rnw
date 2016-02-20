@@ -29,8 +29,12 @@ the following subsets of
 \end{enumerate}
 
 
+<<<<<<< HEAD
 For the computer you should assume that you are given the set:
 
+=======
+For the computer you should assume that you are given the set 
+>>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
 \begin{displaymath}
 E = \{\Sexpr{myquestion}\}.
 \end{displaymath}

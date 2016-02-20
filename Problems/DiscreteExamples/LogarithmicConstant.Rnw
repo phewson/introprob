@@ -38,7 +38,11 @@ Caution: For an exam question you could also be asked to SKETCH the c.d.f. (or t
 We need to find $\sum_{k=1}^{\infty} c \frac{p^k}{k} = 1$.  
 We know that $\frac{p^1}{1} + \frac{p^2}{2} + \cdots = -\log(1-p)$.   So we can write
 
+<<<<<<< HEAD
 $\sum_{k=1}^{\infty}  \frac{p^k}{k} = -\log(1-p)$
+=======
+$\sum_{x=1}^{\infty}  \frac{p^k}{k} = -\log(1-p)$
+>>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
 
 To make the right hand side equal to $1$ we therefore need to divide both sides by $-\log(1-p)$.   
 Hence we find that $c=\frac{-1}{\log(1-p)}$

@@ -70,7 +70,62 @@ There is a fascinating philosophical / linguistic / epistemological history behi
 
 \chapter{Brief review of Sets}
 
-\subsubsection{Set theory notation}
+A set is a collection of distinct objects.   We need to be a little careful here.   A set can be finite or infinite.   The objects can be real or abstract.   But they have to be distinct.   So the digits $(1,4,3,4)$ do not form a set because there are two number $4$s.   However an urn full of blue balls is a set because in principle we could number the balls and hence they are all distinct.
+
+We can define sets in various ways, such as 
+
+\begin{itemize}
+\item By listing the numbers $A=\{1,3,5,7\}$
+\item By stating a rule $B=\{ x:0 < x < 1\}$
+\end{itemize}
+
+
+To indicate that an object $x$ is an element of a set we write $x \in A$.
+
+(In case we need it, we talk about the empty set $\emptyset$ (the set which has no elements) and the cardinality of a set $|A|$ as the number of elements of a set.)
+
+
+Here are a few celebrity sets:
+
+\begin{itemize}
+\item \mathbb{P} for prime numbers
+%\mathbb{W} for whole numbers using \mathbb{W},
+\item $\mathbb{N}$ natural numbers ,
+\item $\mathbb{Z}$ integers 
+%\mathbb{I} for irrational numbers using \mathbb{I},
+%\mathbb{Q} for rational numbers using \mathbb{Q},
+\item $\mathbb{R}$  real numbers using \mathbb{R} and
+%\mathbb{C} for complex numbers using \mathbb{C}.
+\end{itemize}
+
+
+\subsection{Functions}
+
+We will need to be familiar with a couple of key ideas around functions.   These are utterly fundamental to mathematics and you will know all this already.   But it's set out here for completeness.   A function $f: A \to B$ between sets $A$ and $B$ assigns to each $x \in A$ a unique element $f(x) \in B$.   
+
+\begin{itemize}
+\item We call the set $A$ on which $f$ is defined the domain
+\item We call the set $Y$ on which $f(x)$ takes its values the co-domain
+\item The range, or image, of a function$ f : A \to B$ is the set of values 
+\begin{displayamth}
+ran f= \left\{ y \in B : y=f(x) \mbox{ for some } x \in A \left\}
+\end{itemize}
+
+\begin{itemize}
+\item The identity function $id$ matches every element of $A$ onto itself
+\item Let $B \subset A$.   The indicator function $I$ of $B$  can be defined such that
+
+\begin{displaymath}
+I(x) = \left\{ \begin{array}{rrr} 1 && \mbox{ if } x \in B \\
+0 & & \mbox{ if } x \notin B \end{array} \right.
+\end{displaymath}
+
+\item The square function $f : \mathbb{N} \to \mathbb{N}^2$ is defined as $f(n) = n^2$.   Now, notice that we have problems.   Although  $g(n) = \sqrt(n)$ defines a function $g : \mathbb{N} \to \mathbb{R}$ we would have problems with $h(n) = \pm \sqrt{ n}$ because it does not define a unique value for $h(n)$.
+\end{itemize}
+
+There are a few more fundmentals, such as onto (surjection) one-to-one (injection) and both (bijection) as well as composition.   These might not be essential for this module.   We do however need to watch domains very carefully throughout this course!
+
+%\subsubsection{Set theory notation}
 
 % I might not cover this in a lecture, we need the first six rows at the moment, the rest are only needed if we were going to do a lot of proofs and some very formal probability theory.
  
@@ -631,12 +686,21 @@ Note we have walls between $1$ and $2$, between $2$ and $3$, then two entries in
 
 \section{Circular permutations}
 
+<<<<<<< HEAD
 This is an important topic in other branches of mathematics, and I've seen questions around this topic in a lot of online numeracy tests.  The key idea is one of redundancy.   
 
 \subsection{Clockwise and anti-clockwise order matters (tables)}
 
 We are going to consider permutations (the order matters) around a dinner table.   The clue to the problem is that there is only one way of looking at a dinner table (from the top).
 
+=======
+Possibly this is a more important topic in other branches of mathematics.  However, it all helps develop our skills in the key thinking skills needed within mathematics.   One key idea that emerges is that of redundancy.
+
+
+\subsection{Clockwise and anti-clockwise order matters (tables)}
+
+The rather dated idea here is that we are placing guests on a dinner table for a party.   If we sketch the problem.
+>>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
 
 \begin{minipage}[t]{.45\textwidth}
 \textbf{Dinner party 1}
@@ -676,11 +740,17 @@ We are going to consider permutations (the order matters) around a dinner table.
 \end{tikzpicture}
 \end{minipage}
 
-If we moved the table by 180 degrees (assuming the chairs are fixed to the table) both settings are identical.
+If we moved the table by 180 degrees (assuming the chairs are fixed to the table) both settings are identical.   In other words, the first position is redundant.   Hence, we can find the number of permutations using $(n-1)!$
 
 
+Example: How many ways are there of arranging 8 dinner party guests around a circular table?
 
-Hence, we can find the number of permutations using $(n-1)!$
+Solution: $(8-1)! = 7!$
+
+Example. Now imagine we have a dinner party involving 8 mixed gender couples (male female).   How many ways are there of arranging the dinner party so that we have alternate gender seating.
+
+Solution.   We pick a gender at random and start allocating them.   As it is a circular table we have four options for the first position and then four options for the alternate gender person sitting next to them.   However, the sitting positions are redundant so we only need to consider the next person.   There are 3 possibilities for the next position, and 3 possibilities for their partner, with 2 and 2 for the next position and 1 and 1 for the final position.   In other words, the problem reduced to $3! \times 3!$ possibilities.
+
 
 \subsection{Clockwise and anti-clockwise doesn't matter (necklaces)}
 
@@ -711,6 +781,7 @@ $\frac{(n-1)!}{2!}$
 
 \subsection{Fusions}
 
+<<<<<<< HEAD
 The general idea is that we have a simple restriction on the number of permutations we seek.   For example, if at a G7 summit we wanted to consider how many ways we can line up the seven world leaders such that George and Tony are standing next to each other.
 
 We split this into two problems
@@ -721,6 +792,15 @@ We split this into two problems
 \end{itemize}
 
 
+=======
+The Tony Blair problem.   Imagine you have 7 people being lined up for a photograph.   How many ways can you do this?
+
+Solution.  There are 7!.
+
+Problem.   Now imagine you have seven people being lined up for a problem but you don't want Tony and George standing next to each other.   How many ways are there of arranging this.
+
+Solution.   First, it's easier to work with the complement.   So we know there are 7! ways we can line up seven people.   Now we apply a fusion.   How many ways are there of lining up 6 people (because we have fused Tony and George together).   There are 6! ways of doing this, but then we need to allow Tony and George to become unfused and there are 2! ways of doing this.   Hence we have 6!2! ways of arranging 7 people such that Tony and George stand together.   So to answer the question there are $7!-6!2!$ ways of lining up 7 people so that Tony and George do not stand together.
+>>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
 
 
 
