@@ -19,7 +19,7 @@ The key to this question is firstly recognising that you need to use the Geometr
 The question uses the form
 
 \begin{displaymath}
-P(T=t) = (1-p)^t (p)
+P(T=k) = (1-p)^k (p)
 \end{displaymath}
 
 Clearly here $p=\frac{1}{\Sexpr{sides}}$

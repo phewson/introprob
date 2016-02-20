@@ -19,7 +19,7 @@ The key to this question is firstly recognising that you need to use the Geometr
 The question uses the form
 
 \begin{displaymath}
-P(X=x) = (1-p)^x (p)
+P(X=k) = (1-p)^k (p)
 \end{displaymath}
 
 where $p$ is the probability of succesful treatment on a given visit, $X$ is the number of visits required before successful treatment.

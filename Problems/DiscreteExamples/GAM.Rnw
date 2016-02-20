@@ -12,7 +12,7 @@ A colleague suggests that you use the Hypergeometic distribution where
 
 
 \begin{displaymath}
-P(X=x)  = \frac{{M \choose x} {N-M \choose n-x}}{{N \choose n}}
+P(X=k)  = \frac{{M \choose k} {N-M \choose n-k}}{{N \choose n}}
 \end{displaymath}
 
 and you have $X$ as the number of people in your sample with GAM, $N$ is the number of people in the population, $M$ is the number of people in the population with GAM and $n$ is the size of your sample.
@@ -28,7 +28,7 @@ Hint.   Unless you have a very nice calculator, it might not cope with the large
 The key here is that you need:
 
 \begin{displaymath}
-P(X=x)  = \exp \left( \log {M \choose x} + \log {N-M \choose n-x} - \log {N \choose x} \right) = \Sexpr{round(exp(lchoose(250,0) + lchoose(2250,30) - (lchoose(2500,30))),3)}
+P(X=k)  = \exp \left( \log {M \choose k} + \log {N-M \choose n-k} - \log {N \choose k} \right) = \Sexpr{round(exp(lchoose(250,0) + lchoose(2250,30) - (lchoose(2500,30))),3)}
 \end{displaymath}
 
 In R you need the commands:
