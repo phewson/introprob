@@ -2018,11 +2018,11 @@ i.e. the value of a pdf can be changed for some of the values on an r.v. without
 
 Some points about this definition:
 \begin{itemize}
-\item For discrete random variables, the probability mass function is easy to understand: $f(x) = P[X=x]$.
+\item For discrete random variables, the probability mass function is easy to understand: $p(x) = P(X=x)$.
 \item But note the terminology, if probability is mass, what is density?
-\item For a continuous random variable, $p[X=x]=0$
+\item For a continuous random variable, $P(X=x)=0$
 \item But if we think of density as mass per volume, perhaps we gain a few insights
-\item Try thinking about a tiny number $\epsilon$.  Then think about $\int_{x-(\epsilon/2)}^{x+(\epsilon/2)} f(t)dt$.   If $\epsilon$ is small enough then we have a rectangle of area $\epsilon \times f(x)$; this area is the probability.
+\item Maybe try thinking about a tiny number $\epsilon$.  Then think about $\int_{x-(\epsilon/2)}^{x+(\epsilon/2)} f(t)dt$.   If $\epsilon$ is small enough then we have a rectangle of area $\epsilon \times f(x)$; this area is the probability.
 \end{itemize}
 
 
@@ -2112,12 +2112,12 @@ the ``average'' of a function.
 \begin{df}
 The expected value of a continuous random variable is given by:
 \begin{displaymath}
-E[X] = \int_{-\infty}^{\infty} x f(x) dx
+E(X) = \int_{-\infty}^{\infty} x f(x) dx
 \end{displaymath}
 
-and the expected value of a \emph{function of} a random variable is given by:
+and the expected value of a \emph{function of} a random variable $g(X)$ is given by:
 \begin{displaymath}
-E[X] = \int_{-\infty}^{\infty} \phi (x) f(x) dx
+E \big( g(X) \big) = \int_{-\infty}^{\infty}  g(x) f(x) dx
 \end{displaymath}
 \end{df}
 
@@ -2126,7 +2126,8 @@ E[X] = \int_{-\infty}^{\infty} \phi (x) f(x) dx
 
 \subsection{Variance}
 
-The Variance of a continuous density is defined in exactly the same way as for discrete random variables ($V(X) = E[X-E(X)]^2$.   We shall revisit this point next week when we consider \emph{moments}.
+The Variance of a continuous density is defined in exactly the same way as for discrete random variables i.e. $V(X) = E \big( X-E(X) \big)^2$.   
+%We shall revisit this point next week when we consider \emph{moments}.
 
 
 
@@ -2135,11 +2136,11 @@ The Variance of a continuous density is defined in exactly the same way as for d
 \begin{tabular}{rll}
 What & $X$ Discrete & $X$ continuous \\
 \hline
-pmf: &    $f(x) =P[X=x]$ & Not defined \\
+pmf: &    $p(k) =P(X=k)$ & Not defined \\
 pdf: & Not defined &  $f(x)$ s.t. $P[a<X<b]=\int_a^b f(x)dx$\\
-cdf:  & $F(x) = P[X \leq x] = \sum_{-\infty}^x f(t)$ & cdf: $F(x) = P[X \leq x] = \int_{-\infty}^x f(t)dt$\\
-Expectation & $E[X] = \sum_x x f(x)$ & $E[X] = \int_x x f(x) dx$\\
-Expect of a fn & $E[g(X)] = \sum_x g(x) f(x)$ & $E[g(X)] = \int_x f(x) f(x) dx$\\
+cdf:  & $F(x) = P(X \leq x) = \sum_{-\infty}^x f(t)$ & cdf: $F(x) = P(X \leq x) = \int_{-\infty}^x f(t)dt$\\
+Expectation & $E[X] = \sum_x x p(x)$ & $E[X] = \int_x x f(x) dx$\\
+Expect of a fn & $E \big( [g(X) \big) = \sum_x g(x) f(x)$ & $E \big( g(X) \big) = \int_x f(x) f(x) dx$\\
 \end{tabular}
 
 This last fact lets us find $Var(X)$ in either case.
@@ -2164,32 +2165,81 @@ f(x) = \left\{ \begin{array}{rrr} c & \mbox{ if } & a \leq x \leq b\\
 
 If we want this to obey $P(\Omega)=1$ we need $\int_a^bc=1$ which gives us $\frac{1}{b-a}$
 
-  The cumulative distribution function therefore is given as follows:
+The cumulative distribution function therefore is given as follows:
 
 \begin{displaymath}
 F(x|a,b) = \left\{ \begin{array}{ll} 0 & \mbox{ for }  x \leq a \\
 \frac{x-a}{b-a} & \mbox{ for } a \leq x \leq b \\ 
-0 & \mbox{ for } x > b \end{array} \right.
+0 & \mbox{ for } x > b \end{array} \right. 
 \end{displaymath}
 
 
+\subsection{The Standard Uniform Distribution}
 
-One important example is the ``standard'' uniform, i.e. where $X \sim U(0,1)$ (the building block of all other random numbers):
+One important example is the ``standard'' uniform, i.e. where $U \sim U(0,1)$ (the building block of all other random numbers):
 
-For $U \sim Unif(a,b)$ we have that:
 
 \begin{displaymath}
-E[X] = \int_a^b x \frac{1}{b-a} = \frac{x^2}{2}b-a|^b_a=\frac{a+b}{2}
+E(X) = \int_0^1 x \times\frac{1}{1-0} = \frac{x^2}{2}|^1_0=\frac{1-0}{2}
 \end{displaymath}
 
-So for $U \sim Unif(0,1)$ this gives us $E[X] = \frac{1}{2}$
+So for $U \sim Unif(0,1)$ this gives us $E(X) = \frac{1}{2}$
 
-For $E[X^2]$ we get $\frac{x^3}{3}(b-a)|^b_a$ which for $a=0$, $b=1$ yields $\frac{1}{3}$  Therefore, using $Var(X)=E[X^2]-E[X]^2$ we have $Var(X)=\frac{1}{3}-\frac{1}{4}=\frac{1}{12}$
-
-
-\fbox{Summary: for $a=0$ and $b=1$ that $E[X] = \frac{1}{2}$ and $V[X]=\frac{1}{12}$.}
+For $E[X^2]$ we get $\frac{x^3}{3} \times 1 |^1_0$ which for which yields $\frac{1}{3}$  Therefore, using $Var(X)=E(X^2)-E(X)^2$ we have $Var(X)=\frac{1}{3}-\frac{1}{4}=\frac{1}{12}$
 
 
+\fbox{Summary: for the standard uniform $E(U) = \frac{1}{2}$ and $V(U)=\frac{1}{12}$.}
+
+\subsection{The non-standard Uniform}
+
+We can attack this directly.   For $W \sim Unif(a,b)$ we have that:
+
+\begin{displaymath}
+E(X) = \int_a^b x \frac{1}{b-a} = \frac{x^2}{2}b-a|^b_a=\frac{a+b}{2}
+\end{displaymath}
+
+For $E(X^2)$ we get $\frac{x^3}{3}(b-a)|^b_a$ which yeilds $\frac{1}{3}\frac{B^3-a^3}{b-1} - \left(\frac{a+b}{2}^2\right)$ which (eventually) simplifies to $Var(W)=\frac{(b-a)^2}{2}$
+
+
+\fbox{Summary: for $a=0$ and $b=1$ that $E(X) = \frac{a+b}{2}$ and $V(X)=\frac{(b-a)^2}{12}$.}
+
+
+\subsection{Using a location scale transformation}
+
+For (almost) any Random Variable $Y$ we can define it as  a linear transformation of Random Variable $X$ in terms of two constants $c$ and $d$ so that
+
+\begin{displaymath}
+Y = cX + d
+\end{displaymath}
+
+Using standard rules of expectation, clearly 
+
+\begin{displaymath}
+E(Y) = E( cX + d) = cE(X) + d\\
+\end{displaymath}
+
+and 
+
+\begin{displaymath}
+V(Y) = V(cX+d) = c^2 V(X)
+\end{displaymath}
+
+
+So, let $U$ be a random variable and $W=cU + d$.   As we will explain in class, in the case of the Uniform, $c$ is equivalent to $b-a$ and $d$ is equivalent to $a$.
+
+
+\begin{displaymath}
+E(W) = E \big( (b-a) U + a \big) =  \frac{1}{2}(b-a) + a = \frac{a+b}{2}
+\end{displaymath}
+
+Likewise for the variance
+
+\begin{displaymath}
+V(W) = V \big( (b-a) U + a \big) =  (b-a)^2 V(U) = (b-a)^2 \frac{1}{12} + a = \frac{(b-a)^2}{12}
+\end{displaymath}
+
+
+As we will find out, where we can use them, this kind of transformation is a very powerful technique.
 
 
 \subsection{The negative exponential distribution}
@@ -2210,13 +2260,13 @@ F(x|\lambda) = 1-e^{-\lambda x}
 %One feature here is that this density is only defined for non-negative values of $x$.   This distribution is commonly used as a simple model for time between events; and a little thought is required here.   For example, if the count of events that happens in a given time period $Y \sim P(\theta)$ and the waiting time between those events is $X \sim NE(\theta)$ it should come as no surprise that $\theta$ and $\theta$ are related ($\theta = \frac{1}{\theta}$
 
 
-
+\subsection{The Standard Exponential}
 
 We can define a standard Exponential, i.e., $Y=\theta X$ where $Y \sim Exp(1)$.
-For this, we can then find $E[Y]$:
+For this, we can then find $(Y)$:
 
 \begin{displaymath}
-E[Y] = \int_{0}^{\infty} y e^{-y}dy
+E(Y) = \int_{0}^{\infty} y e^{-y}dy
 \end{displaymath}
 
 Now use use integration by parts: $\int u\ dv = uv - \int v\ du$ such that:
@@ -2229,14 +2279,16 @@ Now use use integration by parts: $\int u\ dv = uv - \int v\ du$ such that:
 \int_{0}^{\infty} y e^{-y}dy = \underbrace{-ye^{-y}|^{\infty}_o}_{0} - -\underbrace{\int_0^{\infty} e^{-y}dy}_{1} = 1
 \end{displaymath}
 
-Similarly, we can find $E[Y^2]=2$   Hence $Var(Y) = 2-1^2=1$
+Similarly, we can find $E(Y^2)=2$   Hence $Var(Y) = 2-1^2=1$
 
+
+\subsection{The non-standard exponential}
 
 We now need to rescale our standard exponential, noting that $X=\frac{Y}{\lambda}$, so $E[X] = \frac{1}{\lambda}$ and $Var(X)=\frac{1}{\lambda^2}$
 
+(As an exercise you might like to check you can find $E[X]$ and $V(X)$ for the non-standard exponential directly).
 
-
-\fbox{Note that $E[X] = \frac{1}{\lambda}$, $Var(X)=\frac{1}{\lambda^2}$}
+\fbox{Note that $E(X) = \frac{1}{\lambda}$, $Var(X)=\frac{1}{\lambda^2}$}
 
 %\fbox{Also note it is possible to use the parameterisation $f(x) = \frac{1}{\lambda} e^{-\frac{1}{\lambda} x}$}
 
@@ -2306,22 +2358,6 @@ We can check this is non-negative, and we know $P(\Omega)=1$ because we just mad
 
 
 
-At the moment, this has only one parameter.   We can add another by rescaling, such that we then have $Y \sim Gamma(a,\theta)$ where $Y = \frac{X}{\theta}$:
-
-\begin{displaymath}
-f(y) = \frac{\theta^a}{\Gamma (a)} x^{a-1} e^{-\theta x} dx
-\end{displaymath}
-%Do I need \theta^a?????????????
-
-This can be thought of as a nice extension to the negative exponential.  There are two parameters, hence there is more flexibility in defining the sahpe than you have with the negative exponential distribution.   If you restrict $a$ to being an integer, you can think of the $Gamma(a, \theta)$ as the time taken to the arrival of the $a$th independent $Exponential(\theta)$ random variables (but $a$ isn't restricted to the integers.   One word of warning, there are two very different ways of specifying the density!  % Here's one:
-
-%\begin{displaymath}
-%f(x|a,b) = \frac{a^bx^{b-1}e^{-ax}}{\Gamma(b)}; 0 \leq x < \infty.
-%\end{displaymath}
-
-%It might be worth pointing out that $\frac{a^b}{\Gamma(b)}$ is a constant of integration here, the shape and scale is determined by $x^{b-1}e^{-ax}$
-
-
 
 Because of the recursive properties of the $Gamma$ function, it will turn out to be worryingly easy to find moments.   Taking a ``standard'' Gamma density (i.e., with $\theta=1$:
 
@@ -2344,9 +2380,32 @@ E[X^2] = \frac{\Gamma (a+2)}{\Gamma(a)} = \frac{a+1 \Gamma(a+1)}{\Gamma(a)} = \f
 
 So $Var(X) = a^2+a-a^2 = a$
 
+
+
+\subsection{The Non-Standard Gamma distribution}
+
+
+At the moment, this has only one parameter.   We can add another by rescaling, such that we then have $Y \sim Gamma(a,\theta)$ where $Y = \frac{X}{\theta}$:
+
+\begin{displaymath}
+f(y) = \frac{\theta^a}{\Gamma (a)} x^{a-1} e^{-\theta x} dx
+\end{displaymath}
+%Do I need \theta^a?????????????
+
+This can be thought of as a nice extension to the negative exponential.  There are two parameters, hence there is more flexibility in defining the sahpe than you have with the negative exponential distribution.   If you restrict $a$ to being an integer, you can think of the $Gamma(a, \theta)$ as the time taken to the arrival of the $a$th independent $Exponential(\theta)$ random variables (but $a$ isn't restricted to the integers.   One word of warning, there are two very different ways of specifying the density!  % Here's one:
+
+%\begin{displaymath}
+%f(x|a,b) = \frac{a^bx^{b-1}e^{-ax}}{\Gamma(b)}; 0 \leq x < \infty.
+%\end{displaymath}
+
+%It might be worth pointing out that $\frac{a^b}{\Gamma(b)}$ is a constant of integration here, the shape and scale is determined by $x^{b-1}e^{-ax}$
+
+
+
+
 Remember that $Y = \frac{X}{\theta}$
 
-\fbox{Rescaling gives us $E[Y] = \frac{a}{\theta}$ and $Var(Y) = \frac{a}{\theta^2}$}
+\fbox{Rescaling gives us $E(Y) = \frac{a}{\theta}$ and $Var(Y) = \frac{a}{\theta^2}$}
 
 
 %\fbox{Note that $E[X] = \frac{b}{a}$ and $V[X] = \frac{b}{a^2}$}
@@ -2380,24 +2439,24 @@ It turns out that the uniform distribution is just an example of a beta distribu
 
 
 
-Finding $E[X^n]$ is easy like the $Gamma$
+Finding $E(X^n)$ is easy like the $Gamma$
 
 \begin{eqnarray*}
-E[X^n] &=& \frac{1}{Beta(a,b)} \int_{0}^1 x^n x^{(a-1)}(1-x)^{(b-1)}dx \\
+E(X^n) &=& \frac{1}{Beta(a,b)} \int_{0}^1 x^n x^{(a-1)}(1-x)^{(b-1)}dx \\
 &=&  \frac{1}{Beta(a,b)} \int_{0}^1 \underbrace{x^{(a+n-1)}(1-x)^{(b-1)}dx}_{\mbox{A } Beta \mbox{ density}} 
 \end{eqnarray*}
 
 So, we know that:
 
 \begin{displaymath}
-E[X^n] = \frac{Beta(a-n, b)}{Beta(a,b)} = \frac{\Gamma(a+n) Gamma(a+b)}{\Gamma(a+b+n)}{Gamma(a)}
+E(X^n) = \frac{Beta(a-n, b)}{Beta(a,b)} = \frac{\Gamma(a+n) \Gamma(a+b)}{\Gamma(a+b+n)}{\Gamma(a)}
 \end{displaymath}
 
 So that:
 
 
 
-\fbox{Note that $E[X] = \frac{a}{a+b}$ and $V[X] = \frac{ab}{(a+b)^2(a + b + 1)}$}
+\fbox{Note that $E(X) = \frac{a}{a+b}$ and $V(X) = \frac{ab}{(a+b)^2(a + b + 1)}$}
 
 (check these: for $a=b=1$ does it match the standard Uniform as promised?
 
@@ -2454,7 +2513,6 @@ We can easily obtain (via printed tables or the computer) values for $p[X \leq x
 %\end{center}
 Some values for the area under the curve, for integer values of $z$ are given here:
 
-\begin{tiny}
 \begin{center}
 \begin{tabular}{rr}
   \hline
@@ -2470,7 +2528,7 @@ Some values for the area under the curve, for integer values of $z$ are given he
    \hline
 \end{tabular}
 \end{center}
-\end{tiny}
+
 
 \newpage
 \subsubsection{A problem}
@@ -2491,7 +2549,7 @@ p[4 < X < 8] &=& 0.1587-0.0013\\
  &=& 0.1574
 \end{eqnarray*}
 
-There are some more detailed tables posted on the web.
+There are some more detailed tables at the end of the chapter with the problems.
 
 \section{Problems}
 
