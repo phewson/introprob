@@ -99,7 +99,7 @@ Here are a few celebrity sets:
 \end{itemize}
 
 
-\subsection{Functions}
+\section{Functions}
 
 We will need to be familiar with a couple of key ideas around functions.   These are utterly fundamental to mathematics and you will know all this already.   But it's set out here for completeness.   A function $f: A \to B$ between sets $A$ and $B$ assigns to each $x \in A$ a unique element $f(x) \in B$.   
 
@@ -403,19 +403,19 @@ Consider a random experiment with a finite number of outcomes, each with the sam
 Or in a better notation:
 
 \begin{equation}
-p[A] = \frac{n[A]}{n[\Omega]}
+P[A] = \frac{n[A]}{n[\Omega]}
 \end{equation}
 where $A$ denotes the event we are interested in, $n[A]$ is the number of ways in which $A$ can happen and $n[\Omega]$ is the number of events in the sample space.  
 
 
-Recall from our first Venn diagram, where we used $A^C$ to denote the \emph{complement} of $A$ (i.e. those outcomes that weren't in $A$), then the probability of $A^C$ (probability that $A$ doesn't happen), $p[A^C]$ is:
+Recall from our first Venn diagram, where we used $A^C$ to denote the \emph{complement} of $A$ (i.e. those outcomes that weren't in $A$), then the probability of $A^C$ (probability that $A$ doesn't happen), $P[A^C]$ is:
 
 \begin{displaymath}
-p[A^C] = 1 - p[A]
+P[A^C] = 1 - P[A]
 \end{displaymath}
 
 
-Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denotes the probability of event $B$ happening we have:
+Likewise, if we consider the second Venn diagram, and consider that $P[B]$ denotes the probability of event $B$ happening we have:
 
 \begin{itemize}
 \item $P[A \cup B]$: probability that event $A$ or event $B$, or both happens
@@ -434,9 +434,10 @@ Likewise, if we consider the second Venn diagram, and consider that $p[B]$ denot
 
 \chapter{Counting rules OK}
 
-We've spent a lot of time looking at dice and coins.   If we have $i=1,2,3$ die, each of these three dice can show one of $n_i=6$ faces.   Together the number of possible outcomes are given by $n_1 \times n_2 \times n_3 = 6^3$.   (And using our na\"ive definition of probability we would say each outcome can occur with probability $\frac{1}{6^3}$).   However, drawing tree diagrams to explore the sample space is rather tedious.   We need some ideas that can let us evaluate the number of possible outcomes in a more efficient manner.
+\textit{This is covered in section 1.4 of Blitzstein and Hwang}
 
-For more in depth information see Blitzstein Section 1.4.
+We've spent a lot of time looking at dice and coins.   If we have 3 dice indexed $i=1,2,3$ each of these three dice can show one of $n_i=6$ faces.   Together the number of possible outcomes are given by $n_1 \times n_2 \times n_3 = 6^3$.   (And using our na\"ive definition of probability we would say each outcome can occur with probability $\frac{1}{6^3}$).   However, drawing tree diagrams to explore the sample space is rather tedious.   We need some ideas that can let us evaluate the number of possible outcomes in a more efficient manner.
+
 
 
 \section{First Rule of Counting}
@@ -538,7 +539,7 @@ Given a population of $n$ distinct elements, we wish to count how many ways are 
 
 %(that's probably a dumb way of calculating it, but a very neat way of writing it)
 
-Note, if we want to know all possible ways of arranging $n$ items we just need $n!$ - $0! = 1$
+%Note, if we want to know all possible ways of arranging $n$ items we just need $\frac{n!}{n-n!} = n!$
 
  
 
@@ -557,13 +558,13 @@ A \emph{partition} is defined as a set of disjoint and exhaustive subclasses of 
 
 \subsection{Without replacement}
 
-The number of ways a set of $n$ objects can be partitioned into 2 distinct subsets of size $r$ and $n-r$ is given by:
+We can think of this in two ways.   Firstly we can consider the number of ways we can form an object of size $r$ from a set of  $n$ objects where we don't care about the ordering (think card playing, team selection).   However, much more generally we could think of how many ways could we select $r$ beads from an urn of $n$ beads.   We can't distinguish the beads in practice, but in theory we can so in general this can be thought of as the number of ways a set of $n$ objects can be partitioned into 2 distinct subsets of size $r$ and $n-r$.
 
 \begin{equation}
 {n \choose r} = \frac{n!}{r!(n-r)!}
 \end{equation}
 
-(This is what Baclawski calls the Shepherd principle.   If you get tired counting sheep, count the legs and divide by four.   We saw above that there were $\frac{n!}{(n-r)!}$ different ordered sets, we need to divide by the $r!$ different ordering of each combination)
+(This is what Baclawski calls the Shepherd principle.   If you get tired counting sheep, count the legs and divide by four.   We saw above that there were $\frac{n!}{(n-r)!}$ different ordered sets, we need to divide by the $r!$ different orderings of each combination)
 
 \subsubsection{Important shorthand: $n$ choose $r$}
 
@@ -573,7 +574,7 @@ This is such an important idea that it has it's own shorthand:
 \frac{n!}{r!(n-r)!} = \binom{n}{r}
 \end{displaymath}
 
- 
+(This might be a different notation to the one you have used previously)
 
 
 
@@ -585,7 +586,7 @@ The number of ways a set of $n$ objects can be partitioned into $k$ distinct sub
 \frac{n!}{r_1!r_2! \ldots r_k!}
 \end{equation}
 
-
+(Exercise: Show that the standard $\binom{n}{r}$ is a special case of this formula)
 
 
 %\subsection{Permutations and combinations}
@@ -687,21 +688,18 @@ Note we have walls between $1$ and $2$, between $2$ and $3$, then two entries in
 
 \section{Circular permutations}
 
-<<<<<<< HEAD
+
 This is an important topic in other branches of mathematics, and I've seen questions around this topic in a lot of online numeracy tests.  The key idea is one of redundancy.   
 
 \subsection{Clockwise and anti-clockwise order matters (tables)}
 
-We are going to consider permutations (the order matters) around a dinner table.   The clue to the problem is that there is only one way of looking at a dinner table (from the top).
-
-=======
-Possibly this is a more important topic in other branches of mathematics.  However, it all helps develop our skills in the key thinking skills needed within mathematics.   One key idea that emerges is that of redundancy.
+We are going to consider permutations (the order matters) around a dinner table.   The clue to the problem is that there is only one way of looking at a dinner table (from the top).  
 
 
 \subsection{Clockwise and anti-clockwise order matters (tables)}
 
 The rather dated idea here is that we are placing guests on a dinner table for a party.   If we sketch the problem.
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
+
 
 \begin{minipage}[t]{.45\textwidth}
 \textbf{Dinner party 1}
@@ -750,7 +748,7 @@ Solution: $(8-1)! = 7!$
 
 Example. Now imagine we have a dinner party involving 8 mixed gender couples (male female).   How many ways are there of arranging the dinner party so that we have alternate gender seating.
 
-Solution.   We pick a gender at random and start allocating them.   As it is a circular table we have four options for the first position and then four options for the alternate gender person sitting next to them.   However, the sitting positions are redundant so we only need to consider the next person.   There are 3 possibilities for the next position, and 3 possibilities for their partner, with 2 and 2 for the next position and 1 and 1 for the final position.   In other words, the problem reduced to $3! \times 3!$ possibilities.
+Solution.   We pick a gender at random and start allocating them.   As it is a circular table we have four options for the first position and then four options for the alternate gender person sitting next to them.   However, the sitting positions are redundant so we only need to consider the next person.   There are 3 possibilities for the next position, and 3 possibilities for their partner, with 2 and 2 for the next position and 1 and 1 for the final position.   In other words, the problem reduced to $3! \times 4!$ possibilities.
 
 
 \subsection{Clockwise and anti-clockwise doesn't matter (necklaces)}
@@ -782,7 +780,7 @@ $\frac{(n-1)!}{2!}$
 
 \subsection{Fusions}
 
-<<<<<<< HEAD
+
 The general idea is that we have a simple restriction on the number of permutations we seek.   For example, if at a G7 summit we wanted to consider how many ways we can line up the seven world leaders such that George and Tony are standing next to each other.
 
 We split this into two problems
@@ -791,18 +789,6 @@ We split this into two problems
 \item Then multiply by the number of ways you can un-fuse the object.   There are $2!$ ways we can stand George and Tony next to each other
 \item There are therefore $6!2!$ ways in which we can arrange seven world leaders such that George and Tony are standing next to each other.
 \end{itemize}
-
-
-=======
-The Tony Blair problem.   Imagine you have 7 people being lined up for a photograph.   How many ways can you do this?
-
-Solution.  There are 7!.
-
-Problem.   Now imagine you have seven people being lined up for a problem but you don't want Tony and George standing next to each other.   How many ways are there of arranging this.
-
-Solution.   First, it's easier to work with the complement.   So we know there are 7! ways we can line up seven people.   Now we apply a fusion.   How many ways are there of lining up 6 people (because we have fused Tony and George together).   There are 6! ways of doing this, but then we need to allow Tony and George to become unfused and there are 2! ways of doing this.   Hence we have 6!2! ways of arranging 7 people such that Tony and George stand together.   So to answer the question there are $7!-6!2!$ ways of lining up 7 people so that Tony and George do not stand together.
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
-
 
 
 \section{Problems}
@@ -824,8 +810,13 @@ Using the counting rules in probability (naive definition)
 \input{Problems/dummy3/Naive_family.tex}
 \end{enumerate}
 
+
+Chapter 1, Problems 1 to 14 of Blitzsein and Hwang give more practice at working with counting.  Problems 21 to 40 give further practice of counting combined with the naive definition of probability.  
+
+
 \chapter{A non-naive definition of probability}
 
+\textit{This is covered in Section 1.6 of Blitzstein and Hwang.}
 
 \section{The Axioms of Probability}
 
@@ -833,17 +824,13 @@ The system of probability we have been working through took a long time to devel
 \href{http://www.gap-system.org/~history/Biographies/Kolmogorov.html}{\color{blue}www.gap-system.org/~history/Biographies/Kolmogorov.html}).   He stated three fundamental Axioms, from which all other results can be derived.
 
 
-%%%%%%%%%%%%%%%%%
-%%% chapter 5 Axioms of probability
-
-\section{Axioms of probability}
 
 \fbox{
   \begin{minipage}[c]{1.0\linewidth}
 \begin{itemize}
-\item $p[A] \geq 0$ for any event $A$
-\item $p[\Omega] = 1$ where $\Omega$ is the sample space 
-\item If $[A_i];i=1,2,\ldots$ are mutually exclusive then $p[A_1] \cup p[A_2] \cup \ldots = p[A_1] + p[A_2] + \ldots$
+\item $P[A] \geq 0$ for any event $A$
+\item $P[\Omega] = 1$ where $\Omega$ is the sample space 
+\item If $[A_i];i=1,2,\ldots$ are mutually exclusive then $P[A_1] \cup P[A_2] \cup \ldots = P[A_1] + P[A_2] + \ldots$
 \end{itemize}
 \end{minipage}
 }
@@ -911,11 +898,17 @@ You can verify this; draw the Venn Diagram.   If we merely added $p[A]$ to $p[B]
 \input{Problems/dummy5/Set1_WhichTyre2.tex}
 \end{enumerate}
 
+
+Problems 41 to 46 in Blitzstein and Hwang give further practice.   Then problems 54 to 60 consolidate all aspects of the introductory parts of this module.
+
+
 %%%%%%%%%%%%%%%%%%%
 %%%%%%% CONDITIONAL PROBABILITY
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Conditional Probability}
+
+\textit{This is covered in chapter 2 of Blitzstein and Hwang.}
 
 Actually, all probability is conditional, it just gets tedious to write $P(X|\Omega)$.   The key to using probability correctly is to condition correctly.   
 We wish to find out how we update probability (or belief!!!!) in the presence of additional information.
@@ -938,7 +931,7 @@ We wish to find out how we update probability (or belief!!!!) in the presence of
 For full details of these problems see Leonard Mlodnikov ``A drunkard's walk'', a lovely popular science book.
 
 \begin{itemize}
-\item Make the simplifying assumption that $p(\mbox{Baby is boy}) = 0.5$ and $p(\mbox{Baby is girl=0.5})$.
+\item Make the simplifying assumption that $P(\mbox{Baby is boy}) = 0.5$ and $P(\mbox{Baby is girl=0.5})$.
 \item Consider a two child family.   You know that one child is a girl.   What is the probability that the other child is a girl?
 \item Consider a two child family.   You know that one child is a girl called Mirabehn.   What is the probability that the other child is a girl
 \end{itemize}
@@ -998,7 +991,7 @@ However, knowledge that a particular event has taken place can alter our assessm
 
 We can write this \emph{conditional probability} as:
 \begin{displaymath}
-p[\mbox{Student will pass course} | \mbox{Student attends lectures}]
+P[\mbox{Student will pass course} | \mbox{Student attends lectures}]
 \end{displaymath}
 
  
@@ -1044,7 +1037,7 @@ We can use the following statement:
 
 \begin{df}
 \begin{displaymath}
-p[A|B] = \frac{p[A \cap B] }{p[B]} \mbox{ if } p[B] > 0
+P[A|B] = \frac{P[A \cap B] }{P[B]} \mbox{ if } P[B] > 0
 \end{displaymath}
 \end{df}
 to solve this problem.   This expression is undefined if $p[B] = 0$
@@ -1088,9 +1081,9 @@ In frequency terms, this expression can be thought of as:
 A few small points worth mentioning:
 
 \begin{itemize}
-\item $p[B|B] = 1$
-\item $p[A^C|B] = 1 - p[A|B]$
-\item $p[A_1 \cup A_2 | B] = p[A_1|B] + p[A_2|B] - p[A_1 \cap A_2 | B]$
+\item $P[B|B] = 1$
+\item $P[A^C|B] = 1 - P[A|B]$
+\item $P[A_1 \cup A_2 | B] = P[A_1|B] + P[A_2|B] - P[A_1 \cap A_2 | B]$
 \end{itemize}
 
 But let's really have some fun with our main definition:
@@ -1099,9 +1092,9 @@ But let's really have some fun with our main definition:
 
 %But we have an additional theorem that is specific to conditional probability and quite useful:
 \begin{df}
-For any pair of events $A$ and $B$, where $p[B] > 0$:
+For any pair of events $A$ and $B$, where $P[B] > 0$:
 \begin{displaymath}
-p[A|B] = \frac{p[A \cap B]}{p[B]}
+P[A|B] = \frac{P[A \cap B]}{P[B]}
 \end{displaymath}
 \end{df}
 
@@ -1111,28 +1104,28 @@ p[A|B] = \frac{p[A \cap B]}{p[B]}
 Let's start by multiplying both sides by $p(B)$
 
 \begin{displaymath}
-p[A|B]p[B] = p[A \cap B]
+P[A|B]P[B] = P[A \cap B]
 \end{displaymath}
 
 Now let's note that the labels $A$ and $B$ are arbitrary.   So it must also be true that
 \begin{displaymath}
-p[A \cap B] = p[B|A]p[A]
+P[A \cap B] = P[B|A]P[A]
 \end{displaymath}
 
 In other words we have shown that
 
 \begin{displaymath}
-p[A|B]p[B] =  p[B|A]p[A]
+P[A|B]P[B] =  P[B|A]P[A]
 \end{displaymath}
-and if I divide both sides by $p[B]$ I have just proved Bayes' Theorem (which we define more carefully later).
+and if I divide both sides by $P[B]$ I have just proved Bayes' Theorem (which we define more carefully later).
 %\begin{df}
 \begin{displaymath}
-p[A|B] = \frac{p[B|A]p[A]}{p[B]}
+P[A|B] = \frac{P[B|A]P[A]}{P[B]}
 \end{displaymath}
 
  
 
-We need to say more about that $p[B]$ denominator, but first let's illustrate the key idea with natural frequencies.   Consider a dread disease, and consider that $1$ person in $10,000$ has this disease.   Now consider a screening test for that disease, if you have the disease, it will detect it with probability $0.95$.   If you don't have it, it will give you the all clear with probability $0.9$.   
+We need to say more about that $P[B]$ denominator, but first let's illustrate the key idea with natural frequencies.   Consider a dread disease, and consider that $1$ person in $10,000$ has this disease.   Now consider a screening test for that disease, if you have the disease, it will detect it with probability $0.95$.   If you don't have it, it will give you the all clear with probability $0.9$.   
 
 Now imagine you have gone to your physician, done the test, and been told you have the disease.   Should you be worried?
 
@@ -1194,12 +1187,12 @@ The only problem with the derivation given is that I've been a bit glib about wh
 If
 \begin{itemize}
 \item $A_i$ $i \geq 1$ are pairwise disjoint
-\item $p(\bigcup_i A_i)=1$ (we sometimes require the condition that $\bigcup_i A_i = \Omega$
-\item $p(A_i)>0$ for every $i$
+\item $P(\bigcup_i A_i)=1$ (we sometimes require the condition that $\bigcup_i A_i = \Omega$
+\item $P(A_i)>0$ for every $i$
 \end{itemize}
 then
 \begin{displaymath}
-p(B)=p(B|A_1)P(A_1) + p(B|A_2)p(A_2) + \cdots
+P(B)=P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \cdots
 \end{displaymath}
 
 \end{df}
@@ -1210,10 +1203,10 @@ p(B)=p(B|A_1)P(A_1) + p(B|A_2)p(A_2) + \cdots
 This is rather an important theorem, and follows from the above.   As stated here, this theorem is a well accepted argument.
 
 \begin{df}
-Let events $A_1, A_2, \ldots, A_n$ be mutually exclusive, such that $p[A_1 \cup A_2 \cup \ldots \cup A_n] = 1$ and $p[A_i] > 0$ for each $i$.   Let $B$ be an event such that $p[B] > 0$.  Then:
+Let events $A_1, A_2, \ldots, A_n$ be mutually exclusive, such that $P[A_1 \cup A_2 \cup \ldots \cup A_n] = 1$ and $P[A_i] > 0$ for each $i$.   Let $B$ be an event such that $P[B] > 0$.  Then:
 
 \begin{displaymath}
-p[A_i | B] = \frac{p[B|A_i]p[A_i]}{\sum_{j=1}^n p[B|A_j]p[A_j]}, i=1,2,\ldots, n
+P[A_i | B] = \frac{P[B|A_i]P[A_i]}{\sum_{j=1}^n P[B|A_j]P[A_j]}, i=1,2,\ldots, n
 \end{displaymath}
 \end{df}
 
@@ -1222,12 +1215,12 @@ p[A_i | B] = \frac{p[B|A_i]p[A_i]}{\sum_{j=1}^n p[B|A_j]p[A_j]}, i=1,2,\ldots, n
 As stated, Bayes theorem is a very simple and widely accepted result in conditional probability.   Occasionally we use the following terminology:
 
 \begin{itemize}
-\item Prior probability: $p[A_i]$
-\item Posterior probability $p[A_i | B]$
+\item Prior probability: $P[A_i]$
+\item Posterior probability $P[A_i | B]$
 \end{itemize}
 
 
-Where Bayes theorem starts to get interesting is when we no longer use simple probabilities in the calculations.  Specifically, when we start using the likelihood as $p[B|A_i]$ we can carry out some very interesting inference.
+Where Bayes theorem starts to get interesting is when we no longer use simple probabilities in the calculations.  Specifically, when we start using the likelihood as $P[B|A_i]$ we can carry out some very interesting inference.
 
 \section{Problems}
 
@@ -1245,7 +1238,7 @@ Where Bayes theorem starts to get interesting is when we no longer use simple pr
 
 \end{enumerate}
 
-
+Any of the 65 problems at the end of chapter 2 in Blitzstein and Hwang will give you great practice to make sure you understand this topic.
 
 %%%%%%%%%%%%%%%%%%%%
 %%%% Discrete functions
@@ -1253,6 +1246,8 @@ Where Bayes theorem starts to get interesting is when we no longer use simple pr
 
 
 \chapter{Discrete Probability Functions}
+
+\textit{This is covered in sections 3.1 and 3.2 of Blitzstein and Hwang.}
 
 \section{Variables}
 
@@ -1344,7 +1339,7 @@ We are interested in knowing something about the event that a random variables $
 
 \begin{df}
 A \emph{discrete} random variable is a real valued function defined on the
-sample space $\Omega$.  For such discrete random variables $X$, then
+sample space $\Omega$ where the random variable can take on finitely many or countably infinitely many values but the outcome of the statistical experiment is not known.   For such discrete random variables $X$, then
 $F_X(k)$ will have a finitely or infinitely countable range,
 $\Omega_X: \left\{ k_1, k_2, \ldots \right\}$.
 \end{df}
@@ -1377,10 +1372,10 @@ that is $p[X=3]$.
 
 \begin{itemize}
 \item The function given by $p(k) = P(X=k)$ for each $k$ within the range of $X$ is called the \emph{probability mass} of $X$
-\item A function can serve as the probability mass function of a discrete random variable $X$ if and only if its values $f(k)$ satisfy
+\item A function can serve as the probability mass function of a discrete random variable $X$ if and only if its values $p(k)$ satisfy
 \begin{itemize}
-\item[(i)] $f(k) \geq 0$ for each value within its domain
-\item[(ii)] $\sum_{k \in \Omega} f(k) = 1$ where the summation extends over all values in its domain
+\item[(i)] $p(k) \geq 0$ for each value within its domain
+\item[(ii)] $\sum_{k \in \Omega} p(k) = 1$ where the summation extends over all values in its domain
 \end{itemize}
 \end{itemize}
 
@@ -1466,12 +1461,16 @@ I_A(\omega) =\left\{ \begin{array}{lrl} 1 & \mbox{ if } & \omega \in A \\ 0 & \m
 
 %We may or may not wish to fit some kind of mathematical model to this, but there are number of applications where we could work with this empirical distribution directly as it is here.   We will not consider the role of the empirical density function any further, and note it here only so that we have met the terminology.
 
+\section{Problems}
+
+Have a look at any of the problems from 1 to 14 of Blitzstein and Hwang Chapter 3
+
 
 
 \chapter{Expectation}
 
 
-For more information see Grinstead and Snell sections 6.1 and 6.1 (page 225 onwards)
+\textit{For more information see section 4.1 and 4.2 of Blitzstein and Hwang.}
 
 \section{Expectation for discrete random variables}
 
@@ -1533,6 +1532,23 @@ $E\big( g(X) \big) = \sum_{k \in \Omega} g(k) Pr[X=k]$
 We're not restricted to $g(X)$ being quite so mathematical (in other words, the idea of Expectation comes up in lots of other useful places).
 
 
+Example. Consider a wedding cake baker.   They believe that the demand for cakes on a daily basis follows a Discrete Uniform distribution between 0 and 5 (i.e. $P(X=0)=P(X=1)= \cdots =P(X=5) = \frac{1}{6}$.   It costs 40GBP to bake a cake, and they make 100GBP when they sell a cake.   What is the expected value of a policy whereby they bake 4 cakes a day?
+
+\begin{tabular}{rrlr}
+k    & $P(X=k)$ & $g(k)$ & $g(k)p(k)$ \\ 
+\hline
+0 & $1/6$ & $4 \times -40 + 0 \times 100$ & $-160/6$ \\
+1 & $1/6$ & $4 \times -40 + 100 + 1 \times 100$ & $-120/6$ \\
+2 & $1/6$ & $4 \times -40 + 100 + 2 \times 100$ & $40/6$ \\
+3 & $1/6$ & $4 \times -40 + 100 + 3 \times 100$ & $140/6$ \\
+4 & $1/6$ & $4 \times -40 + 100 + 4 \times 100$ & $240/6$ \\
+5 & $1/6$ & $4 \times -40 + 100 + 4 \times 100$ & $240/6$ \\
+\hline
+$E \big( g(X) \big)$ & $\sum g(k)p(k)$ & & 63.3  
+\end{tabular}
+
+(As an extension activity you could see how $E \big( g(X) \big)$ varies if we altered the policy to baking 5 cakes or baking 3 cakes).
+
 \subsection{Summary: Expectation of discrete random variables}
 
 To conclude, our definition of expectation is given as follows:
@@ -1541,7 +1557,7 @@ To conclude, our definition of expectation is given as follows:
 The expected value of a discrete random variable ({\color{red} and the expected value of a \emph{function} of a random variable}) as follows:
 \begin{itemize}
 \item $E(X) = \sum_{k \in \Omega_X} k p(k)$
-\item {\color{red}$E\big( g(X) \big) = \sum_{x \in \Omega_X} g(k) p(k)$}
+\item {\color{red}$E\big( g(X) \big) = \sum_{k \in \Omega_X} g(k) p(k)$}
 \end{itemize}
 \end{df}
 
@@ -1602,6 +1618,8 @@ Also, note that $Var(X+Y) = Var(X) + Var(Y)$ iff the two variables are \emph{ind
 \input{Problems/dummy8/Exp_Forecourt.tex}
 \end{enumerate}
 
+
+Pick any problems from 1 to 16 from Chapter 4 of Blitzstein and Hwang to make sure you have mastered this topic.
 
 
 \chapter{Celebrity discrete probability distributions}
@@ -1998,14 +2016,19 @@ These are the most important examples of discrete probability functions (althoug
 \end{enumerate}
 
 
+For further practice pick any problems from 15 to 37, 45 to 47 (chapter 3) and 17 to 29, 56 to 67, 73 to 83 (chapter 4) in Blitzstein and Hwang.   The exam doesn't necessarily have to concentrate on Celebrity Distributions that we have studied in detail in class.   You need to know how to verify a function is a valid PMF and find it's expectation and variance.
+
+
 \chapter{Continuous Probability Functions}
 
-\section*{Aims}
-\begin{itemize}
-\item To state some key properties of continuous random variables
-\item To examine some important continuous distributions
-\item To become comfortable solving problems involving the normal distribution
-\end{itemize}
+See chapter 5 of Blitzstein and Hwang.
+
+%\section*{Aims}
+%\begin{itemize}
+%\item To state some key properties of continuous random variables
+%\item To examine some important continuous distributions
+%\item To become comfortable solving problems involving the normal distribution
+%\end{itemize}
 
 
 \section{Continuous r.v.s}
@@ -2618,6 +2641,6 @@ There are some more detailed tables at the end of the chapter with the problems.
 
 \end{enumerate}
 
-
+For further practice pick any problems from 1 to 61 (chapter 5) in Blitzstein and Hwang.   The exam doesn't necessarily have to concentrate on Celebrity Distributions that we have studied in detail in class.   You need to know how to verify a function is a valid PDF and find it's expectation and variance.
 
 \end{document}
