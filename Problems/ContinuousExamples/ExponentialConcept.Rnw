@@ -11,7 +11,7 @@ results <- c(rep(1==0,4), 1==1)
 @
 
 \begin{question}
-This problem concerns customers in a coffee shop.    In this coffee shop you sit down and wait for someone to serve you at your table.   You are asked to assume that we can model the waiting times (times between arriving and getting served) as an Exponential($\theta$) random variable.   Assume that waiting times $X$ have expected value $E[X]=12$ minutes.
+This problem concerns customers in a coffee shop.    In this coffee shop you sit down and wait for someone to serve you at your table.   You are asked to assume that we can model the waiting times (times between arriving and getting served) as an Exponential($\lambda$) random variable.   Assume that waiting times $X$ have expected value $E[X]=12$ minutes.
 
 It is now 12:\Sexpr{arrivaltime}.   Under which scenario do you get served the soonest?
 

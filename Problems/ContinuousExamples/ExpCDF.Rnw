@@ -15,16 +15,16 @@ answer <- 1-exp(-theta*b) - (1-exp(-theta*a))
 For the exponential distribution which has pdf given by:
 
 \begin{displaymath}
-f(x) = \theta e^{-\theta x}
+f(x) = \lambda e^{-\lambda x}
 \end{displaymath}
 
 you could be asked to show that the c.d.f. is given by
 
 \begin{displaymath}
-1 - e^{\theta x}
+1 - e^{\lambda x}
 \end{displaymath}
 
-Next assume that $X \sim \mbox{Exp}(\theta)$ where $\theta = \Sexpr{theta}$.   Using no more than this expression for the cdf, show you workings carefully and find $P(\Sexpr{a} < X < \Sexpr{b})$.
+Next assume that $X \sim \mbox{Exp}(\lambda)$ where $\lambda = \Sexpr{theta}$.   Using no more than this expression for the cdf, show you workings carefully and find $P(\Sexpr{a} < X < \Sexpr{b})$.
 
 
 
@@ -37,7 +37,7 @@ Next assume that $X \sim \mbox{Exp}(\theta)$ where $\theta = \Sexpr{theta}$.   U
 The first part of the question (which you could get on a written assessment) asks you to show that
 
 \begin{displaymath}
-F(x) = f(x) \int_0^x f(z)dz = \int_0^x \theta e^{-\theta z} dz = \left| e^{-\theta z} \right|_0^z = -e^{-\theta x} - -1 = 1-e^{-\theta x}
+F(x) =  \int_0^x f(z)dz = \int_0^x \lambda e^{-\lambda z} dz = \left| e^{-\lambda z} \right|_0^z = -e^{-\lambda x} - -1 = 1-e^{-\lambda x}
 \end{displaymath}
 
 The aim of using the workings is to get practice finding:

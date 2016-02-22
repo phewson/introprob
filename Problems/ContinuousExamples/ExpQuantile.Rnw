@@ -16,7 +16,7 @@ answer <- log(1-p)/(-theta)
 We consider the exponential distribution with pdf given by:
 
 \begin{displaymath}
-f(x) = \theta e^{-\theta x}.
+f(x) = \lambda e^{-\lambda x}.
 \end{displaymath}
 
 On a written paper you could be asked to find the quantile function, i.e. find $x$ such that
@@ -28,11 +28,11 @@ for a given value of p.
 
 Hint, (a) we did this in last week's lecture and (b) in last week's problem sheet you were asked to show that
 \begin{displaymath}
-P(X \leq x) = \int_{0}^x \theta e^{-\theta t} dt = 1-e^{-\theta x}
+P(X \leq x) = \int_{0}^x \lambda e^{-\lambda t} dt = 1-e^{-\lambda x}
 \end{displaymath}
 so you just need to solve this for $x$.
 
-The next question (which you can answer in a computer) you are to assume that $X \sim \mbox{Exp}(\theta)$ where $\theta = \Sexpr{theta}$.   If $p$ = \Sexpr{p} then you should find $x$ such that
+The next question (which you can answer in a computer) you are to assume that $X \sim \mbox{Exp}(\lambda)$ where $\lambda = \Sexpr{theta}$.   If $p$ = \Sexpr{p} then you should find $x$ such that
 
 
 \begin{displaymath}
@@ -51,13 +51,13 @@ P(X \leq x) = \Sexpr{p}
 The first part of the question (which you could get on a written assessment) asks you to make x the subject of the following expression:
 
 \begin{displaymath}
-1 - e^{-\theta x} = p
+1 - e^{-\lambda x} = p
 \end{displaymath}
 
 You should be able to show that this is:
 
 \begin{displaymath}
-\frac{\log(1-p)}{-\theta} = x
+\frac{\log(1-p)}{-\lambda} = x
 \end{displaymath}
 
 
