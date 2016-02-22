@@ -59,7 +59,7 @@ where $g(k)$ is the function for the profit made given $k$ cars sold and $p(k)$ 
 Hint 2: The formula for the p.m.f. $p(k)$ for the  demand probability is given by 
 
 \begin{displaymath}
-P(X=k) = \frac{\lambda^x e^{-\lambda}}{k!},
+P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!},
 \end{displaymath}
 and can be computed in \textbf{R} using \verb+dpois(x,lambda)+.   The CDF, i.e. $P(X \leq k)$ or $p(k)$ is given by \verb+ppois(x,lambda)+.   Note that if the demand for sales is five or more, you sell five cars.
 

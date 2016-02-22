@@ -1779,14 +1779,15 @@ probabilities.
 
 {\color{green} By convention we write $X \sim Go(p)$} 
 
-We shall briefly consider the scenario whereby successive Bernoulli trials are continued until the first success occurs.   Let $X$ denote the number of trials up to but not including the first success.   This gives rise to what we call the Geometric distribution.   Note that $0 < p < 1$.
+We shall briefly consider the scenario whereby successive Bernoulli trials are continued until the first success occurs.   Let $X$ denote the number of trials up to but not including the first success.   This gives rise to what we call the Geometric distribution.   
 
 \begin{df}
 For data assumed to follow the Geometric distribution, $X$ has a probability density function:
 \begin{displaymath}
-P[X=k] = p(k) =  \left\{ \begin{array}{crr} (1-p)^{k}p; & & \mbox{ for } k=1,2,\ldots\\
+P(X=k) = p(k) =  \left\{ \begin{array}{crr} (1-p)^{k}p; & & \mbox{ for } k=0,1,2,\ldots\\
 0 & & \mbox{ otherwise } \end{array} \right.
 \end{displaymath}
+for $0 < p < 1$.
 \end{df}
 
 
@@ -1802,7 +1803,7 @@ There is clearly only one way in which we can obtain this set of events.
 It is clearly non-negative, to check it sums to one we need:
 
 \begin{displaymath}
-\sum_{k=0}^{\infty} pq^k = p \sum_{k=0}^{\infty} q^k
+\sum_{k=0}^{\infty} pq^{k} = p \sum_{k=0}^{\infty} q^{k}
 \end{displaymath}
 That term to the right of the $p$ on the right hand side is a standard geometric series which we can write also as $\frac{1}{1-q}$.   So we have 
 
@@ -1833,21 +1834,25 @@ So this gives us the expression we need.
 \end{displaymath}
 
 
-  
-For example, if a salesperson wishes to calculate the probability that they will make their first successful sale of the day to the fifth customer, given that the probability of a sale $p=0.2$ is given by $P[X=5]=(1-0.2)^{5-1}0.2 = 0.08192$
+For example, a burglar want to know that he will get away with three ``jobs'' before he finally gets caught.  Assuming the probability of being caught (a success for the rest of us) is $p=0.6$ we have $p[X=3]=(1-0.6)^30.6=0.0384$
 
-Note carefully.   You can also define the Geometric as the number number of trials, \emph{up to but not including} the first success.   In that case we have:
+
+\subsection{Alterantive definition}
+  
+
+Note carefully.   You can also define the Geometric random variable as the number number of trials, \emph{up to and including} the first success.   In that case we have:
 
 \begin{displaymath}
 P(X=k) = q^{k-1}p
 \end{displaymath}
 
-and (no proof):
 
-\fbox{Note that $E(X) = \frac{1}{p}$ and $V(X)=\frac{1-p}{p^2}$.}
+For example, if a salesperson wishes to calculate the probability that they will make their first successful sale of the day to the fifth customer, given that the probability of a sale $p=0.2$ is given by $P(X=5)=(1-0.2)^{5-1}0.2 = 0.08192$
 
 
-For example, a burglar want to know that he will get away with three ``jobs'' before he finally gets caught.  Assuming the probability of being caught (a success for the rest of us) is $p=0.6$ we have $p[X=3]=(1-0.6)^30.6=0.0384$
+\fbox{Note in this latter case that $E(X) = \frac{1}{p}$ and $V(X)=\frac{1-p}{p^2}$.}
+
+
 
 
 
@@ -1895,7 +1900,7 @@ Where:
 Do note that ${a \choose b}$ is a binomial coefficient for integers $a$ and $b$.
 
 
-Showing that this is a valid p.m.f. - see tutorial sheets.
+Showing that this is a valid p.m.f. - see tutorial sheets (or look up the Vandermonde identity to see that the sum of the numerator over all possibilities equals the denominator).
 
 
 
@@ -2130,6 +2135,33 @@ The Variance of a continuous density is defined in exactly the same way as for d
 %We shall revisit this point next week when we consider \emph{moments}.
 
 
+\subsection{Anatomy of a pdf}
+
+We only need a non-negative function that integrates to $1$ over it's domain.   Hence we need something that takes the form:
+
+\begin{displaymath}
+f(x) = c h(x)
+\end{displaymath}
+where $c$ is known as the constant of integration, and $h(x)$ describes a useful shape.   Clearly $c=\frac{1}{\int h(x) dx}$
+
+Example.   You have a random variable $X$ such that $0 < X < 3$.   You decide to use $f(x) = c x^2$ as your pdf.   Find $c$.
+
+You need to find
+
+\begin{displaymath}
+\int_0^{3} x^2 dx = 9
+\end{displaymath}
+
+So 
+
+\begin{displaymath}
+f(x)= \left\{ \begin{array}{ccc} \frac{1}{6} x^2 & & \mbox{ for } 0 < x < 3 \\
+0 & & \mbox{ otherwise } \end{array} \right.
+\end{displaymath}
+
+forms a pdf for this $X$.
+
+
 
 \subsection{Summary}
 
@@ -2247,8 +2279,11 @@ As we will find out, where we can use them, this kind of transformation is a ver
 {\color{green} By convention we write $X \sim NE(\lambda)$}
 
 \begin{displaymath}
-f(x|\lambda) = \left\{ \begin{array}{rrr} \  \lambda e^{-\lambda x} & & \mbox{ for } 0 \leq x \leq \infty \\ 0 & & \mbox{ elsewhere } \end{array} \right.
+f(x|\lambda) = \left\{ \begin{array}{rrr} \  \lambda e^{-\lambda x} & & \mbox{ for } x>0 \\ 0 & & \mbox{ elsewhere } \end{array} \right.
 \end{displaymath}
+for any value of $\lambda>0$.
+
+(In passing please note that conventionally in text books this will be written as $f(x)=\lambda e^{-\lambda x}; x>0, \lambda>0$ telling you both the domain of the family of functions as well as all the parameter values for which this function is defined.)
 
 It should be obvious that this is non-negative and $\int_0^{\infty}f(x)dx=1$
 
@@ -2262,7 +2297,13 @@ F(x|\lambda) = 1-e^{-\lambda x}
 
 \subsection{The Standard Exponential}
 
-We can define a standard Exponential, i.e., $Y=\theta X$ where $Y \sim Exp(1)$.
+We can define a standard Exponential, i.e., $Y=\lambda X$ where $Y \sim Exp(1)$.
+
+\begin{displaymath}
+f(y) = \left\{ \begin{array}{rrr} \   e^{- y} & & \mbox{ for } y>0 \\ 0  & & \mbox{ elsewhere } \end{array} \right.
+\end{displaymath}
+
+
 For this, we can then find $(Y)$:
 
 \begin{displaymath}
@@ -2350,8 +2391,9 @@ By way of introduction, recall the Gamma function:
 If we want to use this as a pdf (for random variable $X$ and parameter $a$, we need to make it integrate to one.   How?   The clue should be in the resursive nature of the Gamma function.   Let's divide it by itself!
 
 \begin{displaymath}
-f(x) = \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx
+f(x) =  \left\{ \begin{array}{rrr} \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx & & \mbox{ for } x>0 \\ 0 & & \mbox{ otherwise } \end{array} \right.
 \end{displaymath}
+for $a>0$.
 
 We can check this is non-negative, and we know $P(\Omega)=1$ because we just made it so.
 
@@ -2362,20 +2404,20 @@ We can check this is non-negative, and we know $P(\Omega)=1$ because we just mad
 Because of the recursive properties of the $Gamma$ function, it will turn out to be worryingly easy to find moments.   Taking a ``standard'' Gamma density (i.e., with $\theta=1$:
 
 \begin{eqnarray*}
-E[X^c] &=&  \int_0^{\infty} x^c \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx \\
+E(X^c) &=&  \int_0^{\infty} x^c \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx \\
 &=& \frac{1}{\Gamma (a)} \underbrace{\int_0^{\infty}  x^{a+c-1} e^{-x} dx}_{\mbox{A }\Gamma \mbox{ function}} \\
 &=& \frac{\Gamma(a+c)}{\Gamma(a)}
 \end{eqnarray*}
 
-Hence we can find $E[X^n]$ very simply:
+Hence we can find $E(X^n)$ very simply:
 
 \begin{displaymath}
-E[X] = \frac{\Gamma (a+1)}{\Gamma(a)} = \frac{a \Gamma(a)}{\Gamma(a)} = a
+E(X) = \frac{\Gamma (a+1)}{\Gamma(a)} = \frac{a \Gamma(a)}{\Gamma(a)} = a
 \end{displaymath}
 
 
 \begin{displaymath}
-E[X^2] = \frac{\Gamma (a+2)}{\Gamma(a)} = \frac{a+1 \Gamma(a+1)}{\Gamma(a)} = \frac{(a+1)a\Gamma(a)}{\Gamma(a)}  = a^2+a
+E(X^2) = \frac{\Gamma (a+2)}{\Gamma(a)} = \frac{a+1 \Gamma(a+1)}{\Gamma(a)} = \frac{(a+1)a\Gamma(a)}{\Gamma(a)}  = a^2+a
 \end{displaymath}
 
 So $Var(X) = a^2+a-a^2 = a$
@@ -2385,14 +2427,15 @@ So $Var(X) = a^2+a-a^2 = a$
 \subsection{The Non-Standard Gamma distribution}
 
 
-At the moment, this has only one parameter.   We can add another by rescaling, such that we then have $Y \sim Gamma(a,\theta)$ where $Y = \frac{X}{\theta}$:
+At the moment, this has only one parameter.   We can add another by rescaling, such that we then have $Y \sim Gamma(a,\lambda)$ where $Y = \frac{X}{\lambda}$:
 
 \begin{displaymath}
-f(y) = \frac{\theta^a}{\Gamma (a)} x^{a-1} e^{-\theta x} dx
+f(y) = \left\{ \begin{array}{rrr} \frac{\lambda^a}{\Gamma (a)} x^{a-1} e^{-\lambda x} &  &\mbox{ for } x>0 \\ 0 & & \mbox{ otherwise } \end{array} \right.
 \end{displaymath}
+for $a>0$ and $\lambda>0$.
 %Do I need \theta^a?????????????
 
-This can be thought of as a nice extension to the negative exponential.  There are two parameters, hence there is more flexibility in defining the sahpe than you have with the negative exponential distribution.   If you restrict $a$ to being an integer, you can think of the $Gamma(a, \theta)$ as the time taken to the arrival of the $a$th independent $Exponential(\theta)$ random variables (but $a$ isn't restricted to the integers.   One word of warning, there are two very different ways of specifying the density!  % Here's one:
+This can be thought of as a nice extension to the negative exponential.  There are two parameters, hence there is more flexibility in defining the sahpe than you have with the negative exponential distribution.   If you restrict $a$ to being an integer, you can think of the $Gamma(a, \lambda)$ as the time taken to the arrival of the $a$th independent $Exponential(\lambda)$ random variables (but $a$ isn't restricted to the integers.   One word of warning, there are two very different ways of specifying the density!  % Here's one:
 
 %\begin{displaymath}
 %f(x|a,b) = \frac{a^bx^{b-1}e^{-ax}}{\Gamma(b)}; 0 \leq x < \infty.
@@ -2403,9 +2446,9 @@ This can be thought of as a nice extension to the negative exponential.  There a
 
 
 
-Remember that $Y = \frac{X}{\theta}$
+Remember that $Y = \frac{X}{\lambda}$
 
-\fbox{Rescaling gives us $E(Y) = \frac{a}{\theta}$ and $Var(Y) = \frac{a}{\theta^2}$}
+\fbox{Rescaling gives us $E(Y) = \frac{a}{\lambda}$ and $Var(Y) = \frac{a}{\lambda^2}$}
 
 
 %\fbox{Note that $E[X] = \frac{b}{a}$ and $V[X] = \frac{b}{a^2}$}
@@ -2429,8 +2472,9 @@ Remember that $Y = \frac{X}{\theta}$
 {\color{green} By convention we write $X \sim Beta(a,b)$}
 
 \begin{displaymath}
-f(x|a,b) = \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)} x^{a-1}(1-x)^{b-1};0 \leq x \leq 1
+f(x|a,b) = \left\{ \begin{array}{rrr} \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)} x^{a-1}(1-x)^{b-1};0 \leq x \leq 1 & & \mbox{ for } 0 < x < 1 \\ 0 & & \mbox{ otherwise} \end{array} \right.
 \end{displaymath}
+for $a>0$ and $b>0$.
 
 The expression $\frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}$ might look intimidating, but it is only a \emph{constant} to make sure that $\int f(x)=1$ for this distribution (it's the reciprocal of the Beta function, so you can guess where this distributio gets its name).   In other words, all the important work in terms of the shape of of the curve is done by $ x^{a-1}(1-x)^{b-1}$; but we need to multiply it by some constant to get the integral over the whole domain equal to one.
 
@@ -2474,12 +2518,13 @@ The normal density is given by:
 \begin{displaymath}
 f(x|\mu, \sigma^2)=\frac{1}{\sqrt 2 \pi \sigma} \exp \left\{ -\frac{1}{2} \left(\frac{x-\mu}{\sigma} \right)^2 \right\}, -\infty < x < \infty, \sigma > 0 
 \end{displaymath}
+for $-\infty < \mu < \infty$ and $\sigma>0$.
 \end{df}
 
 There's no easy way of working with the integral (there is no expression for an indefinite integral) so for our purposes we have to assume that with such a well used density someone somewhere has checked that $\int_{-\infty}^{\infty}f(x)=1$.  Again, it might be interesting to know that $=\frac{1}{\sqrt 2 \pi \sigma}$ is another of these constants that ensures the integation is equal to unity.
 
 
-\fbox{Note that $E[X] = \mu$ and $V[X]=\sigma^2$.}
+\fbox{Note that $E(X) = \mu$ and $V(X)=\sigma^2$.}
 
 
 
@@ -2533,19 +2578,19 @@ Some values for the area under the curve, for integer values of $z$ are given he
 \newpage
 \subsubsection{A problem}
 
-If $X \sim N(10,4)$, calculate $p[4 < X < 8]$
+If $X \sim N(10,4)$, calculate $P[4 < X < 8]$
 
 We want:
 \begin{eqnarray*}
-p[4 < X < 8] &=& p \left[ \frac{4-10}{2} < \frac{X-10}{2} < \frac{8-10}{2} \right]\\
-&=& p[-3 < Z < -1]\\
-&=& p[Z < -1] - p[Z < -3]
+P[4 < X < 8] &=& p \left[ \frac{4-10}{2} < \frac{X-10}{2} < \frac{8-10}{2} \right]\\
+&=& P[-3 < Z < -1]\\
+&=& P[Z < -1] - P[Z < -3]
 \end{eqnarray*}
 
 From the table, we can see that the values we need are $0.1587$ and $0.0013$, hence
 
 \begin{eqnarray*}
-p[4 < X < 8] &=& 0.1587-0.0013\\
+P[4 < X < 8] &=& 0.1587-0.0013\\
  &=& 0.1574
 \end{eqnarray*}
 

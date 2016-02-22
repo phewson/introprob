@@ -36,9 +36,12 @@ exams2pdf(chapter9, n=1, tdir = "dummy9")
 
 
 
-chapter9 <- c("ContinuousExamples/FindF.Rnw", "ContinuousExamples/StandardNormal.Rnw", 
+chapter10 <- c("ContinuousExamples/WhichDefinition.Rnw", "ContinuousExamples/ConstantInt.Rnw", "ContinuousExamples/FindF.Rnw", "ContinuousExamples/StandardNormal.Rnw", 
               "ContinuousExamples/NonStandardNormal.Rnw","ContinuousExamples/CoffeeDispenser.Rnw",
               "ContinuousExamples/ExpCDF.Rnw", "ContinuousExamples/ExponentialConcept.Rnw", 
-              "ContinuousExamples/ExpQuantile.Rnw","ContinuousExamples/BetaQuantile.Rnw")
-exams2pdf(chapter9, n=1, tdir = "dummy9")
+              "ContinuousExamples/ExpQuantile.Rnw","ContinuousExamples/BetaQuantile.Rnw", 
+              "ContinuousExamples/Pareto.Rnw", "ContinuousExamples/ParetoQuantile.Rnw", "ContinuousExamples/Rayleigh.Rnw",
+              "ContinuousExamples/RayleighQuantile.Rnw")
+              
+exams2pdf(chapter10, n=1, tdir = "dummy10")
 

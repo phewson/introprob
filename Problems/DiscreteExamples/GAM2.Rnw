@@ -12,11 +12,7 @@ Another colleague suggests that you use the Binomial distribution where
 
 
 \begin{displaymath}
-<<<<<<< HEAD
-P(X=x)  = {n \choose k} p^k (1-p)^{n-k}
-=======
-P(X=k)  = {n \choose x} p^k (1-p)^{n-k}
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
+P(X=k)  = {n \choose k} p^k (1-p)^{n-k}
 \end{displaymath}
 
 and you have $X$ as the number of people in your sample with GAM, $n$ is the size of your sample and $p$ is the probability that a person has GAM, i.e. $0.1$
@@ -31,11 +27,7 @@ On a written exam, you might be asked to give a careful statement as to the diff
 The key here is that you need:
 
 \begin{displaymath}
-<<<<<<< HEAD
 P(X=k)  =  {n \choose k} p^k (1-p)^{n-k} = \Sexpr{round(dbinom(0,30,0.1),3)}
-=======
-P(X=k)  =  {n \choose x} p^k (1-p)^{n-k} = \Sexpr{round(dbinom(0,30,0.1),3)}
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
 \end{displaymath}
 
 
