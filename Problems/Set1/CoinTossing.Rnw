@@ -29,17 +29,15 @@ the following subsets of
 \end{enumerate}
 
 
-<<<<<<< HEAD
+
 For the computer you should assume that you are given the set:
 
-=======
-For the computer you should assume that you are given the set 
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
+
 \begin{displaymath}
 E = \{\Sexpr{myquestion}\}.
 \end{displaymath}
 
-Using the naive definition of probability, what is $P[E]$?   Please enter your answer as a decimal (3dp).
+Using the naive definition of probability, what is $P(E)$?   Please enter your answer as a decimal (3dp).
 
 \end{question}
 
@@ -52,7 +50,7 @@ Using the naive definition of probability, what is $P[E]$?   Please enter your a
 
 \end{enumerate}
 
-The computer answer is that $P[E]=P[\Sexpr{myquestion}]=\Sexpr{round(myanswer,3)}$
+The computer answer is that $P(E)=P(\Sexpr{myquestion})=\Sexpr{round(myanswer,3)}$
 
 \end{solution}
 
