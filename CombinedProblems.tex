@@ -1,0 +1,192 @@
+\documentclass[12pt]{extbook}
+\title{Probability with Applications: Problems}
+\author{Paul Hewson and Malgorzata Wojtys}
+\date{February - May 2016}
+\usepackage{amsmath,amssymb,amsfonts,graphics,hyperref,color,setspace,synttree,keystroke}
+\usepackage{calculator}
+\usepackage{longtable}
+\everymath{\displaystyle}
+\usepackage{longtable}
+\usepackage{a4wide,color,Sweave,url,verbatim,xargs,longtable}
+\usepackage{tikz}
+\newenvironment{question}{\item \textbf{Problem}\newline}{}
+\newenvironment{solution}{\comment}{\endcomment}
+\newenvironment{answerlist}{\renewcommand{\labelenumi}{(\alph{enumi})}\begin{enumerate}}{\end{enumerate}}
+\newtheorem{df}{Definition}[section]
+\newtheorem{tm}{Theorem}[section]
+\begin{document}
+\sffamily
+\onehalfspacing
+
+\maketitle
+
+\setcounter{chapter}{1}
+\chapter{Sets}
+
+\section{Problems}
+\begin{enumerate}
+\input{Problems/dummy2/Set1_SampleSpaces.tex}
+\input{Problems/dummy2/Set1_CoinTossing.tex}
+%\input{Problems/dummy2/Set1_Venns1.tex}
+%\input{Problems/dummy2/Set1_Venns2.tex}
+\input{Problems/dummy2/Set1_DeMorgan.tex}
+\end{enumerate}
+
+
+\setcounter{chapter}{3}
+
+
+\chapter{Counting rules OK}
+
+
+
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy4/Comb1_CommitteeGender.tex}
+\input{Problems/dummy4/Comb1_Committee.tex}
+\input{Problems/dummy4/Comb1_Lottery.tex}
+\input{Problems/dummy4/Comb1_AngelinaJolie.tex}
+\input{Problems/dummy4/Comb1_AngelinaJolie2.tex}
+\input{Problems/dummy4/Comb1_AngelinaJolie3.tex}
+\input{Problems/dummy4/Comb1_AngelinaJolie4.tex}
+\end{enumerate}
+
+
+Using the counting rules in probability (naive definition)
+
+\begin{enumerate}
+\input{Problems/dummy3/Naive_family.tex}
+\end{enumerate}
+
+
+Chapter 1, Problems 1 to 14 of Blitzsein and Hwang give more practice at working with counting.  Problems 21 to 40 give further practice of counting combined with the naive definition of probability.  
+
+
+\chapter{A non-naive definition of probability}
+
+
+
+\section{Problems}
+\begin{enumerate}
+\input{Problems/dummy5/Set1_AdditionRuleProof.tex}
+\input{Problems/dummy5/Set1_AdditionRule.tex}
+\input{Problems/dummy5/Set1_LoadedDie.tex}
+\input{Problems/dummy5/Set1_Options.tex}
+\input{Problems/dummy5/Set1_BasicSets.tex}
+\input{Problems/dummy5/Set1_WhichTyre1.tex}
+\input{Problems/dummy5/Set1_WhichTyre2.tex}
+\end{enumerate}
+
+
+Problems 41 to 46 in Blitzstein and Hwang give further practice.   Then problems 54 to 60 consolidate all aspects of the introductory parts of this module.
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%%%%% CONDITIONAL PROBABILITY
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Conditional Probability}
+
+
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy6/Cond1_ThreeUrnsRed.tex}
+\input{Problems/dummy6/Cond1_LifeTables.tex}
+\input{Problems/dummy6/Cond1_LifeTables2.tex}
+\input{Problems/dummy6/Cond1_LifeTables3.tex}
+\input{Problems/dummy6/Cond1_BayesRuleProof.tex}
+\input{Problems/dummy6/Cond1_BonzoFonzoGonzo.tex}
+\input{Problems/dummy6/Cond1_IoA1.tex}
+\input{Problems/dummy6/Cond1_IoA2.tex}
+
+\input{Problems/dummy6/Cond1_ThreeUrnsGreen(Conditional).tex}
+
+\end{enumerate}
+
+Any of the 65 problems at the end of chapter 2 in Blitzstein and Hwang will give you great practice to make sure you understand this topic.
+
+%%%%%%%%%%%%%%%%%%%%
+%%%% Discrete functions
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Discrete Probability Functions}
+
+
+\section{Problems}
+
+Have a look at any of the problems from 1 to 14 of Blitzstein and Hwang Chapter 3
+
+
+
+\chapter{Expectation}
+
+
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy8/DiscreteExamples_Varx.tex}
+\input{Problems/dummy8/Exp_RiggedDie.tex}
+\input{Problems/dummy8/Exp_JamesBond.tex}
+\input{Problems/dummy8/Exp_Forecourt.tex}
+\end{enumerate}
+
+
+Pick any problems from 1 to 16 from Chapter 4 of Blitzstein and Hwang to make sure you have mastered this topic.
+
+
+\chapter{Celebrity discrete probability distributions}
+
+
+
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy9/DiscreteExamples_Asthma.tex}
+\input{Problems/dummy9/DiscreteExamples_Cookies.tex}
+\input{Problems/dummy9/DiscreteExamples_RoadAccidents.tex}
+\input{Problems/dummy9/DiscreteExamples_HouseRepairs.tex}
+\input{Problems/dummy9/DiscreteExamples_GAM.tex}
+\input{Problems/dummy9/DiscreteExamples_GAM2.tex}
+\input{Problems/dummy9/DiscreteExamples_DiceRollingTillSuccess.tex}
+\input{Problems/dummy9/DiscreteExamples_StudentCallout.tex}
+\input{Problems/dummy9/DiscreteExamples_LogarithmicConstant.tex}
+\input{Problems/dummy9/DiscreteExamples_LogarithmicEX.tex}
+\input{Problems/dummy9/DiscreteExamples_LogarithmicVar.tex}
+\input{Problems/dummy9/DiscreteExamples_LogarithmicCDF.tex}
+\end{enumerate}
+
+
+For further practice pick any problems from 15 to 37, 45 to 47 (chapter 3) and 17 to 29, 56 to 67, 73 to 83 (chapter 4) in Blitzstein and Hwang.   The exam doesn't necessarily have to concentrate on Celebrity Distributions that we have studied in detail in class.   You need to know how to verify a function is a valid PMF and find it's expectation and variance.
+
+
+\chapter{Continuous Probability Functions}
+
+
+\section{Problems}
+
+\begin{enumerate}
+\input{Problems/dummy10/ContinuousExamples_WhichDefinition.tex}
+\input{Problems/dummy10/ContinuousExamples_ConstantInt.tex}
+\input{Problems/dummy10/ContinuousExamples_FindF.tex}
+\input{Problems/dummy10/ContinuousExamples_StandardNormal.tex}
+\input{Problems/dummy10/ContinuousExamples_NonStandardNormal.tex}
+\input{Problems/dummy10/ContinuousExamples_CoffeeDispenser.tex}
+\input{Problems/dummy10/ContinuousExamples_ExpCDF.tex}
+\input{Problems/dummy10/ContinuousExamples_ExponentialConcept.tex}
+\input{Problems/dummy10/ContinuousExamples_ExpQuantile.tex}
+\input{Problems/dummy10/ContinuousExamples_BetaQuantile.tex}
+\input{Problems/dummy10/ContinuousExamples_Pareto.tex}
+\input{Problems/dummy10/ContinuousExamples_ParetoQuantile.tex}
+\input{Problems/dummy10/ContinuousExamples_Rayleigh.tex}
+\input{Problems/dummy10/ContinuousExamples_RayleighQuantile.tex}
+
+
+
+\end{enumerate}
+
+For further practice pick any problems from 1 to 61 (chapter 5) in Blitzstein and Hwang.   The exam doesn't necessarily have to concentrate on Celebrity Distributions that we have studied in detail in class.   You need to know how to verify a function is a valid PDF and find it's expectation and variance.
+
+\end{document}
