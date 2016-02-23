@@ -2,8 +2,10 @@ install.packages("exams")
 
 require(exams)
 chapter2 <- c("Set1/SampleSpaces.Rnw", "Set1/CoinTossing.Rnw", 
-            "Set1/Venns1.Rnw", "Set1/Venns2.Rnw", "Set1/DeMorgan.Rnw")
+            "Set1/Venns1.Rnw", "Set1/Venns2.Rnw")#, "Set1/DeMorgan.Rnw")
 exams2pdf(chapter2, n = 1, tdir = "dummy2", verbose=TRUE)
+exams2moodle(chapter2, n=5)
+
 
 chapter3 <- c("Set1/ValidProb.Rnw", "Naive/family.Rnw")
 exams2pdf(chapter3, n=1, tdir = "dummy3")

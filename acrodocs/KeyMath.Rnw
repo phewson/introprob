@@ -4,6 +4,7 @@
 \author{Paul Hewson}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \sffamily
 \maketitle
 
@@ -58,6 +59,12 @@ for any real $a>0$
 \item[] $\Gamma (a) = (a-1)!$ (for positive integers
 \item[] $\Gamma(a+1) = a \Gamma(a)$ (recursive)
 \item[] $\Gamma(\frac{1}{2}) = \sqrt{\pi}$
+\end{itemize}
+
+\section{Logarithmic series}
+
+\begin{itemize}
+\item $-\log(1-p)  = p + \frac{p^2}{2} + \frac{p^3}{3} + \cdots.$
 \end{itemize}
 
 \end{document}

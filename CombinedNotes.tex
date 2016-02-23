@@ -29,7 +29,7 @@
 \item Coursework (30\%)
 \end{itemize}
 
-The coursework will consist of a mixture of exam type questions which you can complete electronically on Moodle as well as a small activity that you have to write up and also submit to Moodle.
+The coursework will consist of a mixture of exam type questions which you can complete electronically on Moodle DLE site as well as a small activity that you have to write up and also submit to Moodle DLE site.
 
 \section{How you pass the assessment}
 
@@ -82,7 +82,7 @@ We can define sets in various ways, such as
 
 To indicate that an object $x$ is an element of a set we write $x \in A$.
 
-(In case we need it, we talk about the empty set $\emptyset$ (the set which has no elements) and the cardinality of a set $|A|$ as the number of elements of a set.)
+(In case we need it, we talk about the empty set $\emptyset$, the set which has no elements, and the cardinality of a set $|A|$ as the number of elements of a set.)
 
 
 Here are a few celebrity sets:
@@ -390,7 +390,7 @@ This material will get covered more formally in a pure maths course, hopefully w
 
 \chapter{The naive definition of probability}
 
-\section{Na\'ive definition of Probability}
+\section{Na\"ive definition of Probability}
 
 \textit{This is covered in section 1.3 of Blitzstein and Hwang}
 
@@ -403,23 +403,23 @@ Consider a random experiment with a finite number of outcomes, each with the sam
 Or in a better notation:
 
 \begin{equation}
-P[A] = \frac{n[A]}{n[\Omega]}
+P(A) = \frac{n(A)}{n(\Omega)}
 \end{equation}
-where $A$ denotes the event we are interested in, $n[A]$ is the number of ways in which $A$ can happen and $n[\Omega]$ is the number of events in the sample space.  
+where $A$ denotes the event we are interested in, $n(A)$ is the number of ways in which $A$ can happen and $n(\Omega)$ is the number of events in the sample space.  
 
 
-Recall from our first Venn diagram, where we used $A^C$ to denote the \emph{complement} of $A$ (i.e. those outcomes that weren't in $A$), then the probability of $A^C$ (probability that $A$ doesn't happen), $P[A^C]$ is:
+Recall from our first Venn diagram, where we used $A^C$ to denote the \emph{complement} of $A$ (i.e. those outcomes that weren't in $A$), then the probability of $A^C$ (probability that $A$ doesn't happen), $P(A^C)$ is:
 
 \begin{displaymath}
-P[A^C] = 1 - P[A]
+P(A^C) = 1 - P(A)
 \end{displaymath}
 
 
-Likewise, if we consider the second Venn diagram, and consider that $P[B]$ denotes the probability of event $B$ happening we have:
+Likewise, if we consider the second Venn diagram, and consider that $P(B)$ denotes the probability of event $B$ happening we have:
 
 \begin{itemize}
-\item $P[A \cup B]$: probability that event $A$ or event $B$, or both happens
-\item $P[A \cap B]$: probability that both $A$ and $B$ happen
+\item $P(A \cup B)$: probability that event $A$ or event $B$, or both happens
+\item $P(A \cap B)$: probability that both $A$ and $B$ happen
 \end{itemize}
 
 
@@ -580,7 +580,7 @@ This is such an important idea that it has it's own shorthand:
 
 \subsubsection{Side issue 1: Partitioning into k-subsets}
 
-The number of ways a set of $n$ objects can be partitioned into $k$ distinct subsets, where set 1 has $r_1$ elements, set 2 has $r_2$ elements, \ldots, set $k$ has $_k$ elements is:
+The number of ways a set of $n$ objects can be partitioned into $k$ distinct subsets, where set 1 has $r_1$ elements, set 2 has $r_2$ elements, \ldots, set $k$ has $n_k$ elements is:
 
 \begin{equation}
 \frac{n!}{r_1!r_2! \ldots r_k!}
@@ -828,9 +828,9 @@ The system of probability we have been working through took a long time to devel
 \fbox{
   \begin{minipage}[c]{1.0\linewidth}
 \begin{itemize}
-\item $P[A] \geq 0$ for any event $A$
-\item $P[\Omega] = 1$ where $\Omega$ is the sample space 
-\item If $[A_i];i=1,2,\ldots$ are mutually exclusive then $P[A_1] \cup P[A_2] \cup \ldots = P[A_1] + P[A_2] + \ldots$
+\item $P(A) \geq 0$ for any event $A$
+\item $P(\Omega) = 1$ where $\Omega$ is the sample space 
+\item If $(A_i);i=1,2,\ldots$ are mutually exclusive then $P(A_1 \cup A_2 \cup \ldots) = P(A_1) + P(A_2) + \ldots$
 \end{itemize}
 \end{minipage}
 }
@@ -882,9 +882,9 @@ P(A \cup B) &= P(A) + P(B \cap A^C) \\
 
 
 
-You can verify this; draw the Venn Diagram.   If we merely added $p[A]$ to $p[B]$ for events with an intersection, we would add the probability corresponding to $p[A \cap B]$ twice, and hence we need to subtract one of these areas.
+You can verify this (alhtough it's not a formal proof); draw the Venn Diagram.   If we merely added $P(A)$ to $P(B)$ for events with an intersection, we would add the probability corresponding to $P(A \cap B)$ twice, and hence we need to subtract one of these areas.
 
-{\color{green}What does this tell us about the value of $p[A \cap B]$ for for mutually exclusive events?}
+{\color{green}What does this tell us about the value of $P(A \cap B)$ for for mutually exclusive events?}
 
 
 \section{Problems}
@@ -991,7 +991,7 @@ However, knowledge that a particular event has taken place can alter our assessm
 
 We can write this \emph{conditional probability} as:
 \begin{displaymath}
-P[\mbox{Student will pass course} | \mbox{Student attends lectures}]
+P(\mbox{Student will pass course} | \mbox{Student attends lectures})
 \end{displaymath}
 
  
@@ -1037,10 +1037,10 @@ We can use the following statement:
 
 \begin{df}
 \begin{displaymath}
-P[A|B] = \frac{P[A \cap B] }{P[B]} \mbox{ if } P[B] > 0
+P(A|B) = \frac{P(A \cap B) }{P(B)} \mbox{ if } P(B) > 0
 \end{displaymath}
 \end{df}
-to solve this problem.   This expression is undefined if $p[B] = 0$
+to solve this problem.   This expression is undefined if $P(B) = 0$
 
  
 
@@ -1081,9 +1081,9 @@ In frequency terms, this expression can be thought of as:
 A few small points worth mentioning:
 
 \begin{itemize}
-\item $P[B|B] = 1$
-\item $P[A^C|B] = 1 - P[A|B]$
-\item $P[A_1 \cup A_2 | B] = P[A_1|B] + P[A_2|B] - P[A_1 \cap A_2 | B]$
+\item $P(B|B) = 1$
+\item $P(A^C|B) = 1 - P(A|B)$
+\item $P(A_1 \cup A_2 | B) = P(A_1|B) + P(A_2|B) - P(A_1 \cap A_2 | B)$
 \end{itemize}
 
 But let's really have some fun with our main definition:
@@ -1092,40 +1092,40 @@ But let's really have some fun with our main definition:
 
 %But we have an additional theorem that is specific to conditional probability and quite useful:
 \begin{df}
-For any pair of events $A$ and $B$, where $P[B] > 0$:
+For any pair of events $A$ and $B$, where $P(B) > 0$:
 \begin{displaymath}
-P[A|B] = \frac{P[A \cap B]}{P[B]}
+P(A|B) = \frac{P(A \cap B)}{P(B)}
 \end{displaymath}
 \end{df}
 
 
  
 
-Let's start by multiplying both sides by $p(B)$
+Let's start by multiplying both sides by $P(B)$
 
 \begin{displaymath}
-P[A|B]P[B] = P[A \cap B]
+P(A|B)P(B) = P(A \cap B)
 \end{displaymath}
 
 Now let's note that the labels $A$ and $B$ are arbitrary.   So it must also be true that
 \begin{displaymath}
-P[A \cap B] = P[B|A]P[A]
+P(A \cap B) = P(B|A)P(A)
 \end{displaymath}
 
 In other words we have shown that
 
 \begin{displaymath}
-P[A|B]P[B] =  P[B|A]P[A]
+P(A|B)P(B) =  P(B|A)P(A)
 \end{displaymath}
-and if I divide both sides by $P[B]$ I have just proved Bayes' Theorem (which we define more carefully later).
+and if I divide both sides by $P(B)$ I have just proved Bayes' Theorem (which we define more carefully later).
 %\begin{df}
 \begin{displaymath}
-P[A|B] = \frac{P[B|A]P[A]}{P[B]}
+P(A|B) = \frac{P(B|A)P(A)}{P(B)}
 \end{displaymath}
 
  
 
-We need to say more about that $P[B]$ denominator, but first let's illustrate the key idea with natural frequencies.   Consider a dread disease, and consider that $1$ person in $10,000$ has this disease.   Now consider a screening test for that disease, if you have the disease, it will detect it with probability $0.95$.   If you don't have it, it will give you the all clear with probability $0.9$.   
+We need to say more about that $P(B)$ denominator, but first let's illustrate the key idea with natural frequencies.   Consider a dread disease, and consider that $1$ person in $10,000$ has this disease.   Now consider a screening test for that disease, if you have the disease, it will detect it with probability $0.95$.   If you don't have it, it will give you the all clear with probability $0.9$.   
 
 Now imagine you have gone to your physician, done the test, and been told you have the disease.   Should you be worried?
 
@@ -1178,7 +1178,7 @@ Hopefully this explains the concept (Psychologists sometimes call this Baseline 
 
 \subsection{Law of alternatives}
 
-The only problem with the derivation given is that I've been a bit glib about where $p[B]$ came from.   Now we only know that one of several possible events $A_1$,$A_2$, $\ldots$ has occured (there may be infinitely many of these alternatives).
+The only problem with the derivation given is that I've been a bit glib about where $P(B)$ came from.   Now we only know that one of several possible events $A_1$,$A_2$, $\ldots$ has occured (there may be infinitely many of these alternatives).
 
 \begin{df}[The Law of Total Probability]
 
@@ -1187,7 +1187,7 @@ The only problem with the derivation given is that I've been a bit glib about wh
 If
 \begin{itemize}
 \item $A_i$ $i \geq 1$ are pairwise disjoint
-\item $P(\bigcup_i A_i)=1$ (we sometimes require the condition that $\bigcup_i A_i = \Omega$
+\item $P \big( (\bigcup_i A_i \big)=1$ (we sometimes require the condition that $\bigcup_i A_i = \Omega$
 \item $P(A_i)>0$ for every $i$
 \end{itemize}
 then
@@ -1203,10 +1203,10 @@ P(B)=P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \cdots
 This is rather an important theorem, and follows from the above.   As stated here, this theorem is a well accepted argument.
 
 \begin{df}
-Let events $A_1, A_2, \ldots, A_n$ be mutually exclusive, such that $P[A_1 \cup A_2 \cup \ldots \cup A_n] = 1$ and $P[A_i] > 0$ for each $i$.   Let $B$ be an event such that $P[B] > 0$.  Then:
+Let events $A_1, A_2, \ldots, A_n$ be mutually exclusive, such that $P(A_1 \cup A_2 \cup \ldots \cup A_n) = 1$ and $P(A_i) > 0$ for each $i$.   Let $B$ be an event such that $P(B) > 0$.  Then:
 
 \begin{displaymath}
-P[A_i | B] = \frac{P[B|A_i]P[A_i]}{\sum_{j=1}^n P[B|A_j]P[A_j]}, i=1,2,\ldots, n
+P(A_i | B) = \frac{P(B|A_i)P(A_i)}{\sum_{j=1}^n P(B|A_j)P(A_j)}, i=1,2,\ldots, n
 \end{displaymath}
 \end{df}
 
@@ -1215,8 +1215,8 @@ P[A_i | B] = \frac{P[B|A_i]P[A_i]}{\sum_{j=1}^n P[B|A_j]P[A_j]}, i=1,2,\ldots, n
 As stated, Bayes theorem is a very simple and widely accepted result in conditional probability.   Occasionally we use the following terminology:
 
 \begin{itemize}
-\item Prior probability: $P[A_i]$
-\item Posterior probability $P[A_i | B]$
+\item Prior probability: $P(A_i)$
+\item Posterior probability $P(A_i | B)$
 \end{itemize}
 
 
@@ -1246,6 +1246,8 @@ Any of the 65 problems at the end of chapter 2 in Blitzstein and Hwang will give
 
 
 \chapter{Discrete Probability Functions}
+
+Are random variables that can be trusted not to gossip.
 
 \textit{This is covered in sections 3.1 and 3.2 of Blitzstein and Hwang.}
 
@@ -1335,7 +1337,7 @@ So far our discussion has been in terms of discrete variables.   It seems approp
 A frequentist interpretation would suggest that a random variable (usually denoted by a capital letter) is a numerical variable ``defined'' by the outcome of a random experiment.   Even the experiment hasn't happened, we evaluate relative to some sense of a long run of experimental outcomes.   
 
 
-We are interested in knowing something about the event that a random variables $X$ took on a particular value $k$ i.e  $A: \left\{ X=k \right\}$ and the probability $P[X=k]$ associated with that event.
+We are interested in knowing something about the event that a random variables $X$ took on a particular value $k$ i.e  $A: \left\{ X=k \right\}$ and the probability $P(X=k)$ associated with that event.
 
 \begin{df}
 A \emph{discrete} random variable is a real valued function defined on the
@@ -1364,7 +1366,7 @@ in this time period, and the sample space is $\Omega_X=0,1,2,\ldots,\infty$.
 
 $X$ records the event of interest, in either case we could define the
 event $X=3$.   We wish to associate a probability with this event,
-that is $p[X=3]$.
+that is $P(X=3)$.
 
 
 
@@ -1523,7 +1525,7 @@ Blitzstein refers to this as the Law Of The Unconcious Statistician (LOTUS).   A
   Now we need to consider the expected value of a function of $X$, quite often this will be as simple as $g(X) = X^2$.
 
 \begin{df}
-$E\big( g(X) \big) = \sum_{k \in \Omega} g(k) Pr[X=k]$
+$E\big( g(X) \big) = \sum_{k \in \Omega} g(k) P(X=k)$
 \end{df}
 
 
@@ -1538,16 +1540,16 @@ Example. Consider a wedding cake baker.   They believe that the demand for cakes
 k    & $P(X=k)$ & $g(k)$ & $g(k)p(k)$ \\ 
 \hline
 0 & $1/6$ & $4 \times -40 + 0 \times 100$ & $-160/6$ \\
-1 & $1/6$ & $4 \times -40 + 100 + 1 \times 100$ & $-120/6$ \\
-2 & $1/6$ & $4 \times -40 + 100 + 2 \times 100$ & $40/6$ \\
-3 & $1/6$ & $4 \times -40 + 100 + 3 \times 100$ & $140/6$ \\
-4 & $1/6$ & $4 \times -40 + 100 + 4 \times 100$ & $240/6$ \\
-5 & $1/6$ & $4 \times -40 + 100 + 4 \times 100$ & $240/6$ \\
+1 & $1/6$ & $4 \times -40 + 1 \times 100$ & $-120/6$ \\
+2 & $1/6$ & $4 \times -40 + 2 \times 100$ & $40/6$ \\
+3 & $1/6$ & $4 \times -40 + 3 \times 100$ & $140/6$ \\
+4 & $1/6$ & $4 \times -40 + 4 \times 100$ & $240/6$ \\
+5 & $1/6$ & $4 \times -40 + 4 \times 100$ & $240/6$ \\
 \hline
 $E \big( g(X) \big)$ & $\sum g(k)p(k)$ & & 63.3  
 \end{tabular}
 
-(As an extension activity you could see how $E \big( g(X) \big)$ varies if we altered the policy to baking 5 cakes or baking 3 cakes).
+As an extension activity you could see how $E \big( g(X) \big)$ varies if we altered the policy to baking 5 cakes or baking 3 cakes.
 
 \subsection{Summary: Expectation of discrete random variables}
 
@@ -1570,14 +1572,14 @@ variable $X$ is defined as:
 
 \begin{df}
 \begin{displaymath}
-V (X) = E \big( (X-E[X])^2 \big)
+Var(X) = E \big( (X-E[X])^2 \big)
 \end{displaymath}
 \end{df}
 
 A little bit of algebra also tells us that:
 
 \begin{eqnarray*}
-V(X) &=& E \big( (X-E[X])^2 \big) \\
+Var(X) &=& E \big( (X-E[X])^2 \big) \\
  &=& E\big( (X^2)-2X(E[X]) + (E[X])^2 \big) \\
  &=& E(X^2) - 2(E[X])^2 + (E[X])^2\\
  &=& E(X^2) - \big(E(X)\big)^2
@@ -1671,7 +1673,7 @@ P(Z=k) = \left\{ \begin{array}{rrl} $p$ & & \mbox{ if } Z = 1\\
 \end{array} \right.
 \end{displaymath}
 
-We can simply check that $\sum_{k=0}^1 Pr[X=k] = 1$ as we have $p + (1-p)=1$.
+We can simply check that $\sum_{k=0}^1 P(X=k) = 1$ as we have $p + (1-p)=1$.
 
 The mean of $Z$ i.e. $E(Z)$ is found as: 
 \begin{displaymath}
@@ -1684,13 +1686,13 @@ E(Z^2) = 1^2 \times p + 0^2 \times 1-p = p
 \end{displaymath}, so 
 
 \begin{displaymath}
-V(Z) = E(Z^2)-E(Z)^2 = p - p^2 = p(1 - p).
+Var(Z) = E(Z^2)-E(Z)^2 = p - p^2 = p(1 - p).
 \end{displaymath}
 
 
 \subsection{Indicator random variables}
 
-Note that the probability that an event $A$ happens, i.e. $P(A)=p$ is the same as the expectation $E[Z]$.
+Note that the probability that an event $A$ happens, i.e. $P(A)=p$ is the same as the expectation $E(Z)$.
 
 So note that in this indicator variable example we have a link where:
 
@@ -1716,13 +1718,13 @@ We could alternatively just think of it as the number of \emph{successes} in $n$
 This value has a formula as follows:
 
 \begin{displaymath}
-f(k) = p[X=k] = \left\{  \begin{array}{crr}  {n \choose k} p^k (1-p)^{n-k} & &  \mbox{ for }
+p(k) = P(X=k) = \left\{  \begin{array}{crr}  {n \choose k} p^k (1-p)^{n-k} & &  \mbox{ for }
 k=0,1,2,\ldots,n \\
 0 & & \mbox{ otherwise.} \end{array} \right.
 \end{displaymath}
 
 
-Let's think a little about why.   Assuming that $P[Success]=p$ and $P[Failure] = (1-p) = q$, consider the probability of the following event:
+Let's think a little about why.   Assuming that $P(\mbox{Success})=p$ and $P(\mbox{Failure}) = (1-p) = q$, consider the probability of the following event:
 
 \begin{tabular}{rrrrrr}
 F & S & F & F & S & S \\
@@ -1734,7 +1736,7 @@ As the individual events are independent, we can just multiply the probabilities
 The only problem here is that this is the probability of getting that particular ordering of Failures and Successes.   We could have obtained 3 successes from (S, S, S, F, F, F), or a number of other orderings.   How many orderings.   We did that already, it's $\binom{n}{k}$.   So, the probability of getting $k$ successes in $n$ trials is going to be:
 
 \begin{displaymath}
-P[X=k] = \binom{n}{k}p^k q^{n-k}
+P(X=k) = \binom{n}{k}p^k q^{n-k} \mbox{ for } 0<p<1;k=0,1,\ldots,n
 \end{displaymath}
 as required.
 
@@ -1777,11 +1779,11 @@ Find $E(X)$ the easy way.
 
 We said it's the sum of $n$ iid Bernoulli r.v.s.   So by linearity:
 \begin{displaymath}
-E[X] = E[Z_1 + Z_2 + \cdots + Z_n] = E[Z_1] + E[Z_2] + \cdots + E[Z_n]
+E(X) = E(Z_1 + Z_2 + \cdots + Z_n) = E(Z_1) + E(Z_2) + \cdots + E(Z_n)
 \end{displaymath}
-We said before $E[Z] = p$, so this is just $np$.   We can find $E[X^2]$ in the same way and hence confirm:
+We said before $E(Z) = p$, so this is just $np$.   We can find $E(X^2)$ in the same way and hence confirm:
 
-\fbox{For $X \sim Binomial(n,p)$: $E(X) = np$ and $V(X)=npq$.}
+\fbox{For $X \sim Binomial(n,p)$: $E(X) = np$ and $Var(X)=npq$.}
 
 
 Nowadays, it is pretty straightforward to compute these values, but
@@ -1852,10 +1854,10 @@ So this gives us the expression we need.
 \end{displaymath}
 
 
-For example, a burglar want to know that he will get away with three ``jobs'' before he finally gets caught.  Assuming the probability of being caught (a success for the rest of us) is $p=0.6$ we have $p[X=3]=(1-0.6)^30.6=0.0384$
+For example, a burglar want to know that he will get away with three ``jobs'' before he finally gets caught.  Assuming the probability of being caught (a success for the rest of us) is $p=0.6$ we have $P(X=3)=(1-0.6)^30.6=0.0384$
 
 
-\subsection{Alterantive definition}
+\subsection{Alternative definition}
   
 
 Note carefully.   You can also define the Geometric random variable as the number number of trials, \emph{up to and including} the first success.   In that case we have:
@@ -1868,7 +1870,7 @@ P(X=k) = q^{k-1}p
 For example, if a salesperson wishes to calculate the probability that they will make their first successful sale of the day to the fifth customer, given that the probability of a sale $p=0.2$ is given by $P(X=5)=(1-0.2)^{5-1}0.2 = 0.08192$
 
 
-\fbox{Note in this latter case that $E(X) = \frac{1}{p}$ and $V(X)=\frac{1-p}{p^2}$.}
+\fbox{Note in this latter case that $E(X) = \frac{1}{p}$ and $Var(X)=\frac{1-p}{p^2}$.}
 
 
 
@@ -1889,7 +1891,7 @@ For example, if a salesperson wishes to calculate the probability that they will
 %\end{displaymath}
 %\end{df}
 
-%\fbox{  Note that $E(X)=\frac{r}{p}$ and $V(X)=\frac{r(1-p)}{p^2}$}
+%\fbox{  Note that $E(X)=\frac{r}{p}$ and $Var(X)=\frac{r(1-p)}{p^2}$}
 
 
 
@@ -1980,7 +1982,7 @@ We will though find a much simpler way to get $Var(X)$
 
 
 
-\fbox{Summary: $E(X)=\lambda$ and $V(X)=\lambda$.}
+\fbox{Summary: $E(X)=\lambda$ and $Var(X)=\lambda$.}
 
 
 Example. The number of accidents on the Pasadena Freeway between 9am and 10am on a Sunday morning is a random variable, thought to follow a Poisson distribution with $\lambda = 7.3$.   Find the probability that there will be:
@@ -2154,7 +2156,7 @@ E \big( g(X) \big) = \int_{-\infty}^{\infty}  g(x) f(x) dx
 
 \subsection{Variance}
 
-The Variance of a continuous density is defined in exactly the same way as for discrete random variables i.e. $V(X) = E \big( X-E(X) \big)^2$.   
+The Variance of a continuous density is defined in exactly the same way as for discrete random variables i.e. $Var(X) = E \big( X-E(X) \big)^2$.   
 %We shall revisit this point next week when we consider \emph{moments}.
 
 
@@ -2243,7 +2245,7 @@ So for $U \sim Unif(0,1)$ this gives us $E(X) = \frac{1}{2}$
 For $E[X^2]$ we get $\frac{x^3}{3} \times 1 |^1_0$ which for which yields $\frac{1}{3}$  Therefore, using $Var(X)=E(X^2)-E(X)^2$ we have $Var(X)=\frac{1}{3}-\frac{1}{4}=\frac{1}{12}$
 
 
-\fbox{Summary: for the standard uniform $E(U) = \frac{1}{2}$ and $V(U)=\frac{1}{12}$.}
+\fbox{Summary: for the standard uniform $E(U) = \frac{1}{2}$ and $Var(U)=\frac{1}{12}$.}
 
 \subsection{The non-standard Uniform}
 
@@ -2256,7 +2258,7 @@ E(X) = \int_a^b x \frac{1}{b-a} = \frac{x^2}{2}b-a|^b_a=\frac{a+b}{2}
 For $E(X^2)$ we get $\frac{x^3}{3}(b-a)|^b_a$ which yeilds $\frac{1}{3}\frac{B^3-a^3}{b-1} - \left(\frac{a+b}{2}^2\right)$ which (eventually) simplifies to $Var(W)=\frac{(b-a)^2}{2}$
 
 
-\fbox{Summary: for $a=0$ and $b=1$ that $E(X) = \frac{a+b}{2}$ and $V(X)=\frac{(b-a)^2}{12}$.}
+\fbox{Summary: for $a=0$ and $b=1$ that $E(X) = \frac{a+b}{2}$ and $Var(X)=\frac{(b-a)^2}{12}$.}
 
 
 \subsection{Using a location scale transformation}
@@ -2276,7 +2278,7 @@ E(Y) = E( cX + d) = cE(X) + d\\
 and 
 
 \begin{displaymath}
-V(Y) = V(cX+d) = c^2 V(X)
+Var(Y) = Var(cX+d) = c^2 Var(X)
 \end{displaymath}
 
 
@@ -2290,7 +2292,7 @@ E(W) = E \big( (b-a) U + a \big) =  \frac{1}{2}(b-a) + a = \frac{a+b}{2}
 Likewise for the variance
 
 \begin{displaymath}
-V(W) = V \big( (b-a) U + a \big) =  (b-a)^2 V(U) = (b-a)^2 \frac{1}{12} + a = \frac{(b-a)^2}{12}
+Var(W) = Var\big( (b-a) U + a \big) =  (b-a)^2 Var(U) = (b-a)^2 \frac{1}{12} + a = \frac{(b-a)^2}{12}
 \end{displaymath}
 
 
@@ -2350,7 +2352,7 @@ Similarly, we can find $E(Y^2)=2$   Hence $Var(Y) = 2-1^2=1$
 
 We now need to rescale our standard exponential, noting that $X=\frac{Y}{\lambda}$, so $E[X] = \frac{1}{\lambda}$ and $Var(X)=\frac{1}{\lambda^2}$
 
-(As an exercise you might like to check you can find $E[X]$ and $V(X)$ for the non-standard exponential directly).
+(As an exercise you might like to check you can find $E[X]$ and $Var(X)$ for the non-standard exponential directly).
 
 \fbox{Note that $E(X) = \frac{1}{\lambda}$, $Var(X)=\frac{1}{\lambda^2}$}
 
@@ -2523,7 +2525,7 @@ So that:
 
 
 
-\fbox{Note that $E(X) = \frac{a}{a+b}$ and $V(X) = \frac{ab}{(a+b)^2(a + b + 1)}$}
+\fbox{Note that $E(X) = \frac{a}{a+b}$ and $Var(X) = \frac{ab}{(a+b)^2(a + b + 1)}$}
 
 (check these: for $a=b=1$ does it match the standard Uniform as promised?
 
@@ -2547,7 +2549,7 @@ for $-\infty < \mu < \infty$ and $\sigma>0$.
 There's no easy way of working with the integral (there is no expression for an indefinite integral) so for our purposes we have to assume that with such a well used density someone somewhere has checked that $\int_{-\infty}^{\infty}f(x)=1$.  Again, it might be interesting to know that $=\frac{1}{\sqrt 2 \pi \sigma}$ is another of these constants that ensures the integation is equal to unity.
 
 
-\fbox{Note that $E(X) = \mu$ and $V(X)=\sigma^2$.}
+\fbox{Note that $E(X) = \mu$ and $Var(X)=\sigma^2$.}
 
 
 
