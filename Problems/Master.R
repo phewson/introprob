@@ -1,4 +1,4 @@
-install.packages("exams")
+#install.packages("exams")
 
 require(exams)
 chapter2 <- c("Set1/SampleSpaces.Rnw", "Set1/CoinTossing.Rnw", 
