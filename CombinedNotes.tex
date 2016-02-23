@@ -47,7 +47,7 @@ There is a perception (often gained by taking A level modules) that probability 
 \item Applied probability in its own right
 \end{itemize}
 
-This module is intended as a formal introduction to the branch of mathematics known as probabilty.   We will illustrate applied probability where possible to keep the module alive.   It is \emph{not} a course in statistics.   Discrete probability allows you to use some very simple arithmetic to solve some very baffling problems and is a good way of developing rigorous mathematical reasoning skills.   Probability generally touches on several branches of mathematics and this course will give you the opportunity to practice your skills in areas such as calculus.
+This module is intended as a formal introduction to the branch of mathematics known as probability.   We will illustrate applied probability where possible to keep the module alive.   It is \emph{not} a course in statistics.   Discrete probability allows you to use some very simple arithmetic to solve some very baffling problems and is a good way of developing rigorous mathematical reasoning skills.   Probability generally touches on several branches of mathematics and this course will give you the opportunity to practice your skills in areas such as calculus.
 
 \section{Background Definitions}
 
@@ -124,7 +124,7 @@ I(x) = \left\{ \begin{array}{rrr} 1 && \mbox{ if } x \in B \\
 \item The square function $f : \mathbb{N} \to \mathbb{N}^2$ is defined as $f(n) = n^2$.   Now, notice that we have problems.   Although  $g(n) = \sqrt(n)$ defines a function $g : \mathbb{N} \to \mathbb{R}$ we would have problems with $h(n) = \pm \sqrt{ n}$ because it does not define a unique value for $h(n)$.
 \end{itemize}
 
-There are a few more fundmentals, such as onto (surjection) one-to-one (injection) and both (bijection) as well as composition.   These might not be essential for this module.   We do however need to watch domains very carefully throughout this course!
+There are a few more fundamentals, such as onto (surjection) one-to-one (injection) and both (bijection) as well as composition.   These might not be essential for this module.   We do however need to watch domains very carefully throughout this course!
 
 %\subsubsection{Set theory notation}
 
@@ -618,7 +618,7 @@ Note that each number in the triangle is the sum of the two numbers either side 
 
  
 
-\subsection{Combinations: Undordered with replacement}
+\subsection{Combinations: Unordered with replacement}
 
 To keep this simple let's roll a die three time, and work out something like the probability of getting two faces showing $3$ and one showing $6$.   Let's illustrate the idea as:
 
@@ -882,7 +882,7 @@ P(A \cup B) &= P(A) + P(B \cap A^C) \\
 
 
 
-You can verify this (alhtough it's not a formal proof); draw the Venn Diagram.   If we merely added $P(A)$ to $P(B)$ for events with an intersection, we would add the probability corresponding to $P(A \cap B)$ twice, and hence we need to subtract one of these areas.
+You can verify this (although it's not a formal proof); draw the Venn Diagram.   If we merely added $P(A)$ to $P(B)$ for events with an intersection, we would add the probability corresponding to $P(A \cap B)$ twice, and hence we need to subtract one of these areas.
 
 {\color{green}What does this tell us about the value of $P(A \cap B)$ for for mutually exclusive events?}
 
@@ -928,7 +928,7 @@ We wish to find out how we update probability (or belief!!!!) in the presence of
 
 \section{Conditional probability - why the fuss}
 
-For full details of these problems see Leonard Mlodnikov ``A drunkard's walk'', a lovely popular science book.
+For full details of these problems see Leonard Mlodinov ``A drunkard's walk'', a lovely popular science book.
 
 \begin{itemize}
 \item Make the simplifying assumption that $P(\mbox{Baby is boy}) = 0.5$ and $P(\mbox{Baby is girl=0.5})$.
@@ -957,7 +957,7 @@ So hopefully you see the ``correct'' answer is $\frac{2}{3}$, as we should condi
 
 \subsection{Solution 2}
 
-Here I simplify a little, and don't explain some of the simplifications in these notes (ask me or see Mlodnikov).   Denote $G_M$: a girl called Mirabehn and $G_N$ and girl not called Mirabehn.
+Here I simplify a little, and don't explain some of the simplifications in these notes (ask me or see Mlodinov).   Denote $G_M$: a girl called Mirabehn and $G_N$ and girl not called Mirabehn.
 
 \begin{tabular}{rr}
 $G_N$ $G_M$ &  \\
@@ -1140,7 +1140,7 @@ Test negative \phantom{5} & \phantom{899,910} & \phantom{899,915} \\
 Total & 100 & 999,900 & 1,000,000
 \end{tabular}
 
-So, as you can see, with $1$ in $10,000$ having the disease, our ficitional population of $1,000,000$ has $100$ cases with the remainder being non-cases.
+So, as you can see, with $1$ in $10,000$ having the disease, our fictional population of $1,000,000$ has $100$ cases with the remainder being non-cases.
 
  
 
@@ -1153,7 +1153,7 @@ Test negative & 5 & \phantom{899,910} & \phantom{899,915} \\
 Total & 100 & 999,900 & 1,000,000
 \end{tabular}
 
-So, as you can see, with $1$ in $10,000$ having the disease, our ficitional population of $1,000,000$ has $100$ cases with the remainder being non-cases.
+So, as you can see, with $1$ in $10,000$ having the disease, our fictional population of $1,000,000$ has $100$ cases with the remainder being non-cases.
 
 The next step will be to do the same for the people who don't have the disease:
 
@@ -1178,7 +1178,7 @@ Hopefully this explains the concept (Psychologists sometimes call this Baseline 
 
 \subsection{Law of alternatives}
 
-The only problem with the derivation given is that I've been a bit glib about where $P(B)$ came from.   Now we only know that one of several possible events $A_1$,$A_2$, $\ldots$ has occured (there may be infinitely many of these alternatives).
+The only problem with the derivation given is that I've been a bit glib about where $P(B)$ came from.   Now we only know that one of several possible events $A_1$,$A_2$, $\ldots$ has occurred (there may be infinitely many of these alternatives).
 
 \begin{df}[The Law of Total Probability]
 
@@ -1488,7 +1488,7 @@ E(X) = \sum_{k \in \Omega_X} k\ P(X=k)
 It's easiest to explain this with an example:
 
 
-Consider our coin example from earlier.   We had $\Omega = \{\omega_1, \ldots, \omega_4 \} = \{HH, HT, TH, TT\}$.   We defined the random variable $X(\omega)$ as the number of tails.   Hence, by the na\"ive defintion of probability we want the following pmf:
+Consider our coin example from earlier.   We had $\Omega = \{\omega_1, \ldots, \omega_4 \} = \{HH, HT, TH, TT\}$.   We defined the random variable $X(\omega)$ as the number of tails.   Hence, by the na\"ive definition of probability we want the following pmf:
 
 \begin{tabular}{rrr}
 HH & $0$ & $1/4$ \\
@@ -1521,7 +1521,7 @@ So here $E(X)=1$
 
 \subsection{Expectation of a function of a discrete random variable}
 
-Blitzstein refers to this as the Law Of The Unconcious Statistician (LOTUS).   Although this is lovely and simple, it's not obvious why it should be valid.
+Blitzstein refers to this as the Law Of The Unconscious Statistician (LOTUS).   Although this is lovely and simple, it's not obvious why it should be valid.
   Now we need to consider the expected value of a function of $X$, quite often this will be as simple as $g(X) = X^2$.
 
 \begin{df}
@@ -1839,7 +1839,7 @@ A little more work is needed to obtain the expectation.
 E(X) = \sum_{k=0}^{\infty} k p q^k =  p \sum_{k=1}^{\infty} k q^k
 \end{displaymath}
 
-Note the trick of removing $k=0$ as the sequence is zero at that point.   This looks a little, but not entirely like a geometric series.   Let's do some maninpulation.  On line 2 we have differentiated both sides, on row three we have multiplied both sides by $a$:
+Note the trick of removing $k=0$ as the sequence is zero at that point.   This looks a little, but not entirely like a geometric series.   Let's do some manipulation.  On line 2 we have differentiated both sides, on row three we have multiplied both sides by $a$:
 
 \begin{eqnarray*}
 \sum_{b=0}^{\infty} a^b &=& \frac{1}{1-a} \\
@@ -1953,7 +1953,7 @@ You should check that the right hand part here is the Taylor series for $e^{\lam
 
 
 
-A little bit more work is needed to find the expecation.
+A little bit more work is needed to find the expectation.
 
 \begin{displaymath}
 E(X) = \sum_{k=0}^{\infty} k \frac{e^{-\lambda}\lambda^k}{k!} = e^{-\lambda} \sum_{k=0}^{\infty} k \frac{\lambda^k}{k!}
@@ -2041,7 +2041,7 @@ Further information is given in Section 5.2 (page 205) of Grinstead and Snell.
 
 \begin{itemize}
 \item A function with values $f(x)$ defined over the set of all real numbers, is called a \emph{probability density function} of the continuous random variable $X$ if and only if $P(a \leq X \leq b) = \int_{a}^{b} f(x) dx$ for any real constants $a$ and $b$ with $a < b$
-\item Note that if $X$ is a continuous random variable and $a$ and $b$ are real constants ith $a \leq b$ then $P(a \leq X \leq b) = P(a \leq X < b) = P(a < X \leq b) = P(a < X < b)$
+\item Note that if $X$ is a continuous random variable and $a$ and $b$ are real constants with $a \leq b$ then $P(a \leq X \leq b) = P(a \leq X < b) = P(a < X \leq b) = P(a < X < b)$
 \end{itemize}
 i.e. the value of a pdf can be changed for some of the values on an r.v. without changing the probabilities.
 
@@ -2255,7 +2255,7 @@ We can attack this directly.   For $W \sim Unif(a,b)$ we have that:
 E(X) = \int_a^b x \frac{1}{b-a} = \frac{x^2}{2}b-a|^b_a=\frac{a+b}{2}
 \end{displaymath}
 
-For $E(X^2)$ we get $\frac{x^3}{3}(b-a)|^b_a$ which yeilds $\frac{1}{3}\frac{B^3-a^3}{b-1} - \left(\frac{a+b}{2}^2\right)$ which (eventually) simplifies to $Var(W)=\frac{(b-a)^2}{2}$
+For $E(X^2)$ we get $\frac{x^3}{3}(b-a)|^b_a$ which yields $\frac{1}{3}\frac{B^3-a^3}{b-1} - \left(\frac{a+b}{2}^2\right)$ which (eventually) simplifies to $Var(W)=\frac{(b-a)^2}{2}$
 
 
 \fbox{Summary: for $a=0$ and $b=1$ that $E(X) = \frac{a+b}{2}$ and $Var(X)=\frac{(b-a)^2}{12}$.}
@@ -2413,7 +2413,7 @@ By way of introduction, recall the Gamma function:
 \Gamma (a) = \int_0^{\infty} x^{a-1} e^{-x} dx
 \end{displaymath}
 
-If we want to use this as a pdf (for random variable $X$ and parameter $a$, we need to make it integrate to one.   How?   The clue should be in the resursive nature of the Gamma function.   Let's divide it by itself!
+If we want to use this as a pdf (for random variable $X$ and parameter $a$, we need to make it integrate to one.   How?   The clue should be in the recursive nature of the Gamma function.   Let's divide it by itself!
 
 \begin{displaymath}
 f(x) =  \left\{ \begin{array}{rrr} \frac{1}{\Gamma (a)} x^{a-1} e^{-x} dx & & \mbox{ for } x>0 \\ 0 & & \mbox{ otherwise } \end{array} \right.
@@ -2460,7 +2460,7 @@ f(y) = \left\{ \begin{array}{rrr} \frac{\lambda^a}{\Gamma (a)} x^{a-1} e^{-\lamb
 for $a>0$ and $\lambda>0$.
 %Do I need \theta^a?????????????
 
-This can be thought of as a nice extension to the negative exponential.  There are two parameters, hence there is more flexibility in defining the sahpe than you have with the negative exponential distribution.   If you restrict $a$ to being an integer, you can think of the $Gamma(a, \lambda)$ as the time taken to the arrival of the $a$th independent $Exponential(\lambda)$ random variables (but $a$ isn't restricted to the integers.   One word of warning, there are two very different ways of specifying the density!  % Here's one:
+This can be thought of as a nice extension to the negative exponential.  There are two parameters, hence there is more flexibility in defining the shape than you have with the negative exponential distribution.   If you restrict $a$ to being an integer, you can think of the $Gamma(a, \lambda)$ as the time taken to the arrival of the $a$th independent $Exponential(\lambda)$ random variables (but $a$ isn't restricted to the integers.   One word of warning, there are two very different ways of specifying the density!  % Here's one:
 
 %\begin{displaymath}
 %f(x|a,b) = \frac{a^bx^{b-1}e^{-ax}}{\Gamma(b)}; 0 \leq x < \infty.
@@ -2501,7 +2501,7 @@ f(x|a,b) = \left\{ \begin{array}{rrr} \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)} x
 \end{displaymath}
 for $a>0$ and $b>0$.
 
-The expression $\frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}$ might look intimidating, but it is only a \emph{constant} to make sure that $\int f(x)=1$ for this distribution (it's the reciprocal of the Beta function, so you can guess where this distributio gets its name).   In other words, all the important work in terms of the shape of of the curve is done by $ x^{a-1}(1-x)^{b-1}$; but we need to multiply it by some constant to get the integral over the whole domain equal to one.
+The expression $\frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)}$ might look intimidating, but it is only a \emph{constant} to make sure that $\int f(x)=1$ for this distribution (it's the reciprocal of the Beta function, so you can guess where this distribution gets its name).   In other words, all the important work in terms of the shape of of the curve is done by $ x^{a-1}(1-x)^{b-1}$; but we need to multiply it by some constant to get the integral over the whole domain equal to one.
 
 It turns out that the uniform distribution is just an example of a beta distribution where $a=1$ and $b=1$.
 
@@ -2546,7 +2546,7 @@ f(x|\mu, \sigma^2)=\frac{1}{\sqrt 2 \pi \sigma} \exp \left\{ -\frac{1}{2} \left(
 for $-\infty < \mu < \infty$ and $\sigma>0$.
 \end{df}
 
-There's no easy way of working with the integral (there is no expression for an indefinite integral) so for our purposes we have to assume that with such a well used density someone somewhere has checked that $\int_{-\infty}^{\infty}f(x)=1$.  Again, it might be interesting to know that $=\frac{1}{\sqrt 2 \pi \sigma}$ is another of these constants that ensures the integation is equal to unity.
+There's no easy way of working with the integral (there is no expression for an indefinite integral) so for our purposes we have to assume that with such a well used density someone somewhere has checked that $\int_{-\infty}^{\infty}f(x)=1$.  Again, it might be interesting to know that $=\frac{1}{\sqrt 2 \pi \sigma}$ is another of these constants that ensures the integration is equal to unity.
 
 
 \fbox{Note that $E(X) = \mu$ and $Var(X)=\sigma^2$.}
