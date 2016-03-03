@@ -17,7 +17,7 @@ We can label the girls as $1$ to $\Sexpr{g}$ and the boys as $\Sexpr{g+1}$ to $\
 We want to find out how many ways the girls can appear before the boys.  We can think of this as a fusion, there is 1 way a fusion of $\Sexpr{g}$ girls can appear before a fusion of $\Sexpr{b}$ boys.   We then just need to unpack the fusion.  There are $\Sexpr{g}!$ ways of arranging the girls and $\Sexpr{b}!$ ways of arranging the boys.   We finally need to divide this by the total number of permutations to find the probability  so we have $\frac{\Sexpr{g}!\Sexpr{b}!}{\Sexpr{g+b}!} = \Sexpr{round(factorial(g)*factorial(b)/factorial(b+g),3)}$
 
 
-An alternative approach is to think that there are ${\binom{\Sexpr{b+g}}{\Sexpr{g}}}$ ways of choosing where the girls go in the birth order, where the order in which they appear is unimportant.   There is only one of these where all $\Sexpr{g}$ are first.   So we could use $\frac{1}{ \binom{\Sexpr{b+g}}{\Sexpr{g}}} = \Sexpr{round(1/choose(b+g,g),3)}$
+An alternative approach is to think that there are $\binom{\Sexpr{b+g}}{\Sexpr{g}}$ ways of choosing where the girls go in the birth order, where the order in which they appear is unimportant.   There is only one of these where all $\Sexpr{g}$ are first.   So we could use $\frac{1}{ \binom{\Sexpr{b+g}}{\Sexpr{g}}} = \Sexpr{round(1/choose(b+g,g),3)}$
 
 \end{solution}
 

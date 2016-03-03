@@ -4,11 +4,11 @@
 #answer <- choose(digits, match)
 n <- sample(c(2,4,6,8,10),1)
 
-answer <- factorial(n)*factorial(n-1)
+answer <- factorial((n+3))*factorial((n+3)-1)
 @
 
 \begin{question}
-At the time of writing this question, Angelina Jolie is married to Brad Pitt, and they have six children, three boys, three girls.   One boy and one girl have a birthday similar in time and both invite one friend of the same gender round.   In other words we have $\Sexpr{n}$ male friends making $\Sexpr{n+3}$ boys to seat and $\Sexpr{n}$ female friends making $\Sexpr{n+3}$ girls to seat.     Angelina and Brad are too busy sorting out the party food, so we only need to seat the children.   How many ways are there of seating the children assuming we decide that a boy has to sit opposite a girl?
+At the time of writing this question, Angelina Jolie is married to Brad Pitt, and they have six children, three boys, three girls.   One boy and one girl have a birthday similar in time and both invite \Sexpr{n} friends of the same gender round.   In other words we have $\Sexpr{n}$ male friends making $\Sexpr{n+3}$ boys to seat and $\Sexpr{n}$ female friends making $\Sexpr{n+3}$ girls to seat.     Angelina and Brad are too busy sorting out the party food, so we only need to seat the children.   How many ways are there of seating the children assuming we decide that a boy has to sit opposite a girl?
 
 
 

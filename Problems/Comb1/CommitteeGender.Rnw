@@ -8,10 +8,10 @@ committee <- min(committee, females)
 femalescommittee <- sample(c(1:(committee-1)),1)
 
 answerv <- rep(0,length(femalescommittee:committee))
-for (j in 1:length(femalescommittee:committee)){
-  answerv[j] <- choose(males,(committee-j))*choose((group-males), j)
- 
-}
+summator <- c(femalescommittee:committee)
+for (j in 1:length(summator)){
+  answerv[j] <- choose(males,(committee-summator[j]))*choose((group-males), summator[j])
+ }
 answer <- sum(answerv) 
 @
 
