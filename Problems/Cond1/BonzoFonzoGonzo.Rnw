@@ -17,22 +17,24 @@ Professor Bonzo, Professor Fonzo and Professor Gonzo administer a common exam to
 pass the exam.   
 
 If a student \emph{who has passed the exam} is chosen at
-random, what is the probability that the student is in the first class (Bonzo)
+random, what is the probability that the student is in the first class (Bonzo)?
+
+Hint: The prior probability $P(A_i)$ should take into account the relative size of each class.   This is unlike the ball sampling problem.
 
 \end{question}
 \begin{solution}
 The solution follows from Bayes' Theorem
 
 \begin{displaymath}
-P(A_i | B) = \frac{ P(B|A_i)P(A_i)}{\sum_{j=1}^3 P(B|A_i)P(A_i)}
+P(A_i | B) = \frac{ P(B|A_i)P(A_i)}{\sum_{j=1}^3 P(B|A_j)P(A_j)}
 \end{displaymath}
 
 \begin{itemize}
 \item We need to note that $P(Pass)$ is denoted $P(B)$
-\item We need to note that the $P(Pass | Instruction = i)$ is denoted $P(B | A_i)$ for instructors $i=1,2,3$
+\item We need to note that the $P(Pass | Instructor = i)$ is denoted $P(B | A_i)$ for instructors $i=1,2,3$
 \end{itemize}
 
-The probabilities $P(Pass | Instruction = i)$ are given in the question.   There were \Sexpr{BD} students in Bonzo's class, \Sexpr{BO} of these students passed so $P(Pass | Instruction = 1) = \frac{\Sexpr{BO}}{\Sexpr{BD}} = \Sexpr{round(BO/BD,3)}$.
+The probabilities $P(Pass | Instructor = i)$ are given in the question.   There were \Sexpr{BD} students in Bonzo's class, \Sexpr{BO} of these students passed so $P(Pass | Instructor = 1) = \frac{\Sexpr{BO}}{\Sexpr{BD}} = \Sexpr{round(BO/BD,3)}$.
 
 The probability $P(A_i)$ is essentially the probability of a student picked at random being in that class (the proportion of students in each class).   So $P(A_1) = \frac{\Sexpr{BD}}{\Sexpr{BD}+\Sexpr{FD}+\Sexpr{GD}} = \Sexpr{round(BD/(BD+FD+GD),3)}$
 
