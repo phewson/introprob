@@ -34,6 +34,17 @@ exams2moodle(chapter5, n=5)
 chapter6 <- c("Cond1/BayesRuleProof.Rnw", "Cond1/BonzoFonzoGonzo.Rnw", "Cond1/IoA1.Rnw",
               "Cond1/IoA2.Rnw", "Cond1/ThreeUrnsRed.Rnw", "Cond1/ThreeUrnsGreen(Conditional).Rnw",
               "Cond1/LifeTables.Rnw", "Cond1/LifeTables2.Rnw", "Cond1/LifeTables3.Rnw")
+
+chapter6M1 <- c("Cond1/ThreeUrnsRed.Rnw",
+              "Cond1/LifeTables.Rnw", "Cond1/LifeTables2.Rnw", "Cond1/LifeTables3.Rnw")
+
+chapter6M2 <- c( "Cond1/BonzoFonzoGonzo.Rnw", "Cond1/IoA1.Rnw",
+                 "Cond1/IoA2.Rnw", "Cond1/ThreeUrnsGreen(Conditional).Rnw")
+
+exams2moodle(chapter6M1, n=5)
+exams2moodle("Cond1/BayesRuleProof.Rnw", n = 5)
+exams2moodle(chapter6M2, n=5)
+
 exams2pdf(chapter6, n = 1, tdir = "dummy6")
 
 

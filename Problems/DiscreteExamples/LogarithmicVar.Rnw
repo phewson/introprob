@@ -51,11 +51,7 @@ Not as nice as before, but we can differentiate both sides of the standard geome
 Now with a little pattern matching.
 
 \begin{displaymath}
-<<<<<<< HEAD
 \sum_{k=1}^{\infty} k p^k = p \sum_{k=1}^{\infty} kp^{k-1} = \frac{p}{(1-p)^2}
-=======
-\sum_{k=1}^{\infty} x p^k = p \sum_{k=1}^{\infty} kp^{k-1} = \frac{p}{(1-p)^2}
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
 \end{displaymath}
 
 Hence

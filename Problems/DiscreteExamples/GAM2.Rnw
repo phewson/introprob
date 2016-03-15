@@ -15,7 +15,7 @@ Another colleague suggests that you use the Binomial distribution where
 P(X=k)  = {n \choose k} p^k (1-p)^{n-k}
 \end{displaymath}
 
-and you have $X$ as the number of people in your sample with GAM, $n$ is the size of your sample and $p$ is the probability that a person has GAM, i.e. $0.1$
+and you have $X$ is the random variable denoting the number of people in your sample with GAM, $n$ is the size of your sample and $p$ is the probability that a person has GAM, i.e. $0.1$
 
 
 On a written exam, you might be asked to give a careful statement as to the difference between the Hypergeometric and the Binomial, and the circumstances under which either is appropriate.

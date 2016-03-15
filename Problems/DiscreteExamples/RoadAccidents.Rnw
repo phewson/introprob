@@ -26,19 +26,11 @@ There is no easy way of finding $F(5)$ so we just have to work it through.
 
 \begin{itemize}
 \item $P(X=0) = e^{-\lambda} = e^{-\Sexpr{lambda}} = \Sexpr{round(exp(-lambda),3)} = \Sexpr{round(dpois(0, lambda),3)}$
-<<<<<<< HEAD
-\item $P(X=(x+1)=1) = \frac{\lambda}{k+1} P(X=0) = \frac{\Sexpr{lambda}}{1} \times \Sexpr{round(dpois(0, lambda),3)}$
-\item $P(X=(x+1)=2) = \frac{\lambda}{k+1} P(X=1) = \frac{\Sexpr{lambda}}{2} \times \Sexpr{round(dpois(1, lambda),3)}$
-\item $P(X=(x+1)=3) = \frac{\lambda}{k+1} P(X=2) = \frac{\Sexpr{lambda}}{3} \times \Sexpr{round(dpois(2, lambda),3)}$
-\item $P(X=(x+1)=4) = \frac{\lambda}{k+1} P(X=3) = \frac{\Sexpr{lambda}}{4} \times \Sexpr{round(dpois(3, lambda),3)}$
-\item $P(X=(x+1)=5) = \frac{\lambda}{k+1} P(X=4) = \frac{\Sexpr{lambda}}{5} \times \Sexpr{round(dpois(4, lambda),3)}$
-=======
-\item $P(X=(k+1)=1) = \frac{\lambda}{x+1} P(X=0) = \frac{\Sexpr{lambda}}{1} \times \Sexpr{round(dpois(0, lambda),3)}$
-\item $P(X=(k+1)=2) = \frac{\lambda}{x+1} P(X=1) = \frac{\Sexpr{lambda}}{2} \times \Sexpr{round(dpois(1, lambda),3)}$
-\item $P(X=(k+1)=3) = \frac{\lambda}{x+1} P(X=2) = \frac{\Sexpr{lambda}}{3} \times \Sexpr{round(dpois(2, lambda),3)}$
-\item $P(X=(k+1)=4) = \frac{\lambda}{x+1} P(X=3) = \frac{\Sexpr{lambda}}{4} \times \Sexpr{round(dpois(3, lambda),3)}$
-\item $P(X=(k+1)=5) = \frac{\lambda}{x+1} P(X=4) = \frac{\Sexpr{lambda}}{5} \times \Sexpr{round(dpois(4, lambda),3)}$
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
+\item $P(X=(k+1)=1) = \frac{\lambda}{k+1} P(X=0) = \frac{\Sexpr{lambda}}{1} \times \Sexpr{round(dpois(0, lambda),3)}$
+\item $P(X=(k+1)=2) = \frac{\lambda}{k+1} P(X=1) = \frac{\Sexpr{lambda}}{2} \times \Sexpr{round(dpois(1, lambda),3)}$
+\item $P(X=(k+1)=3) = \frac{\lambda}{k+1} P(X=2) = \frac{\Sexpr{lambda}}{3} \times \Sexpr{round(dpois(2, lambda),3)}$
+\item $P(X=(k+1)=4) = \frac{\lambda}{k+1} P(X=3) = \frac{\Sexpr{lambda}}{4} \times \Sexpr{round(dpois(3, lambda),3)}$
+\item $P(X=(k+1)=5) = \frac{\lambda}{k+1} P(X=4) = \frac{\Sexpr{lambda}}{5} \times \Sexpr{round(dpois(4, lambda),3)}$
 \end{itemize}
 
 Now we can find $F(5)=p(0)+p(1) + \cdots + p(5) = \Sexpr{round(dpois(0, lambda),3)}  +\Sexpr{round(dpois(1, lambda),3)} + \cdots + \Sexpr{round(dpois(5, lambda),3)} = \Sexpr{round(sum(dpois(0:5, lambda)),3)}$

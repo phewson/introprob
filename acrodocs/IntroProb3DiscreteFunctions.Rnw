@@ -252,11 +252,13 @@ that is $p[X=3]$.
 \newpage
 
 <<pmf, fig =TRUE, echo = FALSE, results = hide>>=
-y = c(0,1,2,3,4,5,6)
-prob = c(0.10,0.15,0.20,0.25,0.20,0.06,0.04)
+#y = c(0,1,2,3,4,5,6)
+#prob = c(0.10,0.15,0.20,0.25,0.20,0.06,0.04)
+y <- c(2:12)
+prob <- c(c(1:6),c(5:1))/36
 # Plot PMF
 par(las = 1)
-plot(y,prob,type="h",xlab="k",ylab="P(X=k)",ylim=c(0,0.30), yaxs="i", main  = "Fictional pmf", bty = "n")
+plot(y,prob,type="h",xlab="k",ylab="P(X=k)",ylim=c(0,0.30), yaxs="i", main  = "Two Die p.m.f.", bty = "n")
 @
 
 \newpage
@@ -286,7 +288,7 @@ cdf = c(0,cumsum(prob))
 
 cdf.plot = stepfun(y,cdf,f=0)
 par(las = 1, xpd=NA)
-plot.stepfun(cdf.plot,xlab="x",ylab="F(x)",verticals=FALSE,do.points=TRUE,pch=16, yaxs="i", main = "Corresponding cdf", bty = "n", lwd = 3, col = "blue")
+plot.stepfun(cdf.plot,xlab="x",ylab="F(x)",verticals=FALSE,do.points=TRUE,pch=16, yaxs="i", main = "Two die c.d.f.", bty = "n", lwd = 3, col = "blue")
 points(y, cdf[-length(cdf)], pch = 1, col="blue")
 
 @

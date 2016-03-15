@@ -6,16 +6,16 @@ comm[3] <- sample(seq(from = 1900, to = 2100, by = 5),1)
 comm[4] <- sample(seq(from = 2800, to = 3200, by = 5),1)
 comm[5] <- sample(seq(from = 4800, to = 5500, by = 5),1)
 
-
+commcalc <- comm
 display <- sample(seq(from = 120, to = 160, by = 5),1)
 lambda<-round(runif(1,1.4,1.8),1)
 n <- sample(c(3:5),1)
 
-if (n==4) {comm[5] = comm[4]}
-if (n==3) {comm[5]=comm[3]
-comm[4]=comm[3]}
+if (n==4) {commcalc[5] = comm[4]}
+if (n==3) {commcalc[5]=comm[3]
+commcalc[4]=comm[3]}
 
-answer <- (-n*display*dpois(0,lambda)+(comm[1]-n*display)*dpois(1,lambda)+(comm[2]-n*display)*dpois(2,lambda)+(comm[3]-n*display)*dpois(3,lambda)+(comm[4]-n*display)*dpois(4,lambda)+(comm[5]-n*display)*(1-ppois(4,lambda)))                  
+answer <- sum(-n*display*dpois(0,lambda)+(commcalc[1]-n*display)*dpois(1,lambda)+(commcalc[2]-n*display)*dpois(2,lambda)+(commcalc[3]-n*display)*dpois(3,lambda)+(commcalc[4]-n*display)*dpois(4,lambda)+(commcalc[5]-n*display)*(1-ppois(4,lambda)))                  
 answer
 
 
@@ -26,7 +26,7 @@ answer
 
 A small car dealer is negotiating with a manufacturer. They have space for up to
 five new cars on their forecourt. Each car they store on this forecourt will cost them
-\textrm{\pounds} 150 for a month in display charges. The gross commission for the total sales
+\textrm{\pounds} \Sexpr{display} for a month in display charges. The gross commission for the total sales
 made in a given month has been agreed as:
 
 \begin{tabular}{lr}
@@ -64,6 +64,8 @@ P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!},
 and can be computed in \textbf{R} using \verb+dpois(x,lambda)+.   The CDF, i.e. $P(X \leq k)$ or $p(k)$ is given by \verb+ppois(x,lambda)+.   Note that if the demand for sales is five or more, you sell five cars.
 
 
+Hint 3: If you get a question where the number of cars displayed is less than $5$, clearly you can only sell that number of cars and can only make the commission on \Sexpr{n} sales even if the demand is for 5 or more.
+
 
 \end{question}
 
@@ -73,16 +75,16 @@ and can be computed in \textbf{R} using \verb+dpois(x,lambda)+.   The CDF, i.e. 
 One key idea is that we are modelling demand for sales as a Poisson random variable.   So the probability we actually sell five cars is the probability that we have a demand of five or more.   In other words $P(X \geq 5) = 1-P(X \leq 4)$ i.e. $1-F(4)$.   Apart from this, this is a straightforward accountants implementation of LOTUS.   Setting out the table:
 
 
-\begin{tabular}{lrrrr}
-X & Commission & $f(x)$ & g(X) & f(x)g(x)\\
+\begin{tabular}{llccc}
+X & Commission & $p(k)$ & g(k) & p(k)g(k)\\
 0 Cars & \pounds 0 & \Sexpr{round(dpois(0, lambda),3)} & $0 - \Sexpr{n} \times \Sexpr{display} = \Sexpr{-n*display}$ & \Sexpr{round(-n*display*dpois(0, lambda),3)}\\
-1 Car & \pounds \Sexpr{comm[1]} & \Sexpr{round(dpois(1, lambda),3)}&  $\Sexpr{comm[1]} - \Sexpr{n}\times\Sexpr{display}=\Sexpr{comm[1]-n*display}$ & \Sexpr{round((comm[1]-n*display)*dpois(1, lambda),3)}\\
-2 Cars & \pounds \Sexpr{comm[2]} & \Sexpr{round(dpois(2, lambda),3)}& $\Sexpr{comm[2]} - \Sexpr{n}\times\Sexpr{display}= \Sexpr{comm[2]-n*display}$ & \Sexpr{round((comm[2]-n*display)*dpois(2, lambda),3)}\\
-3 Cars & \pounds \Sexpr{comm[3]}& \Sexpr{round(dpois(3, lambda),3)} & $\Sexpr{comm[3]} - \Sexpr{n}\times\Sexpr{display}= \Sexpr{comm[3]-n*display}$ & \Sexpr{round((comm[3]-n*display)*dpois(3, lambda),3)}\\
-4 Cars  & \pounds \Sexpr{comm[4]} & \Sexpr{round(dpois(4, lambda),3)} & $\Sexpr{comm[4]} - \Sexpr{n}\times\Sexpr{display}= \Sexpr{comm[4]-n*display}$ & \Sexpr{round((comm[4]-n*display)*dpois(4, lambda),3)}\\
-5 Cars & \pounds \Sexpr{comm[5]} & \Sexpr{round(1-ppois(4, lambda),3)} & $\Sexpr{comm[5]} - \Sexpr{n}\times\Sexpr{display} = \Sexpr{comm[5]-n*display}$ & \Sexpr{round((comm[5]-n*display)*(1-ppois(4, lambda)),3)}\\
+1 Car & \pounds \Sexpr{commcalc[1]} & \Sexpr{round(dpois(1, lambda),3)}&  $\Sexpr{commcalc[1]} - \Sexpr{n}\times\Sexpr{display}=\Sexpr{commcalc[1]-n*display}$ & \Sexpr{round((commcalc[1]-n*display)*dpois(1, lambda),3)}\\
+2 Cars & \pounds \Sexpr{commcalc[2]} & \Sexpr{round(dpois(2, lambda),3)}& $\Sexpr{commcalc[2]} - \Sexpr{n}\times\Sexpr{display}= \Sexpr{commcalc[2]-n*display}$ & \Sexpr{round((commcalc[2]-n*display)*dpois(2, lambda),3)}\\
+3 Cars & \pounds \Sexpr{commcalc[3]}& \Sexpr{round(dpois(3, lambda),3)} & $\Sexpr{commcalc[3]} - \Sexpr{n}\times\Sexpr{display}= \Sexpr{commcalc[3]-n*display}$ & \Sexpr{round((commcalc[3]-n*display)*dpois(3, lambda),3)}\\
+4 Cars  & \pounds \Sexpr{commcalc[4]} & \Sexpr{round(dpois(4, lambda),3)} & $\Sexpr{commcalc[4]} - \Sexpr{n}\times\Sexpr{display}= \Sexpr{commcalc[4]-n*display}$ & \Sexpr{round((commcalc[4]-n*display)*dpois(4, lambda),3)}\\
+5 Cars & \pounds \Sexpr{commcalc[5]} & \Sexpr{round(1-ppois(4, lambda),3)} & $\Sexpr{commcalc[5]} - \Sexpr{n}\times\Sexpr{display} = \Sexpr{commcalc[5]-n*display}$ & \Sexpr{round((commcalc[5]-n*display)*(1-ppois(4, lambda)),3)}\\
 \hline
-$\Sigma$ & & & & \Sexpr{round( (-n*display*dpois(0,lambda)+(comm[1]-n*display)*dpois(1,lambda)+(comm[2]-n*display)*dpois(2,lambda)+(comm[3]-n*display)*dpois(3,lambda)+(comm[4]-n*display)*dpois(4,lambda)+(comm[5]-n*display)*(1-ppois(4,lambda))),2)}
+$\Sigma$ & & & & \Sexpr{round( (-n*display*dpois(0,lambda)+(commcalc[1]-n*display)*dpois(1,lambda)+(commcalc[2]-n*display)*dpois(2,lambda)+(commcalc[3]-n*display)*dpois(3,lambda)+(commcalc[4]-n*display)*dpois(4,lambda)+(commcalc[5]-n*display)*(1-ppois(4,lambda))),2)}
 \end{tabular}
 
 
@@ -90,5 +92,5 @@ $\Sigma$ & & & & \Sexpr{round( (-n*display*dpois(0,lambda)+(comm[1]-n*display)*d
 
 %% META-INFORMATION
 %% \extype{num}
-%% \exsolution{\Sexpr{format(answer, nsmall = 2)}}
+%% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
 %% \exname{Forcourt}

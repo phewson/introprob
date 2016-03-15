@@ -12,12 +12,12 @@ results <- c(whatscorrect[1]==1, whatscorrect[2]==1, whatscorrect[3]==1, whatsco
 The so-called Logarithmic random variable has a probability mass function (p.m.f.) given as follows:
 
 \begin{displaymath}
-f_X(k) = c \frac{p^k}{k}
+p_X(k) = c \frac{p^k}{k}
 \end{displaymath}
 
 Where $0 < p  < 1$ and $X=1,2,\ldots$
 
-Find $c$
+Find $c$ such that $p(k)$ is valid p.m.f. obeying the Axioms of probability.
 
 
 \begin{answerlist}
@@ -38,11 +38,9 @@ Caution: For an exam question you could also be asked to SKETCH the c.d.f. (or t
 We need to find $\sum_{k=1}^{\infty} c \frac{p^k}{k} = 1$.  
 We know that $\frac{p^1}{1} + \frac{p^2}{2} + \cdots = -\log(1-p)$.   So we can write
 
-<<<<<<< HEAD
+
 $\sum_{k=1}^{\infty}  \frac{p^k}{k} = -\log(1-p)$
-=======
-$\sum_{x=1}^{\infty}  \frac{p^k}{k} = -\log(1-p)$
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
+
 
 To make the right hand side equal to $1$ we therefore need to divide both sides by $-\log(1-p)$.   
 Hence we find that $c=\frac{-1}{\log(1-p)}$

@@ -27,7 +27,7 @@ The exit routes Duct, Sewer, Chimney, Door.   $X$ is the time taken to exit, and
 
 Because we are still working with naive probability we assume that $P(X=k) = \frac{1}{4}$ for each route. 
 
-Therefore, the expectation of time taken is $E(X) = \sum_{i=1}^4 x_i \times P(X=k_i)$ which is:
+Therefore, the expectation of time taken is $E(X) = \sum_{i=1}^4 k_i \times P(X=k_i)$ which is:
 
 \begin{displaymath}
 E(X) = \Sexpr{A} \times \frac{1}{4} + \Sexpr{B} \times \frac{1}{4} + \Sexpr{C} \times \frac{1}{4} + 0 \times \frac{1}{4} = \Sexpr{answer}
