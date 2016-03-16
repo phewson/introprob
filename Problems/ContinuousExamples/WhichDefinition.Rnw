@@ -11,7 +11,7 @@ assertionno <- choice*2-2+choicesupp
 
 statement <- c("P(X=x)",
              "P(X \\leq x) \\ is \\ a \\ c.d.f.",
-             "E[X] = \\sum x f(x)")
+             "E(X) = \\sum k f(k)")
 
 statementsupp <- c("for a continuous random variable", 
              "for a discrete random variable")
