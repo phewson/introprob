@@ -18,7 +18,7 @@ statementsupp <- c("for a continuous random variable",
 
 assertion <- c("this is the probability that the random variable X takes on value x ", 
              "this is the probability that the random variable X takes on value x",
-             "we find this by obtaining the integral f(x)dx over the range of X",
+             "we find this by obtaining the integral f(x)dx over the domain of X",
              "this is the probability that a random variable X is less than or equal to a realisation x",
              "this is a formula for an expected value",
              "this is a formula for an expected value")

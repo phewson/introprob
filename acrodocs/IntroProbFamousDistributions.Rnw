@@ -1,5 +1,5 @@
 \documentclass{article}
-\author{AIMS, Bayesian Statistics 2009}
+\author{Common distributions}
 \title{Some common distributions}
 
 \usepackage{amsmath,amssymb}
@@ -15,26 +15,25 @@
 
 
 \begin{itemize}
-\item[] Notation $x \sim U(a,b)$
+\item[] Notation $X \sim U(a,b)$
 
-\item[] Parameters: Boundaries $a$, $b$, with $b > a$ ($-\infty < a < \infty$, $-\infty < b < \infty$
-
+\item[] Parameters:  $a$, $b \in \mathbb{R}$, with $b > a$ 
 \item[] Density: $f(x) - \frac{1}{b-a}, \mbox{ for } x \in [a,b]$
 
-\item[] Summary: $E[x]=0$, $Var(x)=\frac{(b-1)^2}{12}$, no mode
+\item[] Summary: $E(X)=\frac{1}{b-a}$, $Var(X)=\frac{(b-a)^2}{12}$, no mode
 \end{itemize}
 
 
 \subsection{Normal}
 
 \begin{itemize}
-\item[] Notation: $x \sim N(\mu, \sigma^2)$
+\item[] Notation: $X \sim N(\mu, \sigma^2)$
 
-\item[] Parameters: Location $\mu$ ($-\infty < \mu < \infty$), scale $\sigma > 0$
+\item[] Parameters: Location $\mu \in \mathbb{R}$, scale $\sigma > 0$
 
-\item[] Density $p(x) = \frac{1}{\sqrt{2 \pi} \sigma} \exp \left( -\frac{1}{2 \sigma^2}(x-\mu)^2 \right) \mbox{ for } -\infty < x < \infty$
+\item[] Density $f(x) = \frac{1}{\sqrt{2 \pi} \sigma} \exp \left( -\frac{1}{2 \sigma^2}(x-\mu)^2 \right) \mbox{ for } -\infty < x < \infty$
 
-\item[] Summary: $E[x]=\mu$, $Var(x)=\sigma^2$, $mode(x)=\mu$
+\item[] Summary: $E(X)=\mu$, $Var(X)=\sigma^2$, $\mbox{mode}(X)=\mu$
 \end{itemize}
 
 
@@ -46,13 +45,13 @@
 If $X \sim N(0,1)$, then $X^2 \sim \chi^2_1$.   Also, if $X_1, X_2, \ldots, X_p$ are all iid $\sim N(0,1)$ then $\sum_{j=1}^p X_j^2 \sim \chi^2_p$.
 
 \begin{itemize}
-\item[] Notation: $x \sim \chi^2_\nu$
+\item[] Notation: $X \sim \chi^2_\nu$
 
 \item[] Parameters: Degrees of freedom $\nu>0$
 
 \item[] Density: $f(x) = \frac{2^{\nu/2}}{\Gamma(\nu/2)} x^{\nu/2-1}e^{-x/2} \mbox{ for } 0 < x < \infty$
 
-\item[] Summary: $E[x]=\nu$, $Var[x]=2\nu$, $mode(x)=\nu-2$ (for $\nu>2$)
+\item[] Summary: $E(X)=\nu$, $Var(X)=2\nu$, $\mbox{mode}(X)=\nu-2$ (for $\nu>2$)
 \end{itemize}
 
 (The $\chi^2$ is a special form of the Gamma distribution - what parameters of the Gamma distribution give you a $\chi^2$?)
@@ -61,7 +60,7 @@ If $X \sim N(0,1)$, then $X^2 \sim \chi^2_1$.   Also, if $X_1, X_2, \ldots, X_p$
 
 \begin{itemize}
 
-\item[] Notation $x \sim F_{\nu_1,\nu_2}$
+\item[] Notation $X \sim F_{\nu_1,\nu_2}$
 
 \item[] Parameters: Degrees of freedom $\nu_1$ and $\nu_2$ ($\nu_1>0$, $\nu_2>0$)
 
@@ -79,16 +78,16 @@ Note if $W_1 \sim \chi^2_{\nu_1}$ and  $W_2 \sim \chi^2_{\nu_2}$ then $X=\frac{W
 \subsection{Exponential}
 
 \begin{itemize}
-\item[] Notation: $x \sim Expon(\theta)$
+\item[] Notation: $X \sim Exp(\lambda)$
 
-\item[] Parameters: Inverse scale $\theta$ where $\theta>0$
+\item[] Parameters: Inverse scale  where $\lambda>0$
 
-\item[] Density: $f(x)=\theta e^{-\theta x} \mbox{ for } 0 < x < \infty$
+\item[] Density: $f(x)=\lambda e^{-\lambda x} \mbox{ for } 0 < x < \infty$
 
-\item[] Summary: $E[x]=\frac{1}{\theta}$, $Var(x)=\frac{1}{\theta^2}$, $mode(x)=0$
+\item[] Summary: $E(X)=\frac{1}{\lambda}$, $Var(X)=\frac{1}{\lambda^2}$, $\mbox{mode}(X)=0$
 \end{itemize}
 
-Notes: This is equivalent to a Gamma with $a=?$ and $r=\theta$
+Notes: This is equivalent to a Gamma with $a=1$ and $r=\lambda$
 Notes: The density can also be written in the form $\frac{1}{\lambda}e^{-\frac{1}{\lambda} x}$.
 
 
@@ -96,13 +95,13 @@ Notes: The density can also be written in the form $\frac{1}{\lambda}e^{-\frac{1
 \subsection{Gamma}
 
 \begin{itemize}
-\item[] Notation $x \sim Gamma(a,r)$
+\item[] Notation $X \sim Gamma(a,r)$
 
 \item[] Parameters: Shape $a>0$, rate $r>0$ (the $rate = 1/scale$ and might be called inverse scale)
 
 \item[] Density: $f(x)=\frac{r^{a}}{\Gamma(a)}x^{(a-1)}e^{-xr}$ for $x>0$.
 
-\item[] Summary $E[x]=\frac{a}{r}$, $Var(x)=\frac{a}{r^2}$, $mode=\frac{a-1}{r}$ for $a \geq 1$
+\item[] Summary $E(X)=\frac{a}{r}$, $Var(X)=\frac{a}{r^2}$, $\mbox{mode}(X)=\frac{a-1}{r}$ for $a \geq 1$
 \end{itemize}
 
 You can also see the Gamma parameterised slightly differently (with a scale rather than a rate)
@@ -120,26 +119,26 @@ You can also see the Gamma parameterised slightly differently (with a scale rath
 \subsection{Beta}
 
 \begin{itemize}
-\item[] Notation: $x \sim Beta(a,b)$
+\item[] Notation: $X \sim Beta(a,b)$
 
 \item[] Parameters: ``Prior sample size'' $a>0$, $b>0$
 
 \item[] Density: $f(x) = \frac{\Gamma(a+b)}{\Gamma(a) \Gamma(b)} x^{a-1} (1-x)^{b-1} \mbox{ for } 0 \leq x \leq 1$
 
-\item[] Summary: $E[x]=\frac{a}{a+b}$, $Var(x)=\frac{ab}{(a+b)^2(a+b+1)}$, $mode(x)=\frac{a-1}{a+b-2}$
+\item[] Summary: $E(X)=\frac{a}{a+b}$, $Var(X)=\frac{ab}{(a+b)^2(a+b+1)}$, $\mbox{mode}(X)=\frac{a-1}{a+b-2}$
 \end{itemize}
 
 \subsection{Student t}
 
 \begin{itemize}
 
-\item[] Notation: $x \sim t_\nu(\mu, \sigma^2)$.   $t_\nu$ is an abbreviation for $t_\nu(0,1)$
+\item[] Notation: $X \sim t_\nu(\mu, \sigma^2)$.   $t_\nu$ is an abbreviation for $t_\nu(0,1)$
 
 \item[] Parameters: Degrees of freedom $\nu > 0$, location $\mu$ ($-\infty < \mu < \infty$), scale $\sigma > 0$.
 
 \item[] Density: $f(x)=\frac{\Gamma((\nu+1)/2)}{\Gamma(\nu/2)\sqrt{\nu \pi \sigma}} \left( 1 + \frac{1}{\nu} \left( \frac{x-\mu}{\sigma} \right)^2\right)^{-(\nu+1)/2} \mbox{ for } -\infty < x < \infty $
 
-\item[] Summary: $E[x]=\mu$ for $\nu>1$, $Var(x)=\frac{\nu}{\nu-2}\sigma^2$ for $\nu>2$, $mode(x)=\mu$
+\item[] Summary: $E(X)=\mu$ for $\nu>1$, $Var(X)=\frac{\nu}{\nu-2}\sigma^2$ for $\nu>2$, $\mbox{mode}(x)=\mu$
 
 \end{itemize}
 
@@ -148,13 +147,13 @@ You can also see the Gamma parameterised slightly differently (with a scale rath
 
 \begin{itemize}
 
-\item[] Notation (not common) $x \sim LN(\mu, \sigma)$.   Apparently this is sometimes called the Galton distribution.
+\item[] Notation (not common) $X \sim LN(\mu, \sigma)$.   Apparently this is sometimes called the Galton distribution.
 
 \item[] Parameters $\mu$ (the mean of the variable's natural logarithm), $\sigma^2$ (the variance of the variable's natural logarithm).
 
 \item[] Density function $f(x|\mu, \sigma) = \frac{1}{x \sigma \sqrt{2 \pi}} e^{-\frac{(\log(x) - \mu)^2}{2 \sigma^2}}$
 
-\item[] Summary: $E[Y] = \exp(\mu + \frac{\sigma^2}{2})$, $Var(Y) = (\exp(\sigma^2-1)\exp(2\mu + \sigma^2)$
+\item[] Summary: $E(X) = \exp(\mu + \frac{\sigma^2}{2})$, $Var(X) = (\exp(\sigma^2-1)\exp(2\mu + \sigma^2)$
 
 \end{itemize}
 
@@ -164,26 +163,26 @@ You can also see the Gamma parameterised slightly differently (with a scale rath
 \subsection{Binomial}
 
 \begin{itemize}
-\item[] Notation: $x \sim Bin(n, \pi)$
+\item[] Notation: $X \sim Bin(n, \pi)$
 
-\item[] Parameters: $\pi$, probability of ``success'' ($\pi \in [0,1]$).   We also need the integer $n$.
+\item[] Parameters: $p$, probability of ``success'' ($p \in [0,1]$).   We also need the integer $n$.
 
-\item[] Density: $f(x) = \binom{n}{x} \pi^x(1-\pi)^{n-x}; \mbox{ for } x=0,1,\ldots,n$
+\item[] Mass: $p(k) = \binom{n}{k} p^k(1-p)^{n-k}; \mbox{ for } k=0,1,\ldots,n$
 
-\item[] Summary: $E[x]=n\pi$, $Var(x)=n\pi(1-\pi)$, $mode(x)=floor\left\{(n+1)p\right\}$
+\item[] Summary: $E(X)=np$, $Var(X)=np(1-p)$, $\mbox{mode}(x)=floor\left\{(n+1)p\right\}$
 \end{itemize}
 
 
 \subsection{Poisson}
 
 \begin{itemize}
-\item[] Notation: $x \sim Poisson(\lambda)$
+\item[] Notation: $X \sim Poisson(\lambda)$
 
 \item[] Parameters: rate=$\lambda>0$
 
 \item[] Density: $f(x)=\frac{\lambda^xe^{-\lambda}}{x!},\ x=0,1,2,\ldots$
 
-\item[] Summary: $E[x]=\lambda$, $Var(x)=\lambda$, $mode=floor(\lambda)$
+\item[] Summary: $E(X)=\lambda$, $Var(X)=\lambda$, $mode=floor(\lambda)$
 \end{itemize}
 
 
@@ -191,13 +190,13 @@ You can also see the Gamma parameterised slightly differently (with a scale rath
 
 \begin{itemize}
 
-\item[] Notation: $x \sim NB(a,b)$
+\item[] Notation: $X \sim NB(a,b)$
 
 \item[] Parameters: Shape $a>0$, inverse scale $b>0$
 
 \item[] Density: $f(x)= \binom{x+a-1}{a-1}  \left( \frac{a}{a+1} \right)^a \left( \frac{1}{b+1} \right)^x$ for $x=0, 1, 2, \ldots$
 
-\item[] Summary: $E[x]=\frac{a}{b}$, $Var(x)=\frac{a}{b}(b+1)$
+\item[] Summary: $E(X)=\frac{a}{b}$, $Var(X)=\frac{a}{b}(b+1)$
 
 \end{itemize}
 
@@ -211,7 +210,7 @@ You can also see the Gamma parameterised slightly differently (with a scale rath
 
 \item[] Density: $f(x)=\frac{\Gamma(n+1)}{\Gamma(x+1)\Gamma(n-x+1)} \frac{\Gamma(a+x) \Gamma(n+b-x)}{\Gamma(a+b+n)} \frac{Gamma(a+b)}{\Gamma(a)\Gamma(b)}$ for $x=0,1,2, \ldots, n$
 
-\item[] Summary: $E[x]=n\frac{a}{a+b}$, $Var(x)=n\frac{ab(a+b+n)}{(a+b)^2(a+b+1)}$
+\item[] Summary: $E(X)=n\frac{a}{a+b}$, $Var(X)=n\frac{ab(a+b+n)}{(a+b)^2(a+b+1)}$
 
 \end{itemize}
 

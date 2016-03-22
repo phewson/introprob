@@ -1,6 +1,6 @@
 <<echo=FALSE, results=hide>>=
-p <- round(runif(1),2)
-x <- as.numeric(sample(c(4:12),1))
+p <- round(runif(1,0.9,0.99),2)
+x <- as.numeric(sample(c(2:6),1))
 f <- function(x,p){-1/log(1-p)*p^x/x}
 
 answer <- 1-sum(f(c(1:x),p))

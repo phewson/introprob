@@ -15,7 +15,7 @@ answer <- 1-exp(-theta*b) - (1-exp(-theta*a))
 For the exponential distribution which has pdf given by:
 
 \begin{displaymath}
-f(x) = \lambda e^{-\lambda x}
+f(x) = \lambda e^{-\lambda x}; x>0, \lambda>0
 \end{displaymath}
 
 you could be asked to show that the c.d.f. is given by
@@ -46,7 +46,7 @@ The aim of using the workings is to get practice finding:
 P(a < X < b) = F(b) - F(a) = \Sexpr{round(1-exp(-theta*b),5)} - \Sexpr{round(1-exp(-theta*b),5)} = \Sexpr{round(answer, 5)}
 \end{displaymath}
 
-It's obviously not wrong to calculate $\int_{\Sexpr{a}}^{\Sexpr{b}} \Sexpr{theta} e^{\Sexpr{theta} x}$ directly.   However, it's good practice for later to understand the way we use $F(b)-F(b)$ (specifically because we meet functions where we cannot evaluate the integral directly).
+It's entirely acceptable calculating $\displaystyle{\int_{\Sexpr{a}}^{\Sexpr{b}}} \Sexpr{theta} e^{\Sexpr{theta} x}$ directly.   However, it's good practice for later to understand the way we use $F(b)-F(b)$ (specifically because we meet functions where we cannot evaluate the integral directly).
 
 \end{solution}
 
@@ -54,3 +54,4 @@ It's obviously not wrong to calculate $\int_{\Sexpr{a}}^{\Sexpr{b}} \Sexpr{theta
 %% \extype{num}
 %% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
 %% \exname{ExpCDF}
+%% \extol{0.01}
