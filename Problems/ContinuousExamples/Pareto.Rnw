@@ -1,7 +1,7 @@
 <<echo=FALSE, results=hide>>=
 
 
-A <- round(runif(1, 0.2,1.5),1)
+A <- round(runif(1, 1.1,1.7),1)
 B <- round(runif(1, 2.2,3.6),1)
 a <- round(runif(1,0,6),1)
 
