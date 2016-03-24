@@ -50,15 +50,20 @@ exams2pdf(chapter6, n = 1, tdir = "dummy6")
 
 chapter8 <- c("DiscreteExamples/Varx.Rnw", "Exp/RiggedDie.Rnw", "Exp/JamesBond.Rnw", "Exp/Forecourt.Rnw")
 exams2pdf(chapter8, n=1, tdir = "dummy8")
+exams2moodle(chapter8, n= 5)
+exams2moodle("Exp/JamesBond.Rnw", n = 5)
+exams2pdf("Exp/Forecourt.Rnw")
+exams2moodle("Exp/Forecourt.Rnw", n = 10)
 
 chapter9 <- c("DiscreteExamples/Asthma.Rnw",
-              "DiscreteExamples/Cookies.Rnw", "DiscreteExamples/DiceRollingTillSuccess.Rnw", "DiscreteExamples/DiceRollingTillSuccess.Rnw",
+              "DiscreteExamples/Cookies.Rnw", "DiscreteExamples/DiceRollingTillSuccess.Rnw",
               "DiscreteExamples/GAM.Rnw", "DiscreteExamples/GAM2.Rnw", "DiscreteExamples/HouseRepairs.Rnw",
               "DiscreteExamples/RoadAccidents.Rnw", "DiscreteExamples/StudentCallout.Rnw",
               "DiscreteExamples/LogarithmicConstant.Rnw", "DiscreteExamples/LogarithmicEX.Rnw",
               "DiscreteExamples/LogarithmicVar.Rnw", "DiscreteExamples/LogarithmicCDF.Rnw")
 exams2pdf(chapter9, n=1, tdir = "dummy9")
-
+exams2moodle(chapter9, n = 5)
+exams2moodle("DiscreteExamples/LogarithmicCDF.Rnw", n=5)
 
 
 chapter10 <- c("ContinuousExamples/WhichDefinition.Rnw", "ContinuousExamples/ConstantInt.Rnw", "ContinuousExamples/FindF.Rnw", "ContinuousExamples/StandardNormal.Rnw", 
@@ -69,4 +74,19 @@ chapter10 <- c("ContinuousExamples/WhichDefinition.Rnw", "ContinuousExamples/Con
               "ContinuousExamples/RayleighQuantile.Rnw")
               
 exams2pdf(chapter10, n=1, tdir = "dummy10")
+require(exams)
+concepts <- c("ContinuousExamples/WhichDefinition.Rnw", "ContinuousExamples/ExponentialConcept.Rnw")
 
+problem2 <- c("ContinuousExamples/ConstantInt.Rnw", "ContinuousExamples/FindF.Rnw",
+              "ContinuousExamples/ExpCDF.Rnw", "ContinuousExamples/ExpQuantile.Rnw",
+              "ContinuousExamples/Pareto.Rnw", "ContinuousExamples/ParetoQuantile.Rnw",
+              "ContinuousExamples/Rayleigh.Rnw", "ContinuousExamples/RayleighQuantile.Rnw")
+exams2moodle(concepts, n=5)
+exams2moodle(problem2, n=5)
+
+require(exams)
+final <- c("ContinuousExamples/StandardNormal.Rnw", "ContinuousExamples/NonStandardNormal.Rnw",
+           "ContinuousExamples/CoffeeDispenser.Rnw", "ContinuousExamples/BetaQuantile.Rnw")
+exams2pdf(final)
+exams2moodle(final, n=5)
+0.036
