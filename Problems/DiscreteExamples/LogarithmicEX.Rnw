@@ -36,12 +36,8 @@ Find $E[X]$
 
 
 \begin{align*}
-E[X]  &= \sum_{k=1}^{\infty} k f(k)\\
-<<<<<<< HEAD
+E(X)  &= \sum_{k=1}^{\infty} k p(k)\\
 &=  \sum_{k=1}^{\infty} k c \frac{p^k}{k} \\
-=======
-&=  \sum_{k=1}^{\infty}  c \frac{p^k}{k} \\
->>>>>>> 369e92ca97b2071ee9caf7ef0d1324aa7774c72a
 &=  c \sum_{k=1}^{\infty} k \frac{p^k}{k} \\
 &=  c \sum_{k=1}^{\infty} p^k \\
 &= c \frac{p}{1-p}

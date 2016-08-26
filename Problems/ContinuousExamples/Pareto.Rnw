@@ -1,7 +1,7 @@
 <<echo=FALSE, results=hide>>=
 
 
-A <- round(runif(1, 0.2,1.5),1)
+A <- round(runif(1, 1.1,1.7),1)
 B <- round(runif(1, 2.2,3.6),1)
 a <- round(runif(1,0,6),1)
 
@@ -22,26 +22,26 @@ The Pareto distribution has p.d.f.
 f_X(x) = \frac{a}{x^{a+1}}
 \end{displaymath}
 
-for $x \geq 1$ and $a>)$
+for $x \geq 1$ and $a>0$
 
-Find $P(\Sexpr{A} < X < \Sexpr{B})$
+Find $P(\Sexpr{A} < X < \Sexpr{B})$ given $a = \Sexpr{a}$
 
 Hint 1. You could find $F_X(x)$
 
-Hint 2. You can then find $P(\Sexpr{A} < X < \Sexpr{B}) = F(\Sexpr{B})-F(\Sexpr{A})$
+Hint 2. You can then find $P(\Sexpr{A} < X < \Sexpr{B}) = F(\Sexpr{B})-F(\Sexpr{A})$ given $a = \Sexpr{a}$
 
 \end{question}
 \begin{solution}
 
-First find $F(x)$ (you did this in the last question?)
+First find $F(x)$ 
 \begin{align*}
 F_X(x) &= \int_1^x f(t)dt \\
- &=\int_0^x \frac{a}{t^{a+1}} dt \\
- &=\int_0^x at^{a-1} dt \\
+ &=\int_1^x \frac{a}{t^{a+1}} dt \\
+ &=\int_1^x at^{a-1} dt \\
  &= \left[ -t^{-a} \right]^x_0 \\
- &= -y^{-a} - -1^{-a} \\
+ &= -x^{-a} - -1^{-a} \\
  &= \frac{1}{1^a} - \frac{1}{x^a} \\
- &= 1-\frac{1}{y^a}\\
+ &= 1-\frac{1}{x^a}\\
 \end{align*}
  
  So to find

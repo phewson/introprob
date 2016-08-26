@@ -12,13 +12,13 @@ A colleague suggests that you use the Hypergeometic distribution where
 
 
 \begin{displaymath}
-P(X=k)  = \frac{{M \choose k} {N-M \choose n-k}}{{N \choose n}}
+P(X=k)  = \frac{{M \choose k} {N-K \choose n-k}}{{N \choose n}}
 \end{displaymath}
 
-and you have $X$ as the number of people in your sample with GAM, $N$ is the number of people in the population, $M$ is the number of people in the population with GAM and $n$ is the size of your sample.
+and you have $X$ as the random variable denoting the number of people in your sample with GAM, $N$ is the number of people in the population, $K$ is the number of people in the population with GAM and $n$ is the size of your sample.
 
 
-Hint.   Unless you have a very nice calculator, it might not cope with the large factorials.   R on the other hand has a log factorial function.   If you type \verb+lchoose(2250,30)+ in the console it will give you the log of the value of ${2250 \choose 30}$.
+Hint.   Unless you have a very nice calculator, it might not cope with the large factorials.   R on the other hand has a log factorial function.   If you type \verb+lchoose(2250,30)+ in Datajoy it will give you the log of the value of ${2250 \choose 30}$.
 
 
 \end{question}
@@ -28,7 +28,7 @@ Hint.   Unless you have a very nice calculator, it might not cope with the large
 The key here is that you need:
 
 \begin{displaymath}
-P(X=k)  = \exp \left( \log {M \choose k} + \log {N-M \choose n-k} - \log {N \choose k} \right) = \Sexpr{round(exp(lchoose(250,0) + lchoose(2250,30) - (lchoose(2500,30))),3)}
+P(X=k)  = \exp \left( \log {M \choose k} + \log {N-K \choose n-k} - \log {N \choose k} \right) = \Sexpr{round(exp(lchoose(250,0) + lchoose(2250,30) - (lchoose(2500,30))),3)}
 \end{displaymath}
 
 In R you need the commands:

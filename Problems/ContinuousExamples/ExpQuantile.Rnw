@@ -16,7 +16,7 @@ answer <- log(1-p)/(-theta)
 We consider the exponential distribution with pdf given by:
 
 \begin{displaymath}
-f(x) = \lambda e^{-\lambda x}.
+f(x) = \lambda e^{-\lambda x}; x>0, \lambda > 0.
 \end{displaymath}
 
 On a written paper you could be asked to find the quantile function, i.e. find $x$ such that
@@ -73,3 +73,4 @@ The aim of using the workings is to get practice finding:
 %% \extype{num}
 %% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
 %% \exname{Expquantile}
+%% \extol{0.01}

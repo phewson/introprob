@@ -40,6 +40,8 @@ The key here is that we know (Axioms of Probability):
 \int_{a}^b \frac{1}{k} f(x)dx = 1
 \end{displaymath}
 
+where the domain of $x$ is real numbers from $a$ to $b$.
+
 And we know that $f(x) = x^\Sexpr{whichone}$ so we need to find:
 
 \begin{displaymath}
@@ -53,3 +55,4 @@ k = \int_a^b x^\Sexpr{whichone} dx = \left| \frac{1}{\Sexpr{whichone+1}} x^\Sexp
 %% \extype{num}
 %% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
 %% \exname{Constantint}
+%% \extol{0.01}

@@ -150,17 +150,21 @@ We can generate a range of sample sizes (25, 100, 1000, 10000), observe both the
 <<discreteprob, fig = TRUE, echo = FALSE, results = hide>>=
 par(mfrow = c(2,2))
 x <- rbeta(10,5.6,10.3)
-plot(x, rep(1/10,10), pch = ".", ylim = c(0,0.12), main = "n=10", ylab="P(X=x)", xlab = "x")
+plot(x, rep(1/10,10), pch = ".", ylim = c(0,0.12), main = "n=10", ylab="P(X=x)", xlab = "x", bty = "n")
 arrows(x, rep(0,10), x, rep(1/10,10), length = 0.01)
+rug(x, col = "blue", lwd = 2)
 x <- rbeta(100,5.6,10.3)
-plot(x, rep(1/100,100), pch = ".", ylim = c(0,0.12), main = "n=100", ylab="P(X=x)", xlab = "x")
+plot(x, rep(1/100,100), pch = ".", ylim = c(0,0.12), main = "n=100", ylab="P(X=x)", xlab = "x", bty = "n")
 arrows(x, rep(0,100), x, rep(1/100,100), length = 0.01)
+rug(x, col = "blue", lwd = 2)
 x <- rbeta(500,5.6,10.3)
-plot(x, rep(1/500,500), pch = ".", ylim = c(0,0.12), main = "n=500", ylab="P(X=x)", xlab = "x")
+plot(x, rep(1/500,500), pch = ".", ylim = c(0,0.12), main = "n=500", ylab="P(X=x)", xlab = "x", bty = "n")
 arrows(x, rep(0,500), x, rep(1/500,500), length = 0.01)
+rug(x, col = "blue", lwd = 2)
 x <- rbeta(1000,5.6,10.3)
-plot(x, rep(1/1000,1000), pch = ".", ylim = c(0,0.12))
+plot(x, rep(1/1000,1000), pch = ".", ylim = c(0,0.12), main = "n=1000", ylab="P(X=x)", xlab = "x", bty = "n")
 arrows(x, rep(0,1000), x, rep(1/1000,1000), length = 0.01, main = "n=1000", ylab="P(X=x)", xlab = "x")
+rug(x, col = "blue", lwd = 2)
 @
 
 

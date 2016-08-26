@@ -1,6 +1,6 @@
 <<echo=FALSE, results=hide>>=
-p <- round(runif(1),2)
-x <- as.numeric(sample(c(4:12),1))
+p <- round(runif(1,0.9,0.99),2)
+x <- as.numeric(sample(c(2:6),1))
 f <- function(x,p){-1/log(1-p)*p^x/x}
 
 answer <- 1-sum(f(c(1:x),p))
@@ -19,14 +19,14 @@ Where $0 < p  < 1$ and $X=1,2,\ldots$
 Consider a Logarthmic random variable where $p =  \Sexpr{p}$.   
 
 
-Find $P(X>\Sexpr{k})$
+Find $P(X>\Sexpr{x})$
 
 
 \end{question}
 
 \begin{solution}
 
-We want $P(X>\Sexpr{k})$ which is of course $1-F(\Sexpr{k})$.   As this is a discrete random variable there is no easy way of finding this, we need to get $1 - \big( P(X=1) +  P(X=2) + \cdots + P(X=\Sexpr{x}) \big)$
+We want $P(X>\Sexpr{x})$ which is of course $1-F(\Sexpr{x})$.   As this is a discrete random variable there is no easy way of finding this, we need to get $1 - \big( P(X=1) +  P(X=2) + \cdots + P(X=\Sexpr{x}) \big)$
 
 We can use a bit of \textbf{R}
 

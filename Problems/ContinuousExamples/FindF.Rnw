@@ -37,13 +37,13 @@ For a continuous random variable $\Sexpr{a} < X < \Sexpr{b}$ a colleague suggest
 
 \begin{solution}
 
-The key here is that $F(x)$ is $P(X \leq x)$ which for a continuous random variable means finding $\int_{-\infty}^x \frac{1}{k} f(t)dt$.   So here we want to find:
+The key here is that $F(x)$ is $P(X \leq x)$ which for a continuous random variable means finding $\displaystyle{\int_{-\infty}^x} \frac{1}{k} f(t)dt$.   So here we want to find:
 
 \begin{displaymath}
 \int_{a}^{\Sexpr{cee}} \frac{1}{\Sexpr{(round(const,5))}} f(x)dx.
 \end{displaymath}
 
-
+where $a$ and $b$ denote the upper and lower end of the domain of $f(x)$.
 
 \begin{displaymath}
 \int_{\Sexpr{a}}^{\Sexpr{cee}} \frac{1}{\Sexpr{round(const,5)}} x^{\Sexpr{whichone}} dx = \left| \frac{1}{\Sexpr{round(const,5)}} \frac{1}{\Sexpr{whichone+1}} x^{\Sexpr{whichone+1}} \right|_{\Sexpr{a}}^{\Sexpr{cee}} = \Sexpr{round(1/const*f1(cee),5)}-\Sexpr{round(1/const*f1(a),5)} = \Sexpr{round(1/const*(f1(cee)-f1(a)),5)}
@@ -56,3 +56,4 @@ The key here is that $F(x)$ is $P(X \leq x)$ which for a continuous random varia
 %% \extype{num}
 %% \exsolution{\Sexpr{format(answer, nsmall = 3)}}
 %% \exname{Constantint}
+%% \extol{0.01}
