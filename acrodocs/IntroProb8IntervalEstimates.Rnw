@@ -22,7 +22,7 @@
 \newtheorem{df}{Definition}
 
 \university{
-\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=2.5cm]{logo}}
+%\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=2.5cm]{logo}}
 \hspace{.5cm}\raisebox{.7cm}
 {School of Computing and Mathematics}\hspace{1cm}
 %\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
@@ -50,6 +50,7 @@
 
 \usepackage{Sweave}
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 
 \maketitle

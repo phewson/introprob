@@ -1,0 +1,238 @@
+\documentclass{article}
+%\usepackage[pdftex]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[pdftex,designi,nodirectory,navibar,usesf]{web} %removed usetemplates
+\usepackage[pdftex]{exerquiz}
+%\template{../img/logo.pdf}
+\definecolor{Blue}{cmyk}{1,1,0.,0.}
+\definecolor{plum}{cmyk}{.5,1,0.,0.}
+\definecolor{orange}{cmyk}{0.5,0.51,1,0}
+\definecolor{Red}{rgb}{1.0,0.2,0.25}
+\definecolor{Green}{rgb}{.1,.6,.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Statistics Crash Course / Probability Lab: \\ Hypothesis Tests}
+\author{Paul Hewson}
+\authorColor{blue}
+\date{14th September 2016}
+
+
+\newtheorem{df}{Definition}
+
+\university{
+%\null\hspace{-.6cm}\raisebox{.25cm}{\includegraphics[width=2.5cm]{logo}}
+\hspace{.5cm}\raisebox{.7cm}
+{School of Computing and Mathematics}\hspace{1cm}
+%\includegraphics[width=0.9cm]{../EBP/img/logo.pdf}
+ }
+
+
+\email{paul.hewson@plymouth.ac.uk}
+\version{0.3} 
+\copyrightyears{20010}
+
+
+\optionalPageMatter{\vfill
+  \begin{center}
+  \fcolorbox{blue}{webyellow}{
+   \begin{minipage}{.67\linewidth}
+   \noindent \textcolor{red}{\textbf{Overview:}}
+   This webfile is designed as a revision aid to some introductory
+   ideas on interval estimation.   It is intended to
+   supplement a formal encouter with a text book or a set of
+   lectures.   These notes are meant to be slightly interactive, mysterious
+   green dots, squares and boxes appear which you can click on to
+   answer questions and check solutions.
+  \end{minipage}}
+  \end{center}}
+
+\usepackage{Sweave}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+\maketitle
+
+%tableofcontents
+
+\section[Introduction]{Introduction}
+
+\begin{df}
+{\color{red}Hypothesis test}
+\begin{itemize} 
+\item An hypothesis is a statement about a poplulation parameter
+\item (Most commonly) two competing hypotheses are called null ($H_0$) and alternative ($H_1$, sometimes $H_A$)
+\item An hypothesis test is a rule that specifies for which sample values to prefer $H_0$ and which sample values to reject $H_0$.
+\end{itemize}
+\end{df}
+
+\subsection{Example}
+$H_0: \theta \in \Theta_0$, versus $H_1: \theta \in \Theta_0^C$
+
+This hypothesis states that either the population parameter lies within a specified subset $\Theta_C$ of the parameter space $\Theta$, or it lies within the complement of this subset.
+
+\newpage
+
+\subsection{Example}
+A more specific and more common example:
+$H_0: \theta = 0$, versus $H_1: \theta \neq 0$
+
+Consider a drugs trial, where $X \sim F(\theta)$ denotes the change in some illness measure, the null hypothesis says that on average the treatment has no effect.
+
+
+\subsection{Caution}
+
+There is some heavy philosophy underneath the maths here.   There are also two separate developments of testing; Fisher and Neyman-Pearson.   We are following Neyman-Pearson.
+
+\subsection{Note}
+
+Hypothesis tests are often based on some statistic $W(\boldsymbol{X})$
+
+
+\newpage
+
+Methods for finding Hypothesis tests
+
+\begin{df}
+{\color{red}Likelihood ratio tests}: find a test of the form:
+\begin{displaymath}
+\lambda(\boldsymbol{x}) = \frac{sup_{\theta_0} L(\theta|\boldsymbol{x})}{sup_{\theta} L(\theta|\boldsymbol{x})}
+\end{displaymath}
+
+\end{df}
+
+What this says, is 
+\begin{enumerate}
+\item find the maximum value of the likelihood for any value of $\theta$ proposed by the null hypothesis
+\item find the maximum value of the likelihood for any value of $\theta$ (i.e., find the value of the Likelihood at the m.l.e)
+\item Divide 1 by 2, and use the result to make a decision.
+\end{enumerate}
+
+One way of deciding whether this ratio is big enough to reject $H_0$ is to note that Wilk's theorem says that asymptotically $-2 \times \lambda(\boldsymbol{x}) \chi^2_d$ where $d$ denotes the difference in degrees of freedom between the numerator and denominator.   Another way is to use this approach to develop more specific tests! 
+
+
+
+\newpage
+\subsection{Example: Normal}
+
+Assume $X_i \sim N(\theta, 1)$; $H_0: \theta=\theta_0$ versus $H_1: \theta \neq \theta_0$.
+
+\begin{eqnarray*}
+\lambda(\boldsymbol{x}) &=& \frac{  
+\frac{1}{\sqrt{2 \pi}} 
+\exp \big( - \sum_{i=1}^n (x_i - \theta_0)^2/2   \big)  }{
+\frac{1}{\sqrt{2 \pi}} \exp \big( - \sum_{i=1}^n (x_i - \bar{x})^2/2   \big)  } \\
+&=& \exp \big( \frac{1}{2} (-\sum_{i=1}^n (x_i-\theta_0)^2 +  \sum_{i=1}^n (x-\bar{x})^2) \big) \\
+&=& \exp \big( -n (\bar{x}-\theta_0)^2 / 2 \big)
+\end{eqnarray*}
+
+
+because
+
+$\sum_{i=1}^n (x-\theta_0)^2 = \sum_{i=1}^n (x_i-\bar{x})^2 - \sum_{i=1}^n (\bar{x}-\theta_0)^2$
+
+
+\newpage
+
+\section{Size and power}
+
+
+\begin{tabular}{rrr}
+Decision & \multicolumn{2}{c}{Truth}\\
+\hline
+Fail to reject $H_0$ & Correct & Wrong (II) \\
+Reject $H_0$ & Wrong (I) & Correct \\
+\end{tabular}
+
+\begin{itemize}
+\item Wrong (I) is called a type I error.   We choose tests to minimise the type 1 error, and call the value chosen the size of the test.  Typically we use a size of $\alpha = 0.05$
+\item Wrong (II) is called a type II error.   Having chosen a size, we try to find a test that minimises the size of this error.   1-P(Error II) is called the Power of a test.   We try to maximise the power, given a pre-determined size.
+\end{itemize}
+
+
+\newpage
+
+Illustration.   Consider $X \sim Binom(5, \theta)$; $H_0: \theta \leq 0.5$ versus $H_A: \theta > 0.5$.   The following plot of the power function is informative.
+
+
+\begin{displaymath}
+P(T(\boldsymbol{X}) \in \boldsymbol{R} ) =  
+\left\{ \begin{array}{rr} 
+P(\mbox{Type I}) & 
+\mbox{ if } \theta \in \Theta_0 \\ 
+1-P(\mbox{Type II}) & 
+\mbox{ if } \theta \notin \Theta_0 
+\end{array} \right.
+\end{displaymath}
+
+We examine three decision rules for $\boldsymbol{R}$, $x=5$, $x=4,5$ and $x=3,4 or 5$
+
+
+<<chidist, fig = TRUE, echo = FALSE, results = hide>>=
+curve(dbinom(5,5,x), from = 0, to = 1, ylab="P(x=R)", xlab = "p")
+f2 <- function(x) {dbinom(5,5,x)+dbinom(4,5,x)}
+curve(f2(x), from = 0, to = 1, add = TRUE, col = "blue")
+f3 <- function(x) {dbinom(5,5,x)+dbinom(4,5,x) + +dbinom(3,5,x)}
+curve(f3(x), from = 0, to = 1, add = TRUE, col = "red")
+abline(v=0.5, lwd = 2, col = "grey", lty = 2)
+text(0.2,0.6, "P(Falsely reject H0)", col = "grey")
+text(0.8,0.6, "P(Correctly reject H0)", col = "grey")
+legend("topleft", lty = 1, col = c("black", "blue", "red"), legend = c("x=5", "x=4,5", "x=3,4,5"), bty = "n")
+@
+
+\newpage
+
+\section{The Normal distribution}
+
+\begin{eqnarray*}
+\beta(\theta)   &=& P( \frac{\bar{X}-\theta_0}{\sigma / \sqrt{n}}>c)\\
+&=& P( \frac{\bar{X}-\theta}{\sigma/\sqrt{n}} > c + \frac{\theta_0-\theta}{\sigma/\sqrt{n}})\\
+&=& P(Z > c+ \frac{\theta_0-\theta}{\sigma/\sqrt{n}})
+\end{eqnarray*}
+
+\begin{itemize}
+\item This depends on $n$ (or $\sqrt{n}$).   You can control power by controlling sample size as well as by choosing a test
+\item $\beta(\theta_0) = \alpha$ if $P(Z > c)=\alpha$ (for any value of $\theta_0$)
+\end{itemize}
+
+\newpage
+
+
+
+\section{P value}
+
+\begin{df}
+A p-value $P(\boldsymbol{X})$ is a test statistic $0 \leq P(\boldsymbol{X} \leq 1)$ for every sample point in $\boldsymbol{X}$.   Small values of $P(\boldsymbol{X})$ support $H_1$
+\end{df}
+
+$P( P(\boldsymbol{X}) \leq \alpha) \leq \alpha$
+
+\subsection{Example}
+Consider $X_i \sim N(\mu, \sigma^2)$, $H_0: \mu=\mu_0$ and $H_1: \mu \neq \mu_0$.   The likelihood ratio test gives us
+
+\begin{displaymath}
+W(\boldsymbol{X}) = \frac{|X-\mu_0|}{s / \sqrt{n}}
+\end{displaymath}
+
+Regardless of $\sigma$, if $\mu=\mu_0$, $W(\boldsymbol{X}) \sim t_{n-1}$.   Therefore, $P(\boldsymbol{X})$ will the same for all values of $\sigma$
+
+
+
+
+
+
+\section{Most powerful tests}
+
+\begin{df}
+Let $C$ be a class of tests for $H_0: \theta \in \Theta_0$ versus $H_1: \theta \notin \Theta_0$.   A test in $C$ with power function $\beta(\theta)$ is said to be Uniformly Most Powerful if $\beta(\theta \geq \beta \prime (\theta))$ for every $\theta \in \Theta_0$ and every $\beta \prime (\theta)$
+\end{df}
+
+
+
+
+
+\NaviBarOff
+
+\end{document}
